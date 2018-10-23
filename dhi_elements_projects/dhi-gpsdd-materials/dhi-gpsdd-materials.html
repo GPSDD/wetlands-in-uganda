@@ -70,9 +70,29 @@
         <div class="container">
             <h1>Everything you need for this project</h1>
             <div class="columnLeft">
+                
+                <h3>Site contents</h3>
+                <p>
+                    This website helps users to know more about the wetland coverage and its change over a period of time using satellite imagery and data.
+                </p>
+                <h2>The page contains the following data:</h2>
+                <ul>
+                    <li>Wetlands map for 2016-2017</li>
+                    <li>S2 cloud free mosaic (background imagery for reference)</li>
+                    <li>Google Maps background map (for reference) </li>
+                </ul>
+                <p>Additionally, the site requires you to select the level you want to explore statistics on. E.g. do you want to see country-scale, regional or district-scale statistics. After selecting the scale, just click on the area you want to see statistics for and the statistics will be displayed on the right hand side.</p>
+                <p><strong>Note that the intended use of the site is to compare the baseline conditions with current or recent wetland mappings. Hence, the reporting and statistics mostly makes sense when more than one map is available for comparison. </strong></p>
+              
+            </div>
+            <div class="columnRight">
                 <h3>Download Data layers</h3>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    A wetlands map has been produced by the project to act as the baseline wetland map for reporting on SDG indicator 6.6.1 in Uganda, based on Sentinel-1 and Sentinel-2 data from 2016 and 2017. This is available in the viewer here, but can also be shown in your QGIS by adding the layer as an WMS service. Just use this URL: <br>
+                    <code>http://40.115.104.169:8080/geoserver/gpsdd/wms?version=1.1.0</code>
+                    <br>
+                    The layer name is: <code>Uganda_SDG_WAW_epsg4326</code><br>
+                    This also allows you to add the polygons layers used on the site directly to your map. Alternatively you can download these using the links below, which is recommend if you want to run the reporting workflow. 
                 </p>
                 <ul id="controls">
                     <li class="linkWrapper">
@@ -85,16 +105,16 @@
                         <a href="http://40.115.104.169:8080/geoserver/gpsdd/wfs?service=wfs&version=1.1.0&request=GetFeature&typeNames=gpsdd:Regions&srsName=EPSG:4326&outputFormat=shape-zip">Download Region Data</a>
                     </li>
                 </ul>
-
+                <p> 
+                    Note that the classes of the map doesn't align with the SDG reporting classes. Within the SDG reporting framework, natural and artifical water bodies are reported seperately, but these are not possible to discern directly from remote sensing data. Note also the "Temporary water" class included here, which is a non-Wetland class and hence should not be included in the SDG reporting.
+                </p>
                 <h3>Explore how its made</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                <p>The code for this webpage is open source and can be access through the repository on GitHub. You will need a standard webhost for hosting the site, as well as a server for hosting both raster and shapefiles as WMS-layers. In our case we use GeoServer for this.</p>
 
                 <ul>
-                    <li><a href="http:/wwww.github.com"><img src="../../images/GithubLogo.png"/></a></li>
+                    <li><a href="https://github.com/DHI-GRAS/wetlands-in-uganda/"><img src="../../images/GithubLogo.png"/></a></li>
                 </ul>                 
-            </div>
-            <div class="columnRight">
-               
+                <p>This portal was developed by <a href="http://dhi-gras.com">DHI GRAS</a>. For futher information, please contact Mads Olander Rasmussen at mora@dhigroup.com</p>
             </div>
             </div>
         </div>
