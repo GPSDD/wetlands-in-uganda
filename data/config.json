@@ -78,7 +78,7 @@
                     "nameAttr": "aoi_name"
                 },
                 {
-                    "id": "wetland_probability_4326",
+                    "id": "Uganda_SDG_WAW_epsg4326",
                     "displayName": "2016 - 2017 extents",
                     "geoServerWorkspace": "gpsdd",
                     "disabled": false,
