@@ -84,10 +84,10 @@
                     "disabled": false,
                     "show": true,
                     "allowFeatureSelection": true,
-                    "defaultStyle": "gpsdd:class_wetlands",
+                    "defaultStyle": "gpsdd:wetlands_final",
                     "opacity": 1,
                     "zIndex": 202,
-                    "style": "gpsdd:class_wetlands",
+                    "style": "gpsdd:wetlands_final",
                     "type": "wetland",
                     "crs": "EPSG4326"
                 },
