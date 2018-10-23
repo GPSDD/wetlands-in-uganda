@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/leaflet-map/leaflet-map.html'>
+        <link rel='import' href='../dhi-leaflet-static-image.html'>
+        <link rel='import' href='../dhi-leaflet-geojson.html'>
+    </head>
+    <body>
+        <dom-module id='demo-static-image'>
+            <style>
+                leaflet-map {
+                    width: 400px;
+                    height: 400px;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='56.153' longitude='10.2155' zoom='17'>
+                                <dhi-leaflet-static-image
+                                    url='data/klimaspringSkema.png' ,
+                                    lower-left='{ "latitude": 56.151424, "longitude": 10.21036 }'
+                                    upper-right='{ "latitude": 56.15533, "longitude": 10.2205 }'>
+                                </dhi-leaflet-static-image>
+                                <dhi-leaflet-geojson
+                                    data='{{testData}}'
+                                    json-style='{"weight": "3", "color": "#FF0000", "opacity": "1", "fillColor": "#1976D2", "fillOpacity": "0.2" }'>
+                                </dhi-leaflet-geojson>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-static-image
+                                url='data/klimaspringSkema.png' ,
+                                lower-left='{ "latitude": 56.151424, "longitude": 10.21036 }'
+                                upper-right='{ "latitude": 56.15533, "longitude": 10.2205 }'&gt;
+                            &lt;/dhi-leaflet-static-image&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='55.872167' longitude='12.496346' zoom='16'>
+                                <dhi-leaflet-static-image
+                                    url='data/twitter.png'
+                                    lower-left='{ "latitude": 55.871191, "longitude": 12.495385 }'
+                                    upper-right='{ "latitude": 55.872353, "longitude": 12.497858 }'>
+                                </dhi-leaflet-static-image>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-static-image
+                                url='data/twitter.png'
+                                lower-left='{ "latitude": 55.871191, "longitude": 12.495385 }'
+                                upper-right='{ "latitude": 55.872353, "longitude": 12.497858 }'&gt;
+                            &lt;/dhi-leaflet-static-image&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'demo-static-image',
+
+                properties: {
+                    testData: {
+                        type: Object,
+                        value: function() {
+                            return  {
+                                        "type": "FeatureCollection",
+                                        "features": [{
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.212390742452103,
+                                                56.154277911751358]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.2128570378479,
+                                                56.154273336444938]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.213136913079426,
+                                                56.154549082681847]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.213779830425905,
+                                                56.153265333494772]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.213125552393715,
+                                                56.152811638432958]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.219297694167869,
+                                                56.152817492903559]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.218536340335595,
+                                                56.1527523517913]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.219256456056453,
+                                                56.152200370587977]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.21866477819292,
+                                                56.15201247203396]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.217643391059847,
+                                                56.15195594369257]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.212608846751577,
+                                                56.152592704025913]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.212602556035547,
+                                                56.152392977086777]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.211861749873819,
+                                                56.151946178628457]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.214990454440757,
+                                                56.154161567803008]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.215419725830547,
+                                                56.15332792096806]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.215413372928669,
+                                                56.152783105104639]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.217106383002625,
+                                                56.1531539121877]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.21857871706256,
+                                                56.153405788244854]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        },
+                                        {
+                                            "type": "Feature",
+                                            "geometry": {
+                                                "type": "Point",
+                                                "coordinates": [10.218598525635676,
+                                                56.154374265840957]
+                                            },
+                                            "properties": {
+
+                                            }
+                                        }]
+                                    }
+                        }
+                    }
+                }
+            });});
+        </script>
+        <demo-static-image></demo-static-image>
+    </body>
+</html>
+
+
+

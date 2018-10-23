@@ -1,0 +1,552 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/paper-checkbox/paper-checkbox.html'>
+<link rel='import' href='../../bower_components/paper-slider/paper-slider.html'>
+<link rel='import' href='../../bower_components/iron-icons/image-icons.html'>
+<link rel='import' href='../../bower_components/iron-icons/iron-icons.html'>
+<link rel='import' href='../../bower_components/iron-flex-layout/iron-flex-layout-classes.html'>
+<link rel='import' href='../../bower_components/iron-localstorage/iron-localstorage.html'>
+<link rel='import' href='../../dhi_elements/dhi-javascripts/dhi-javascripts.html'>
+<link rel='import' href='../dhi-icons-svg/dhi-icons-svg.html'>
+
+<!--
+DHI Layer Control
+
+`dhi-layer-control` is a component to control layer visibility and opacity.
+
+Example:
+
+    <dhi-layer-control
+        name='MyLayer'
+        checked='{{checked1}}'
+        opacity='{{opacity1}}'
+        legend-gradient='[ {"value": "< 0,01", "color" : "#FFFFFF"},
+                    {"value": "0,25", "color" : "#E3EEFA"},
+                    {"value": "0,5", "color" : "#C6DDF4"},
+                    {"value": "0,75", "color" : "#A9CCEF"},
+                    {"value": "1", "color" : "#8CBBE9"},
+                    {"value": "1,25", "color" : "#70AAE3"},
+                    {"value": "1,5", "color" : "#5399DE"},
+                    {"value": "1,75", "color" : "#3688D8"},
+                    {"value": "> 2", "color" : "#1976D2"}
+                   ]'
+        legend-value-post-fix='m'>
+    </dhi-layer-control>
+
+    <dhi-layer-control
+        name='MyLayer'
+        checked='{{checked2}}'
+        opacity='{{opacity2}}'
+        legend-url='http://www.dhigroup.com/-/media/shared%20content/global/global%20repository/logos/dhi/dhi_logo_pos_rgb_nomargin.png?h=61&la=en&w=94'>
+    </dhi-layer-control>
+
+    <dhi-layer-control
+        id='infoClick'
+        name='MyLayer'
+        checked='{{checked3}}'
+        opacity='{{opacity3}}'
+        info='The text set on the property'
+        on-info-tap='infoClick'>
+    </dhi-layer-control>
+
+    <dhi-layer-control
+        class='red redCaption'
+        name='MyLayer'
+        checked='{{checked4}}'
+        opacity='{{opacity4}}'
+        info='The text set on the property'
+        on-info-tap='infoClick'>
+    </dhi-layer-control>
+
+    <dhi-layer-control
+        name='MyLayer'
+        checked='{{checked5}}'
+        opacity='{{opacity5}}'>
+    </dhi-layer-control>
+
+    <dhi-layer-control
+        name='MyLayer'
+        checked='{{checked6}}'
+        opacity='{{opacity6}}'
+        legend-gradient='[ {"value": "0", "icon" : "/dhi_elements/dhi-layer-control/demo/0.png"},
+                    {"value": "1", "icon" : "/dhi_elements/dhi-layer-control/demo/1.png"},
+                    {"value": "5", "icon" : "/dhi_elements/dhi-layer-control/demo/5.png"}
+                   ]'
+        legend-value-post-fix='m'>
+    </dhi-layer-control>
+
+    <dhi-layer-control
+        name='MyLayer7'
+        checked='{{checked7}}'
+        opacity='{{opacity7}}'
+        legend-always-visible
+        legend-gradient='[ {"value": "< 0,01", "color" : "#FFFFFF"},
+                        {"value": "0,25", "color" : "#E3EEFA"},
+                        {"value": "0,5", "color" : "#C6DDF4"},
+                        {"value": "0,75", "color" : "#A9CCEF"},
+                        {"value": "1", "color" : "#8CBBE9"},
+                        {"value": "1,25", "color" : "#70AAE3"},
+                        {"value": "1,5", "color" : "#5399DE"},
+                        {"value": "1,75", "color" : "#3688D8"},
+                        {"value": "> 2", "color" : "#1976D2"}
+                        ]'
+        legend-value-post-fix='m'
+        legend-collapses='{{legendCollapses}}'>
+    </dhi-layer-control>
+
+    <dhi-layer-control
+        name='MyLayer8'
+        tooltip='sample tool tip'
+        checked
+        opacity='0.5'
+        no-opacity-control='{{!opacitySlider8}}'
+        legend-gradient='[ {"value": "< 0,01", "color" : "#FFFFFF"},
+                        {"value": "0,25", "color" : "#E3EEFA"},
+                        {"value": "0,5", "color" : "#C6DDF4"},
+                        {"value": "0,75", "color" : "#A9CCEF"},
+                        {"value": "1", "color" : "#8CBBE9"},
+                        {"value": "1,25", "color" : "#70AAE3"},
+                        {"value": "1,5", "color" : "#5399DE"},
+                        {"value": "1,75", "color" : "#3688D8"},
+                        {"value": "> 2", "color" : "#1976D2"}
+                        ]'
+        context-id='myUniqueLayerContextId'
+        collapsible-legend>
+    </dhi-layer-control>
+
+The following custom properties and mixins are also available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--dhi-layer-control-color` | Color of various element in layer control element. | `#1976D2`
+`--dhi-layer-control-slider-width` | Slider width in layer control element. | `100px`
+`--dhi-layer-control-padding` | Checkbox padding in layer control element. | `10px`
+
+@demo demo/index.html
+-->
+
+<dom-module id='dhi-layer-control'>
+    <style include='iron-flex iron-flex-alignment'>
+        paper-checkbox {
+            --paper-checkbox-unchecked-color: var(--dhi-layer-control-color, #1976D2);
+            --paper-checkbox-unchecked-ink-color: var(--dhi-layer-control-color, #1976D2);
+            --paper-checkbox-checked-color: var(--dhi-layer-control-color, #1976D2);
+            --paper-checkbox-checked-ink-color: var(--dhi-layer-control-color, #1976D2);
+            --paper-checkbox-label-color: var(--dhi-layer-control-labelcolor, black);
+            padding: 10px;
+        }
+
+        paper-icon-button::shadow core-icon {
+            color: #1976D2;
+            height: 20px;
+            width: 20px;
+        }
+
+        #square {
+            border: solid 1px #5a5a5a;
+            border-color: var(--dhi-layer-control-color, #1976D2);
+            border-radius: 2px;
+            -webkit-transition: background-color 140ms, border-color 140ms;
+            transition: background-color 140ms, border-color 140ms;
+            width:30px;
+            height: 16px;
+            margin-left:10px
+        }
+
+        #image {
+            margin-left:10px
+        }
+
+        #label {
+            margin-left: 5px;
+        }
+
+        #pictureLegend {
+            padding-left: 10px;
+        }
+
+        iron-icon {
+            color: var(--dhi-layer-control-color, #1976D2);
+        }
+
+        paper-slider {
+            --paper-slider-active-color: var(--dhi-layer-control-color, #1976D2);
+            --paper-slider-knob-color: var(--dhi-layer-control-color, #1976D2);
+            --paper-slider-pin-color: var(--dhi-layer-control-color, #1976D2);
+            --paper-slider-pin-font-color: var(--dhi-layer-control-color, #1976D2);
+            --paper-slider-secondary-color: var(--dhi-layer-control-color, #1976D2);
+            --paper-slider-disabled-active-color: #ccc;
+            --paper-slider-disabled-secondary-color: #ccc;
+            width: var(--dhi-layer-control-slider-width, 160px);
+        }
+
+        paper-checkbox {
+            padding: 7px 0px 7px 0px;
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        paper-checkbox #checkbox{
+            color: red;
+        }
+
+    </style>
+    <template>
+        <div class='vertical layout'>
+            <div class='horizontal layout center'>
+                <div class='flex'>
+                    <paper-checkbox hidden$='{{noCheckBox}}' disabled$='{{!enabled}}' checked='{{checked}}' title='{{tooltip}}'>{{name}}</paper-checkbox>
+                    <div hidden$='{{!noCheckBox}}'>{{name}}</div>
+                </div>
+                <template is='dom-if' if='{{showOpacityControl(checked, noOpacityControl)}}'>
+                    <paper-slider id='opacityslider' value='100' min='0' max='100'></paper-slider>
+                </template>
+                <template is='dom-if' if='{{showInfo(checked, info)}}'>
+                    <iron-icon icon='icons:info' on-tap='infoTap'></iron-icon>
+                </template>
+                <iron-icon id='collapsibleLegendIcon' class='expandCollapseLayers' hidden$='{{!collapsibleLegend}}' icon='{{getCollapsibleIcon(legendCollapses)}}' on-tap='collapsibleLegendIconTap'></iron-icon>
+            </div>
+            <div id='legend' style$='padding-bottom:0px; {{if(noCheckBox, "", "padding-left:30px")}}'>
+                <template is='dom-if' if='{{showLegendUrl(checked, legendUrl)}}'>
+                    <div id='pictureLegend'>
+                        <img src='{{legendUrl}}'>
+                    </div>
+                </template>
+                <template is='dom-if' if='{{showLegendGradient(checked, legendGradient, legendCollapses)}}'>
+                    <div style='{{getLegendHeight(legendHeight)}}'>
+                        <div>
+                            <template is='dom-repeat' items='{{legendGradientPoints}}'>
+                                <div class='horizontal layout center' style='padding-bottom:3px'>
+                                    <template is='dom-if' if='{{isIcon(item)}}'>
+                                        <img id='image' src='{{item.icon}}' style$='height:{{item.size}}; width:{{item.size}}'>
+                                    </template>
+                                    <template is='dom-if' if='{{!isIcon(item)}}'>
+                                        <div id='square'></div>
+                                    </template>
+                                    <div id='label' class='flex'>{{item.text}}</div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+                <div hidden$='{{!checked}}'>
+                    <content></content>
+                </div>
+            </div>
+        </div>
+        <template is='dom-if' if='{{useLocalStorage(contextId, collapsibleLegend)}}'>
+            <iron-localstorage id='{{getLocalStorageId(contextId)}}' name='{{getLocalStorageId(contextId)}}' value='{{legendCollapses}}'></iron-localstorage>
+        </template>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: 'dhi-layer-control',
+
+        properties: {
+            /**
+             * The `legendGradientPoints` attribute sets the legend gradient points object.
+             */
+            legendGradientPoints: {
+                type: Array,
+                value: function() { return []; }
+            },
+
+            /**
+             * The `legendGradient` attribute sets the legend gradient object.
+             * e.g. below is a sample value.
+             * '[ {"value": "0", "icon" : "/dhi_elements/dhi-layer-control/demo/0.png"},
+             *    {"value": "1", "icon" : "/dhi_elements/dhi-layer-control/demo/1.png"},
+             *    {"value": "5", "icon" : "/dhi_elements/dhi-layer-control/demo/5.png"}
+             *  ]'
+             */
+            legendGradient: {
+                type: Array,
+                value: function() { return []; },
+                observer: '_legendGradientChanged'
+            },
+
+            /**
+             * The `legendValuePostFix` attribute sets the legend value post fix string.
+             */
+            legendValuePostFix: {
+                type: String,
+                value: '',
+                observer: '_legendValuePostFixChanged'
+            },
+
+            /**
+             * The `name` attribute sets the layer name.
+             */
+            name: {
+                type: String,
+                value: 'Layer Name'
+            },
+
+            /**
+             * The `checked` attribute tells if the layer is enabled or disabled.
+             */
+            checked: {
+                type: Boolean,
+                value: true,
+                notify: true,
+                observer: '_checkedChanged'
+            },
+
+            /**
+             * The `opacity` attribute controls opacity of the layer.
+             */
+            opacity: {
+                type: Number,
+                value: 1,
+                notify: true,
+                observer: '_opacityChanged'
+            },
+
+            /**
+             * The `internalOpacity` attribute controls internal opacity of the layer.
+             */
+            internalOpacity: {
+                type: Number,
+                value: 100,
+                observer: '_internalOpacityChanged'
+            },
+
+            /**
+             * The `opacityMinimum` attribute controls minimum opacity of the layer.
+             */
+            opacityMinimum: {
+                type: Number,
+                value: 0
+            },
+
+            /**
+             * The `opacityMaximum` attribute controls maximum opacity of the layer.
+             */
+            opacityMaximum: {
+                type: Number,
+                value: 1
+            },
+
+            /**
+             * The `noOpacityControl` attribute controls visibility of the opacity control for the layer.
+             */
+            noOpacityControl: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * The enabled attribute controls if the checkbox should be enabled or not.
+             */
+            enabled: {
+                type: Boolean,
+                value: true
+            },
+
+            /**
+             * The `legendUrl` attribute sets the url of the legend image.
+             */
+            legendUrl: {
+                type: String,
+                value: ''
+            },
+
+            /**
+             * The `info` attribute sets the information text to be shown for the layer.
+             */
+            info: {
+                type: String,
+                value: ''
+            },
+
+            /**
+             * The `tooltip` attribute sets the tooltip text to be shown when hovering over the layer checkbox.
+             */
+            tooltip: {
+                type: String,
+                value: ''
+            },
+
+            /**
+             * The `legendCollapses` attribute controls visibility of the legend irrespective of if the layer check box is checked or not.
+             * when this property is set to false, it means legend will be always visible (even when the layer checkbox is checked off).
+             */
+            legendCollapses: {
+                type: Boolean,
+                value: true
+            },
+
+            /**
+             * The `collapsibleLegend` attribute controls visibility of the + / - icon which toggles the visibility of legend when layer checked on or not.
+             */
+            collapsibleLegend: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * The `contextId` attribute sets the context id of the element.
+             */
+            contextId: {
+                type: String
+            },
+
+            /**
+             * The `noCheckBox` attribute controls visibility of the checkbox
+             */
+            noCheckBox: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * If legendHeight is specified, then scrollbars will be added when the colors exceed the height
+             */
+            legendHeight: {
+                type: Number,
+                value: null
+            }
+        },
+
+        ready: function() {
+            this._internalOpacityChanged();
+        },
+
+        showInfo: function(checked, info) {
+            return checked && info;
+        },
+
+        isIcon: function(item) {
+            return item.icon !== undefined && item.icon !== '';
+        },
+
+        attached:function(){
+            this.paintLegend();
+        },
+
+        paintSquares: function() {
+            var that = this;
+            setTimeout(function() {
+                var divs = Polymer.dom(that.root).querySelectorAll('#square');
+                for (var i = 0; i < divs.length; i++) {
+                    var c = colorToRGB(that.legendGradientPoints[i].color)
+                    divs[i].style.backgroundColor = 'rgba(' + c.R + ',' + c.G + ',' + c.B + ',' + that.opacity + ')';
+                }
+            }, 0);
+        },
+
+        paintLegend: function() {
+            var that = this;
+            setTimeout(function() {
+                var opacitySlider = Polymer.dom(that.root).querySelector('#opacityslider');
+                if (opacitySlider) {
+                    opacitySlider.value = that.opacity * 100;
+
+                    opacitySlider.addEventListener('immediate-value-change', function() {
+                        that.internalOpacity = opacitySlider.immediateValue;
+                    });
+
+                    opacitySlider.addEventListener('value-change', function() {
+                        that.internalOpacity = opacitySlider.immediateValue;
+                    });
+                }
+
+                that.paintSquares();
+            }, 0);
+        },
+
+        showLegendGradient: function(checked, legendGradient, legendCollapses) {
+            this.paintLegend();
+            return this.collapsibleLegend ? !legendCollapses : checked;
+        },
+
+        showOpacityControl: function(checked, noOpacityControl) {
+            return checked && !noOpacityControl;
+        },
+
+        showLegendUrl: function(checked, legendUrl) {
+            return checked && legendUrl;
+        },
+
+        _legendGradientChanged: function() {
+            this.go();
+        },
+
+        _checkedChanged: function() {
+            this.fire('checked', this.checked);
+        },
+
+        _legendValuePostFixChanged: function() {
+            this.go();
+        },
+
+        _internalOpacityChanged: function() {
+            if (this.opacity != null) {
+                var opacityMinimum = this.opacityMinimum ? this.opacityMinimum : 0;
+                var opacityMaximum = this.opacityMaximum ? this.opacityMaximum : 100;
+                this.opacity = (opacityMaximum - opacityMinimum) * this.internalOpacity / 100 + opacityMinimum;
+                this.paintSquares();
+            }
+        },
+
+        _opacityChanged: function() {
+            if (this.opacity >= 0) {
+                this.paintLegend();
+            }
+        },
+
+        go: function() {
+            if (this.legendGradient) {
+                var legendGradientPoints = this.legendGradient;
+
+                for (var i = 0; i < legendGradientPoints.length; i++) {
+                    legendGradientPoints[i].text = legendGradientPoints[i].text || legendGradientPoints[i].value + (this.legendValuePostFix ? ' ' + this.legendValuePostFix : '');
+                }
+
+                this.legendGradientPoints = legendGradientPoints;
+            }
+        },
+
+        infoTap: function() {
+            this.fire('info-tap', {info: this.info});
+        },
+
+        useLocalStorage: function(contextId, collapsibleLegend) {
+            return contextId && contextId !== '' && collapsibleLegend;
+        },
+
+        getLocalStorageId: function(contextId) {
+            if (contextId && this.contextId !== '') {
+                return 'dhiLayerControl' + contextId;
+            }
+        },
+
+        collapsibleLegendIconTap: function() {
+            this.legendCollapses = !this.legendCollapses;
+        },
+
+        getCollapsibleIcon: function(legendCollapses) {
+            if (legendCollapses) {
+                return 'dhi-icons-svg:solid-arrow-down';
+            } else {
+                return 'dhi-icons-svg:solid-arrow-up';
+            }
+        },
+
+        if: function(condition, a, b, c) {
+            if (b == undefined && c == undefined) {
+                return condition == a;
+            } else if (c == undefined) {
+                return condition ? a : b;
+            } else {
+                return condition == a ? b : c;
+            }
+        },
+
+        getLegendHeight: function() {
+            if (this.legendHeight != null) {
+                return 'max-height:' + this.legendHeight + 'px; overflow:auto'
+            }
+        }
+    });
+</script>

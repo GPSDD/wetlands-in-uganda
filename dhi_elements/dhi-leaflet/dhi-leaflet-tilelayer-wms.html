@@ -1,0 +1,472 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-layer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-import.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+
+<!--
+DHI Leaflet Tilelayer WMS
+
+`dhi-leaflet-tilelayer-wms` is a leaflet tilelayer wms component.
+
+Example:
+
+    <dhi-leaflet-tilelayer-wms
+        url='http://greve.dhigroup.com'
+        layers='RealTime-Maximum'
+        styles='GreveFlooding'
+        format='image/png'
+        item='1'
+        enabled
+        opacity='{{opacity}}'
+        transparent>
+    </dhi-leaflet-tilelayer-wms>
+
+@demo demo/index-dhi-leaflet-tilelayer-wms.html
+-->
+
+<dom-module id='dhi-leaflet-tilelayer-wms'>
+    <style>
+        :host {display: none;}
+    </style>
+    <template>
+        <iron-ajax auto
+            url={{getCapabilitiesUrl}}
+            params={{getCapabilitiesParams}}
+            handle-as='xml'
+            on-response='wmsCapabilitiesHandler'
+            last-response='{{wmsCapabilities}}'>
+        </iron-ajax>
+    </template>
+</dom-module>
+<script>
+'use strict';
+
+Polymer({
+    is: 'dhi-leaflet-tilelayer-wms',
+
+    behaviors: [leafletMap.LeafletILayer, leafletMap.LeafletTileLayer],
+
+    properties: {
+        container: {
+            type: Object,
+            observer: '_containerChanged'
+        },
+
+        url: {
+            type: String,
+            observer: '_urlChanged'
+        },
+
+        /**
+         * The `layers` attribute sets the comma-separated list of WMS layers to show (required).
+         */
+        layers: {
+            type: String,
+            value: '',
+            observer: '_layersChanged'
+        },
+
+        /**
+         * The `styles` attribute sets the comma-separated list of WMS styles.
+         */
+        styles: {
+            type: String,
+            value: ''
+        },
+
+        /**
+         * The `format` attribute sets the WMS image format (use 'image/png' for layers with transparency).
+         */
+        format: {
+            type: String,
+            value: 'image/jpeg'
+        },
+
+        /**
+         * The `transparent` attribute whether the WMS service will return images with transparency.
+         */
+        transparent: {
+            type: Boolean,
+            value: false
+        },
+
+        /**
+         * The `version` attribute sets the version of the WMS service to use.
+         */
+        version: {
+            type: String,
+            value: '1.3.0'
+        },
+
+        /**
+         * The `crs` attribute sets the coordinate Reference System to use for the WMS requests, defaults to map CRS. Don't change this if you're not sure what it means.
+         */
+        crs: {
+            type: Object,
+            value: null
+        },
+
+        /**
+         * dateTimes to display
+         */
+        dateTimes: {
+            type: Object,
+            value: function() { return []; },
+            observer: '_dateTimesChanged'
+        },
+
+        /**
+         * current loaded layers
+         */
+        currentLayers: {
+            type: Object,
+            value: function() { return []; }
+        },
+
+        /**
+         * the item from the MIKE file to show
+         */
+        item: {
+            type: Number,
+            value: 1
+        },
+
+        /**
+         * the datetime from the MIKE file to show
+         */
+        dateTime: {
+            type: String,
+            value: '',
+            observer: '_dateTimeChanged'
+        },
+
+        /**
+         * the opacity of the layer
+         */
+        opacity: {
+            type: Number,
+            value: 1,
+            observer: '_opacityChanged'
+        },
+
+        /**
+         * decides if enabled
+         */
+        enabled: {
+            type: Boolean,
+            value: false,
+            observer: '_enabledChanged'
+        },
+
+        /**
+         * the load progress of the data
+         */
+        loadProgress: {
+            type: Number,
+            value: 100,
+            notify: true
+        },
+
+        /**
+         * the time mode. Options are notime, single and multi
+         */
+        timeMode: {
+            type: String,
+            value: 'notime'
+        },
+
+        /**
+         * the z-index of the layer
+         */
+        zIndex: {
+            type: Number,
+            value: 1000,
+            observer: '_zIndexChanged'
+        },
+
+        /**
+         * indicates if the WMS is a not DHI server
+         */
+        nonDhi: {
+            type: Boolean,
+            value: false,
+            observer: '_nonDhiChanged'
+        },
+
+        /**
+         * Indicates if full extent of data is to be fetched or not.
+         */
+        fetchFullExtentOnData: {
+            type: Boolean,
+            value: false
+        },
+
+        /**
+         * indicates parameters to be used for GetCapabilities call to server.
+         */
+        getCapabilitiesParams: {
+            type: Object,
+            value: function() {
+                return {
+                    'service': 'wms',
+                    'version': '1.3.0',
+                    'request': 'GetCapabilities'
+                }
+            }
+        },
+
+        /**
+         * Dictionary of extents of all the layers.
+         */
+        extents: {
+            type: Object
+        }
+    },
+
+    _dateTimeChanged: function() {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            if (this.timeMode === 'multi') {
+                for (var i = 0; i < this.currentLayers.length; i++) {
+                    if (this.currentLayers[i].dateTime === this.dateTime) {
+                        this.currentLayers[i].layer.setOpacity(this.opacity);
+                    }
+                    else {
+                        this.currentLayers[i].layer.setOpacity(0);
+                    }
+                }
+            }
+            else if (this.timeMode === 'single') {
+                this.go();
+            }
+        }
+    },
+
+    _zIndexChanged: function() {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            for (var i = 0; i < this.currentLayers.length; i++) {
+                this.currentLayers[i].layer.setZIndex(this.zIndex);
+            }
+        }
+    },
+
+    _dateTimesChanged: function() {
+        this.go();
+    },
+
+    _layersChanged: function() {
+        this.go();
+    },
+
+    _containerChanged: function() {
+        this.go();
+    },
+
+    _urlChanged: function() {
+        var currentLayer = this.findLayer(this.dateTime);
+        if (currentLayer) {
+            currentLayer.layer.setUrl(this.url);
+        }
+    },
+
+    _opacityChanged: function() {
+        var currentLayer = this.findLayer(this.dateTime);
+        if (currentLayer) {
+            currentLayer.layer.setOpacity(this.opacity);
+        }
+    },
+
+    _enabledChanged: function() {
+        if (this.enabled) {
+            this.go();
+        }
+        else {
+            this.detached();
+        }
+    },
+
+    _nonDhiChanged: function() {
+        this.go();
+    },
+
+    go: function() {
+        if (this.container && this.enabled && this.layers &&
+            ((this.dateTimes.length > 0 || this.dateTime !== '') || // Both are set
+             (this.timeMode === 'single' && this.dateTime === '') || // Just single image
+             (this.timeMode === 'notime'))) { // When not using DHI data
+            this.removeAll();
+
+            var dateTimes = [];
+            if (this.dateTimes.length > 0) {
+                dateTimes = this.dateTimes;
+            }
+            else {
+                dateTimes.push(this.dateTime);
+            }
+
+            var that = this;
+            for (var i = 0; i < dateTimes.length; i++) {
+                var dateTime = dateTimes[i];
+                var opacity = dateTime === this.dateTime ? this.opacity : 0;
+
+                var url = this.nonDhi ? this.url : this.url + '/api/map/';
+
+                var crs = '';
+                switch(this.crs) {
+                    case 'EPSG3857':
+                        crs = L.CRS.EPSG3857;
+                        break;
+                    case 'EPSG3395':
+                        crs = L.CRS.EPSG3395;
+                        break;
+                    case 'EPSG32636':
+                        crs = L.CRS.EPSG32636;
+                        break;
+                    case 'EPSG4326':
+                    default:
+                        break;
+                }
+
+                var layer = L.tileLayer.wms(url, {
+                    attribution: this.innerHTML + this.attribution,
+                    minZoom: this.minZoom,
+                    maxZoom: this.maxZoom,
+                    maxNativeZoom: this.maxNativeZoom,
+                    tileSize: this.tileSize,
+                    subdomains: this.subdomains,
+                    errorTileUrl: this.errorTileUrl,
+                    tms: this.tms,
+                    continuousWorld: this.continuousWorld,
+                    noWrap: this.noWrap,
+                    zoomOffset: this.zoomOffset,
+                    zoomReverse: this.zoomReverse,
+                    opacity: opacity,
+                    zIndex: this.zIndex,
+                    detectRetina: this.detectRetina,
+                    reuseTiles: this.reuseTiles,
+                    layers: this.layers,
+                    styles: this.styles,
+                    format: this.format,
+                    transparent: this.transparent,
+                    version: this.version,
+                    crs: crs,
+                    item: this.item,
+                    timestamp: dateTime,
+                    contour: false
+                });
+
+                // forward events
+                layer.on('loading load tileloadstart tileload tileunload', function(e) {
+                    that.fire(e.type, e);
+                }, this);
+
+                layer.on('loading', function(e) {
+                    that.loadProgress = 0;
+                }, this);
+
+                layer.on('load', function(e) {
+                    var loaded = 0;
+                    for (var i = 0; i < that.currentLayers.length; i++) {
+                        if (that.currentLayers[i].dateTime === e.target.options.timestamp) {
+                            that.currentLayers[i].loaded = true;
+                        }
+
+                        if (that.currentLayers[i].loaded) {
+                            loaded++;
+                        }
+                    }
+
+                    that.loadProgress = 100 * loaded / that.currentLayers.length;
+                }, this);
+
+                var currentLayer = this.findLayer(dateTime);
+                if (currentLayer) {
+                    this.container.removeLayer(currentLayer.layer)
+                    currentLayer.layer = layer;
+                }
+                else {
+                    this.currentLayers.push({ dateTime: dateTime, layer: layer, loaded: false});
+                }
+
+                layer.addTo(this.container);
+                if (this.fetchFullExtentOnData) {
+                    this.getCapabilitiesUrl = this.url;
+                }
+            }
+        }
+    },
+
+    removeAll: function() {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            for (var i = 0; i < this.currentLayers.length; i++) {
+                this.container.removeLayer(this.currentLayers[i].layer);
+            }
+            this.currentLayers = [];
+        }
+    },
+
+    findLayer: function(dateTime) {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            for (var i = 0; i < this.currentLayers.length; i++) {
+                if (this.currentLayers[i].dateTime == dateTime) {
+                    return this.currentLayers[i];
+                }
+            }
+        }
+        return null;
+    },
+
+    detached: function() {
+        this.removeAll();
+    },
+
+    wmsCapabilitiesHandler: function(e, r) {
+        if (e.detail.xhr.status == 200) {
+            var layersToIterate = this.wmsCapabilities.children[0].children[1].children[2].children;
+            var layersArr = this.layers.split(',');
+            for (var i = 0; i < layersToIterate.length; i++) {
+                if (layersToIterate[i].nodeName == 'Layer') {
+                    var layersUsed = layersArr.filter(function(layerName) {
+                        var ln;
+                        var styleNodes = Array.from(layersToIterate[i].children).filter(function(item) {
+                            return item.nodeName == 'Style';
+                        });
+
+                        if (styleNodes && styleNodes.length > 0) {
+                            var layerNames = Array.from(styleNodes[0].children).filter(function(item) {
+                                return item.nodeName == 'Name';
+                            });
+
+                            if (layerNames && layerNames.length > 0) {
+                                ln = layerNames[0].innerHTML
+                            }
+                        }
+
+                        return ln ? true : false;
+                    });
+
+                    if (layersUsed && layersUsed.length > 0) {
+                        var boundinBoxes = Array.from(layersToIterate[i].children).filter(function(item) {
+                            if (item.nodeName == 'BoundingBox') {
+                                var crs = Array.from(item.attributes).filter(function(attr) {
+                                    return attr.nodeName == 'CRS' && attr.value == 'CRS:84';
+                                });
+
+                                return (crs && crs.length > 0) ? true: false;
+                            }
+                        });
+
+                        if (boundinBoxes && boundinBoxes.length > 0) {
+                            var lowerLeftCorner = L.latLng(boundinBoxes[0].attributes[2].value, boundinBoxes[0].attributes[1].value);
+                            var upperRightCorner = L.latLng(boundinBoxes[0].attributes[4].value, boundinBoxes[0].attributes[3].value);
+                            if (!this.extents) {
+                                this.extents = {};
+                            }
+                            this.extents[layersUsed[0]] = L.latLngBounds(lowerLeftCorner, upperRightCorner);
+                        }
+                    }
+                }
+            }
+        }
+    }
+});
+</script>

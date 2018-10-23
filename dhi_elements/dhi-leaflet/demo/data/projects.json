@@ -1,0 +1,101 @@
+{
+    "Projects": [{
+        "Id": "waves",
+        "ToleranceTimeMinutes": 1200,
+        "Grids": [{
+            "Id": "MirrorSW-GlobalSea-Waves",
+            "Priority": 3,
+            "BBox": [-180.0, -78.57179757663009, 180.447998046875, 101.37420040658715],
+            "XOffsetDegrees": 180.0,
+            "Display": {
+                "FromZoom": 0,
+                "ToZoom": 18
+            },
+            "Resampling": [{
+                "FromZoom": 0,
+                "ToZoom": 4,
+                "EveryNth": 10
+            }, {
+                "FromZoom": 5,
+                "ToZoom": 8,
+                "EveryNth": 5
+            }, {
+                "FromZoom": 9,
+                "ToZoom": 11,
+                "EveryNth": 2
+            }, {
+                "FromZoom": 12,
+                "ToZoom": 18,
+                "EveryNth": 1
+            }]
+        }, {
+            "Id": "MirrorSW-Esperance-Waves",
+            "Priority": 2,
+            "BBox": [96.0, -54.0, 168.90000108629465, 8.0466270446777344E-07],
+            "XOffsetDegrees": 0.0,
+            "Display": {
+                "FromZoom": 4,
+                "ToZoom": 18
+            },
+            "Resampling": [{
+                "FromZoom": 4,
+                "ToZoom": 8,
+                "EveryNth": 2
+            }, {
+                "FromZoom": 8,
+                "ToZoom": 18,
+                "EveryNth": 1
+            }]
+        }, {
+            "Id": "MirrorSW-PoB-Waves",
+            "Priority": 1,
+            "BBox": [152.7, -27.7, 153.90000005699693, -26.399999938253313],
+            "XOffsetDegrees": 0.0,
+            "Display": {
+                "FromZoom": 9,
+                "ToZoom": 18
+            },
+            "Resampling": [{
+                "FromZoom": 9,
+                "ToZoom": 18,
+                "EveryNth": 1
+            }]
+        }]
+    },{
+        "Id": "ncoscurrent",
+        "ToleranceTimeMinutes": 1200,
+        "Grids": [{
+            "Id": "ncoscurrent",
+            "Priority": 1,
+            "BBox": [-180.0, -78.57179757663009, 180.447998046875, 101.37420040658715],
+            "XOffsetDegrees": 0,
+            "Display": {
+                "FromZoom": 0,
+                "ToZoom": 18
+            },
+            "Resampling": [{
+                "FromZoom": 0,
+                "ToZoom": 18,
+                "EveryNth": 1
+            }]
+        }]
+    },{
+        "Id": "singleglobal",
+        "ToleranceTimeMinutes": 1200,
+        "Grids": [{
+            "Id": "marine",
+            "Priority": 1,
+            "BBox": [-180.0, -78.57179757663009, 180.447998046875, 101.37420040658715],
+            "XOffsetDegrees": 0,
+            "Display": {
+                "FromZoom": 0,
+                "ToZoom": 18
+            },
+            "Resampling": [{
+                "FromZoom": 0,
+                "ToZoom": 18,
+                "EveryNth": 1
+            }]
+        }]
+    }]
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/paper-button/paper-button.html'>
+        <link rel='import' href='../../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../dhi-data-table.html'>
+
+        <style is='custom-style'>
+            body {
+                font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+                font-size: 16px;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                -webkit-touch-callout: none;
+                font-family: 'calibri', 'Roboto', sans-serif;
+                color: black;
+                margin: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <dom-module id='demo-element'>
+            <style>
+                dhi-data-table {
+                    --dhi-data-table-color: #006064;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer'>
+                            <dhi-data-table data='{{data0}}'></dhi-data-table>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-data-table data='{{data0}}'&gt;&lt;/dhi-data-table&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <dhi-data-table
+                                data='{{data1}}'
+                                allow-clear>
+                            </dhi-data-table>
+                            <paper-button on-tap='getData'>Extract data</paper-button>
+                            <div>{{result}}</div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-data-table
+                                data='{{data1}}'
+                                allow-clear&gt;
+                            &lt;/dhi-data-table&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <dhi-data-table
+                                data='{{data2}}'
+                                no-ink
+                                on-iconclick='iconClick'>
+                            </dhi-data-table>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-data-table
+                                data='{{data1}}'
+                                allow-clear&gt;
+                            &lt;/dhi-data-table&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <div style='width:400px; height:100px; overflow:auto'>
+                                <dhi-data-table
+                                    style=''
+                                    data='{{data3}}'
+                                    no-ink>
+                                </dhi-data-table>
+                            </div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-data-table
+                                style=''
+                                data='{{data3}}'
+                                no-ink&gt;
+                            &lt;/dhi-data-table&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <div style='width:100%'>
+                                <dhi-data-table
+                                    data='{{data4}}'>
+                                </dhi-data-table>
+                            </div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-data-table
+                                data='{{data4}}'&gt;
+                            &lt;/dhi-data-table&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'demo-element',
+
+                properties: {
+                    data0: {
+                        type: Array,
+                        value: function() {
+                            return [{"data":[{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":""},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"Regn dybde [mm]"},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"T [år]"},{"style":"border-bottom:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"Skybruds index [-]"}]},{"data":[{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"1 min"},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":8.6,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":12097,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":""}]},{"data":[{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"10 min"},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":14.6,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":18,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":""}]},{"data":[{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"30 min"},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":21.3,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":13,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":""}]},{"data":[{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"1 time"},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":29.3,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":18,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":""}]},{"data":[{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"2 timer"},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":29.3,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":8,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":""}]},{"data":[{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"4 timer"},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":30.9,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":5,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":""}]},{"data":[{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"12 timer"},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":50.6,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":11,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-bottom:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":""}]},{"data":[{"style":"border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-weight: bold;","value":"24 timer"},{"style":"border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":50.6,"rightAlign":true,"placesAfterDecimal":1},{"style":"border-right:1px solid #005685; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":5,"rightAlign":true,"placesAfterDecimal":1},{"style":"width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","value":""}]}]
+                        }
+                    },
+
+                    data1: {
+                        type: Array,
+                        value: function() {
+                            return [
+                                { data: [ { value: 'a' }, { value: 'b', editable: true }] },
+                                { data: [ { value: 'c', style: 'background-color:red' }, { value: 'd', editable: true }] }
+                            ]
+                        }
+                    },
+
+                    data2: {
+                        type: Array,
+                        value: function() {
+                            return [
+                                { data: [{ value: 'TextBox Editable' }, { value: 'Editable Text', editable: true }] },
+                                { data: [{ value: 'Checkbox Readonly' }, { value: true }] },
+                                { data: [{ value: 'Checkbox Editable' }, { value: true, editable: true }] },
+                                { data: [{ value: 'TextBox Readonly' }, { value: 'Readonly Text' }] },
+                                { data: [{ value: 'TextBox Readonly Html Formatted' }, { value: '<b>Readonly Text</b> html formatted', isHtml: true }] },
+                                { data: [{ value: 'With icon' }, { tag: 'this is the tag', value: 'Some Icon', icon: 'notification:event-note' }] },
+                                { data: [{ value: 'With icon' }, { tag: 'this is the tag', value: 'Some Icon', icon: 'notification:event-note', leftAlignIcon: true }] },
+                                { data: [{ value: 'Right Aligned', align: 'right' }, { value: 'Some Text' } ] },
+                                { data: [{ value: 'Center Aligned', align: 'center' }, { value: 'Some Text' } ] },
+                                { data: [{ value: 'Drop-down Menu' }, { value: 1, menuKeys: [-1, 1, 2, 3, 4], menuValues: ['Not Set','Red','Yellow','Green','Gray'], isMenu: true }] }
+                            ]
+                        }
+                    },
+
+                    data3: {
+                        type: Array,
+                        value: function() {
+                            return [{
+                                'data': [{
+                                    'value': '',
+                                    'style': 'width:100px;',
+                                    'textStyle': 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                                },
+                                {
+                                    'value': 'Ekskluder',
+                                    'style': 'width:100px;',
+                                    'textStyle': 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                                },
+                                {
+                                    'value': 'Prøvetype',
+                                    'style': 'width:100px;',
+                                    'textStyle': 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                                },
+                                {
+                                    'value': 'E.coli',
+                                    'style': 'width:200px;',
+                                    'textStyle': 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                                },
+                                {
+                                    'value': 'Intestinal enterokokker',
+                                    'style': 'width:200px;',
+                                    'textStyle': 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                                }]
+                            },
+                            {
+                                'data': [{
+                                    'value': '2015-08-25',
+                                    'style': 'width:100px;',
+                                    'textStyle': 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                                },
+                                {
+                                    'value': 'dd',
+                                    'style': 'width:100px;',
+                                    'textStyle': 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                                },
+                                {
+                                    'value': 'Prøve',
+                                    'style': 'width:100px;',
+                                    'textStyle': 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                                },
+                                {
+                                    'value': '110',
+                                    'style': 'width:200px;',
+                                    'textStyle': 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                                },
+                                {
+                                    'value': '46',
+                                    'style': 'width:200px;',
+                                    'textStyle': 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                                }]
+                            }]
+                        }
+                    },
+
+                    data4: {
+                        type: Array,
+                        value: function() {
+                            return [{"data":[{"value":"","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Ekskluder","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Prøvetype","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"E.coli","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Intestinal enterokokker","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"pH","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Sigtdybde","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Vandtemperatur","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Strømretning","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Nedbør på dagen","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Antal badende","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Vindretning","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Vindstyrke","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Skydække","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Strandkvalitet","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Temperatur","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"Vandkvalitet","style":"border-bottom:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"}]},{"data":[{"value":"2016-08-25","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":false,"editable":false,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tag":"9feccdd2-6f92-4be0-ae9a-37d5603b43f0"},{"value":"Prøve","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"140","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"140"},{"value":"15","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"15"},{"value":"8","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"8"},{"value":1,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":1},{"value":"-","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":9,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":9},{"value":"Ingen nedbør","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"Ingen nedbør"},{"value":"0-10 badende","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"0-10 badende"},{"value":9,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":9},{"value":"Svag vind","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"Svag vind"},{"value":"Skyfrit","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"Skyfrit"},{"value":"Ikke oplyst","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"Ikke oplyst"},{"value":18.9,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":18.9},{"value":"Ikke oplyst","style":"border-bottom:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"Ikke oplyst"}]},{"data":[{"value":"2016-08-12","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":false,"editable":false,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tag":"0ac8c2a3-b911-499d-b3a1-6aa094681c70"},{"value":"Prøve","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":"140","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"140"},{"value":"15","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"15"},{"value":"8,1","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"8,1"},{"value":1,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":1},{"value":"-","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":7,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":7},{"value":"Ingen nedbør","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"Ingen nedbør"},{"value":"0-10 badende","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"0-10 badende"},{"value":17,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":17},{"value":13,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":13},{"value":"7/8 af himlen dækket af skyer","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"7/8 af himlen dækket af skyer"},{"value":"Ikke oplyst","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"Ikke oplyst"},{"value":14,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":14},{"value":"Ikke oplyst","style":"border-bottom:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tooltip":"Ikke oplyst"}]},{"data":[{"value":"2016-08-02","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"},{"value":false,"editable":false,"style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;","tag":"ad593e01-2517-4b76-9ae7-728405b5c986"},{"value":"Prøve","style":"border-bottom:1px solid lightgray; border-right:1px solid lightgray; width:500px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"}]}];
+                        }
+                    }
+                },
+
+                iconClick: function(e) {
+                    alert(e.detail.tag);
+                },
+
+                getData: function() {
+                    var result = '';
+                    for (var i = 0; i < this.data.length; i++) {
+                        for (var j = 0; j < this.data[i].data.length; j++) {
+                            result += this.data[i].data[j].value;
+                        }
+                    }
+                    this.result = result;
+                }
+            });});
+        </script>
+        <demo-element></demo-element>
+    </body>
+</html>

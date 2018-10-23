@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/leaflet-map/leaflet-map.html'>
+        <link rel='import' href='../../../bower_components/iron-ajax/iron-ajax.html'>
+        <link rel='import' href='../dhi-leaflet-geojson.html'>
+        <link rel='import' href='../../dhi-javascripts/dhi-javascripts.html'>
+    </head>
+    <body>
+        <dom-module id='dhi-leaflet-geojson-sample'>
+            <style>
+                leaflet-map {
+                    width: 400px;
+                    height: 400px;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map longitude='10.385642' latitude='55.401341' zoom='11'>
+                                <dhi-leaflet-geojson
+                                    data='{{data}}'
+                                    json-style='{"weight": "3", "color": "#FF0000", "opacity": "1", "fillColor": "#1976D2", "fillOpacity": "0.2" }'>
+                                </dhi-leaflet-geojson>
+
+                                <dhi-leaflet-geojson
+                                    data='{{dataMarker}}'
+                                    on-featureclick='onFeatureTap'>
+                                </dhi-leaflet-geojson>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-geojson
+                                data='{{data}}'
+                                json-style='{"weight": "3", "color": "#FF0000", "opacity": "1", "fillColor": "#1976D2", "fillOpacity": "0.2" }'&gt;
+                            &lt;/dhi-leaflet-geojson&gt;
+                            <div style='height:20px'></div>
+                            &lt;dhi-leaflet-geojson
+                                data='{{dataMarker}}'
+                                on-featureclick='onFeatureTap'&gt;
+                            &lt;/dhi-leaflet-geojson&gt;
+                        </div>
+                    </div>
+                </div>
+                <iron-ajax url='data/demo-geojson.json' last-response='{{data}}' auto></iron-ajax>
+                <iron-ajax url='data/demo-geojsonMarkers.json' last-response='{{dataMarker}}' auto></iron-ajax>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'dhi-leaflet-geojson-sample',
+
+                properties: {
+                    data: {
+                        type: Object,
+                        value: function() { return []; }
+                    },
+
+                    dataMarker: {
+                        type: Object,
+                        value: function() { return []; }
+                    }
+                },
+
+                onFeatureTap: function(e) {
+                    alert('Star clicked');
+                }
+            });});
+        </script>
+        <dhi-leaflet-geojson-sample></dhi-leaflet-geojson-sample>
+    </body>
+</html>
+
+
+

@@ -1,0 +1,9 @@
+SCMBranch=SOLSoftware
+SCMRepository=SOLSoftware/Polymer/dhi_elements/dhi-core-timeseries
+SCMMainlineUUID={7f12f277-f704-4336-93b8-a0f811a10172}
+SCMBranchRepositoryID=532707
+index.html;2891337035;1;1520476914;|331003|4294967295
+index-saver.html;3914780210;1;1521251337;|331115|4294967295
+dhi-core-processed-timeseries.html;22955794;1;1521765076;|331185|4294967295
+dhi-core-timeseries-saver.html;2747682238;8;1522967526;|276854|679828
+dhi-core-timeseries.html;888722779;23;1522967526;|276855|679996

@@ -1,0 +1,195 @@
+<!doctype html>
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/image-icons.html">
+<link rel="import" href="../../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+
+<!--
+DHI Localize
+
+`dhi-search-bar` is a search bar component.
+
+Example:
+
+    <dhi-search-bar class='no-padding'
+        placeholder='Search / filter greater than entered number'
+        hide-filter-button
+        on-paper-search-search='onSearch'
+        on-paper-search-clear='onSearchClear'>
+    </dhi-search-bar>
+
+The following custom properties and mixins are also available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--dhi-search-bar-font-size` | Font size | `1em`
+
+@demo demo/demo.html
+-->
+<dom-module id="dhi-search-bar">
+
+    <template>
+        <style include="iron-flex">
+            :host {
+                background: var(--background-color, white);
+                display: block;
+                padding: 0 16px;
+                @apply(--layout-horizontal);
+                @apply(--layout-center);
+                font-size: var(--dhi-search-bar-font-size, 1em);
+            }
+
+            .input-panel {
+                @apply(--layout-horizontal);
+                @apply(--layout-center);
+            }
+
+            .icon {
+                color: var(--disabled-text-color);
+                @apply(--icon-styles);
+            }
+
+            #input {
+                margin-right:10px;
+                border: 0;
+                outline: 0;
+                padding: 10px 0;
+                height: 27px;
+                cursor: text;
+                background: transparent;
+                color: inherit;
+                @apply(--input-styles);
+            }
+
+            #input[disabled] {
+                @apply(--disabled-input-styles);
+            }
+
+            .badge {
+                --paper-badge-background: var(--paper-red-500);
+                --paper-badge-opacity: 1;
+                --paper-badge-width: 18px;
+                --paper-badge-height: 18px;
+                --paper-badge-margin-left: -15px;
+                --paper-badge-margin-bottom: -15px;
+            }
+
+            paper-icon-button {
+                padding-right: 0px;
+            }
+        </style>
+
+        <div class="input-panel flex">
+            <input is="iron-input" id="input" bind-value="{{query}}" placeholder="[[placeholder]]" class="flex">
+            <paper-icon-button icon="[[icon]]" on-tap="_search" class="icon"></paper-icon-button>
+        </div>
+        <paper-icon-button icon="clear" hidden$="[[!query]]" on-tap="_clear" class="icon"></paper-icon-button>
+        <div hidden$="[[hideFilterButton]]">
+            <paper-icon-button id="filter" icon="image:tune" on-tap="_filter" class="icon" disabled="[[disableFilterButton]]"></paper-icon-button>
+            <paper-badge for="filter" label="[[nrSelectedFilters]]" class="badge" hidden$="[[!nrSelectedFilters]]"></paper-badge>
+        </div>
+    </template>
+
+</dom-module>
+
+<script>
+
+(function() {
+
+    Polymer({
+        is: 'dhi-search-bar',
+
+        /**
+         * Fired when the user requests to open the filtering dialog
+         *
+         * @event paper-search-filter
+         */
+         /**
+         * Fired when the user requests to search for a query
+         *
+         * @event paper-search-search
+         */
+         /**
+         * Fired when the user taps the clear icon
+         *
+         * @event paper-search-clear
+         */
+
+        properties: {
+            /**
+             * Text for which the user is searching
+             */
+            query: {
+                type: String,
+                notify: true,
+                value: ''
+            },
+            /**
+             * Whether to hide the Filter button. Set attribute "hide-filter-button" to do so.
+             */
+            hideFilterButton: {
+                type: Boolean,
+                value: false
+            },
+            /**
+             * Whether to disable the Filter button. Set attribute "disable-filter-button" to do so.
+             */
+            disableFilterButton: {
+                type: Boolean,
+                value: false
+            },
+            /**
+             * Number of filters the user has been selected (shown in the badge) (optional)
+             */
+            nrSelectedFilters: {
+                type: Number,
+                value: 0
+            },
+            /**
+             * Icon shown in the search background
+             */
+            icon: {
+                type: String,
+                value: 'search'
+            },
+            /**
+             * Text shown in the search box if the user didn't enter any query
+             */
+            placeholder: {
+                type: String,
+                value: 'Search'
+            },
+        },
+
+        behaviors: [
+            Polymer.IronA11yKeysBehavior
+        ],
+
+        keyBindings: {
+            'enter': '_search'
+        },
+
+        // Private methods
+        _filter: function(e) {
+            this.fire('paper-search-filter');
+        },
+        _clear: function() {
+            this.query = "";
+            this.$.input.focus();
+            this.fire('paper-search-clear');
+        },
+        _search: function() {
+            this.fire('paper-search-search');
+        }
+    });
+
+})();
+
+</script>

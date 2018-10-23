@@ -1,0 +1,158 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<dom-module id='dhi-core-processed-timeseries'>
+    <template>
+        <iron-ajax id='ajax' url='{{url}}' headers='{ "Content-Type": "application/json" }' method='{{method}}' body='{{body}}' handle-as='json' on-response='handler'></iron-ajax>
+    </template>
+</dom-module>
+<script>
+Polymer({
+    is: 'dhi-core-processed-timeseries',
+
+    properties: {
+        /**
+         * data as geojson object
+         */
+        data: {
+            type: Object,
+            value: function() { return []; },
+            notify: true
+        },
+
+        /**
+         * data source to get data from
+         */
+        dataSource: {
+            type: Object,
+            value: function() { return []; },
+            observer: '_dataSourceChanged'
+        },
+
+        /**
+         * the from time
+         */
+        from: {
+            type: String,
+            value: null
+        },
+
+        /**
+         * the to time
+         */
+        to: {
+            type: String,
+            value: null
+        },
+
+        /**
+         * the data to return, options are timeaxis, lastvalue and timeseries which is default
+         */
+        returnType: {
+            type: String,
+            value: 'timeseries'
+        },
+
+        /**
+         * indicate if the time zone of the values should be respected
+         */
+        useTimeZone: {
+            type: Boolean,
+            value: false
+        },
+
+        body: {
+            type: String,
+            value: ''
+        },
+
+        method: {
+            type: String,
+            value: 'POST'
+        }
+    },
+
+    _dataSourceChanged: function() {
+        this.go();
+    },
+
+    handler: function (header, data) {
+        if (data.xhr.status === 200 ) {
+            if (this.returnType === 'timeaxis' || this.returnType === 'metadata') {
+                this.data = toObject(data.xhr.response);
+            }
+            else {
+                var values = [];
+                var response = toObject(data.xhr.response);
+                for (var id in response) {
+                    var timeseries = {};
+                    timeseries.id = id;
+
+                    for (i = 0; i <= response[id].length; i++) {
+                        if (response[id][i]) {
+                            response[id][i][0] += 'Z';
+                        }
+                    }
+
+                    timeseries.data = response[id];
+                    values.push(timeseries);
+                }
+
+                this.data = values;
+            }
+        }
+        else {
+            alert('EXCEPTION: ' + data.xhr.responseText);
+        }
+    },
+
+    ready: function() {
+        this.go();
+    },
+
+    go: function () {
+        try {
+            var dataSource = null;
+            if ((dataSource = toObject(this.dataSource)) !== null) {
+                if (this.returnType === 'timeaxis') {
+                    this.method = 'GET';
+                    this.url = dataSource.url;
+                }
+                else if (this.returnType === 'metadata') {
+                    this.method = 'GET';
+                    this.url = dataSource.host + '/api/timeseries/' + dataSource.connection + '/list?group=' + dataSource.id;
+                }
+                else if (this.returnType === 'lastvalue') {
+                    this.body = JSON.stringify(dataSource.ids);
+                    this.url = dataSource.host + '/api/timeseries/' + dataSource.connection + '/list/value/last';
+                }
+                else {
+                    this.body = JSON.stringify(dataSource.ids);
+                    var url = dataSource.host + '/api/timeseries/' + dataSource.connection + '/list/values';
+
+                    if (dataSource.from && dataSource.to) {
+                        url += '/?from=' + this.toDateTimeString(dataSource.from) + '&to=' + this.toDateTimeString(dataSource.to);
+                    }
+                    else if (dataSource.from) {
+                        url += '/?from=' + this.toDateTimeString(dataSource.from);
+                    }
+                    else if (dataSource.to) {
+                        url += '/?to=' + this.toDateTimeString(dataSource.to);
+                    }
+                    this.url = url;
+                }
+
+                this.$.ajax.generateRequest();
+            }
+        }
+        catch(err) {
+            alert('Failed to parse data source ' + this.dataSource);
+        }
+    },
+
+    toDateTimeString: function(input) {
+        return input.replace(new RegExp(':', 'g'), '').split('.')[0];
+    }
+});
+</script>

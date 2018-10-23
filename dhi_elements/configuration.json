@@ -1,0 +1,170 @@
+﻿{
+	"center": {
+		"latitude": 55.686101,
+		"longitude": 12.531281,
+		"zoom": 11
+	},
+
+	"apiUrl": "http://www.samdus.dk/dev",
+	"googleAnalyticsCode": "UA-91110504-1",	
+
+	"connections": {
+		"TimeStep": "mo-timestep",
+		"Gis": "mo-gis",
+		"TimeSeries": "mo-timeseries"
+	},
+    
+	"configurationCaption": "Konfigurationer",
+	"themeCaption": "Temaer",
+	"layerCaption": "Lag",
+	"observationPeriodCaption": "Observationsperiode",
+	"observationPeriodGroupCaption": "Gruppe",
+	"observationPeriodOffsetCaption": "Offset",
+    
+	"defaultFilterGroups": [ "0-Sam" ],
+
+	"logo": "samdus.png",
+	"title": "Samdus Development",
+	"dateTimeFormat": "DD-MM-YYYY HH:mm:ss",
+	"dateTimeFormatShort": "DD-MM-YYYY",
+	"locale": "da",
+	"login": true,
+    "loginExpiryDays": 5,
+    "loginExpiryCaption": "Din konto er udløbet. Kontakt venligst BIOFOS.",
+    
+	"emailRequired": true,
+    "forgotPassword": true,
+    "forgotPasswordCaption": "Glemt password?",
+    "userNameCaption" : "Brugernavn",
+    "passwordCaption" : "Password",
+    "repeatPasswordCaption" : "Gentag password",
+    "loginCaption" : "Login",
+    "emailOrUserIdCaption" : "E-Mail addresse eller Bruger id",
+    "returnToLoginCaption" : "Tilbage to Login",
+    "requestPasswordResetCaption" : "Nulstil password",
+    "changePasswordCaption" : "Ændre",
+    "cancelChangePasswordCaption" : "Afbryd",
+	
+	"ribbon": true,
+	"thresholdNames": true,
+	
+	"lazyLoad": true,
+	"lazyLoadCaption": "Henter data",
+	"lazyLoadBlockSize": 50,
+
+	"reflectedElements": [{
+		"url": "dhi_elements_projects/dhi-mo-export/dhi-mo-export.html",
+		"elementName": "dhi-mo-export",
+		"displayName": "Eksporter",
+		"ribbonGroupName": "csv / dfs0",
+		"icon": "images/MIKEOPERATIONS/export.png",
+		"properties": {
+			"configuration": "[Configuration]",
+			"theme": "[Theme]",
+			"filterGroups": "[FilterGroups]",
+			"featureType": "[FeatureType]",
+			"apiUrl": "[ApiUrl]",
+			"apiId": "[ApiId]",
+			"documentConnection": "mo-doc"
+		}
+	}],
+	
+    "rasters": [
+        {
+            "filterGroups": [ "Avedøre-Renseanlæg" ],
+            "themes": [ "Voluminer i systemet", "System Status" ],
+            "type": "background",
+            "url": "images/Samdus/Avedøre.png",
+            "boundingBox": {
+                "lowerLeft": {
+                    "latitude": 55.608934775980416,
+                    "longitude": 12.446295583431494
+                },
+                "upperRight": {
+                    "latitude": 55.60799859035817,
+                    "longitude": 12.450587117855322
+                }
+            },
+            "IGNOREcenter": {
+                "latitude": 55.60846668,
+                "longitude": 12.44844135,
+                "zoom": 17
+            }
+        }, {
+            "filterGroups": [ "Damhusåen-Renseanlæg" ],
+            "themes": [ "Voluminer i systemet", "System Status" ],
+            "type": "background",
+            "url": "images/Samdus/DamhusAaen.png",
+            "boundingBox": {
+                "lowerLeft": {
+                    "latitude": 55.64119709861078,
+                    "longitude": 12.50263935340627
+                },
+                "upperRight": {
+                    "latitude": 55.63896837556086,
+                    "longitude": 12.511222422253926
+                }
+            },
+            "IGNOREcenter": {
+                "latitude": 55.64008274,
+                "longitude": 12.50693089,
+                "zoom": 17
+            }
+        }, {
+            "filterGroups": [ "Lynetten-Renseanlæg" ],
+            "themes": [ "Voluminer i systemet", "System Status" ],
+            "type": "background",
+            "url": "images/Samdus/Lynetten.png",
+            "boundingBox": {
+                "lowerLeft": {
+                    "latitude": 55.69675698106829,
+                    "longitude": 12.612614536337789
+                },
+                "upperRight": {
+                    "latitude": 55.694909770931005,
+                    "longitude": 12.621197605185445
+                }
+            },
+            "IGNOREcenter": {
+                "latitude": 55.69583338,
+                "longitude": 12.61690607,
+                "zoom": 17
+            }
+        }, {
+            "filterGroups": [ "DataIntegration" ],
+            "themes": [ "System Status" ],
+            "type": "background",
+            "url": "images/Samdus/DataIntegration.png",
+		"boundingBox": {
+		    "lowerLeft": {
+		        "latitude": 38.229550455326134,
+		        "longitude": 23.553059895833318
+		    },
+		    "upperRight": {
+		        "latitude": 37.79676317682161,
+		        "longitude": 24.061686197916685
+		    }
+	},
+            "IGNOREcenter": {
+                "latitude": 55.69583338,
+                "longitude": 12.61690607,
+                "zoom": 17
+            }
+        }
+    ],
+    "documents": [{
+        "docking": "ribbon",
+        "url": "/dev/data/Samdus/SAMDUS_visualisering_Dokumentation_for_Superbrugere.pdf",
+        "displayName": "Superbruger",
+        "ribbonGroupName": "Dokumentation",
+        "icon": "images/MIKEOPERATIONS/info24x24.png",
+        "userRoles": ["Administrator"]
+    }, {
+        "docking": "ribbon",
+        "url": "/dev/data/Samdus/SAMDUS_visualisering_Brugervejledning.pdf",
+        "displayName": "Brugervejledning",
+        "ribbonGroupName": "Dokumentation",
+        "icon": "images/MIKEOPERATIONS/info24x24.png",
+        "userRoles": ["User"]
+    }]
+}

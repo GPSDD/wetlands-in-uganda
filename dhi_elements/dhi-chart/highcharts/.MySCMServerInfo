@@ -1,0 +1,10 @@
+SCMBranch=SOLSoftware
+SCMRepository=SOLSoftware/Polymer/dhi_elements/dhi-chart/highcharts
+SCMMainlineUUID={7f12f277-f704-4336-93b8-a0f811a10172}
+SCMBranchRepositoryID=532699
+highcharts-3d.js;4166104742;1;1444213268;|276810|562678
+highcharts-3d.src.js;1844956221;1;1444213340;|276811|562679
+highcharts-more.js;218207131;1;1444213262;|276812|562680
+highcharts-more.src.js;249446386;1;1444213340;|276813|562681
+highcharts.js;3881895388;1;1444213246;|276814|562682
+highcharts.src.js;3202688997;1;1444213340;|276815|562683

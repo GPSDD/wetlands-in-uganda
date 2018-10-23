@@ -1,0 +1,411 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<script src='./highcharts/adapters/standalone-framework.js'></script>
+<script src='./highcharts/highcharts.js'></script>
+<script src='./highcharts/highcharts-more.js'></script>
+<link rel='import' href='../../bower_components/moment-element/moment-import.html'>
+
+<!--
+DHI Chart
+
+`dhi-chart` is a chart component to plot timeseries data using highcharts.
+
+Example:
+
+    <dhi-chart
+        flex
+        data='{{data}}'
+        config='{ "xAxis": { "type": "datetime", "dateTimeLabelFormats": { "month": "%e. %b", "year": "%b" }}}'>
+    </dhi-chart>
+
+    <dhi-chart
+        flex
+        data='{{data}}'
+        vertical-line
+        vertical-line-color='#0000FF'
+        vertical-line-date-time='{{dateTime}}'
+        vertical-line-interactive
+        config='{ "xAxis": { "type": "datetime", "dateTimeLabelFormats": { "month": "%e. %b", "year": "%b" }, "plotLines": [{ "value": 1357056000000, "color": "green", "width": 2 }]}}'>
+    </dhi-chart>
+@demo demo/index.html
+-->
+
+<dom-module id='dhi-chart'>
+    <template>
+        <div id='container'></div>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: 'dhi-chart',
+
+        properties: {
+            /**
+             * The time series data for the chart. This follows the data format as delivered by e.g. dhi-core-timeseries
+             */
+            data: {
+                type: Object,
+                value: function() { return []; },
+                observer: '_dataChanged'
+            },
+
+            /**
+             * The chart config data
+             */
+            config: {
+                type: Object,
+                value: function() { return {}; },
+                observer: '_configChanged'
+            },
+
+            /**
+             * A boolean indicating if the data is part of the config and in that case processing the data as DHI formatted data will be ignored
+             */
+            dataInConfig: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * Indicates if a vertical line should be shown
+             */
+            verticalLine: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * The color of the vertical line enabled through the verticalLine property
+             */
+            verticalLineColor: {
+                type: String,
+                value: '#FF0000'
+            },
+
+            /**
+             * The dash style of the vertical line
+             */
+             verticalLineDashStyle: {
+                type: String,
+                value: 'Solid'
+            },
+
+            /**
+             * Indicate if the vertical line should be interactive and moveable by the user
+             */
+            verticalLineInteractive: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * The date time of the vertical line enabled through the verticalLine property
+             */
+            verticalLineDateTime: {
+                type: String,
+                value: null,
+                notify: true,
+                observer: '_verticalLineDateTimeChanged'
+            },
+
+            /**
+             * A list of date times that the vertical line clicking should snap to if it is interactive
+             */
+            verticalLineDateTimes: {
+                type: Array,
+                value: function() { return []; }
+            },
+
+            /**
+             * High chart object.
+             */
+            chart: {
+                type: Object,
+                value: function() { return {}; }
+            },
+
+            /**
+             * Width of the chart element.
+             */
+            width: {
+                type: String,
+                value: '100%'
+            },
+
+            /**
+             * Height of the chart element.
+             */
+            height: {
+                type: String,
+                value: '100%'
+            },
+
+            /**
+             * Indicates if date time values should be converted to UTC or not.
+             * False - Convert to UTC
+             * True - Do not convert to UTC
+             */
+            disableDateTimeToUtc: {
+                type: Boolean,
+                value: false
+            }
+        },
+
+        _dataChanged: function() {
+            this.go();
+        },
+
+        _configChanged: function() {
+            this.go();
+        },
+
+        clear: function() {
+            if (!this.chart.series) {
+                return;
+            }
+
+            while (this.chart.series.length > 0) {
+                this.chart.series[0].remove(true);
+            }
+        },
+
+        go: function() {
+            if (this.disableDateTimeToUtc) {
+                Highcharts.setOptions({
+                    global: {
+                        useUTC: false
+                    }
+                });
+            }
+
+            if (this.data && this.data.length > 0 || this.dataInConfig && this.config) {
+                this.$.container.style.height = this.height;
+                this.$.container.style.width = this.width;
+
+                var config = {};
+
+                if (this.config != undefined) {
+                    config = this.config;
+                }
+
+                if (config.options) {
+                    Highcharts.setOptions(config.options);
+                }
+
+                if (!config.chart) {
+                    config.chart = {};
+                }
+
+                if (!config.series) {
+                    config.series = [];
+                }
+
+                if (!config.credits) {
+                    config.credits = {};
+                }
+
+                if (this.verticalLine) {
+                    if (!config.xAxis) {
+                        config.xAxis = {};
+                    }
+
+                    if (!config.xAxis.plotLines) {
+                        config.xAxis.plotLines = [{
+                            color: this.verticalLineColor, // Red
+                            width: 2,
+                            value: 0, // Position, you'll have to translate this to the values on your x axis
+                            id: 'ticker',
+                            dashStyle: this.verticalLineDashStyle
+                        }];
+                    } else {
+                        var tickerExist = false;
+                        for (var plotLineIndex in config.xAxis.plotLines) {
+                            if (config.xAxis.plotLines.hasOwnProperty(plotLineIndex) && config.xAxis.plotLines[plotLineIndex].id === 'ticker') {
+                                tickerExist = true;
+                            }
+                        }
+
+                        if (!tickerExist) {
+                            config.xAxis.plotLines.push({
+                                color: this.verticalLineColor, // Red
+                                width: 2,
+                                value: 0, // Position, you'll have to translate this to the values on your x axis
+                                id: 'ticker',
+                                dashStyle: this.verticalLineDashStyle
+                            });
+                        }
+                    }
+                }
+
+                if (this.verticalLineInteractive) {
+                    var that = this;
+                    config.chart.events = {
+                        click: function(e) {
+                            that.onChartTap(that, e.xAxis[0].value);
+                        }
+                    };
+
+                    if (!config.point) {
+                        config.point = {}
+                    }
+
+                    config.point.events = {
+                        click: function() {
+                            that.onChartTap(that, this.category);
+                        }
+                    };
+
+                    if (!config.plotOptions) {
+                        config.plotOptions = {};
+                    }
+
+                    if (!config.plotOptions.series) {
+                        config.plotOptions.series = {};
+                    }
+
+                    if (!config.plotOptions.series.point) {
+                        config.plotOptions.series.point = {};
+                    }
+
+                    config.plotOptions.series.point.events = {
+                        click: function() {
+                            that.onChartTap(that, this.category);
+                        }
+                    }
+                }
+
+                config.chart.renderTo = this.$.container;
+                config.credits.enabled = false;
+
+                for (var i = 0; i < this.data.length; i++) {
+                    var data = [];
+                    if (this.data[i].data) {
+                        for (var j = 0; j < this.data[i].data.length; j++) {
+                            data.push([Date.parse(this.data[i].data[j][0]), this.data[i].data[j][1]]);
+                        }
+                    } else if (this.data[i].dataPreprocessed) {
+                        data = this.data[i].dataPreprocessed;
+                    }
+
+                    if (!config.series[i]) {
+                        config.series.push({});
+                    }
+
+                    if (!config.series[i].name) {
+                        config.series[i].name = this.data[i].name;
+                    }
+
+                    if (this.data[i].lineWidth) {
+                        config.series[i].lineWidth = this.data[i].lineWidth;
+                    }
+
+                    if (this.data[i].color) {
+                        config.series[i].color = this.data[i].color;
+                    }
+
+                    config.series[i].data = data;
+                }
+
+                this.chart = new Highcharts.Chart(config);
+
+                if (false) {
+                    delete config.chart.renderTo;
+                    var text = JSON.stringify();
+                }
+
+                this.fire('drawn', this.chart);
+                this._updateVerticalLine(this.verticalLineDateTime);
+            } else {
+                var config = {
+                    chart: {
+                        renderTo: this.$.container
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: ''
+                    }
+                };
+                this.chart = new Highcharts.Chart(config);
+            }
+        },
+
+        _verticalLineDateTimeChanged: function(dateTime) {
+            if (this.chart && this.config) {
+                var plotLine = null;
+
+                if (this.chart && this.chart.userOptions && this.chart.userOptions.xAxis) {
+                    this._updateVerticalLine(dateTime);
+                }
+            }
+        },
+
+        _updateVerticalLine: function(dateTime) {
+            if (this.chart.userOptions.xAxis) {
+                var xAxis = this.chart.userOptions.xAxis;
+                if (xAxis.plotLines) {
+                    //ticker
+                    for (var plotLineIndex in xAxis.plotLines) {
+                        if (xAxis.plotLines.hasOwnProperty(plotLineIndex) && xAxis.plotLines[plotLineIndex].id === 'ticker') {
+                            xAxis.plotLines[plotLineIndex].value = new Date(dateTime);
+                            this.chart.xAxis[0].update(xAxis);
+                        }
+                    }
+                }
+            }
+        },
+
+        onChartTap: function(that, axisTime) {
+            if (!this.verticalLineInteractive) {
+                return;
+            }
+
+            var dateTime = this.findClosestTimeStep(this.disableDateTimeToUtc ? moment(axisTime).format('YYYY-MM-DD[T]HH:mm:ss') : moment.utc(axisTime).format('YYYY-MM-DD[T]HH:mm:ss'))
+
+            if (dateTime) {
+                this.verticalLineDateTime = dateTime;
+                this._updateVerticalLine(dateTime);
+                this.fire('verticalLineDateTimeChanged', {
+                    newDateTime: dateTime
+                });
+            }
+        },
+
+        findClosestTimeStep: function(dateTime) {
+            if (this.verticalLineDateTimes && this.verticalLineDateTimes.length > 0) {
+                if (dateTime.trim() != '') {
+                    var closest = null;
+                    var difference = 10000000000;
+                    for (var i = 0; i < this.verticalLineDateTimes.length; i++) {
+                        if (Math.abs(moment.utc(this.verticalLineDateTimes[i]).unix() - moment.utc(dateTime).unix()) < difference) {
+                            closest = this.verticalLineDateTimes[i];
+                            difference = Math.abs(moment.utc(this.verticalLineDateTimes[i]).unix() - moment.utc(dateTime).unix());
+                        }
+                    }
+                    return this.disableDateTimeToUtc ? moment(closest).format('YYYY-MM-DD[T]HH:mm:ss') : moment.utc(closest).format('YYYY-MM-DD[T]HH:mm:ss');
+                }
+            } else {
+                if (dateTime.trim() != '' && this.config.series[0].data && this.config.series[0].data.length > 0) {
+                    var closest = null;
+                    var difference = 10000000000;
+                    for (var i = 0; i < this.config.series[0].data.length; i++) {
+                        if (Math.abs(this.config.series[0].data[i][0] - (this.disableDateTimeToUtc ? (moment(dateTime).unix() * 1000) : (moment.utc(dateTime).unix() * 1000))) < difference) {
+                            closest = this.config.series[0].data[i][0];
+                            difference = Math.abs(this.config.series[0].data[i][0] - (this.disableDateTimeToUtc ? (moment(dateTime).unix() * 1000) : (moment.utc(dateTime).unix() * 1000)));
+                        }
+                    }
+                    return moment.utc(closest).format('YYYY-MM-DD[T]HH:mm:ss');
+                }
+            }
+
+            return null;
+        },
+
+        setSize: function(width, height) {
+            if (this.chart) {
+                this.chart.setSize(width, height);
+            }
+        }
+    });
+
+</script>

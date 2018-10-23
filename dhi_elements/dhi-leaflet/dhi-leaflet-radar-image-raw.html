@@ -1,0 +1,246 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-layer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-import.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../../bower_components/moment-element/moment-import.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Leaflet Radar Image Raw
+
+`dhi-leaflet-radar-image-raw` is a leaflet radar image raw component.
+
+Example:
+
+    <dhi-leaflet-radar-image-raw
+        data-source='{ "host": "http://localhost/webapimo", "radar": "aarhus-radar" }'
+        lower-left='{ "latitude": 55.602311, "longitude": 9.036234225387541 }'
+        upper-right='{ "latitude": 56.664502, "longitude": 10.995200612874198 }'>
+    </dhi-leaflet-radar-image-raw>
+
+@demo demo/index-dhi-leaflet-radar-image-raw.html
+-->
+
+<dom-module id='dhi-leaflet-radar-image-raw'>
+    <style>
+        :host {display: none;}
+    </style>
+    <template>
+        <iron-ajax auto url='{{apiRadarLastValueUrl}}' headers='{ "Content-Type": "application/json" }' handle-as='json' on-response='handlerRadarLastValue'></iron-ajax>
+        <iron-ajax auto url='{{apiRadarSecondLastValueUrl}}' headers='{ "Content-Type": "application/json" }' handle-as='json' on-response='handlerRadarSecondLastValue'></iron-ajax>
+    </template>
+</dom-module>
+<script>
+'use strict';
+
+Polymer({
+    is: 'dhi-leaflet-radar-image-raw',
+
+    properties: {
+        container: {
+            type: Object,
+            observer: '_containerChanged'
+        },
+
+        /**
+         * data source to the web api
+         */
+        dataSource: {
+            type: Object,
+            value: null,
+            observer: '_dataSourceChanged'
+        },
+
+        /**
+         * dateTimes to display
+         */
+        dateTimes: {
+            type: Object,
+            value: null,
+            notify: true
+        },
+
+        /**
+         * current loaded layers
+         */
+        currentLayers: {
+            type: Object,
+            value: function() { return []; }
+        },
+
+        /**
+         * the opacity of the layer
+         */
+        opacity: {
+            type: Number,
+            value: 1,
+            observer: '_opacityChanged'
+        },
+
+        /**
+         * the datetime from the MIKE file to show
+         */
+        dateTimeCurrent: {
+            type: String,
+            value: '',
+            observer: '_dateTimeCurrentChanged',
+            notify: true
+        },
+
+        /**
+         * decides if enabled
+         */
+        enabled: {
+            type: Boolean,
+            value: true,
+            observer: '_enabledChanged'
+        },
+
+        /**
+         * the number of radar images to load
+         */
+        count: {
+            type: Number,
+            value: 36
+        },
+
+        upperRight: {
+            type: Object,
+            value: null,
+            observer: '_boundsChanged'
+        },
+
+        lowerLeft: {
+            type: Object,
+            value: null,
+            observer: '_boundsChanged'
+        }
+    },
+
+    _dateTimeCurrentChanged: function() {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            for (var i = 0; i < this.currentLayers.length; i++) {
+                if (this.currentLayers[i].dateTime === this.dateTimeCurrent) {
+                    this.currentLayers[i].layer.setOpacity(this.opacity);
+                }
+                else {
+                    this.currentLayers[i].layer.setOpacity(0);
+                }
+            }
+        }
+    },
+
+    _layersChanged: function() {
+        this.go();
+    },
+
+    _containerChanged: function() {
+        this.go();
+    },
+
+    _boundsChanged: function() {
+        this.go();
+    },
+
+    _dataSourceChanged: function() {
+        this.go();
+    },
+
+    _opacityChanged: function(oldValue, newValue) {
+        var currentLayer = this.findLayer(this.dateTime);
+        if (currentLayer) {
+            currentLayer.layer.setOpacity(this.opacity);
+        }
+    },
+
+    _enabledChanged: function() {
+        if (this.enabled) {
+            this.go();
+        }
+        else {
+            this.detached();
+        }
+    },
+
+    go: function() {
+        if (this.container && this.enabled && this.dataSource && this.upperRight && this.lowerLeft) {
+            this.apiRadarLastValueUrl = this.dataSource.host + '/api/radarimage/' + this.dataSource.radar + '/last';
+        }
+    },
+
+    handlerRadarLastValue: function(header, data) {
+        if (data.xhr.status === 200 && data.xhr.response) {
+            this.radarMetaData = toObject(data.xhr.response);
+
+            if (this.radarMetaData.ImageSize) {
+                this.radarMetaData.ImageSize = { width: this.radarMetaData.ImageSize.split(',')[0].trim(), height: this.radarMetaData.ImageSize.split(',')[1].trim() };
+            }
+
+            if (this.radarMetaData.PixelSize) {
+                this.radarMetaData.PixelSize = { width: this.radarMetaData.PixelSize.split(',')[0].trim(), height: this.radarMetaData.PixelSize.split(',')[1].trim() };
+            }
+
+            this.apiRadarSecondLastValueUrl = this.dataSource.host + '/api/radarimage/' + this.dataSource.radar + '/lastbefore/' + moment(this.radarMetaData.DateTime).format('YYYY-MM-DDTHHmmss');
+        }
+    },
+
+    handlerRadarSecondLastValue: function(header, data) {
+        if (data.xhr.status === 200 && data.xhr.response) {
+            var lastDateTime = moment(this.radarMetaData.DateTime);
+            var difference = lastDateTime.diff(toObject(data.xhr.response).DateTime);
+            var dateTimes = [];
+            for (var i = 0; i < this.count; i++) {
+                dateTimes.splice(0, 0,lastDateTime.add(-difference, 'milliseconds').format('YYYY-MM-DDTHH:mm:ss'));
+            }
+
+            this.removeAll();
+            for (var i = 0; i < dateTimes.length; i++) {
+                var dateTime = dateTimes[i];
+                var url = this.dataSource.host + '/api/radarimage/' + this.dataSource.radar + '/' + moment(dateTime).format('YYYY-MM-DDTHHmmss') + '/bitmap';
+
+                var opacity = i === 0 ? 1 : 0;
+                var imagebounds = [[this.lowerLeft.latitude, this.lowerLeft.longitude], [this.upperRight.latitude, this.upperRight.longitude]];
+                var layer = L.imageOverlay(url, imagebounds, { opacity: opacity })
+
+                var currentLayer = this.findLayer(dateTime);
+                if (currentLayer) {
+                    this.container.removeLayer(currentLayer.layer)
+                    currentLayer.layer = layer;
+                }
+                else {
+                    this.currentLayers.push({ dateTime: dateTime, layer: layer, loaded: false});
+                }
+
+                layer.addTo(this.container);
+            }
+
+            this.dateTimeCurrent = dateTimes[0];
+            this.dateTimes = dateTimes;
+        }
+    },
+
+    removeAll: function() {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            for (var i = 0; i < this.currentLayers.length; i++) {
+                this.container.removeLayer(this.currentLayers[i].layer);
+            }
+            this.currentLayers = [];
+        }
+    },
+
+    findLayer: function(dateTime) {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            for (var i = 0; i < this.currentLayers.length; i++) {
+                if (this.currentLayers[i].dateTime == dateTime) {
+                    return this.currentLayers[i];
+                }
+            }
+        }
+        return null;
+    },
+
+    detached: function() {
+        this.removeAll();
+    }
+});
+</script>

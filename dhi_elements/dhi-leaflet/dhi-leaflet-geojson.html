@@ -1,0 +1,697 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-layer.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+<link rel='import' href='../dhi-core-featurecollections/dhi-core-featurecollections.html'>
+
+<script src='leaflet.label-src.js'></script>
+
+<!--
+DHI Leaflet Geojson
+
+`dhi-leaflet-geojson` is a leaflet geojson component.
+
+Example:
+
+    <dhi-leaflet-geojson
+        data='{{data}}'
+        json-style='{"weight": "3", "color": "#FF0000", "opacity": "1", "fillColor": "#1976D2", "fillOpacity": "0.2" }'>
+    </dhi-leaflet-geojson>
+
+@demo demo/index-dhi-leaflet-geojson.html
+-->
+
+<dom-module name='dhi-leaflet-geojson'>
+    <template>
+        <style>
+            :host { display: none; }
+        </style>
+        <iron-ajax id='ajax' url='{{url}}' handle-as='json' on-response='{{_handler}}'></iron-ajax>
+        <dhi-core-featurecollections data-source='{{dataSource}}' data='{{apiData}}'></dhi-core-featurecollections>
+    </template>
+</dom-module>
+<script>
+'use strict';
+
+L.RotatedMarker = L.Marker.extend({
+    options: {
+        angle: 0
+    },
+
+    _setPos: function(pos) {
+        L.Marker.prototype._setPos.call(this, pos);
+        this._icon.style[L.DomUtil.TRANSFORM] += ' rotate(' + this.options.angle + 'deg)';
+        this._icon.style.zIndex = 0;
+    }
+});
+
+L.rotatedMarker = function(pos, options) {
+    return new L.RotatedMarker(pos, options);
+};
+
+L.RotatedMarker.include({
+    toGeoJSON: function () {
+        return L.GeoJSON.getFeature(this, {
+            type: 'Point',
+            coordinates: L.GeoJSON.latLngToCoords(this.getLatLng())
+        });
+    }
+});
+
+Polymer({
+    is: 'dhi-leaflet-geojson',
+
+    properties: {
+        container: {
+            type: Object,
+            observer: '_containerChanged'
+        },
+
+        /**
+         * data as geojson object
+         */
+        data: {
+            type: Object,
+            value: function() { return []; },
+            observer: '_dataChanged'
+        },
+
+        /**
+         * the url to the data in case data is not provided
+         */
+         url: {
+            type: String,
+            value: '',
+            observer: '_urlChanged'
+        },
+
+        /**
+         * the api url to the data in case data is not provided
+         */
+         apiUrl: {
+            type: String,
+            value: '',
+            observer: '_apiChanged'
+        },
+
+        /**
+         * the connection to the data in case data is not provided
+         */
+         apiConnection: {
+            type: String,
+            value: '',
+            observer: '_apiChanged'
+        },
+
+        /**
+         * the id to the data in case data is not provided
+         */
+         apiId: {
+            type: String,
+            value: '',
+            observer: '_apiChanged'
+        },
+
+        /**
+         * features when added
+         */
+        features: {
+            type: Object,
+            value: function() { return []; }
+        },
+
+        /**
+         * default json style
+         */
+        jsonStyle: {
+            type: Object,
+            value: function() { return {}; }
+        },
+
+        /**
+         * the property in which the label is located
+         */
+        labelProperty: {
+            type: String,
+            value: null
+        },
+
+        /**
+         * the property to show labels always and not just on hover over a feature.
+         */
+        labelAlwaysVisible: {
+            type: Boolean,
+            value: false
+        },
+
+        /**
+         * The class of the label
+         */
+        labelClass: {
+            type: String,
+            value: null
+        },
+
+        /**
+         * the property in which the name is located
+         */
+        nameProperty: {
+            type: String,
+            value: null
+        },
+
+        /**
+         * decides if enabled
+         */
+        enabled: {
+            type: Boolean,
+            value: true,
+            observer: '_enabledChanged'
+        },
+
+        /**
+         * determines if the map should zoom to full extent when new data is added
+         */
+        fullExtentOnData: {
+            type: Boolean,
+            value: false
+        },
+
+        /**
+         * determines if the map should zoom to selected
+         */
+        zoomToSelected: {
+            type: Boolean,
+            value: false
+        },
+
+        /**
+         * determines padding around the feature to zoom to on selection.
+         */
+        zoomToSelectedPadding: {
+            type: Number,
+            value: 0.02
+        },
+
+        /**
+         * current selected feature
+         */
+        selected: {
+            type: Object,
+            value: null,
+            notify: true,
+            observer: '_selectedChanged'
+        },
+
+        /**
+         * the opacity of the layer
+         */
+        opacity: {
+            type: Number,
+            value: null,
+            observer: '_opacityChanged'
+        },
+
+        /**
+         * the markerType if layer is points
+         */
+        markerType: {
+            type: String,
+            value: 'circle'
+        },
+
+        /**
+         * the z index for the layer
+         */
+        zIndex: {
+            type: Number,
+            value: null,
+            observer: '_zIndexChanged'
+        },
+
+        /**
+        * the pane name for the layer
+        */
+        layerPane: {
+            type: String,
+            value: null,
+            observer: '_layerPaneChanged'
+        },
+
+        /**
+         * the z index for the layer
+         */
+        tooltipZindex: {
+            type: Number,
+            value: null
+        },
+
+        /**
+        * the pane name for the tooltipPane
+        */
+        tooltipPane: {
+            type: String,
+            value: null
+        },
+
+        apiData: {
+            observer: '_apiDataChanged'
+        }
+    },
+
+    _layerPaneChanged: function () {
+        this.go();
+    },
+
+    _containerChanged: function() {
+        if (this.apiUrl && this.apiConnection && this.apiId) {
+            this.dataSource = {
+                host: this.apiUrl,
+                connection: this.apiConnection,
+                ids: [this.apiId]
+            }
+        } else {
+            this.go();
+        }
+    },
+
+    _dataChanged: function() {
+        if (this.container) {
+            this.go();
+        }
+    },
+
+    _urlChanged: function() {
+        if (this.container) {
+            this.$.ajax.go();
+        }
+    },
+
+    _apiChanged: function() {
+        if (this.container && this.apiUrl && this.apiConnection && this.apiId) {
+            this.dataSource = {
+                host: this.apiUrl,
+                connection: this.apiConnection,
+                ids: [this.apiId]
+            }
+        }
+    },
+
+    _apiDataChanged: function() {
+        if (this.container && this.apiUrl && this.apiConnection && this.apiId) {
+            this.data = this.apiData[this.apiId];
+        }
+    },
+
+    _enabledChanged: function() {
+        if (this.enabled) {
+            this.go();
+        }
+        else {
+            this.detached();
+        }
+    },
+
+    _opacityChanged: function() {
+        if (this.container && this.container && this.layer) {
+            if (this.opacity) {
+                this.layer.setStyle({
+                    opacity: this.opacity,
+                    fillOpacity: this.opacity
+                });
+            }
+        }
+    },
+
+    _zIndexChanged: function() {
+        //if (this.container && this.pane && this.zIndex) {
+        //    this.pane.style.zIndex = this.zIndex;
+        //}
+        if (this.container && this.zIndex && this.layerPane) {
+            var pane = this.container.getPane(this.layerPane)
+            if (pane) {
+                pane.style.zIndex = this.zIndex;
+            }
+        }
+    },
+
+    _selectedChanged: function() {
+        if (this.container && this.layer) {
+            this.selectOnMap();
+
+            // Set opacity again
+            if (this.opacity) {
+                this.layer.setStyle({
+                    opacity: this.opacity,
+                    fillOpacity: this.opacity
+                });
+            }
+        }
+    },
+
+    _handler: function (header, data) {
+        if (data.xhr.status === 200 ) {
+            this.data = JSON.parse(data.xhr.response);
+        }
+        else {
+            alert('EXCEPTION: ' + data.xhr.responseText);
+        }
+    },
+
+    go: function() {
+        if (this.container && this.data && this.data.features && this.enabled) {
+            if (this.layer) {
+                this.container.removeLayer(this.layer);
+                this.features = [];
+            }
+
+            var pane;
+            if (this.zIndex && this.layerPane) {
+                pane = this.container.getPane(this.layerPane)
+                if (!pane) {
+                    pane = this.container.createPane(this.layerPane);
+                }
+                pane.style.zIndex = this.zIndex;
+            }
+
+            var tooltipPane;
+            if (this.tooltipZindex && this.tooltipPane) {
+                tooltipPane = this.container.getPane(this.tooltipPane)
+                if (!tooltipPane) {
+                    tooltipPane = this.container.createPane(this.tooltipPane);
+                }
+                tooltipPane.style.zIndex = this.tooltipZindex;
+            }
+
+            var jsonStyle = {
+                weight: 3,
+                color: '#1976D2',
+                opacity: 1,
+                fillColor: '#1976D2',
+                fillOpacity: 0.2
+            };
+
+            if (this.jsonStyle) {
+                jsonStyle = toObject(this.jsonStyle);
+            }
+
+            for (var i = this.data.features.length - 1; i >= 0; i--) {
+                if (this.data.features[i].properties.hidden) {
+                    this.data.features.splice(i, 1);
+                }
+            }
+
+            for (var i = 0; i < this.data.features.length; i++) {
+                if (!this.data.features[i].properties.style) {
+                    this.data.features[i].properties.style = jsonStyle;
+                }
+
+                if (this.data.features[i].properties.styleSelected) {
+                    this.data.features[i].properties.styleUnselected = this.data.features[i].properties.style;
+                }
+
+                // Reselect it if already selected
+                if (this.data.features[i].properties[this.nameProperty] === this.selected) {
+                    this.data.features[i].properties.style = this.data.features[i].properties.styleSelected;
+                }
+
+                if (!this.data.features[i].properties.markerType) {
+                    this.data.features[i].properties.markerType = this.markerType;
+                }
+            };
+
+            var that = this;
+            this.layer = L.geoJson(this.data, {
+                style: function(feature) {
+                    var style = feature.properties && feature.properties.style ? feature.properties.style : jsonStyle;
+                    if (feature.properties.lineType) {
+                        switch (feature.properties.lineType) {
+                            case 'Dot':
+                                style.dashArray = '1 4';
+                                break;
+                            case 'Solid':
+                                style.dashArray = '';
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    return style;
+                },
+
+                onEachFeature: function onEachFeature(feature, layer) {
+                    if (that.labelProperty && !that.labelAlwaysVisible) {
+                        layer.bindLabel(feature.properties[that.labelProperty], {
+                            noHide: false,
+                            direction: 'right',
+                            className: that.labelClass
+                        });
+                    }
+
+                    if (that.labelAlwaysVisible) {
+                        layer.bindTooltip(feature.properties[that.labelProperty].toString(), {direction: 'right', permanent: true, pane: tooltipPane ? tooltipPane : pane});
+                    }
+
+                    that.features.push(layer);
+
+                    layer.on('click', function (e) {
+                        if (that.nameProperty && e.target.feature.properties[that.nameProperty]) {
+                            that.selected = e.target.feature.properties[that.nameProperty];
+                        }
+
+                        that.fire('featureclick', { 'feature': e.target.feature, 'layer': layer, 'latlng': e.latlng });
+                    });
+
+                    layer.on('dblclick', function (e) {
+                        if (that.nameProperty && e.target.feature.properties[that.nameProperty]) {
+                            that.selected = e.target.feature.properties[that.nameProperty];
+                        }
+
+                        that.fire('dblclick', { 'feature': e.target.feature, 'layer': layer, 'latlng': e.latlng });
+                    });
+
+                    layer.on('mouseover', function (e) {
+                        that.fire('mouseover', { 'event': e }, { bubbles: false });
+                    });
+
+                    layer.on('mouseout', function (e) {
+                        that.fire('mouseout', { 'event': e });
+                    });
+
+                    layer.on('mousemove', function (e) {
+                        that.fire('mousemove', { 'event': e });
+                    });
+                },
+
+                pointToLayer: function (feature, latlng) {
+                    var marker = null;
+                    switch (feature.properties.markerType) {
+                        case 'icon':
+                            if (pane) {
+                                marker = L.marker(latlng, {
+                                    icon: L.icon(
+                                    feature.properties.style
+                                ), fillOpacity: 0.5,
+                                    pane: pane
+                                });
+                            }
+                            else {
+                                marker = L.marker(latlng, {
+                                    icon: L.icon(
+                                    feature.properties.style
+                                ), fillOpacity: 0.5
+                                });
+
+                            }
+
+                            break;
+                        case 'iconangle':
+                            if (feature.properties.style.iconSize) {
+                                // Make sure to offset it to the right place depending on the size
+                                var xOffset = Math.cos(6.28318530717959 * (feature.properties.angle + 45) / 360) * 1 / 0.7071067811865472;
+                                var yOffset = Math.sin(6.28318530717959 * (feature.properties.angle + 45) / 360) * 1 / 0.7071067811865472;
+                                var ax = feature.properties.style.iconSize[0] * xOffset / 2;
+                                var ay = feature.properties.style.iconSize[1] * yOffset / 2;
+                                feature.properties.style.iconAnchor = [ax, ay];
+                            }
+                            if (pane) {
+                                marker = L.rotatedMarker(latlng, {
+                                    icon: L.icon(feature.properties.style),
+                                    angle: feature.properties.angle,
+                                    pane: pane
+                                });
+                            }
+                            else {
+                                marker = L.rotatedMarker(latlng, {
+                                    icon: L.icon(feature.properties.style),
+                                    angle: feature.properties.angle
+                                });
+                            }
+
+                            break;
+                        case 'star':
+                        case 'square':
+                        case 'triangle':
+                        case 'cross':
+                        case 'diamond':
+                        case 'circle':
+                        case 'line':
+                            var size = 20;
+                            if (feature.properties.style) {
+                                if (feature.properties.style.width) {
+                                    size = parseInt(feature.properties.style.width, 10);
+                                } else if (feature.properties.style.radius) {
+                                    size = feature.properties.style.radius;
+                                }
+                            }
+
+                            if (pane) {
+                                marker = L.marker(latlng, {
+                                    icon: L.icon({
+                                        iconUrl: getIcon(feature.properties.markerType, feature.properties.style),
+                                        iconSize: [size, size],
+                                        iconAnchor: [size / 2, size / 2]
+                                    }),
+                                    pane: pane
+                                });
+                            } else {
+                                marker = L.marker(latlng, {
+                                    icon: L.icon({
+                                        iconUrl: getIcon(feature.properties.markerType, feature.properties.style),
+                                        iconSize: [size, size],
+                                        iconAnchor: [size / 2, size / 2]
+                                    })
+                                });
+                            }
+
+                            break;
+                        default:
+                            alert('Unknown marker Type' + feature.properties.markerType);
+                    }
+
+                    // for some strange reason I cannot get the mousemove to mousemove to propagate through the fire method, so settling with mouseover
+                    marker.on('mouseover', function (e) {
+                        that.fire('mousemove', { 'event': e });
+                    });
+
+                    return marker;
+                },
+
+                pane: pane
+            });
+
+            if (this.fullExtentOnData) {
+                this.fullExtent();
+            }
+
+            this._opacityChanged();
+            this.container.addLayer(this.layer);
+            if (this.labelAlwaysVisible && this.selected) {
+                this.layer.openTooltip();
+            }
+
+            this.fire('layeradded', { 'bounds': this.layer.getBounds() });
+        }
+    },
+
+    detached: function() {
+        this.remove();
+    },
+
+    selectOnMap: function() {
+        this.selectedFeatures = [];
+        for (var i = 0; i < this.features.length; i++) {
+            var feature = this.features[i];
+            if (!this.nameProperty || !feature.feature.properties[this.nameProperty]) {
+                continue;
+            }
+
+            var found = false;
+            if (this.selected) {
+                if (this.selected.constructor !== Array) {
+                    found = feature.feature.properties[this.nameProperty] === this.selected;
+                }
+                else {
+                    found = this.selected.indexOf(feature.feature.properties[this.nameProperty]) > -1;
+                }
+            }
+
+            if (found) {
+                if (feature.feature.properties.styleSelected) {
+                    if (feature.setStyle) {
+                        feature.setStyle(feature.feature.properties.styleSelected);
+                    } else {
+                        if (feature.feature.properties.markerType === 'icon') {
+                            feature.setIcon(L.icon(
+                                feature.feature.properties.styleSelected
+                            ));
+                        } else {
+                            feature.setIcon(L.icon(
+                            {
+                                iconUrl: getIcon(feature.feature.properties.markerType, feature.feature.properties.styleSelected),
+                                iconSize: feature.feature.properties.style.iconSize,
+                                iconAnchor: feature.feature.properties.style.iconAnchor
+                            }));
+                        }
+                    }
+                }
+                this.selectedFeatures.push(feature);
+            }
+            else if (feature.feature.properties.styleUnselected) {
+                if (feature.setStyle) {
+                    feature.setStyle(feature.feature.properties.styleUnselected);
+                } else {
+                    if (feature.feature.properties.markerType === 'icon') {
+                        feature.setIcon(L.icon(
+                            feature.feature.properties.styleUnselected
+                        ));
+                    } else {
+                        feature.setIcon(L.icon(
+                        {
+                            iconUrl: getIcon(feature.feature.properties.markerType, feature.feature.properties.styleUnselected),
+                            iconSize: feature.feature.properties.style.iconSize,
+                            iconAnchor: feature.feature.properties.style.iconAnchor
+                        }));
+                    }
+                }
+            }
+        }
+
+        if (this.selectedFeatures.length > 0 && this.zoomToSelected) {
+            var featureGroup = new L.FeatureGroup(this.selectedFeatures);
+            var bounds = featureGroup.getBounds();
+            if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+                // If just a point it stuffs up
+                var corner1 = L.latLng(bounds.getNorthEast().lat - this.zoomToSelectedPadding / 2, bounds.getNorthEast().lng - this.zoomToSelectedPadding / 2);
+                var corner2 = L.latLng(L.latLng(bounds.getNorthEast().lat + this.zoomToSelectedPadding / 2, bounds.getNorthEast().lng + this.zoomToSelectedPadding / 2));
+                this.container.fitBounds(L.latLngBounds(corner1, corner2));
+            } else {
+                this.container.fitBounds(bounds.pad(this.zoomToSelectedPadding));
+            }
+            this.container.invalidateSize();
+        }
+
+        this.fire('done-selecting');
+    },
+
+    fullExtent: function() {
+        if (this.container && this.layer) {
+            this.container.fitBounds(this.layer.getBounds());
+            this.container.invalidateSize();
+        }
+    },
+
+    bringToFront: function() {
+        if (this.layer) {
+            this.layer.bringToFront();
+        }
+    },
+
+    remove: function() {
+        if (this.container && this.layer) {
+            this.container.removeLayer(this.layer);
+            this.features = [];
+        }
+    }
+});
+</script>

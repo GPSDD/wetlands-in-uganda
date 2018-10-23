@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/leaflet-map/leaflet-map.html'>
+        <link rel='import' href='../../../bower_components/iron-ajax/iron-ajax.html'>
+        <link rel='import' href='../../../bower_components/paper-button/paper-button.html'>
+        <link rel='import' href='../dhi-leaflet-ais.html'>
+        <link rel='import' href='../dhi-leaflet-ais-filter.html'>
+    </head>
+    <body>
+        <dom-module id='demo-element'>
+            <style include='iron-flex iron-positioning iron-flex-alignment'>
+                leaflet-map {
+                    width: 400px;
+                    height: 400px;
+                }
+                dhi-leaflet-ais-filter {
+                    --dhi-leaflet-ais-filter-color: #0D3958
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <div>
+                                <leaflet-map longitude='144' latitude='-27' zoom='4'>
+                                    <dhi-leaflet-ais
+                                        url='data/aisTestTwo.json'
+                                        drifting-url='data/aisTestTwoDrifting.json'
+                                        configuration='{{configuration}}'
+                                        filter='{{filter}}'>
+                                    </dhi-leaflet-ais>
+                                </leaflet-map>
+                            </div>
+                            <div class='vertical layout'>
+                                <dhi-leaflet-ais-filter
+                                    style='width:300px'
+                                    filter='{{filter}}'
+                                    no-draft
+                                    no-length
+                                    ship-type='[0,2]'
+                                    nav-status='[0,1]'>
+                                </dhi-leaflet-ais-filter>
+                                <div>{{stringify(filter)}}</div>
+                            </div>
+                        </div>
+                        <div class='codeContainer'>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'demo-element',
+
+                properties: {
+                    configuration: {
+                        type: Object,
+                        value: function() {
+                            return {
+                                "MMSI": {
+                                    "name": "MMSI",
+                                    "inSelected": true
+                                },
+                                "Longitude": {
+                                    "name": "Longitude",
+                                    "inSelected": true
+                                },
+                                "Latitude": {
+                                    "name": "Latitude",
+                                    "inSelected": true
+                                },
+                                "COG": {
+                                    "name": "Course",
+                                    "inSelected": true
+                                },
+                                "SOG": {
+                                    "name": "Speed",
+                                    "postFix": "knots",
+                                    "inHover": true,
+                                    "inSelected": true
+                                },
+                                "HDG": {
+                                    "name": "Heading",
+                                    "inSelected": true,
+                                    "isHeading": true
+                                },
+                                "ROT": {
+                                    "name": "Rate of Turn",
+                                    "inHover": true,
+                                    "inSelected": true,
+                                    "isRateOfTurn": true
+                                },
+                                "NavStat": {
+                                    "name": "Nav Status",
+                                    "inSelected": true,
+                                    "isNavStatus": true
+                                },
+                                "ObsTime": {
+                                    "name": "Time",
+                                    "inSelected": true,
+                                    "isTime": true
+                                },
+                                "AISName": {
+                                    "name": "Name",
+                                    "inHover": true,
+                                    "inSelected": true
+                                },
+                                "Length": {
+                                    "name": "Length",
+                                    "postFix": "m",
+                                    "inSelected": true,
+                                    "isLength": true
+                                },
+                                "Width": {
+                                    "name": "Width",
+                                    "postFix": "m",
+                                    "inSelected": true,
+                                    "isWidth": true
+                                },
+                                "Draught": {
+                                    "name": "Draught",
+                                    "postFix": "m",
+                                    "inSelected": true,
+                                    "isDraft": true
+                                },
+                                "CallSign": {
+                                    "name": "Call Sign",
+                                    "inSelected": true
+                                },
+                                "Destination": {
+                                    "name": "Country",
+                                    "inSelected": true,
+                                    "isCountry": true
+                                },
+                                "ShipType": {
+                                    "name": "Ship Type",
+                                    "inHover": true,
+                                    "inSelected": true,
+                                    "isShipType": true
+                                },
+                                "IMO": {
+                                    "name": "IMO",
+                                    "inSelected": true
+                                }
+                            }
+                        }
+                    }
+                },
+
+                stringify: function(o) {
+                    return JSON.stringify(o);
+                }
+            });});
+        </script>
+        <demo-element></demo-element>
+    </body>
+</html>
+
+
+

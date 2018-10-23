@@ -1,0 +1,82 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "style": { "width": "40px" }, "markerType": "star"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.425167083740233,
+          55.35423290000803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "style": { "width": "40px" }, "markerType": "square"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.465167083740233,
+          55.35423290000803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "style": { "width": "40px" }, "markerType": "triangle"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.385167083740233,
+          55.35423290000803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "style": { "width": "40px" }, "markerType": "cross"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.425167083740233,
+          55.37423290000803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "style": { "width": "40px" }, "markerType": "diamond"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.465167083740233,
+          55.37423290000803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "style": { "width": "40px" }, "markerType": "circle"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.385167083740233,
+          55.37423290000803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "style": { "width": "40px" }, "markerType": "line"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.425167083740233,
+          55.39423290000803
+        ]
+      }
+    }      
+  ]
+}

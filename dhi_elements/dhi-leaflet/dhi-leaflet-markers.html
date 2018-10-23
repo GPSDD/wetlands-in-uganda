@@ -1,0 +1,182 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-import.html'>
+
+<!--
+DHI Leaflet Markers
+
+`dhi-leaflet-markers` is a leaflet markers component.
+
+Example:
+
+    <dhi-leaflet-markers
+        data='{{data}}'
+        latitude-property='Latitude'
+        longitude-property='Longitude'
+        iconUrl-property='IconUrl'
+        title-property='Name'
+        marker-style='{ 'iconAnchor': '[16, 16]' }'>
+    </dhi-leaflet-markers>
+
+@demo demo/index-dhi-leaflet-markers.html
+-->
+
+<dom-module name='dhi-leaflet-markers'>
+    <template>
+        <style>
+            :host {
+                display: none;
+            }
+        </style>
+    </template>
+</dom-module>
+
+<script>
+'use strict';
+
+Polymer({
+    is: 'dhi-leaflet-markers',
+
+    properties: {
+        container: {
+            type: Object,
+            observer: '_changed'
+        },
+
+        /**
+         * the property in which the latitude is located
+         */
+        latitudeProperty: {
+            type: String,
+            value: '',
+            observer: '_changed'
+        },
+
+        /**
+         * the property in which the longitude is located
+         */
+        longitudeProperty: {
+            type: String,
+            value: '',
+            observer: '_changed',
+            notify: true
+        },
+
+        /**
+         * the property in which the iconUrl is located
+         */
+        iconUrlProperty: {
+            type: String,
+            value: ''
+        },
+
+        /**
+         * the property in which the title is located
+         */
+        titleProperty: {
+            type: String,
+            value: ''
+        },
+
+        /**
+         * data as geojson object
+         */
+        data: {
+            type: Object,
+            value: function() { return []; },
+            observer: '_changed'
+        },
+
+        /**
+         * data as marker style object
+         */
+        markerStyle: {
+            type: Object,
+            value: function() { return {}; }
+        },
+
+        /**
+         * the features
+         */
+        features: {
+            type: Object,
+            value: function() { return []; }
+        },
+
+        /**
+         * decides if enabled
+         */
+        enabled: {
+            type: Boolean,
+            value: true,
+            observer: '_enabledChanged'
+        }
+    },
+
+    go: function() {
+        if (this.container && this.data.length > 0 && this.latitudeProperty && this.longitudeProperty && this.enabled) {
+            for (var i = 0; i < this.data.length; i++) {
+                var latitude = this.data[i][this.latitudeProperty];
+                var longitude = this.data[i][this.longitudeProperty];
+
+                // Extend to allow payload
+                var extendedMarker = L.Marker.extend({ options: { data: {} } });
+                var feature = new extendedMarker([latitude, longitude], {
+                    clickable: true,
+                    opacity: this.opacity,
+                    data: this.data[i]
+                });
+
+                if (this.iconUrlProperty) {
+                    this.markerStyle.iconUrl = this.data[i][this.iconUrlProperty];
+                    feature.options.icon = L.icon(this.markerStyle);
+                }
+
+                if (this.titleProperty) {
+                    feature.options.title = this.data[i][this.titleProperty];
+                }
+
+                // forward events
+                feature.on('click dblclick mousedown mouseover mouseout contextmenu dragstart drag dragend move add remove popupopen popupclose', function(e) {
+                    this.fire(e.type, e);
+                }, this);
+
+                this.features.push(feature);
+            }
+
+            if (this.features.length > 0) {
+                this.featureGroup = L.featureGroup(this.features);
+                this.container.addLayer(this.featureGroup);
+            }
+        }
+    },
+
+    _enabledChanged: function() {
+        if (this.enabled) {
+            this.go();
+        }
+        else {
+            this.detached();
+        }
+    },
+
+    _changed: function(a, b) {
+        this.go();
+    },
+
+    detached: function() {
+        if (this.container) {
+            for (var i = 0; i < this.features.length; i++) {
+                this.container.removeLayer(this.features[i]);
+            }
+            this.features = [];
+        }
+    },
+
+    fullExtent: function() {
+        if (this.featureGroup) {
+            this.container.fitBounds(this.featureGroup.getBounds());
+        }
+    }
+});
+</script>
+

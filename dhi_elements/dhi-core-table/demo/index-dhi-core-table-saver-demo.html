@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+    <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+    <link rel='import' href='../../../bower_components/paper-button/paper-button.html'>
+    <link rel='import' href='../dhi-core-table-saver.html'>
+    <link rel='import' href='../dhi-core-table.html'>
+    <link rel='import' href='../../dhi-data-table/dhi-data-table.html'>
+</head>
+
+<body>
+    <dom-module id='demo-element'>
+        <style>
+            dhi-data-table {
+              width: 50%;
+            }
+            .padded {
+                padding: 20px;
+                width: 1000px;
+            }
+            .elementContainer {
+                padding: 20px;
+            }
+            .codeContainer {
+                margin: 10px;
+                padding: 20px;
+                background-color: #EEEEEE;
+            }
+            .flex-center-justified {
+                @apply(--layout-horizontal);
+                @apply(--layout-center-justified);
+            }
+        </style>
+        <template>
+            <div class='flex-center-justified'>
+                <div class="vertical layout padded">
+                    <div class='elementContainer'>
+                        <dhi-data-table
+                            data={{data}}
+                            no-ink
+                            cell-styles=[[cellStyles]]>
+                        </dhi-data-table>
+                        <dhi-core-table-saver
+                            data-source=[[dataSource]]
+                            data=[[saveData]]
+                            user-name=[[userName]]
+                            password=[[password]]>
+                        </dhi-core-table-saver>
+                        <dhi-core-table
+                            return-raw-response
+                            data-source=[[dataSourceRead]]
+                            data={{rawData}}>
+                        </dhi-core-table>
+                        <paper-button toggles raised on-tap='_saveSpreadSheet'>Save spread sheet</paper-button>
+                    </div>
+                    <div class='codeContainer'>
+                        &lt;dhi-core-table-saver
+                            data-source=[[dataSource]]
+                            data=[[saveData]]&gt;
+                        &lt;/dhi-core-table-saver&gt;
+                    </div>
+                </div>
+            </div>
+        </template>
+    </dom-module>
+    <script>
+        Polymer({
+            is: 'demo-element',
+
+            properties: {
+                userName: {
+                    type: String,
+                    value: 'admin'
+                },
+
+                password: {
+                    type: String,
+                    value: 'webapi'
+                },
+
+                dataSource: {
+                    type: Object,
+                    value: {
+                        host: 'http://localhost/test2',
+                        connection: 'mclite-ws1-sps',
+                        spreadsheet: '/MyGroup/MySubGroup/dialog'
+                    }
+                },
+
+                dataSourceRead: {
+                    type: Object,
+                    value: {
+                        host: 'http://localhost/test2',
+                        connection: 'mclite-ws1-sps',
+                        spreadsheet: '/MyGroup/MySubGroup/dialog',
+                        type: 'spreadsheet',
+                        sheet: 'Sheet1',
+                        //range: 'R0C0,R14C2' CAN SPECIFY RANGE HERE
+                    }
+                },
+
+                rawData: {
+                    type: Array,
+                    value: function() {
+                        return []
+                    },
+                    observer: '_changed'
+                },
+
+                data: {
+                    type: Array,
+                    value: function() {
+                        return []
+                    }
+                },
+
+                saveData: {
+                    type: Array,
+                    value: function() {
+                        return []
+                    }
+                },
+
+                cellStyles: {
+                    type: Object,
+                    value: function() {
+                        return {
+                            A1: {
+                                style: 'background-color:brown'
+                            },
+                            B1: {
+                                style: 'background-color:brown'
+                            },
+                            C1: {
+                                style: 'background-color:brown'
+                            },
+                            A2: {
+                                style: 'background-color:yellow'
+                            },
+                            B2: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C2: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A3: {
+                                style: 'background-color:lightgrey'
+                            },
+                            B3: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C3: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A4: {
+                                style: 'background-color:lightgrey'
+                            },
+                            B4: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C4: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A6: {
+                                style: 'background-color:yellow'
+                            },
+                            B6: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C6: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A7: {
+                                style: 'background-color:lightgrey'
+                            },
+                            B7: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C7: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A8: {
+                                style: 'background-color:lightgrey'
+                            },
+                            B8: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C8: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A9: {
+                                style: 'background-color:lightgrey'
+                            },
+                            B9: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C9: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A10: {
+                                style: 'background-color:lightgrey'
+                            },
+                            B10: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C10: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A11: {
+                                style: 'background-color:lightgrey'
+                            },
+                            B11: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C11: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A12: {
+                                style: 'background-color:lightgrey'
+                            },
+                            B12: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C12: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A14: {
+                                style: 'background-color:yellow'
+                            },
+                            B14: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C14: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                            A15: {
+                                style: 'background-color:lightgrey'
+                            },
+                            B15: {
+                                style: 'background-color:lightgrey'
+                            },
+                            C15: {
+                                style: 'background-color:orange;border-bottom: 1px solid;border-top: 1px solid;border-right: 1px solid;border-left: 1px solid',
+                                editable: true
+                            },
+                        }
+                    }
+                }
+            },
+
+            _changed: function() {
+                if (this.rawData.length > 0){
+                   var data = [];
+                   for (row of this.rawData)
+                   {
+                       var rowObject = {};
+                       rowObject.data = [];
+                       for (val of row)
+                       {
+                            rowObject.data.push({value: val});
+                       }
+                       data.push(rowObject);
+                   }
+                   this.data = data;
+                }
+            },
+
+            _saveSpreadSheet: function() {
+                this.saveData = null;
+                this.saveData = this.data;
+                //this.set('saveData', 'data');
+            }
+        });
+
+    </script>
+    <demo-element></demo-element>
+</body>
+
+</html>

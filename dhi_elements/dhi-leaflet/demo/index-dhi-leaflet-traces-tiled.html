@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/leaflet-map/leaflet-map.html'>
+        <link rel='import' href='../../../bower_components/iron-ajax/iron-ajax.html'>
+        <link rel='import' href='../../../dhi_elements/dhi-layer-control/dhi-layer-control.html'>
+        <link rel='import' href='../dhi-leaflet-traces.html'>
+    </head>
+    <body>
+        <dom-module id='dhi-leaflet-traces-sample'>
+            <style include='iron-flex iron-flex-alignment iron-flex-factors'>
+                leaflet-map {
+                    width: 400px;
+                    height: 400px;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <iron-ajax auto url='data/marine.json' headers='{ "Content-Type": "application/json" }' handle-as='json' last-response='{{data}}'></iron-ajax>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='-35.15' longitude='131.8' zoom='5'>
+                                <dhi-leaflet-traces
+                                    url='/webapi/api/OzSeaTraces/GetTraceData'
+                                    project-id='singleglobal'
+                                    date-time='2017-11-15T04:30:00'
+                                    color-gradient='[ {"value": 0, "color": "#00FF00"},
+                                                      {"value": 127, "color": "#FFFF00"},
+                                                      {"value": 255, "color": "#FF00FF"}]'
+                                    trace-width='2'
+                                    trace-speed='2'
+                                    particles='5000'
+                                    enabled='{{checked}}'
+                                    opacity='{{opacity}}'
+                                    legend-gradient='{{legendGradient}}'>
+                                </dhi-leaflet-traces>
+                            </leaflet-map>
+                            <dhi-layer-control
+                                name='MyLayer'
+                                checked='{{checked}}'
+                                opacity='{{opacity}}'
+                                legend-gradient='{{legendGradient}}'>
+                            </dhi-layer-control>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-traces
+                                url='/webapi/api/OzSeaTraces/GetTraceData'
+                                project-id='singleglobal'
+                                date-time='2017-11-15T04:30:00'
+                                color-gradient='[ {"value": 0, "color": "#00FF00"},
+                                                  {"value": 127, "color": "#FFFF00"},
+                                                  {"value": 255, "color": "#FF00FF"}]'
+                                trace-width='2'
+                                trace-speed='2'
+                                particles='5000'
+                                enabled='{{checked}}'
+                                opacity='{{opacity}}'
+                                legend-gradient='{{legendGradient}}'&gt;
+                            &lt;/dhi-leaflet-traces&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'dhi-leaflet-traces-sample',
+
+                properties: {
+                    opacity: {
+                        type: Number,
+                        value: 1
+                    },
+
+                    checked: {
+                        type: Boolean,
+                        value: true
+                    }
+                }
+            });});
+        </script>
+        <dhi-leaflet-traces-sample></dhi-leaflet-traces-sample>
+    </body>
+</html>
+
+
+

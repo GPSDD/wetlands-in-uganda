@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/paper-radio-group/paper-radio-group.html'>
+        <link rel='import' href='../../../bower_components/paper-radio-button/paper-radio-button.html'>
+        <link rel='import' href='../dhi-localize.html'>
+    </head>
+    <body>
+        <dom-module id='demo-element'>
+            <style>
+                body {
+                    font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+                    font-size: 16px;
+                    -webkit-tap-highlight-color: rgba(0,0,0,0);
+                    -webkit-touch-callout: none;
+                    font-family: 'calibri', 'Roboto', sans-serif;
+                    color: black;
+                    margin: 0px;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <dhi-localize id='localizationElement' url='{{localizeUrl}}' on-is-ready-changed='_localizationReady'></dhi-localize>
+                            <div class='vertical layout'>
+                                <div>{{getLocalized(language, "Bathing Water")}}</div>
+                                <br>
+                                <div>{{getLocalized(language, "Save")}}</div>
+                                <br>
+                                <div>{{getLocalized(language, "Disbanded")}}</div>
+                                <br>
+                                <div class='localizable' localizeInput='RetrievingPULSDataWaitMessage' style='padding-top:10px'>Henter PULS Data<br>Dette kan tage adskillige minutter<br><br></div>
+                                <paper-radio-group selected$={{language}} on-change='languageChanged'>
+                                    <paper-radio-button name="en">English</paper-radio-button>
+                                    <paper-radio-button name="dk">Danish</paper-radio-button>
+                                </paper-radio-group>
+                            </div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-localize id='localizationElement' url='{{localizeUrl}}' on-is-ready-changed='_localizationReady'&gt;&lt;/dhi-localize&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'demo-element',
+
+                properties: {
+                    localizeUrl: {
+                        type: String,
+                        value: 'demoLocalizationInfo.json'
+                    }
+                },
+
+                ready: function() {
+                },
+
+                getLocalized: function(language, key, valueArray) {
+                    return this.$.localizationElement.getLocalized(language, key, valueArray);
+                },
+
+                languageChanged: function(e) {
+                    this.language = e.target.name;
+
+                    var localizableElements = document.querySelectorAll('.localizable');
+                    for (var i = 0; i < localizableElements.length; i++) {
+                        localizableElements[i].innerHTML = this.$.localizationElement.getLocalized(this.language, localizableElements[i].getAttribute('localizeInput'));
+                    }
+                },
+
+                _localizationReady: function(e) {
+                    if (e.detail.value) {
+                        this.language = 'en';
+                    }
+                    var localizableElements = document.querySelectorAll('.localizable');
+                    for (var i = 0; i < localizableElements.length; i++) {
+                        localizableElements[i].innerHTML = this.$.localizationElement.getLocalized(this.language, localizableElements[i].getAttribute('localizeInput'));
+                    }
+                }
+            });});
+        </script>
+        <demo-element></demo-element>
+    </body>
+</html>

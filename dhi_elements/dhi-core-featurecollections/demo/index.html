@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+    <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+    <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+    <link rel='import' href='../dhi-core-featurecollections.html'>
+</head>
+
+<body>
+    <dom-module id='demo-element'>
+        <style>
+            .padded {
+                padding: 20px;
+                width: 1000px;
+            }
+            .elementContainer {
+                height: 500px;
+            }
+            .codeContainer {
+                padding: 20px;
+                background-color: #EEEEEE;
+            }
+            .flex-center-justified {
+                @apply(--layout-horizontal);
+                @apply(--layout-center-justified);
+            }
+        </style>
+        <template>
+            <div class='flex-center-justified'>
+                <div class="vertical layout padded">
+                    <dhi-core-featurecollections
+                        data-source='{"host": "http://hofor.dhigroup.com/api", "connection": "HOFOR-GIS", "id": "SkybrudsProjekter.shp", "filter": { "name": "Projekt_ID", "value": "KV1" }}'
+                        data-source1='{"host": "http://greve.dhigroup.com", "connection": "mc-gis", "id": "ModelExtent"}'
+                        data-source2='{"host": "http://localhost/webapi", "connection": "Kerian-gis", "ids": ["/KerianRiverUTM47N", "/BukitMerahReservoir_UTM47N"]}'
+                        data-source3='{"host": "http://localhost/webapi", "connection": "test", "id": "/TestFC" }'
+                        data='{{data}}'>
+                    </dhi-core-featurecollections>
+                    <textarea style='height:500px; width:500px' value='{{stringify(data)}}'></textarea>
+                    <div>{{data.features.length}}</div>
+                    <div class='codeContainer'>
+                        &lt;dhi-core-featurecollections
+                            data-source='{"host": "http://hofor.dhigroup.com/api", "connection": "HOFOR-GIS", "id": "SkybrudsProjekter.shp", "filter": { "name": "Projekt_ID", "value": "KV1" }}'
+                            data-source1='{"host": "http://greve.dhigroup.com", "connection": "mc-gis", "id": "ModelExtent"}'
+                            data-source2='{"host": "http://localhost/webapi", "connection": "Kerian-gis", "ids": ["/KerianRiverUTM47N", "/BukitMerahReservoir_UTM47N"]}'
+                            data-source3='{"host": "http://localhost/webapi", "connection": "test", "id": "/TestFC" }'
+                            data='{{data}}'&gt;
+                        &lt;/dhi-core-featurecollections&gt;
+                    </div>
+                </div>
+            </div>
+        </template>
+    </dom-module>
+    <script>
+        Polymer({
+            is: 'demo-element',
+
+            stringify: function(data) {
+                return JSON.stringify(data);
+            }
+        });
+
+    </script>
+    <demo-element></demo-element>
+</body>
+
+</html>

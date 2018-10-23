@@ -1,0 +1,970 @@
+{
+    "ClassificationConfirmation": {
+        "en-US": "Are you sure you want to perform classification for this station for this year? If you answer yes, you will not be able to make further corrections for this season. When you answer yes, all field measurements with the status Open will be set to Approved",
+        "da-DK": "Er du sikker på du vil gennemføre klassifikation for denne station for i år? Hvis du svarer ja har du ingen mulighed for at foretage yderligere rettelser for denne sæson. Når du svarere ja vil alle feltmålinger med status Åben blive sat til Godkendt"
+    },
+    "Ja": {
+        "en-US": "Yes",
+        "da-DK": "Ja"
+    },
+    "Nej": {
+        "en-US": "No",
+        "da-DK": "Nej"
+    },
+    "Ok": {
+        "en-US": "Ok",
+        "da-DK": "Ok"
+    },
+    "Cancel": {
+        "en-US": "Cancel",
+        "da-DK": "Fortryd"
+    },
+    "ExclusionDescription": {
+        "en-US": "Exclusion description",
+        "da-DK": "Eksklusionsbeskrivelse"
+    },
+    "PULSDataReloadConfirmation": {
+        "en-US": "This will delete the internal layer in Mermaid where data for your municipality for previous years is saved. This may be necessary if the data Mermaid received from PULS is incorrect. Subsequently, the website will automatically be reloaded, whereby data will be retrieved from PULS and stored in the warehouse. Are you sure you want to continue?",
+        "da-DK": "Dette vil slette det interne lager i Mermaid hvor data for din kommune for tidligere år er gemt. Dette kan være nødvendig hvis de data Mermaid har modtaget fra PULS er forkerte. Efterfølgende vil hjemmesiden automatisk genlæses hvorved data igen hentes fra PULS og gemmes i lageret. Er du sikker på at du vil fortsætte?"
+    },
+    "RetrievingPULSDataWaitMessage": {
+        "en-US": "Retrieving PULS Data<br>This may take several minutes<br><br>",
+        "da-DK": "Henter PULS Data<br>Dette kan tage adskillige minutter<br><br>"
+    },
+    "RequestingPULSForData": {
+        "en-US": "We are currently making a request for PULS with<br>your municipality number to get a list of stations with<br>previous ratings back.",
+        "da-DK": "Vi foretager lige nu en forespørgsel til PULS med<br>dit kommunenummer for at få en liste af stationer med<br>tidligere klassifikationer tilbage."
+    },
+    "Last updated {0}": {
+        "en-US": "Last updated {0}",
+        "da-DK": "Sidst opdateret {0}"
+    },
+    "PageRefreshMessage": {
+        "en-US": "TO BE SURE YOU HAVE THE LATEST VERSION, PRESS CTRL + R",
+        "da-DK": "FOR AT VÆRE SIKKER PÅ AT DU HAR DEN SENESTE VERSION SKAL DU TRYKKE CTRL+R"
+    },
+    "OldMermaidSide": {
+        "en-US": "The old mermaid page",
+        "da-DK": "Den gamle Mermaid side"
+    },
+    "Stations": {
+        "en-US": "Stations",
+        "da-DK": "Stationer"
+    },
+    "Klassifikation": {
+        "en-US": "Classification",
+        "da-DK": "Klassifikation"
+    },
+    "Løbende Kontrol": {
+        "en-US": "Continuous control ",
+        "da-DK": "Løbende Kontrol "
+    },
+    "Kontrolstationer vist": {
+        "en-US": "Control stations shown",
+        "da-DK": "Kontrolstationer vist"
+    },
+    "Kontrolstationer skjult": {
+        "en-US": "Control stations hidden",
+        "da-DK": "Kontrolstationer skjult"
+    },
+    "Nedlagte stationer vist": {
+        "en-US": "Closed stations shown",
+        "da-DK": "Nedlagte stationer vist"
+    },
+    "Nedlagte stationer skjult": {
+        "en-US": "Closed stations hidden",
+        "da-DK": "Nedlagte stationer skjult"
+    },
+    "WelcomeUser": {
+        "en-US": "Welcome {0}",
+        "da-DK": "Velkommen {0}"
+    },
+    "PULSDataRetrieveError": {
+        "en-US": "There were problems in PULS by retrieving data for {0} stations and years. See the error messages on the management page and correct data in PULS",
+        "da-DK": "Der var problemer i PULS ved hentning af data for {0} stationer og år. Se fejlmeddelelserne på administrationssiden og ret data i PULS"
+    },
+    "SeasonalAnalyser": {
+        "en-US": "Seasonal analyzer: {0} / {1}. {2}",
+        "da-DK": "Analyser indenfor sæson: {0} / {1}. {2}"
+    },
+    "LastMeasurementBelowLimit": {
+        "en-US": "Last measurement below limit value",
+        "da-DK": "Sidste måling under grænseværdi"
+    },
+    "LastMeasurementAboveLimit": {
+        "en-US": "Last measurement above limit value",
+        "da-DK": "Sidste måling over grænseværdi"
+    },
+    "LastMeasurementNotInThisSeason": {
+        "en-US": "Last measurement not in this season",
+        "da-DK": "Sidste måling ikke i indeværende sæson"
+    },
+    "Fine": {
+        "en-US": "Fine",
+        "da-DK": "Udmærket"
+    },
+    "Ranked)": {
+        "en-US": "Ranked)",
+        "da-DK": "Klassificeret)"
+    },
+    "Good": {
+        "en-US": "Good",
+        "da-DK": "God"
+    },
+    "Satisfying": {
+        "en-US": "Satisfying",
+        "da-DK": "Tilfredsstillende"
+    },
+    "Call": {
+        "en-US": "Call",
+        "da-DK": "Ringe"
+    },
+    "InsufficientDataset": {
+        "en-US": "Insufficient data set",
+        "da-DK": "Utilstrækkeligt datasæt"
+    },
+    "StationDisbanded": {
+        "en-US": "Station Disbanded",
+        "da-DK": "Station Nedlagt"
+    },
+    "DataMissing": {
+        "en-US": "Data missing",
+        "da-DK": "Data mangler"
+    },
+    "Classifications:": {
+        "en-US": "Classifications:",
+        "da-DK": "Klassifikationer:"
+    },
+    "LatestResults": {
+        "en-US": "Latest Results",
+        "da-DK": "Seneste Resultater"
+    },
+    "Intestinal enterokokker": {
+        "en-US": "Intestinal enterococci",
+        "da-DK": "Intestinal enterokokker"
+    },
+    "Intestinal Enterokokker": {
+        "en-US": "Intestinal Enterococci",
+        "da-DK": "Intestinal Enterokokker"
+    },
+    "Result": {
+        "en-US": "Result",
+        "da-DK": "Resultat"
+    },
+    "Disbanded": {
+        "en-US": "Disbanded: {0}",
+        "da-DK": "Nedlagt: {0}"
+    },
+    "Disbanded:": {
+        "en-US": "Disbanded: ",
+        "da-DK": "Nedlagt: "
+    },
+    "DataExclusionDescription": {
+        "en-US": "Now we ask the stations to get results<br>First time we do it for previous years as we store in Mermaid<br>The query includes both field measurements, samples and analysis results<br>Once we have downloaded all data, we link Them together so it is possible to track for example. An E.coli result for the field measurement it is part of<br>It is thus possible for you to exclude data that does not have to be included in the calculation of the classification.",
+        "da-DK": "Nu spørger vi på stationerne for at få resultater tilbage<br>Første gang gør vi det også for tidligere år som vi gemmer i Mermaid<br>Forespørgslen inkluderer både feltmålinger, prøver og analyseresultater<br>Når vi har hentet alle data, kæder vi dem sammen så det er muligt<br>at spore f.eks. et E.coli resultat til den feltmåling, den er en del af<br>Det er således muligt for dig at ekskludere<br>data, der ikke skal med i beregningerne af klassifikationen."
+    },
+    "ClassifiesInPULS": {
+        "en-US": "Classifies in PULS",
+        "da-DK": "Klassificerer i PULS"
+    },
+    "ResultApproveMessage": {
+        "en-US": "Now we approve the results that have not already been approved<br>and make the final classification of the station.",
+        "da-DK": "Nu godkender vi de resultater der ikke allerede er godkendt<br>samt laver den endelige klassifikation af stationen."
+    },
+    "UpdatesPULSData": {
+        "en-US": "Updates PULS data",
+        "da-DK": "Opdaterer PULS data"
+    },
+    "Measurements": {
+        "en-US": "Measurements",
+        "da-DK": "Målinger"
+    },
+    "Vis færre målinger": {
+        "en-US": "Show fewer measurements",
+        "da-DK": "Vis færre målinger"
+    },
+    "Vis flere målinger": {
+        "en-US": "Show more measurements",
+        "da-DK": "Vis flere målinger"
+    },
+    "Vis færre måleresultater": {
+        "en-US": "Show fewer results",
+        "da-DK": "Vis færre måleresultater"
+    },
+    "Vis flere måleresultater": {
+        "en-US": "Show more results",
+        "da-DK": "Vis flere måleresultater"
+    },
+    "StationIsReadyForSeason": {
+        "en-US": "The station is ready for this season and no further changes can be made",
+        "da-DK": "Stationen er færdigklassificeret for indeværende sæson og der kan ikke foretages yderligere ændringer"
+    },
+    "15%RuleReminder": {
+        "en-US": "If you exclude data, be aware of the 15% rule. See the instructions",
+        "da-DK": "Hvis du udelukker data skal du være opmærksom på 15% reglen. Se vejledningen"
+    },
+    "Limits": {
+        "en-US": "Limits",
+        "da-DK": "Grænseværdier"
+    },
+    "Custom": {
+        "en-US": "Custom",
+        "da-DK": "Brugerdefineret"
+    },
+    "Notice": {
+        "en-US": "The Notice",
+        "da-DK": "Bekendtgørelsen"
+    },
+    "MedicalOfficer": {
+        "en-US": "Medical officer of health",
+        "da-DK": "Embedslægen"
+    },
+    "Save": {
+        "en-US": "Save",
+        "da-DK": "Gem"
+    },
+    "BackgroundMap": {
+        "en-US": "Background map",
+        "da-DK": "Baggrundskort"
+    },
+    "Map1": {
+        "en-US": "Map 1",
+        "da-DK": "Kort 1"
+    },
+    "Map2": {
+        "en-US": "Map 2",
+        "da-DK": "Kort 2"
+    },
+    "Map3": {
+        "en-US": "Map 3",
+        "da-DK": "Kort 3"
+    },
+    "Map4": {
+        "en-US": "Map 4",
+        "da-DK": "Kort 4"
+    },
+    "Satellite": {
+        "en-US": "Satellite",
+        "da-DK": "Satellit"
+    },
+    "CommaSeparatedListOfLayers": {
+        "en-US": "Comma separated list of layers from the Card Supply.",
+        "da-DK": "Komma separeret liste af lag fra Kort Forsyningen."
+    },
+    "AvailableLayers": {
+        "en-US": "The following layers are available: base_ortofoto, house number_ortofoto, roadfront_ortofoto, base_card, house number_basis_card, nature, traffic, technology, supplement, high curve, county council, municipality, name_basis_card, name_basis_ortofoto",
+        "da-DK": "Følgende lag findes: basis_ortofoto, husnummer_ortofoto, vejkant_ortofoto, basis_kort, husnummer_basis_kort, natur, trafik, teknik, supplement, hoejdekurve, matrikelskel, kommunegraense, navne_basis_kort, navne_basis_ortofoto"
+    },
+    "Report": {
+        "en-US": "Report",
+        "da-DK": "Rapporter"
+    },
+    "ProduceReportForAllStations": {
+        "en-US": "Produce Mermaid reports for all bathing stations",
+        "da-DK": "Producer Mermaid rapporter for alle Badevandsstationer"
+    },
+    "BathingStations": {
+        "en-US": "Bathing Stations",
+        "da-DK": "Badevandsstationer"
+    },
+    "ProduceReportForAllControlStations": {
+        "en-US": "Produce Mermaid report for all control stations",
+        "da-DK": "Producer Mermaid rapporter for alle Kontrolstationer"
+    },
+    "ControlStations": {
+        "en-US": "Control stations",
+        "da-DK": "Kontrolstationer"
+    },
+    "RegisterOwnLogo": {
+        "en-US": "Register your own logo for Blue Flag reports. This logo must have an aspect ratio between width and height of 15 and will be scaled to sit at the top of the report",
+        "da-DK": "Registrer eget logo til Blå Flag rapporter. Dette logo skal have et aspekt forhold mellem bredde og højde på 15 og vil blive skaleret til at sidde i toppen af rapporten"
+    },
+    "ProduceCSVFileForAllStations": {
+        "en-US": "Produce csv file for all stations",
+        "da-DK": "Producer csv fil for alle stationer"
+    },
+    "Fetch": {
+        "en-US": "Fetch",
+        "da-DK": "Hent"
+    },
+    "Historic": {
+        "en-US": "Historic",
+        "da-DK": "Historik"
+    },
+    "NumberOfYearsToLookBack": {
+        "en-US": "Specify the number of years Mermaid must look back",
+        "da-DK": "Specificer antallet af år Mermaid skal kigge tilbage"
+    },
+    "LongHistoryIE11SpeedSlow": {
+        "en-US": "With long history, the speed of Internet Explorer 11 may be reduced",
+        "da-DK": "Med lang historie kan hastigheden i Internet Explorer 11 være nedsat"
+    },
+    "UserGuide": {
+        "en-US": "User guide",
+        "da-DK": "Brugervejledning"
+    },
+    "OpenUserGuide": {
+        "en-US": "Open user guide",
+        "da-DK": "Åben brugervejledning"
+    },
+    "OpenFAQ": {
+        "en-US": "Open FAQ",
+        "da-DK": "Åben FAQ"
+    },
+    "Open": {
+        "en-US": "Open",
+        "da-DK": "Åben"
+    },
+    "SystemMessages": {
+        "en-US": "System messages",
+        "da-DK": "Systembeskeder"
+    },
+    "DeleteLayer": {
+        "en-US": "Delete layer",
+        "da-DK": "Slet lager"
+    },
+    "AllowsToDeleteDataOfYourMunicipality": {
+        "en-US": "Allows you to delete Mermaid's stock for your municipality. This can be done if the data Mermaid previously received from PULS is incorrect. Subsequent, Mermaid will reload data.",
+        "da-DK": "Giver mulighed for at slette Mermaids lager for din kommune. Dette kan du gøre, hvis de data Mermaid tidligere har modtaget fra PULS er forkerte. Efterfølgende vil Mermaid genlæse data."
+    },
+    "Delete": {
+        "en-US": "Delete",
+        "da-DK": "Slet"
+    },
+    "StationsInformation": {
+        "en-US": "Stations information",
+        "da-DK": "Stationsinformation"
+    },
+    "Name:": {
+        "en-US": "Name:",
+        "da-DK": "Navn:"
+    },
+    "SeaOrLake:": {
+        "en-US": "Sea or Lake:",
+        "da-DK": "Hav eller Sø:"
+    },
+    "Created:": {
+        "en-US": "Created:",
+        "da-DK": "Oprettet:"
+    },
+    "Stationstype:": {
+        "en-US": "Stations type:",
+        "da-DK": "Stationstype:"
+    },
+    "East:": {
+        "en-US": "East:",
+        "da-DK": "Øst:"
+    },
+    "WaterArea:": {
+        "en-US": "Water area:",
+        "da-DK": "Vandområde:"
+    },
+    "North:": {
+        "en-US": "North:",
+        "da-DK": "Nord:"
+    },
+    "Vis mindre information": {
+        "en-US": "Show less information",
+        "da-DK": "Vis mindre information"
+    },
+    "Vis mere information": {
+        "en-US": "Show more information",
+        "da-DK": "Vis mere information"
+    },
+    "MainStation:": {
+        "en-US": "Main station:",
+        "da-DK": "Hovedstation:"
+    },
+    "Bi-station:": {
+        "en-US": "Sub-station:",
+        "da-DK": "Bi-station:"
+    },
+    "DownloadBathingWaterProfile": {
+        "en-US": "Download bathing water profile",
+        "da-DK": "Hent badevandsprofil"
+    },
+    "NoBathingWaterProfile": {
+        "en-US": "No bathing water profile",
+        "da-DK": "Ingen badevandsprofil"
+    },
+    "GroupNumber:": {
+        "en-US": "Group number:",
+        "da-DK": "Gruppenummer:"
+    },
+    "BlueFlag": {
+        "en-US": "Blue Flag",
+        "da-DK": "Blå Flag"
+    },
+    "ExtendedSeason": {
+        "en-US": "Extended Season",
+        "da-DK": "Udviddet Sæson"
+    },
+    "NumberOfSamples": {
+        "en-US": "Number of samples",
+        "da-DK": "Antal Prøver"
+    },
+    "90Percentile": {
+        "en-US": "90% Percentile",
+        "da-DK": "90% Percentil"
+    },
+    "95Percentile": {
+        "en-US": "95% Percentile",
+        "da-DK": "95% Percentil"
+    },
+    "YearsControl": {
+        "en-US": "Year's control ",
+        "da-DK": "Årskontrol "
+    },
+    "Ikke oplyst": {
+        "en-US": "Not informed",
+        "da-DK": "Ikke oplyst"
+    },
+    "0-10 badende": {
+        "en-US": "0-10 bathing",
+        "da-DK": "0-10 badende"
+    },
+    "11-20 badende": {
+        "en-US": "11-20 bathing",
+        "da-DK": "11-20 badende"
+    },
+    "21-50 badende": {
+        "en-US": "21-50 bathing",
+        "da-DK": "21-50 badende"
+    },
+    "51-100 badende": {
+        "en-US": "51-100 bathing",
+        "da-DK": "51-100 badende"
+    },
+    "101-200 badende": {
+        "en-US": "101-200 bathing",
+        "da-DK": "101-200 badende"
+    },
+    "201-500 badende": {
+        "en-US": "201-500 bathing",
+        "da-DK": "201-500 badende"
+    },
+    "501-1000 badende": {
+        "en-US": "501-1000 bathing",
+        "da-DK": "501-1000 badende"
+    },
+    ">1000 badende": {
+        "en-US": ">1000 bathing",
+        "da-DK": ">1000 badende"
+    },
+    "Ingen nedbør": {
+        "en-US": "No rainfall",
+        "da-DK": "Ingen nedbør"
+    },
+    "Nogen nedbør": {
+        "en-US": "Some rainfall",
+        "da-DK": "Nogen nedbør"
+    },
+    "Megen nedbør": {
+        "en-US": "Much rainfall",
+        "da-DK": "Megen nedbør"
+    },
+    "1/8 af himlen dækket af skyer": {
+        "en-US": "1/8 of the sky covered in clouds",
+        "da-DK": "1/8 af himlen dækket af skyer"
+    },
+    "2/8 af himlen dækket af skyer": {
+        "en-US": "2/8 of the sky covered in clouds",
+        "da-DK": "2/8 af himlen dækket af skyer"
+    },
+    "3/8 af himlen dækket af skyer": {
+        "en-US": "3/8 of the sky covered in clouds",
+        "da-DK": "3/8 af himlen dækket af skyer"
+    },
+    "4/8 af himlen dækket af skyer": {
+        "en-US": "4/8 of the sky covered in clouds",
+        "da-DK": "4/8 af himlen dækket af skyer"
+    },
+    "5/8 af himlen dækket af skyer": {
+        "en-US": "5/8 of the sky covered in clouds",
+        "da-DK": "5/8 af himlen dækket af skyer"
+    },
+    "6/8 af himlen dækket af skyer": {
+        "en-US": "6/8 of the sky covered in clouds",
+        "da-DK": "6/8 af himlen dækket af skyer"
+    },
+    "7/8 af himlen dækket af skyer": {
+        "en-US": "7/8 of the sky covered in clouds",
+        "da-DK": "7/8 af himlen dækket af skyer"
+    },
+    "8/8 af himlen dækket af skyer": {
+        "en-US": "8/8 of the sky covered in clouds",
+        "da-DK": "8/8 af himlen dækket af skyer"
+    },
+    "Skyfrit": {
+        "en-US": "Cloudless",
+        "da-DK": "Skyfrit"
+    },
+    "Vindstille eller næsten vindstille": {
+        "en-US": "Windy or almost windy",
+        "da-DK": "Vindstille eller næsten vindstille"
+    },
+    "Svag vind": {
+        "en-US": "Weak wind",
+        "da-DK": "Svag vind"
+    },
+    "Let vind": {
+        "en-US": "Light wind",
+        "da-DK": "Let vind"
+    },
+    "Jævn vind": {
+        "en-US": "Smooth wind",
+        "da-DK": "Jævn vind"
+    },
+    "Frisk vind": {
+        "en-US": "Fresh wind",
+        "da-DK": "Frisk vind"
+    },
+    "Hård vind": {
+        "en-US": "Hard wind",
+        "da-DK": "Hård vind"
+    },
+    "Stiv kuling": {
+        "en-US": "Stiff breeze",
+        "da-DK": "Stiv kuling"
+    },
+    "Hård kuling": {
+        "en-US": "Hard breeze",
+        "da-DK": "Hård kuling"
+    },
+    "Stormende kuling": {
+        "en-US": "Storming bullet",
+        "da-DK": "Stormende kuling"
+    },
+    "Storm": {
+        "en-US": "Storm",
+        "da-DK": "Storm"
+    },
+    "Stærk storm": {
+        "en-US": "Strong storm",
+        "da-DK": "Stærk storm"
+    },
+    "Orkan": {
+        "en-US": "Hurricane",
+        "da-DK": "Orkan"
+    },
+    "Misfarvning": {
+        "en-US": "Discoloration",
+        "da-DK": "Misfarvning"
+    },
+    "Synlig film af mineralolie": {
+        "en-US": "Visible film of mineral oil",
+        "da-DK": "Synlig film af mineralolie"
+    },
+    "Vedvarende skum af overfladeaktive stoffer": {
+        "en-US": "Persistent foam of surfactants",
+        "da-DK": "Vedvarende skum af overfladeaktive stoffer"
+    },
+    "Lugt af phenol": {
+        "en-US": "Odor of phenol",
+        "da-DK": "Lugt af phenol"
+    },
+    "Tjærerester": {
+        "en-US": "Tarry residues",
+        "da-DK": "Tjærerester"
+    },
+    "Træstykker": {
+        "en-US": "Wood pieces",
+        "da-DK": "Træstykker"
+    },
+    "Plast": {
+        "en-US": "Plastic",
+        "da-DK": "Plast"
+    },
+    "Flasker": {
+        "en-US": "Bottles",
+        "da-DK": "Flasker"
+    },
+    "Skår": {
+        "en-US": "Swath",
+        "da-DK": "Skår"
+    },
+    "Andet": {
+        "en-US": "Other",
+        "da-DK": "Andet"
+    },
+    "Udmærket badevandskvalitet": {
+        "en-US": "Excellent bathing water quality",
+        "da-DK": "Udmærket badevandskvalitet"
+    },
+    "God badevandskvalitet": {
+        "en-US": "Good bathing water quality",
+        "da-DK": "God badevandskvalitet"
+    },
+    "Tvivlsom badevandskvalitet": {
+        "en-US": "Doubtful bathing water quality",
+        "da-DK": "Tvivlsom badevandskvalitet"
+    },
+    "Uegnet badevandskvalitet": {
+        "en-US": "Unsuitable bathing water quality",
+        "da-DK": "Uegnet badevandskvalitet"
+    },
+    "Date": {
+        "en-US": "Date",
+        "da-DK": "Dato"
+    },
+    "Status": {
+        "en-US": "Status",
+        "da-DK": "Status"
+    },
+    "Exclude": {
+        "en-US": "Exclude",
+        "da-DK": "Ekskluder"
+    },
+    "SampleType": {
+        "en-US": "Sample type",
+        "da-DK": "Prøvetype"
+    },
+    "NotDKBW": {
+        "en-US": "Not DKBW",
+        "da-DK": "Ingen DKBW"
+    },
+    "StationNoPlanMessage": {
+        "en-US": "The station {0} has no plan associated with {1}",
+        "da-DK": "Stationen {0} har ingen plan associeret for {1}"
+    },
+    "StationMeasurementOutOfSeasonMessage": {
+        "en-US": "The station {0} has a measurement for {1} the {2} which is out of season",
+        "da-DK": "Stationen {0} har en måling for {1} den {2} som ligger udenfor sæsonen"
+    },
+    "StationHasErrorMessage": {
+        "en-US": "The station {0} has an error {1}",
+        "da-DK": "Stationen {0} har en fejl {1}"
+    },
+    "StationReclassificationMessage": {
+        "en-US": "We have reclassified the rating for the station {0} as for year {1} had PULS rating on {2} but we calculated it for {3} in Mermaid. We are in touch with PULS to find out how it may be that there is this difference, but it does not matter for the calculation of the current season.",
+        "da-DK": "Vi har genberegnet klassifikationen for stationen {0} som for år {1} havde klassifikation i PULS på {2} men vi beregner den til {3} i Mermaid. Vi er i kontakt med PULS for at finde ud af hvordan det kan være at der er denne forskel, men det har ingen betydning for beregningen af nuværende sæson."
+    },
+    "Vindretning fra": {
+        "en-US": "Wind direction from",
+        "da-DK": "Vindretning fra"
+    },
+    "Strømretning fra": {
+        "en-US": "Flow direction from",
+        "da-DK": "Strømretning fra"
+    },
+    "January": {
+        "en-US": "January",
+        "da-DK": "Januar"
+    },
+    "February": {
+        "en-US": "February",
+        "da-DK": "Februar"
+    },
+    "March": {
+        "en-US": "March",
+        "da-DK": "Marts"
+    },
+    "April": {
+        "en-US": "April",
+        "da-DK": "April"
+    },
+    "May": {
+        "en-US": "May",
+        "da-DK": "Maj"
+    },
+    "June": {
+        "en-US": "June",
+        "da-DK": "Juni"
+    },
+    "July": {
+        "en-US": "July",
+        "da-DK": "Juli"
+    },
+    "August": {
+        "en-US": "August",
+        "da-DK": "August"
+    },
+    "September": {
+        "en-US": "September",
+        "da-DK": "September"
+    },
+    "October": {
+        "en-US": "October",
+        "da-DK": "Oktober"
+    },
+    "November": {
+        "en-US": "November",
+        "da-DK": "November"
+    },
+    "December": {
+        "en-US": "December",
+        "da-DK": "December"
+    },
+    "Monday": {
+        "en-US": "Monday",
+        "da-DK": "Mandag"
+    },
+    "Tuesday": {
+        "en-US": "Tuesday",
+        "da-DK": "Tirsdag"
+    },
+    "Wednesday": {
+        "en-US": "Wednesday",
+        "da-DK": "Onsdag"
+    },
+    "Thursday": {
+        "en-US": "Thursday",
+        "da-DK": "Torsdag"
+    },
+    "Friday": {
+        "en-US": "Friday",
+        "da-DK": "Fredag"
+    },
+    "Saturday": {
+        "en-US": "Saturday",
+        "da-DK": "Lørdag"
+    },
+    "Sunday": {
+        "en-US": "Sunday",
+        "da-DK": "Søndag"
+    },
+    "Sigtdybde": {
+        "en-US": "Secchi depth",
+        "da-DK": "Sigtdybde"
+    },
+    "Temperatur": {
+        "en-US": "Temperature",
+        "da-DK": "Temperatur"
+    },
+    "DownloadMermaidReport": {
+        "en-US": "Download Mermaid Report",
+        "da-DK": "Hent Mermaid Rapport"
+    },
+    "DownloadBlueFlagReport": {
+        "en-US": "Download Blue Flag Report",
+        "da-DK": "Hent Blå Flag Rapport"
+    },
+    "Chart": {
+        "en-US": "Chart",
+        "da-DK": "Graf"
+    },
+    "CompleteSeasonRating": {
+        "en-US": "Complete season rating",
+        "da-DK": "Gennemfør klassifikation for Sæson"
+    },
+    "DownloadCsv": {
+        "en-US": "Download Csv",
+        "da-DK": "Hent Csv"
+    },
+    "Close": {
+        "en-US": "Close",
+        "da-DK": "Luk"
+    },
+    "Administration": {
+        "en-US": "Administration",
+        "da-DK": "Administration"
+    },
+    "DownloadAllReports": {
+        "en-US": "Download all Reports",
+        "da-DK": "Hent alle Rapporter"
+    },
+    "DownloadAllCsvFiles": {
+        "en-US": "Download all Csv Files",
+        "da-DK": "Hent alle Csv Filer"
+    },
+    "ClearCache": {
+        "en-US": "Clear Cache",
+        "da-DK": "Clear Cache"
+    },
+    "DownloadProfile": {
+        "en-US": "Download Profile",
+        "da-DK": "Hent Profil"
+    },
+    "Antal badende": {
+        "en-US": "Number of bathers",
+        "da-DK": "Antal badende"
+    },
+    "Nedbør på dagen": {
+        "en-US": "Rainfall on the day",
+        "da-DK": "Nedbør på dagen"
+    },
+    "Skydække": {
+        "en-US": "Cloudiness",
+        "da-DK": "Skydække"
+    },
+    "Vindstyrke": {
+        "en-US": "Wind force",
+        "da-DK": "Vindstyrke"
+    },
+    "Vandtemperatur": {
+        "en-US": "Water temperature",
+        "da-DK": "Vandtemperatur"
+    },
+    "Vandkvalitet": {
+        "en-US": "Water Quality",
+        "da-DK": "vandkvalitet"
+    },
+    "Strandkvalitet": {
+        "en-US": "Beach Quality",
+        "da-DK": "Strandkvalitet"
+    },
+    "Brugernavn": {
+        "en-US": "User name",
+        "da-DK": "Brugernavn"
+    },
+    "Password": {
+        "en-US": "Password",
+        "da-DK": "Password"
+    },
+    "Kommunenummer": {
+        "en-US": "Council",
+        "da-DK": "Kommunenummer"
+    },
+    "Indtast venligst brugernavn, password og kommunenummer": {
+        "en-US": "Please enter username, password and municipality number",
+        "da-DK": "Indtast venligst brugernavn, password og kommunenummer"
+    },
+    "Login": {
+        "en-US": "Login",
+        "da-DK": "Login"
+    },
+    "Badevandsstation": {
+        "en-US": "Bathing water station",
+        "da-DK": "Badevandsstation"
+    },
+    "Kontrolstation": {
+        "en-US": "Control station",
+        "da-DK": "Kontrolstation"
+    },
+    "Prøve": {
+        "en-US": "Sample",
+        "da-DK": "Prøve"
+    },
+    "Omprøve": {
+        "en-US": "Resample",
+        "da-DK": "Omprøve"
+    },
+    "Erstatningsprøve": {
+        "en-US": "Replacement sample",
+        "da-DK": "Erstatningsprøve"
+    },
+    "Marin": {
+        "en-US": "Marine",
+        "da-DK": "Marin"
+    },
+    "Fersk": {
+        "en-US": "Fresh",
+        "da-DK": "Fersk"
+    },
+    "Godkendt": {
+        "en-US": "Approved",
+        "da-DK": "Godkendt"
+    },
+    "Åfvist": {
+        "en-US": "Rejected",
+        "da-DK": "Åfvist"
+    },
+    "Åben": {
+        "en-US": "Open",
+        "da-DK": "Åben"
+    },
+    "Stille": {
+        "en-US": "Still",
+        "da-DK": "Stille"
+    },
+    "N": {
+        "en-US": "N",
+        "da-DK": "N"
+    },
+    "Ø": {
+        "en-US": "E",
+        "da-DK": "Ø"
+    },
+    "S": {
+        "en-US": "S",
+        "da-DK": "S"
+    },
+    "V": {
+        "en-US": "W",
+        "da-DK": "V"
+    },
+    ",": {
+        "en-US": ".",
+        "da-DK": ","
+    },
+    "LoginFailureMessageInsufficientAccessIssue": {
+        "en-US": "Failed to log into PULS. Are you sure you have been created with the correct rights?",
+        "da-DK": "Det lykkedes ikke at logge ind i PULS. Er du sikker på, at du er oprettet med de korrekte rettigheder?"
+    },
+    "95% percentil grænse": {
+        "en-US": "95% percentile limit",
+        "da-DK": "95% percentil grænse"
+    },
+    "Navn: ": {
+        "en-US": "Name: ",
+        "da-DK": "Navn: "
+    },
+    "År: ": {
+        "en-US": "Year: ",
+        "da-DK": "År: "
+    },
+    "Midlertidig Klassifikation: ": {
+        "en-US": "Temporary Classification: ",
+        "da-DK": "Midlertidig Klassifikation: "
+    },
+    "Endelig Klassifikation: ": {
+        "en-US": "Final Classification:",
+        "da-DK": "Endelig Klassifikation: "
+    },
+    "Stationsnummer: DKBW ": {
+        "en-US": "Station number: DKBW ",
+        "da-DK": "Stationsnummer: DKBW "
+    },
+    "Type: ": {
+        "en-US": "Type: ",
+        "da-DK": "Type: "
+    },
+    "Klassifikation forrige år: ": {
+        "en-US": "Classification last year: ",
+        "da-DK": "Klassifikation forrige år: "
+    },
+    "Årskontrol: ": {
+        "en-US": "Year: ",
+        "da-DK": "Årskontrol: "
+    },
+    "Antal prøver: ": {
+        "en-US": "# Sample: ",
+        "da-DK": "Antal prøver: "
+    },
+    "Mindste\nværdi: ": {
+        "en-US": "Minimum\nvalue: ",
+        "da-DK": "Mindste\nværdi: "
+    },
+    "Største\nværdi: ": {
+        "en-US": "Maximum\nvalue: ",
+        "da-DK": "Største\nværdi: "
+    },
+    "Intestinale\nEnterokokker": {
+        "en-US": "Intestinal\nenterococci",
+        "da-DK": "Intestinale\nEnterokokker"
+    },
+    "E.Coli and Intestinale Enterokokker": {
+        "en-US": "E.Coli and Intestinal Enterococci",
+        "da-DK": "E.Coli and Intestinale Enterokokker"
+    },
+    "Prøvedato": {
+        "en-US": "Trial Date",
+        "da-DK": "Prøvedato"
+    },
+    "E.Coli": {
+        "en-US": "E.Coli",
+        "da-DK": "E.Coli"
+    },
+    "Intestinale Enterokokker": {
+        "en-US": "Intestinal Enterococci",
+        "da-DK": "Intestinale Enterokokker"
+    },
+    "LastSeason": {
+        "en-US": "Last season ",
+        "da-DK": "forrige år "
+    },
+    "E.coli ekskluderet": {
+        "en-US": "E.coli excluded",
+        "da-DK": "E.coli ekskluderet"
+    }
+}

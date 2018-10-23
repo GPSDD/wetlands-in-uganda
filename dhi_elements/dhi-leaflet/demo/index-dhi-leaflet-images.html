@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/leaflet-map/leaflet-map.html'>
+        <link rel='import' href='../../dhi-javascripts/dhi-javascripts.html'>
+        <link rel='import' href='../dhi-leaflet-images.html'>
+    </head>
+    <body>
+        <dom-module id='demo-images'>
+            <style>
+                leaflet-map {
+                    width: 400px;
+                    height: 400px;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='29.48' longitude='-90.435' zoom='14' on-click='onclick'>
+                                <dhi-leaflet-images
+                                    lower-left='{ "latitude": 29.46793190123628, "longitude": -90.45964519916656 }'
+                                    upper-right='{ "latitude": 29.499626359169206, "longitude": -90.42164382540214}'
+                                    data='{{data}}'
+                                    base-url='./data/'
+                                    date-time-current='{{currentDateTime}}'>
+                                </dhi-leaflet-images>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-images
+                                lower-left='{ "latitude": 29.46793190123628, "longitude": -90.45964519916656 }'
+                                upper-right='{ "latitude": 29.499626359169206, "longitude": -90.42164382540214}'
+                                data='{{data}}'
+                                base-url='./data/'
+                                date-time-current='{{currentDateTime}}'&gt;
+                            &lt;/dhi-leaflet-images&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'demo-images',
+
+                properties: {
+                    currentDateTime: {
+                        type: String,
+                        value: ''
+                    },
+
+                    data: {
+                        type: Object,
+                        value: function() {
+                            return {
+                                "2016-01-01T15:00:00": "20160101_carbon.png",
+                                "2016-04-01T12:00:00": "20160401_carbon.png",
+                                "2016-07-01T12:00:00": "20160701_carbon.png"
+                            }
+                        }
+                    },
+
+                    dateTimes: {
+                        type: Array,
+                        value: function() {
+                            return ["2016-01-01T15:00:00",
+                                    "2016-04-01T12:00:00",
+                                    "2016-07-01T12:00:00"];
+                        }
+                    },
+
+                    index: {
+                        type: Number,
+                        value: 0
+                    }
+                },
+
+                ready: function() {
+                    var that = this;
+                    setInterval(function() {
+                        that.index++;
+                        if (that.index > that.dateTimes.length - 1) {
+                            that.index = 0;
+                        }
+                        that.currentDateTime = that.dateTimes[that.index];
+                    }, 1000)
+                },
+
+                onclick: function(e) {
+                    console.log(e.detail.latlng);
+                }
+            });});
+        </script>
+        <demo-images></demo-images>
+    </body>
+</html>

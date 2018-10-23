@@ -1,0 +1,142 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-layer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-import.html'>
+
+<!--
+DHI Leaflet Static Image
+
+`dhi-leaflet-static-image` is a leaflet static image component.
+
+Example:
+
+    <dhi-leaflet-static-image
+        url='data/klimaspringSkema.png' ,
+        lower-left='{ "latitude": 56.151424, "longitude": 10.21036 }'
+        upper-right='{ "latitude": 56.15533, "longitude": 10.2205 }'>
+    </dhi-leaflet-static-image>
+
+@demo demo/index-dhi-leaflet-static-image.html
+-->
+
+<dom-module id='dhi-leaflet-static-image'>
+    <style>
+        :host {display: none;}
+    </style>
+    <template>
+    </template>
+</dom-module>
+<script>
+'use strict';
+
+Polymer({
+    is: 'dhi-leaflet-static-image',
+
+    properties: {
+        container: {
+            type: Object,
+            observer: '_containerChanged'
+        },
+
+        /**
+         * the url of the image
+         */
+        url: {
+            type: String,
+            value: '',
+            observer: '_urlChanged'
+        },
+
+        /**
+         * the opacity of the layer
+         */
+        opacity: {
+            type: Number,
+            value: 1,
+            observer: '_opacityChanged'
+        },
+
+        /**
+         * decides if enabled
+         */
+        enabled: {
+            type: Boolean,
+            value: true,
+            observer: '_enabledChanged'
+        },
+
+        upperRight: {
+            type: Object,
+            value: null,
+            observer: '_boundsChanged'
+        },
+
+        lowerLeft: {
+            type: Object,
+            value: null,
+            observer: '_boundsChanged'
+        },
+
+        layer: {
+            type: Object,
+            value: null
+        }
+    },
+
+    _containerChanged: function() {
+        this.go();
+    },
+
+    _boundsChanged: function() {
+        this.go();
+    },
+
+    _urlChanged: function() {
+        this.go();
+    },
+
+    _opacityChanged: function(oldValue, newValue) {
+        if (this.layer) {
+            this.layer.setOpacity(this.opacity);
+        }
+    },
+
+    _enabledChanged: function() {
+        if (this.layer) {
+            if (this.enabled) {
+                this.go();
+            }
+            else {
+                this.detached();
+            }
+        }
+    },
+
+    go: function() {
+        if (this.container && this.enabled && this.url !== '' && this.upperRight && this.lowerLeft) {
+            var imagebounds = [[this.lowerLeft.latitude, this.lowerLeft.longitude], [this.upperRight.latitude, this.upperRight.longitude]];
+
+            if (this.layer) {
+                this.container.removeLayer(this.layer);
+            }
+
+            this.layer = L.imageOverlay(this.url, imagebounds, { opacity: this.opacity })
+            this.layer.addTo(this.container);
+            this.layer.bringToBack();
+        }
+    },
+
+    bringToBack: function() {
+        this.layer.bringToBack();
+    },
+
+    removeAll: function() {
+        if (this.container && this.layer) {
+            this.container.removeLayer(this.layer);
+        }
+    },
+
+    detached: function() {
+        this.removeAll();
+    }
+});
+</script>

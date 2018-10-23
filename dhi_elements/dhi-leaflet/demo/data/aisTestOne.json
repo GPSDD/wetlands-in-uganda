@@ -1,0 +1,3397 @@
+{
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.294, -27.5332]
+        },
+        "properties": {
+            "mmsi": 503666100,
+            "name": "ESCAPE TO STRADBROKE",
+            "imo": 0,
+            "call_sign": "25448QD",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 4,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 16,
+            "toPort": 2,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 18.1,
+            "longitude": 153.294,
+            "latitude": -27.5332,
+            "course": 127.6,
+            "heading": 511,
+            "time": "2017-07-12T23:00:39Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.285, -27.5145]
+        },
+        "properties": {
+            "mmsi": 503023290,
+            "name": "KEN HARVEY",
+            "imo": 0,
+            "call_sign": "2932QD",
+            "mid": 503,
+            "ship_type": 33,
+            "length": 9,
+            "beam": 9,
+            "draught": 0,
+            "toBow": 13,
+            "toStern": 8,
+            "toPort": 5,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.285,
+            "latitude": -27.5145,
+            "course": 0,
+            "heading": 511,
+            "time": "2017-07-12T23:25:31Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.379, -27.6347]
+        },
+        "properties": {
+            "mmsi": 503690000,
+            "name": "STRADBROKE VENTURE",
+            "imo": 0,
+            "call_sign": "3823QD",
+            "mid": 503,
+            "ship_type": 90,
+            "length": 5,
+            "beam": 10,
+            "draught": 0,
+            "toBow": 49,
+            "toStern": 5,
+            "toPort": 5,
+            "toStar": 5,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 7.9,
+            "longitude": 153.379,
+            "latitude": -27.6347,
+            "course": 104.9,
+            "heading": 511,
+            "time": "2017-07-12T23:33:30Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.313, -27.618]
+        },
+        "properties": {
+            "mmsi": 503500600,
+            "name": "KURROWERA 1",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 3,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 4,
+            "toStern": 20,
+            "toPort": 3,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 8.5,
+            "longitude": 153.313,
+            "latitude": -27.618,
+            "course": 231.4,
+            "heading": 511,
+            "time": "2017-07-12T23:46:57Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.298, -27.5378]
+        },
+        "properties": {
+            "mmsi": 503588800,
+            "name": "MOONGALBA",
+            "imo": 0,
+            "call_sign": "VJN3671",
+            "mid": 503,
+            "ship_type": 0,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 8.7,
+            "longitude": 153.298,
+            "latitude": -27.5378,
+            "course": 303.3,
+            "heading": 511,
+            "time": "2017-07-12T23:49:48Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.798, -27.3789]
+        },
+        "properties": {
+            "mmsi": 416442000,
+            "name": "TAIPOWER PROSPERITY7",
+            "imo": 9567611,
+            "call_sign": "BDAV",
+            "mid": 416,
+            "ship_type": 70,
+            "length": 236,
+            "beam": 38,
+            "draught": 7.3,
+            "toBow": 200,
+            "toStern": 36,
+            "toPort": 12,
+            "toStar": 26,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 11.3,
+            "longitude": 153.798,
+            "latitude": -27.3789,
+            "course": 359.7,
+            "heading": 1,
+            "time": "2017-07-12T23:51:10Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.074, -27.443]
+        },
+        "properties": {
+            "mmsi": 228762000,
+            "name": "FRENCH WARSHIP",
+            "imo": 0,
+            "call_sign": "FATT",
+            "mid": 228,
+            "ship_type": 35,
+            "length": 64,
+            "beam": 14,
+            "draught": 0,
+            "toBow": 17,
+            "toStern": 47,
+            "toPort": 9,
+            "toStar": 5,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.074,
+            "latitude": -27.443,
+            "course": 305.5,
+            "heading": 289,
+            "time": "2017-07-12T23:54:41Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.333, -27.1838]
+        },
+        "properties": {
+            "mmsi": 503162600,
+            "name": "MICAT",
+            "imo": 0,
+            "call_sign": "MICAT",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 16,
+            "beam": 16,
+            "draught": 0,
+            "toBow": 30,
+            "toStern": 27,
+            "toPort": 12,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 12.6,
+            "longitude": 153.333,
+            "latitude": -27.1838,
+            "course": 38.8,
+            "heading": 511,
+            "time": "2017-07-12T23:55:56Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.285, -27.5137]
+        },
+        "properties": {
+            "mmsi": 503705200,
+            "name": "ENERGEX MEDIVAC",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 51,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 4.8,
+            "longitude": 153.285,
+            "latitude": -27.5137,
+            "course": 299.8,
+            "heading": 511,
+            "time": "2017-07-13T00:07:51Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.162, -27.4011]
+        },
+        "properties": {
+            "mmsi": 503016040,
+            "name": "VIGILANT",
+            "imo": 0,
+            "call_sign": "BT214",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 1,
+            "beam": 2,
+            "draught": 0,
+            "toBow": 3,
+            "toStern": 5,
+            "toPort": 1,
+            "toStar": 1,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 16.8,
+            "longitude": 153.162,
+            "latitude": -27.4011,
+            "course": 281.2,
+            "heading": 511,
+            "time": "2017-07-13T00:08:36Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.192, -27.4552]
+        },
+        "properties": {
+            "mmsi": 503193400,
+            "name": "QUANDAMOOKA  II",
+            "imo": 0,
+            "call_sign": "VK2447",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 4,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 5,
+            "toStern": 15,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.192,
+            "latitude": -27.4552,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T00:10:24Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.79, -27.0066]
+        },
+        "properties": {
+            "mmsi": 373101000,
+            "name": "GLORIOSA LILY",
+            "imo": 9499084,
+            "call_sign": "3FWE4",
+            "mid": 373,
+            "ship_type": 70,
+            "length": 245,
+            "beam": 44,
+            "draught": 0,
+            "toBow": 212,
+            "toStern": 33,
+            "toPort": 20,
+            "toStar": 24,
+            "nav_status": 2,
+            "rate_of_turn": 4,
+            "speed": 1.5,
+            "longitude": 153.79,
+            "latitude": -27.0066,
+            "course": 344.2,
+            "heading": 30,
+            "time": "2017-07-13T00:18:46Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.931, -27.0197]
+        },
+        "properties": {
+            "mmsi": 636016074,
+            "name": "CAP ARNAUTI",
+            "imo": 9629380,
+            "call_sign": "D5EG8",
+            "mid": 636,
+            "ship_type": 70,
+            "length": 271,
+            "beam": 43,
+            "draught": 0,
+            "toBow": 198,
+            "toStern": 73,
+            "toPort": 16,
+            "toStar": 27,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 17.6,
+            "longitude": 153.931,
+            "latitude": -27.0197,
+            "course": 189.5,
+            "heading": 186,
+            "time": "2017-07-13T00:27:11Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.294, -27.0625]
+        },
+        "properties": {
+            "mmsi": 503032150,
+            "name": "RIVERSIDE RESOLUTE",
+            "imo": 922959400,
+            "call_sign": "VHKQ",
+            "mid": 503,
+            "ship_type": 99,
+            "length": 7,
+            "beam": 15,
+            "draught": 0,
+            "toBow": 70,
+            "toStern": 8,
+            "toPort": 8,
+            "toStar": 7,
+            "nav_status": 3,
+            "rate_of_turn": -127,
+            "speed": 1.6,
+            "longitude": 153.294,
+            "latitude": -27.0625,
+            "course": 212.8,
+            "heading": 214,
+            "time": "2017-07-13T00:43:42Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.288, -9.6151]
+        },
+        "properties": {
+            "mmsi": 478430336,
+            "name": "",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 478,
+            "ship_type": 0,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 9.1,
+            "longitude": 153.288,
+            "latitude": -9.6151,
+            "course": 259,
+            "heading": 351,
+            "time": "2017-07-13T00:44:57Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.306, -27.5413]
+        },
+        "properties": {
+            "mmsi": 503209400,
+            "name": "CALYPSO",
+            "imo": 0,
+            "call_sign": "CALYPSO",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 23,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 13,
+            "toPort": 4,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 22.5,
+            "longitude": 153.306,
+            "latitude": -27.5413,
+            "course": 252.5,
+            "heading": 511,
+            "time": "2017-07-13T00:47:14Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.243, -27.2914]
+        },
+        "properties": {
+            "mmsi": 503405300,
+            "name": "TANGALOOMA JET",
+            "imo": 0,
+            "call_sign": "TANGJET",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 19.6,
+            "longitude": 153.243,
+            "latitude": -27.2914,
+            "course": 41.9,
+            "heading": 511,
+            "time": "2017-07-13T00:56:07Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.144, -27.4148]
+        },
+        "properties": {
+            "mmsi": 503703500,
+            "name": "MDTL 1",
+            "imo": 0,
+            "call_sign": "VJN4077",
+            "mid": 503,
+            "ship_type": 53,
+            "length": 1,
+            "beam": 3,
+            "draught": 0,
+            "toBow": 4,
+            "toStern": 7,
+            "toPort": 2,
+            "toStar": 1,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 8.6,
+            "longitude": 153.144,
+            "latitude": -27.4148,
+            "course": 218.5,
+            "heading": 511,
+            "time": "2017-07-13T00:56:24Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.017, -27.4687]
+        },
+        "properties": {
+            "mmsi": 503576400,
+            "name": "MEEANDAH",
+            "imo": 0,
+            "call_sign": "28744QE",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 24,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 16,
+            "toPort": 3,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 12.8,
+            "longitude": 153.017,
+            "latitude": -27.4687,
+            "course": 297.4,
+            "heading": 511,
+            "time": "2017-07-13T00:57:56Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.057, -27.4715]
+        },
+        "properties": {
+            "mmsi": 503007830,
+            "name": "EMILY_E",
+            "imo": 0,
+            "call_sign": "EMILY_E",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 4,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 9,
+            "toStern": 9,
+            "toPort": 3,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.057,
+            "latitude": -27.4715,
+            "course": 148.8,
+            "heading": 511,
+            "time": "2017-07-13T00:58:54Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.285, -27.5291]
+        },
+        "properties": {
+            "mmsi": 503760000,
+            "name": "SEABREEZE",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 6,
+            "beam": 12,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 8,
+            "toPort": 6,
+            "toStar": 6,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.285,
+            "latitude": -27.5291,
+            "course": 279.1,
+            "heading": 511,
+            "time": "2017-07-13T00:58:57Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.144, -27.0636]
+        },
+        "properties": {
+            "mmsi": 503042670,
+            "name": "BRIBIE 2",
+            "imo": 0,
+            "call_sign": "BRIBIE2",
+            "mid": 503,
+            "ship_type": 99,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 15,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.144,
+            "latitude": -27.0636,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T00:59:14Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.105, -27.4458]
+        },
+        "properties": {
+            "mmsi": 503577200,
+            "name": "MUDHERRI",
+            "imo": 0,
+            "call_sign": "29437QE",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 3,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 16,
+            "toPort": 3,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.105,
+            "latitude": -27.4458,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T00:59:20Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.363, -27.1099]
+        },
+        "properties": {
+            "mmsi": 503600400,
+            "name": "EYE SPY",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 0,
+            "length": 10,
+            "beam": 10,
+            "draught": 2,
+            "toBow": 10,
+            "toStern": 20,
+            "toPort": 5,
+            "toStar": 5,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 20.9,
+            "longitude": 153.363,
+            "latitude": -27.1099,
+            "course": 2.9,
+            "heading": 511,
+            "time": "2017-07-13T00:59:21Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.19, -27.4538]
+        },
+        "properties": {
+            "mmsi": 503009440,
+            "name": "SCAMP B45",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 2,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 13,
+            "toStern": 1,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.19,
+            "latitude": -27.4538,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:11:59Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.052, -27.4401]
+        },
+        "properties": {
+            "mmsi": 503653300,
+            "name": "ALLUNGA",
+            "imo": 0,
+            "call_sign": "VHEJ",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 3,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 5,
+            "toStern": 10,
+            "toPort": 4,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.052,
+            "latitude": -27.4401,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:12:48Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.164, -27.4014]
+        },
+        "properties": {
+            "mmsi": 503596300,
+            "name": "WREMBECK",
+            "imo": 0,
+            "call_sign": "31025QC",
+            "mid": 503,
+            "ship_type": 55,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.164,
+            "latitude": -27.4014,
+            "course": 179.1,
+            "heading": 511,
+            "time": "2017-07-13T01:13:06Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.191, -27.4545]
+        },
+        "properties": {
+            "mmsi": 503042890,
+            "name": "KARMA",
+            "imo": 0,
+            "call_sign": "GL101Q",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 20,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 12,
+            "toPort": 3,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.191,
+            "latitude": -27.4545,
+            "course": 305.4,
+            "heading": 511,
+            "time": "2017-07-13T01:15:20Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.193, -27.4552]
+        },
+        "properties": {
+            "mmsi": 503622400,
+            "name": "EXILE",
+            "imo": 0,
+            "call_sign": "TK152Q",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 8,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 13,
+            "toStern": 7,
+            "toPort": 4,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.193,
+            "latitude": -27.4552,
+            "course": 151.3,
+            "heading": 511,
+            "time": "2017-07-13T01:15:37Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.075, -27.4432]
+        },
+        "properties": {
+            "mmsi": 503610000,
+            "name": "BUNKER V",
+            "imo": 0,
+            "call_sign": "VKV5270",
+            "mid": 503,
+            "ship_type": 80,
+            "length": 4,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 45,
+            "toStern": 5,
+            "toPort": 4,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.075,
+            "latitude": -27.4432,
+            "course": 280.6,
+            "heading": 511,
+            "time": "2017-07-13T01:15:54Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.106, -27.4449]
+        },
+        "properties": {
+            "mmsi": 503065200,
+            "name": "PILOT V/L TEMPEST",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 50,
+            "length": 14,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 4,
+            "toStern": 10,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.106,
+            "latitude": -27.4449,
+            "course": 20,
+            "heading": 511,
+            "time": "2017-07-13T01:16:05Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.191, -27.458]
+        },
+        "properties": {
+            "mmsi": 503023020,
+            "name": "BERNICIA",
+            "imo": 0,
+            "call_sign": "Q0982Q",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 1,
+            "beam": 3,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 0,
+            "toPort": 2,
+            "toStar": 1,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.191,
+            "latitude": -27.458,
+            "course": 245.9,
+            "heading": 511,
+            "time": "2017-07-13T01:16:11Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.192, -27.4557]
+        },
+        "properties": {
+            "mmsi": 503009430,
+            "name": "SPION KOP",
+            "imo": 0,
+            "call_sign": "VLQ2357",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 4,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 14,
+            "toStern": 0,
+            "toPort": 3,
+            "toStar": 1,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.192,
+            "latitude": -27.4557,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:16:13Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.107, -27.4444]
+        },
+        "properties": {
+            "mmsi": 503011310,
+            "name": "SEABREEZE III",
+            "imo": 0,
+            "call_sign": "VMQ7027",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 3,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 15,
+            "toStern": 16,
+            "toPort": 5,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.107,
+            "latitude": -27.4444,
+            "course": 331.7,
+            "heading": 511,
+            "time": "2017-07-13T01:16:17Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.106, -27.4449]
+        },
+        "properties": {
+            "mmsi": 512004291,
+            "name": "NORIDIAM",
+            "imo": 0,
+            "call_sign": "ZMS7165",
+            "mid": 512,
+            "ship_type": 36,
+            "length": 11,
+            "beam": 2,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 1,
+            "toPort": 1,
+            "toStar": 1,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.106,
+            "latitude": -27.4449,
+            "course": 262.8,
+            "heading": 62,
+            "time": "2017-07-13T01:16:17Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.193, -27.4542]
+        },
+        "properties": {
+            "mmsi": 503050570,
+            "name": "SENJERO",
+            "imo": 0,
+            "call_sign": "861799",
+            "mid": 503,
+            "ship_type": 0,
+            "length": 30,
+            "beam": 10,
+            "draught": 0,
+            "toBow": 15,
+            "toStern": 15,
+            "toPort": 5,
+            "toStar": 5,
+            "nav_status": 5,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.193,
+            "latitude": -27.4542,
+            "course": 327.1,
+            "heading": 511,
+            "time": "2017-07-13T01:16:17Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.206, -27.2656]
+        },
+        "properties": {
+            "mmsi": 538003359,
+            "name": "GAS SHURIKEN",
+            "imo": 9359569,
+            "call_sign": "V7QG7",
+            "mid": 538,
+            "ship_type": 80,
+            "length": 100,
+            "beam": 18,
+            "draught": 0,
+            "toBow": 82,
+            "toStern": 18,
+            "toPort": 6,
+            "toStar": 12,
+            "nav_status": 1,
+            "rate_of_turn": 0,
+            "speed": 0.3,
+            "longitude": 153.206,
+            "latitude": -27.2656,
+            "course": 156.3,
+            "heading": 164,
+            "time": "2017-07-13T01:16:21Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.158, -27.3916]
+        },
+        "properties": {
+            "mmsi": 503649000,
+            "name": "VALIANT III",
+            "imo": 9587881,
+            "call_sign": "9V8618",
+            "mid": 503,
+            "ship_type": 80,
+            "length": 54,
+            "beam": 12,
+            "draught": 0,
+            "toBow": 20,
+            "toStern": 34,
+            "toPort": 5,
+            "toStar": 7,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.158,
+            "latitude": -27.3916,
+            "course": 0,
+            "heading": 203,
+            "time": "2017-07-13T01:16:23Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.036, -27.1434]
+        },
+        "properties": {
+            "mmsi": 503048450,
+            "name": "LAST FANDANGO",
+            "imo": 0,
+            "call_sign": "KYC2",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 12,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 4,
+            "toPort": 3,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.2,
+            "longitude": 153.036,
+            "latitude": -27.1434,
+            "course": 234.8,
+            "heading": 511,
+            "time": "2017-07-13T01:16:23Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.192, -27.4553]
+        },
+        "properties": {
+            "mmsi": 503049320,
+            "name": "ESPRESSO",
+            "imo": 0,
+            "call_sign": "YR407Q",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 12,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 9,
+            "toStern": 3,
+            "toPort": 3,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.192,
+            "latitude": -27.4553,
+            "course": 280.1,
+            "heading": 511,
+            "time": "2017-07-13T01:16:24Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.17, -27.3728]
+        },
+        "properties": {
+            "mmsi": 636091349,
+            "name": "ANL BINDAREE",
+            "imo": 9315355,
+            "call_sign": "A8MI3",
+            "mid": 636,
+            "ship_type": 71,
+            "length": 246,
+            "beam": 32,
+            "draught": 0,
+            "toBow": 178,
+            "toStern": 68,
+            "toPort": 18,
+            "toStar": 14,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.17,
+            "latitude": -27.3728,
+            "course": 194.9,
+            "heading": 214,
+            "time": "2017-07-13T01:16:31Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.192, -27.458]
+        },
+        "properties": {
+            "mmsi": 503047020,
+            "name": "MANLY UNIT",
+            "imo": 0,
+            "call_sign": "RQ81",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 9,
+            "beam": 3,
+            "draught": 0,
+            "toBow": 7,
+            "toStern": 2,
+            "toPort": 1,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.192,
+            "latitude": -27.458,
+            "course": 168.6,
+            "heading": 511,
+            "time": "2017-07-13T01:16:40Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.187, -27.4565]
+        },
+        "properties": {
+            "mmsi": 503009320,
+            "name": "ROHELI III",
+            "imo": 0,
+            "call_sign": "VJN4546",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 2,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 6,
+            "toStern": 9,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.4,
+            "longitude": 153.187,
+            "latitude": -27.4565,
+            "course": 13.2,
+            "heading": 511,
+            "time": "2017-07-13T01:16:40Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.162, -27.3826]
+        },
+        "properties": {
+            "mmsi": 503791000,
+            "name": "INVESTIGATOR",
+            "imo": 9616888,
+            "call_sign": "VLMJ",
+            "mid": 503,
+            "ship_type": 90,
+            "length": 93,
+            "beam": 18,
+            "draught": 0,
+            "toBow": 33,
+            "toStern": 60,
+            "toPort": 7,
+            "toStar": 11,
+            "nav_status": 5,
+            "rate_of_turn": 1,
+            "speed": 0,
+            "longitude": 153.162,
+            "latitude": -27.3826,
+            "course": 41.8,
+            "heading": 41,
+            "time": "2017-07-13T01:16:47Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.281, -27.5116]
+        },
+        "properties": {
+            "mmsi": 503631400,
+            "name": "SEALION",
+            "imo": 0,
+            "call_sign": "854QD",
+            "mid": 503,
+            "ship_type": 33,
+            "length": 5,
+            "beam": 5,
+            "draught": 0,
+            "toBow": 5,
+            "toStern": 8,
+            "toPort": 2,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.2,
+            "longitude": 153.281,
+            "latitude": -27.5116,
+            "course": 283.5,
+            "heading": 511,
+            "time": "2017-07-13T01:16:48Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.173, -27.3685]
+        },
+        "properties": {
+            "mmsi": 367860000,
+            "name": "USNS TIPPECANOE",
+            "imo": 8906602,
+            "call_sign": "NTIP",
+            "mid": 367,
+            "ship_type": 80,
+            "length": 207,
+            "beam": 30,
+            "draught": 0,
+            "toBow": 145,
+            "toStern": 62,
+            "toPort": 15,
+            "toStar": 15,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.173,
+            "latitude": -27.3685,
+            "course": 102.9,
+            "heading": 33,
+            "time": "2017-07-13T01:16:53Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.189, -27.455]
+        },
+        "properties": {
+            "mmsi": 503035190,
+            "name": "JO D'AFFAIRE",
+            "imo": 0,
+            "call_sign": "385861",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 4,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 4,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.189,
+            "latitude": -27.455,
+            "course": 237.2,
+            "heading": 511,
+            "time": "2017-07-13T01:16:58Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [181, 91]
+        },
+        "properties": {
+            "mmsi": 503354000,
+            "name": "BELTANA",
+            "imo": 9185633,
+            "call_sign": "VNFN",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 11,
+            "beam": 11,
+            "draught": 5,
+            "toBow": 10,
+            "toStern": 21,
+            "toPort": 5,
+            "toStar": 6,
+            "nav_status": 5,
+            "rate_of_turn": -128,
+            "speed": 102.3,
+            "longitude": 181,
+            "latitude": 91,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:16:58Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.192, -27.4536]
+        },
+        "properties": {
+            "mmsi": 503785700,
+            "name": "MEGUMI",
+            "imo": 0,
+            "call_sign": "VMQ2588",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 4,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 13,
+            "toPort": 0,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.192,
+            "latitude": -27.4536,
+            "course": 291.7,
+            "heading": 511,
+            "time": "2017-07-13T01:16:59Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.022, -27.476]
+        },
+        "properties": {
+            "mmsi": 503017210,
+            "name": "NAR-DHA",
+            "imo": 0,
+            "call_sign": "A3K0202",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 3,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 15,
+            "toPort": 4,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.2,
+            "longitude": 153.022,
+            "latitude": -27.476,
+            "course": 329.7,
+            "heading": 511,
+            "time": "2017-07-13T01:17:01Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.136, -27.4256]
+        },
+        "properties": {
+            "mmsi": 503060000,
+            "name": "TOLL WARRENDER",
+            "imo": 9114218,
+            "call_sign": "VNRL",
+            "mid": 503,
+            "ship_type": 79,
+            "length": 67,
+            "beam": 14,
+            "draught": 0,
+            "toBow": 5,
+            "toStern": 62,
+            "toPort": 5,
+            "toStar": 9,
+            "nav_status": 5,
+            "rate_of_turn": -5,
+            "speed": 0,
+            "longitude": 153.136,
+            "latitude": -27.4256,
+            "course": 87.5,
+            "heading": 157,
+            "time": "2017-07-13T01:17:04Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.158, -27.3906]
+        },
+        "properties": {
+            "mmsi": 538007096,
+            "name": "SUPER KATE",
+            "imo": 9385154,
+            "call_sign": "V7UN3",
+            "mid": 538,
+            "ship_type": 70,
+            "length": 176,
+            "beam": 29,
+            "draught": 0,
+            "toBow": 155,
+            "toStern": 21,
+            "toPort": 15,
+            "toStar": 14,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.158,
+            "latitude": -27.3906,
+            "course": 2,
+            "heading": 22,
+            "time": "2017-07-13T01:17:09Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.109, -27.4399]
+        },
+        "properties": {
+            "mmsi": 503387400,
+            "name": "TANGALOOMA FLYER",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 3,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 12,
+            "toPort": 5,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.109,
+            "latitude": -27.4399,
+            "course": 51.6,
+            "heading": 511,
+            "time": "2017-07-13T01:17:18Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.223, -27.3891]
+        },
+        "properties": {
+            "mmsi": 503003570,
+            "name": "INSPIRATION",
+            "imo": 0,
+            "call_sign": "31933QD",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.223,
+            "latitude": -27.3891,
+            "course": 180.3,
+            "heading": 511,
+            "time": "2017-07-13T01:17:19Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.192, -27.4573]
+        },
+        "properties": {
+            "mmsi": 503006560,
+            "name": "SYNERGY",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 4,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 5,
+            "toStern": 7,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.192,
+            "latitude": -27.4573,
+            "course": 0,
+            "heading": 511,
+            "time": "2017-07-13T01:17:19Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.172, -27.3687]
+        },
+        "properties": {
+            "mmsi": 503571400,
+            "name": "G J OLIVE III",
+            "imo": 0,
+            "call_sign": "VMQ9961",
+            "mid": 503,
+            "ship_type": 55,
+            "length": 2,
+            "beam": 4,
+            "draught": 1,
+            "toBow": 9,
+            "toStern": 3,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 0.2,
+            "longitude": 153.172,
+            "latitude": -27.3687,
+            "course": 311,
+            "heading": 511,
+            "time": "2017-07-13T01:17:25Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.158, -27.4017]
+        },
+        "properties": {
+            "mmsi": 503315100,
+            "name": "JIM PEEL",
+            "imo": 0,
+            "call_sign": "11799QC",
+            "mid": 503,
+            "ship_type": 33,
+            "length": 15,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 6,
+            "toStern": 9,
+            "toPort": 3,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.158,
+            "latitude": -27.4017,
+            "course": 56.3,
+            "heading": 511,
+            "time": "2017-07-13T01:17:30Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.221, -27.4898]
+        },
+        "properties": {
+            "mmsi": 983191066,
+            "name": "21",
+            "imo": 0,
+            "call_sign": "VEC123",
+            "mid": 319,
+            "ship_type": 33,
+            "length": 6,
+            "beam": 2,
+            "draught": 0,
+            "toBow": 3,
+            "toStern": 3,
+            "toPort": 1,
+            "toStar": 1,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.221,
+            "latitude": -27.4898,
+            "course": 329.9,
+            "heading": 511,
+            "time": "2017-07-13T01:17:34Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.192, -27.4536]
+        },
+        "properties": {
+            "mmsi": 503484200,
+            "name": "AZIMUTH",
+            "imo": 0,
+            "call_sign": "11695QC",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.192,
+            "latitude": -27.4536,
+            "course": 0,
+            "heading": 511,
+            "time": "2017-07-13T01:17:38Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.503, -27.0656]
+        },
+        "properties": {
+            "mmsi": 319059200,
+            "name": "QING",
+            "imo": 1010521,
+            "call_sign": "ZGDQ7",
+            "mid": 319,
+            "ship_type": 37,
+            "length": 46,
+            "beam": 10,
+            "draught": 0,
+            "toBow": 27,
+            "toStern": 19,
+            "toPort": 5,
+            "toStar": 5,
+            "nav_status": 0,
+            "rate_of_turn": -127,
+            "speed": 10.5,
+            "longitude": 153.503,
+            "latitude": -27.0656,
+            "course": 160,
+            "heading": 160,
+            "time": "2017-07-13T01:17:45Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.156, -27.4016]
+        },
+        "properties": {
+            "mmsi": 503015000,
+            "name": "AUSTRAL SALVOR",
+            "imo": 8501385,
+            "call_sign": "VMAS",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 10,
+            "beam": 10,
+            "draught": 0,
+            "toBow": 14,
+            "toStern": 20,
+            "toPort": 7,
+            "toStar": 3,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.156,
+            "latitude": -27.4016,
+            "course": 302.7,
+            "heading": 183,
+            "time": "2017-07-13T01:17:50Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.131, -27.4282]
+        },
+        "properties": {
+            "mmsi": 503512600,
+            "name": "LISMORE",
+            "imo": 0,
+            "call_sign": "28307QC",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 16,
+            "beam": 5,
+            "draught": 0,
+            "toBow": 6,
+            "toStern": 10,
+            "toPort": 3,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.131,
+            "latitude": -27.4282,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:17:55Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.188, -27.4579]
+        },
+        "properties": {
+            "mmsi": 503153300,
+            "name": "RHYTHMIC",
+            "imo": 0,
+            "call_sign": "LP741Q",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 8,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 1,
+            "toPort": 3,
+            "toStar": 5,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.188,
+            "latitude": -27.4579,
+            "course": 358.3,
+            "heading": 511,
+            "time": "2017-07-13T01:17:57Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.038, -27.4701]
+        },
+        "properties": {
+            "mmsi": 367679970,
+            "name": "HAPPY DIVERS",
+            "imo": 0,
+            "call_sign": "WDI2617",
+            "mid": 367,
+            "ship_type": 36,
+            "length": 13,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 7,
+            "toStern": 6,
+            "toPort": 0,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.5,
+            "longitude": 153.038,
+            "latitude": -27.4701,
+            "course": 283.8,
+            "heading": 511,
+            "time": "2017-07-13T01:18:00Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.131, -27.4281]
+        },
+        "properties": {
+            "mmsi": 503641300,
+            "name": "HT SALUTE",
+            "imo": 0,
+            "call_sign": "VJN3865",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 5,
+            "beam": 5,
+            "draught": 0,
+            "toBow": 6,
+            "toStern": 9,
+            "toPort": 2,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.131,
+            "latitude": -27.4281,
+            "course": 122.4,
+            "heading": 511,
+            "time": "2017-07-13T01:18:02Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.19, -27.4582]
+        },
+        "properties": {
+            "mmsi": 503274200,
+            "name": "RUNAWAY MOON",
+            "imo": 0,
+            "call_sign": "ON85302",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 4,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 7,
+            "toStern": 3,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.19,
+            "latitude": -27.4582,
+            "course": 346.7,
+            "heading": 511,
+            "time": "2017-07-13T01:18:03Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.19, -27.4543]
+        },
+        "properties": {
+            "mmsi": 503353300,
+            "name": "ALEZAR",
+            "imo": 0,
+            "call_sign": "QX451Q",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 3,
+            "beam": 3,
+            "draught": 0,
+            "toBow": 3,
+            "toStern": 7,
+            "toPort": 1,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.19,
+            "latitude": -27.4543,
+            "course": 78.9,
+            "heading": 511,
+            "time": "2017-07-13T01:18:09Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.174, -27.3663]
+        },
+        "properties": {
+            "mmsi": 351285000,
+            "name": "MSC ASTRID",
+            "imo": 9263344,
+            "call_sign": "3ENJ5",
+            "mid": 351,
+            "ship_type": 71,
+            "length": 231,
+            "beam": 32,
+            "draught": 0,
+            "toBow": 181,
+            "toStern": 50,
+            "toPort": 16,
+            "toStar": 16,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.174,
+            "latitude": -27.3663,
+            "course": 99,
+            "heading": 32,
+            "time": "2017-07-13T01:18:14Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.165, -27.379]
+        },
+        "properties": {
+            "mmsi": 219617000,
+            "name": "EMMA BULKER",
+            "imo": 9424091,
+            "call_sign": "OWBR2",
+            "mid": 219,
+            "ship_type": 70,
+            "length": 175,
+            "beam": 29,
+            "draught": 0,
+            "toBow": 149,
+            "toStern": 26,
+            "toPort": 15,
+            "toStar": 14,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.165,
+            "latitude": -27.379,
+            "course": 353.7,
+            "heading": 38,
+            "time": "2017-07-13T01:18:15Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.191, -27.4588]
+        },
+        "properties": {
+            "mmsi": 503486300,
+            "name": "GITANA",
+            "imo": 0,
+            "call_sign": "VL3908",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 5,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.191,
+            "latitude": -27.4588,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:18:16Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.143, -27.4146]
+        },
+        "properties": {
+            "mmsi": 311000510,
+            "name": "CSL RELIANCE",
+            "imo": 9233404,
+            "call_sign": "C6CM3",
+            "mid": 311,
+            "ship_type": 0,
+            "length": 185,
+            "beam": 32,
+            "draught": 0,
+            "toBow": 158,
+            "toStern": 27,
+            "toPort": 16,
+            "toStar": 16,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.143,
+            "latitude": -27.4146,
+            "course": 9.3,
+            "heading": 29,
+            "time": "2017-07-13T01:18:17Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.191, -27.4537]
+        },
+        "properties": {
+            "mmsi": 503002190,
+            "name": "TWOFLOWER",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 6,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 4,
+            "toStern": 8,
+            "toPort": 3,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.191,
+            "latitude": -27.4537,
+            "course": 325.1,
+            "heading": 511,
+            "time": "2017-07-13T01:18:21Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.105, -27.4451]
+        },
+        "properties": {
+            "mmsi": 503105600,
+            "name": "WHISTLER",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 30,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 14,
+            "toStern": 16,
+            "toPort": 4,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.105,
+            "latitude": -27.4451,
+            "course": 198,
+            "heading": 511,
+            "time": "2017-07-13T01:18:24Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.191, -27.4535]
+        },
+        "properties": {
+            "mmsi": 503708200,
+            "name": "S V NAMIRDA",
+            "imo": 0,
+            "call_sign": "VHNH",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 5,
+            "beam": 5,
+            "draught": 0,
+            "toBow": 12,
+            "toStern": 3,
+            "toPort": 2,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.3,
+            "longitude": 153.191,
+            "latitude": -27.4535,
+            "course": 183,
+            "heading": 511,
+            "time": "2017-07-13T01:18:25Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.191, -27.458]
+        },
+        "properties": {
+            "mmsi": 503019170,
+            "name": "CAMIRA",
+            "imo": 0,
+            "call_sign": "09351Q",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 4,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 5,
+            "toStern": 10,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.191,
+            "latitude": -27.458,
+            "course": 265.7,
+            "heading": 511,
+            "time": "2017-07-13T01:18:26Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.089, -27.4495]
+        },
+        "properties": {
+            "mmsi": 503160200,
+            "name": "PT KOTOR",
+            "imo": 0,
+            "call_sign": "VMBB",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 23,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 6,
+            "toStern": 17,
+            "toPort": 3,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.089,
+            "latitude": -27.4495,
+            "course": 0,
+            "heading": 511,
+            "time": "2017-07-13T01:18:27Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.052, -27.4405]
+        },
+        "properties": {
+            "mmsi": 503488200,
+            "name": "MILDRED",
+            "imo": 0,
+            "call_sign": "VNW6388",
+            "mid": 503,
+            "ship_type": 31,
+            "length": 2,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 4,
+            "toStern": 14,
+            "toPort": 6,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.052,
+            "latitude": -27.4405,
+            "course": 315.2,
+            "heading": 0,
+            "time": "2017-07-13T01:18:30Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.159, -27.3889]
+        },
+        "properties": {
+            "mmsi": 636015144,
+            "name": "FPMC B 104",
+            "imo": 9473509,
+            "call_sign": "A8YV7",
+            "mid": 636,
+            "ship_type": 70,
+            "length": 253,
+            "beam": 43,
+            "draught": 0,
+            "toBow": 215,
+            "toStern": 38,
+            "toPort": 27,
+            "toStar": 16,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.159,
+            "latitude": -27.3889,
+            "course": 172.2,
+            "heading": 23,
+            "time": "2017-07-13T01:18:31Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.095, -27.2096]
+        },
+        "properties": {
+            "mmsi": 503518900,
+            "name": "ULYSSES",
+            "imo": 0,
+            "call_sign": "ULYSSES",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 11,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 6,
+            "toStern": 5,
+            "toPort": 3,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.095,
+            "latitude": -27.2096,
+            "course": 110.8,
+            "heading": 511,
+            "time": "2017-07-13T01:18:33Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.237, -27.3561]
+        },
+        "properties": {
+            "mmsi": 503756400,
+            "name": "FAUCON",
+            "imo": 0,
+            "call_sign": "VJQ9779",
+            "mid": 503,
+            "ship_type": 33,
+            "length": 4,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 35,
+            "toStern": 8,
+            "toPort": 4,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 3.2,
+            "longitude": 153.237,
+            "latitude": -27.3561,
+            "course": 154.8,
+            "heading": 511,
+            "time": "2017-07-13T01:18:34Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.152, -27.406]
+        },
+        "properties": {
+            "mmsi": 538005094,
+            "name": "ARDMORE ENGINEER",
+            "imo": 9654787,
+            "call_sign": "V7AY5",
+            "mid": 538,
+            "ship_type": 80,
+            "length": 183,
+            "beam": 32,
+            "draught": 0,
+            "toBow": 150,
+            "toStern": 33,
+            "toPort": 9,
+            "toStar": 23,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.152,
+            "latitude": -27.406,
+            "course": 321.4,
+            "heading": 198,
+            "time": "2017-07-13T01:18:35Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.193, -27.4563]
+        },
+        "properties": {
+            "mmsi": 503087900,
+            "name": "SV TAMANU",
+            "imo": 0,
+            "call_sign": "VNQ9482",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 4,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 6,
+            "toPort": 3,
+            "toStar": 1,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.193,
+            "latitude": -27.4563,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:18:36Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.277, -27.2826]
+        },
+        "properties": {
+            "mmsi": 538006840,
+            "name": "BW NJORD",
+            "imo": 9741827,
+            "call_sign": "V7RX3",
+            "mid": 538,
+            "ship_type": 80,
+            "length": 225,
+            "beam": 37,
+            "draught": 0,
+            "toBow": 190,
+            "toStern": 35,
+            "toPort": 10,
+            "toStar": 27,
+            "nav_status": 1,
+            "rate_of_turn": -4,
+            "speed": 0,
+            "longitude": 153.277,
+            "latitude": -27.2826,
+            "course": 110.4,
+            "heading": 167,
+            "time": "2017-07-13T01:18:36Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.192, -27.4548]
+        },
+        "properties": {
+            "mmsi": 503052180,
+            "name": "MEEANDAH V",
+            "imo": 0,
+            "call_sign": "YNZ2345",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 20,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 12,
+            "toStern": 8,
+            "toPort": 4,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.192,
+            "latitude": -27.4548,
+            "course": 174.2,
+            "heading": 130,
+            "time": "2017-07-13T01:18:36Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.166, -27.3725]
+        },
+        "properties": {
+            "mmsi": 983192059,
+            "name": "BLACKWATCH",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 319,
+            "ship_type": 34,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 8.2,
+            "longitude": 153.166,
+            "latitude": -27.3725,
+            "course": 211.5,
+            "heading": 511,
+            "time": "2017-07-13T01:18:41Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.259, -27.4003]
+        },
+        "properties": {
+            "mmsi": 503029140,
+            "name": "FRANK WILSON",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 5,
+            "beam": 5,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 5,
+            "toPort": 3,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 7.7,
+            "longitude": 153.259,
+            "latitude": -27.4003,
+            "course": 167.4,
+            "heading": 511,
+            "time": "2017-07-13T01:18:42Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.107, -27.4441]
+        },
+        "properties": {
+            "mmsi": 319973000,
+            "name": "PURSUIT",
+            "imo": 9554649,
+            "call_sign": "ZGEM3",
+            "mid": 319,
+            "ship_type": 37,
+            "length": 49,
+            "beam": 9,
+            "draught": 0,
+            "toBow": 24,
+            "toStern": 25,
+            "toPort": 5,
+            "toStar": 4,
+            "nav_status": 5,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.107,
+            "latitude": -27.4441,
+            "course": 337,
+            "heading": 242,
+            "time": "2017-07-13T01:18:43Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.193, -27.4561]
+        },
+        "properties": {
+            "mmsi": 503011420,
+            "name": "LONG RUN",
+            "imo": 0,
+            "call_sign": "UB968Q",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 21,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 15,
+            "toStern": 6,
+            "toPort": 3,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.193,
+            "latitude": -27.4561,
+            "course": 4.8,
+            "heading": 511,
+            "time": "2017-07-13T01:18:43Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.163, -27.4015]
+        },
+        "properties": {
+            "mmsi": 503327600,
+            "name": "W CONROY",
+            "imo": 0,
+            "call_sign": "VZQ2047",
+            "mid": 503,
+            "ship_type": 40,
+            "length": 8,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 24,
+            "toStern": 0,
+            "toPort": 8,
+            "toStar": 0,
+            "nav_status": 1,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.163,
+            "latitude": -27.4015,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:18:44Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.026, -27.4803]
+        },
+        "properties": {
+            "mmsi": 503025670,
+            "name": "GILWUNPA",
+            "imo": 0,
+            "call_sign": "32038QE",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 7,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 15,
+            "toPort": 4,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 11.5,
+            "longitude": 153.026,
+            "latitude": -27.4803,
+            "course": 139.5,
+            "heading": 511,
+            "time": "2017-07-13T01:18:44Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.193, -27.4556]
+        },
+        "properties": {
+            "mmsi": 503780500,
+            "name": "BILLABONG",
+            "imo": 0,
+            "call_sign": "",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 18,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 6,
+            "toStern": 12,
+            "toPort": 3,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.193,
+            "latitude": -27.4556,
+            "course": 217.7,
+            "heading": 511,
+            "time": "2017-07-13T01:18:45Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.053, -27.461]
+        },
+        "properties": {
+            "mmsi": 503576600,
+            "name": "YAWAGARA",
+            "imo": 0,
+            "call_sign": "27885QE",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 7,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 16,
+            "toPort": 3,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.053,
+            "latitude": -27.461,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:18:49Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.074, -27.4473]
+        },
+        "properties": {
+            "mmsi": 503699200,
+            "name": "TAYLIA ROSE",
+            "imo": 0,
+            "call_sign": "VJN4036",
+            "mid": 503,
+            "ship_type": 2,
+            "length": 12,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 7,
+            "toStern": 5,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 15,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.074,
+            "latitude": -27.4473,
+            "course": 0,
+            "heading": 511,
+            "time": "2017-07-13T01:18:49Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.191, -27.4553]
+        },
+        "properties": {
+            "mmsi": 503052330,
+            "name": "IMAGINATION",
+            "imo": 0,
+            "call_sign": "WR165Q",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.191,
+            "latitude": -27.4553,
+            "course": 152.4,
+            "heading": 511,
+            "time": "2017-07-13T01:18:52Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.026, -27.4786]
+        },
+        "properties": {
+            "mmsi": 503575900,
+            "name": "MOOROOLBIN",
+            "imo": 0,
+            "call_sign": "20481QE",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 4,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 16,
+            "toPort": 3,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 8.6,
+            "longitude": 153.026,
+            "latitude": -27.4786,
+            "course": 306,
+            "heading": 511,
+            "time": "2017-07-13T01:18:53Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.168, -27.3713]
+        },
+        "properties": {
+            "mmsi": 503774000,
+            "name": "JOHN OXLEY 2",
+            "imo": 0,
+            "call_sign": "7572QC",
+            "mid": 503,
+            "ship_type": 0,
+            "length": 18,
+            "beam": 18,
+            "draught": 0,
+            "toBow": 64,
+            "toStern": 15,
+            "toPort": 10,
+            "toStar": 8,
+            "nav_status": 15,
+            "rate_of_turn": -128,
+            "speed": 7.1,
+            "longitude": 153.168,
+            "latitude": -27.3713,
+            "course": 31.1,
+            "heading": 511,
+            "time": "2017-07-13T01:18:53Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.156, -27.4015]
+        },
+        "properties": {
+            "mmsi": 503546000,
+            "name": "SL COOK",
+            "imo": 9105255,
+            "call_sign": "VMQ9341",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 12,
+            "beam": 12,
+            "draught": 4.4,
+            "toBow": 24,
+            "toStern": 10,
+            "toPort": 4,
+            "toStar": 8,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.156,
+            "latitude": -27.4015,
+            "course": 283.6,
+            "heading": 174,
+            "time": "2017-07-13T01:18:53Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.155, -27.4016]
+        },
+        "properties": {
+            "mmsi": 503379000,
+            "name": "CLONTARF",
+            "imo": 9185645,
+            "call_sign": "VZBX",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 8,
+            "beam": 8,
+            "draught": 5.6,
+            "toBow": 15,
+            "toStern": 16,
+            "toPort": 4,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.155,
+            "latitude": -27.4016,
+            "course": 0,
+            "heading": 511,
+            "time": "2017-07-13T01:18:55Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.239, -27.3606]
+        },
+        "properties": {
+            "mmsi": 503498710,
+            "name": "VIGILANT",
+            "imo": 0,
+            "call_sign": "VNW6025",
+            "mid": 503,
+            "ship_type": 38,
+            "length": 18,
+            "beam": 5,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 10,
+            "toPort": 3,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 17.3,
+            "longitude": 153.239,
+            "latitude": -27.3606,
+            "course": 303.4,
+            "heading": 511,
+            "time": "2017-07-13T01:18:55Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.156, -27.4015]
+        },
+        "properties": {
+            "mmsi": 503384400,
+            "name": "SL MURRUMBIDGEE",
+            "imo": 9530503,
+            "call_sign": "VJN3448",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 11,
+            "beam": 11,
+            "draught": 5.4,
+            "toBow": 13,
+            "toStern": 11,
+            "toPort": 7,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.156,
+            "latitude": -27.4015,
+            "course": 19.3,
+            "heading": 511,
+            "time": "2017-07-13T01:18:55Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.156, -27.4015]
+        },
+        "properties": {
+            "mmsi": 503194500,
+            "name": "COLMSLIE",
+            "imo": 9366885,
+            "call_sign": "VJN3166",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 10,
+            "beam": 10,
+            "draught": 5.4,
+            "toBow": 11,
+            "toStern": 11,
+            "toPort": 5,
+            "toStar": 5,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.156,
+            "latitude": -27.4015,
+            "course": 152.1,
+            "heading": 511,
+            "time": "2017-07-13T01:18:55Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.106, -27.1931]
+        },
+        "properties": {
+            "mmsi": 503056250,
+            "name": "SEAVENTURE",
+            "imo": 0,
+            "call_sign": "861974",
+            "mid": 503,
+            "ship_type": 36,
+            "length": 16,
+            "beam": 5,
+            "draught": 0,
+            "toBow": 16,
+            "toStern": 0,
+            "toPort": 5,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.106,
+            "latitude": -27.1931,
+            "course": 356.6,
+            "heading": 511,
+            "time": "2017-07-13T01:18:56Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.192, -27.455]
+        },
+        "properties": {
+            "mmsi": 503026110,
+            "name": "NORTH WEST",
+            "imo": 0,
+            "call_sign": "NORTHWE",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 8,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 8,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.192,
+            "latitude": -27.455,
+            "course": 137.9,
+            "heading": 138,
+            "time": "2017-07-13T01:18:57Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.142, -27.4183]
+        },
+        "properties": {
+            "mmsi": 503138300,
+            "name": "SPITFIRE",
+            "imo": 0,
+            "call_sign": "28010QC",
+            "mid": 503,
+            "ship_type": 50,
+            "length": 4,
+            "beam": 4,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 6,
+            "toPort": 2,
+            "toStar": 2,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 8.5,
+            "longitude": 153.142,
+            "latitude": -27.4183,
+            "course": 41.9,
+            "heading": 511,
+            "time": "2017-07-13T01:18:57Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.109, -27.4434]
+        },
+        "properties": {
+            "mmsi": 503649700,
+            "name": "SEAFORCE",
+            "imo": 9625322,
+            "call_sign": "VHEO",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 30,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 20,
+            "toPort": 4,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.109,
+            "latitude": -27.4434,
+            "course": 115.6,
+            "heading": 511,
+            "time": "2017-07-13T01:18:57Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.164, -27.4015]
+        },
+        "properties": {
+            "mmsi": 503038940,
+            "name": "PV  DAMIAN LEEDING",
+            "imo": 0,
+            "call_sign": "32012QB",
+            "mid": 503,
+            "ship_type": 55,
+            "length": 0,
+            "beam": 0,
+            "draught": 0,
+            "toBow": 0,
+            "toStern": 0,
+            "toPort": 0,
+            "toStar": 0,
+            "nav_status": 15,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.164,
+            "latitude": -27.4015,
+            "course": 70.1,
+            "heading": 173,
+            "time": "2017-07-13T01:18:58Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.132, -27.4294]
+        },
+        "properties": {
+            "mmsi": 503023000,
+            "name": "GABO",
+            "imo": 8112392,
+            "call_sign": "VKGO",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 32,
+            "beam": 10,
+            "draught": 0,
+            "toBow": 12,
+            "toStern": 20,
+            "toPort": 6,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.132,
+            "latitude": -27.4294,
+            "course": 0,
+            "heading": 511,
+            "time": "2017-07-13T01:18:58Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.195, -26.9198]
+        },
+        "properties": {
+            "mmsi": 636014875,
+            "name": "ETC RAMSIS",
+            "imo": 9260809,
+            "call_sign": "A8XB2",
+            "mid": 636,
+            "ship_type": 80,
+            "length": 245,
+            "beam": 41,
+            "draught": 0,
+            "toBow": 213,
+            "toStern": 32,
+            "toPort": 22,
+            "toStar": 19,
+            "nav_status": 0,
+            "rate_of_turn": 5,
+            "speed": 12.5,
+            "longitude": 153.195,
+            "latitude": -26.9198,
+            "course": 327.9,
+            "heading": 328,
+            "time": "2017-07-13T01:18:59Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.053, -27.4403]
+        },
+        "properties": {
+            "mmsi": 503687300,
+            "name": "BAGHWAN JACKAL",
+            "imo": 0,
+            "call_sign": "VJN4045",
+            "mid": 503,
+            "ship_type": 90,
+            "length": 19,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 9,
+            "toPort": 1,
+            "toStar": 7,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.1,
+            "longitude": 153.053,
+            "latitude": -27.4403,
+            "course": 209.7,
+            "heading": 511,
+            "time": "2017-07-13T01:19:00Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.042, -27.4748]
+        },
+        "properties": {
+            "mmsi": 503576700,
+            "name": "MAHREEL",
+            "imo": 0,
+            "call_sign": "27885QE",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 24,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 16,
+            "toPort": 3,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.042,
+            "latitude": -27.4748,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:19:00Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [152.999, -27.4812]
+        },
+        "properties": {
+            "mmsi": 503577100,
+            "name": "WALAN",
+            "imo": 0,
+            "call_sign": "29439QE",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 7,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 16,
+            "toPort": 3,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 16.1,
+            "longitude": 152.999,
+            "latitude": -27.4812,
+            "course": 217.4,
+            "heading": 511,
+            "time": "2017-07-13T01:19:00Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.053, -27.4611]
+        },
+        "properties": {
+            "mmsi": 503575400,
+            "name": "TUGULAWA",
+            "imo": 0,
+            "call_sign": "12014QE",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 5,
+            "beam": 10,
+            "draught": 0,
+            "toBow": 27,
+            "toStern": 27,
+            "toPort": 5,
+            "toStar": 5,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.053,
+            "latitude": -27.4611,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:19:00Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.174, -27.3666]
+        },
+        "properties": {
+            "mmsi": 503194600,
+            "name": "NEWSTEAD",
+            "imo": 9366897,
+            "call_sign": "VJN3167",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 10,
+            "beam": 10,
+            "draught": 5.5,
+            "toBow": 11,
+            "toStern": 11,
+            "toPort": 5,
+            "toStar": 5,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 1.3,
+            "longitude": 153.174,
+            "latitude": -27.3666,
+            "course": 78,
+            "heading": 511,
+            "time": "2017-07-13T01:19:01Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.128, -27.4254]
+        },
+        "properties": {
+            "mmsi": 503544000,
+            "name": "SVITZER HAMILTON",
+            "imo": 9366914,
+            "call_sign": "VJSH",
+            "mid": 503,
+            "ship_type": 52,
+            "length": 25,
+            "beam": 11,
+            "draught": 0,
+            "toBow": 10,
+            "toStern": 15,
+            "toPort": 4,
+            "toStar": 7,
+            "nav_status": 0,
+            "rate_of_turn": -128,
+            "speed": 0,
+            "longitude": 153.128,
+            "latitude": -27.4254,
+            "course": 0,
+            "heading": 511,
+            "time": "2017-07-13T01:19:01Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.053, -27.4614]
+        },
+        "properties": {
+            "mmsi": 503576500,
+            "name": "WILWINPA",
+            "imo": 0,
+            "call_sign": "27884QE",
+            "mid": 503,
+            "ship_type": 60,
+            "length": 4,
+            "beam": 7,
+            "draught": 0,
+            "toBow": 8,
+            "toStern": 16,
+            "toPort": 3,
+            "toStar": 4,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0,
+            "longitude": 153.053,
+            "latitude": -27.4614,
+            "course": 360,
+            "heading": 511,
+            "time": "2017-07-13T01:19:02Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.191, -27.3359]
+        },
+        "properties": {
+            "mmsi": 319088200,
+            "name": "SILENTWORLD",
+            "imo": 1009558,
+            "call_sign": "ZGFE3",
+            "mid": 319,
+            "ship_type": 37,
+            "length": 40,
+            "beam": 8,
+            "draught": 0,
+            "toBow": 28,
+            "toStern": 12,
+            "toPort": 5,
+            "toStar": 3,
+            "nav_status": 0,
+            "rate_of_turn": 21,
+            "speed": 9.7,
+            "longitude": 153.191,
+            "latitude": -27.3359,
+            "course": 210.3,
+            "heading": 211,
+            "time": "2017-07-13T01:19:02Z"
+        }
+    }, {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [153.394, -27.3206]
+        },
+        "properties": {
+            "mmsi": 503043350,
+            "name": "ADELINE",
+            "imo": 0,
+            "call_sign": "MH566",
+            "mid": 503,
+            "ship_type": 37,
+            "length": 15,
+            "beam": 6,
+            "draught": 0,
+            "toBow": 6,
+            "toStern": 9,
+            "toPort": 5,
+            "toStar": 1,
+            "nav_status": 0,
+            "rate_of_turn": 0,
+            "speed": 0.4,
+            "longitude": 153.394,
+            "latitude": -27.3206,
+            "course": 346.7,
+            "heading": 511,
+            "time": "2017-07-13T01:19:03Z"
+        }
+    }]
+}

@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+
+    <head>
+        <script src='../../../bower_components/webcomponentsjs/webcomponents.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html' />
+        <link rel='import' href='../../../bower_components/iron-ajax/iron-ajax.html'>
+        <link rel='import' href='../dhi-stock-chart.html'>
+    </head>
+
+    <body>
+        <dom-module id='base-page'>
+            <template>
+                <style>
+                    dhi-stock-chart {
+                        width: 100%;
+                        height: 500px;
+                    }
+
+                    highlight {
+                        border: solid;
+                        border-width: 1px;
+                        border-color: red;
+                    }
+                </style>
+                <div>
+                    <iron-ajax auto
+                               id='ajaxFullTimeSeries'
+                               url='{{fullTimeSeriesUrl}}'
+                               params=''
+                               handle-as='json'
+                               last-response="{{fullData}}">
+                    </iron-ajax>
+                    <iron-ajax auto
+                               id='ajaxTimeSeries'
+                               url='{{timeSeriesUrl}}'
+                               params=''
+                               handle-as='json'
+                               last-response="{{data}}">
+                    </iron-ajax>
+                    <dhi-stock-chart
+                                     style='height:400px'
+                                     id='chart'
+                                     data='{{fullTimeSeriesData}}'
+                                     config='{{chartConfig}}'
+                                     lazy-load-url='{{fullTimeSeriesUrl}}'>
+                    </dhi-stock-chart>
+                    <dhi-stock-chart
+                                     style='height:400px'
+                                     id='chart'
+                                     data='{{timeSeriesData}}'
+                                     config='{{chartConfig}}'
+                                     lazy-load-url='{{timeSeriesUrl}}'>
+                    </dhi-stock-chart>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            Polymer({
+                is: 'base-page',
+
+                properties: {
+
+                    isReady: {
+                        type: Boolean,
+                        value: false
+                    },
+
+                    apiUrl: {
+                        type: String,
+                        value: ''
+                    },
+
+                    /*value: 'http://localhost:17510/api/timeseries/ts-dfs0/ChapelSt2002-2015%205mEdittedGHM160511.dfs0;ChapelSt2001-2011%205min/values/speedopt'*/
+                    /*value: 'http://localhost:17510/api/timeseries/ts-dfs0/ChapelSt2002-2015%205mEdittedGHM160511.dfs0;ChapelSt2001-2011%205min/values/'*/
+                    fullTimeSeriesUrl: {
+                        type: String,
+                        value: undefined
+                        //value: 'http://localhost:17510/api/timeseries/ts-dfs0/ChapelSt2002-2015%205mEdittedGHM160511.dfs0;ChapelSt2001-2011%205min/values'
+                    },
+
+                    timeSeriesUrl: {
+                        type: String,
+                        value: undefined
+                        //value: 'http://localhost/polymer/api/timeseries/ts-dfs0/ChapelSt2002-2015%205mEdittedGHM160511.dfs0;ChapelSt2001-2011%205min/values/speedopt'
+                    },
+
+                    chartConfig: {
+                        type: Object,
+                        value: function() {
+                            return {};
+                        }
+                    },
+
+                    fullData:{
+                        type: Array,
+                        value: undefined,
+                        observer: '_fullDataChanged'
+                    },
+
+                    data:{
+                        type: Array,
+                        value: undefined,
+                        observer: '_dataChanged'
+                    },
+
+                    fullStartTime:{
+                        type: Date,
+                        value: undefined
+                    },
+
+                    startTime:{
+                        type:Date,
+                        value: undefined
+                    }
+                },
+
+                ready: function() {
+                    this.isReady = true;
+                    this.apiUrl = window.location.href.indexOf('127.0.0.1') > 0 || window.location.href.indexOf('localhost') > 0 ? 'http://localhost/polymer' : '';
+                    this.setChartConfig();
+
+                    this.fullStartTime = new Date();
+                    //this.fullTimeSeriesUrl = 'http://localhost:17510/api/timeseries/ts-dfs0/ChapelSt2002-2015%205mEdittedGHM160511.dfs0;ChapelSt2001-2011%205min/values';
+                    //this.fullTimeSeriesUrl = 'http://localhost:17510/api/timeseries/ts-dfs0/ChapelSt2002-2015%205mEdittedGHM160511.dfs0;ChapelSt2001-2011%205min/values';
+                    this.startTime = new Date();
+                    //this.timeSeriesUrl = 'http://localhost:17510/api/timeseries/ts-dfs0/ChapelSt2002-2015%205mEdittedGHM160511.dfs0;ChapelSt2001-2011%205min/values/speedopt';
+                    this.timeSeriesUrl = 'http://localhost:17510/api/timeseries/ts-dfs0/ChapelSt2002-2015%205mEdittedGHM160511.dfs0;ChapelSt2001-2011%205min/reduced';
+
+                    /*this.timeSeriesData = [{name: 'test', data: [["2002-01-01T00:00:00",-1.0000000031710769E-30],["2002-01-01T01:40:00",0.0],["2002-01-01T03:20:00",0.0],["2002-01-01T05:00:00",0.0],["2002-01-01T06:40:00",0.0],["2002-01-01T08:20:00",0.0],["2002-01-01T10:00:00",0.0],["2002-01-01T11:40:00",0.0],["2002-01-01T13:20:00",0.0],["2002-01-01T15:00:00",0.0],["2002-01-01T16:40:00",1.0],["2002-01-01T18:20:00",2.0],["2002-01-01T20:00:00",3.0],["2002-01-01T21:40:00",2.0],["2002-01-01T23:20:00",1.0],["2002-01-02T01:00:00",-10.0],["2002-01-02T02:40:00",0.0],["2002-01-02T04:20:00",0.0],["2002-01-02T06:00:00",0.0],["2002-01-02T07:40:00",0.0],["2002-01-02T09:20:00",0.0],["2002-01-02T11:00:00",0.0],["2002-01-02T12:40:00",0.0],["2002-01-02T14:20:00",0.0],["2002-01-02T16:00:00",0.0],["2002-01-02T17:40:00",0.0],["2002-01-02T19:20:00",0.0],["2002-01-02T21:00:00",0.0],["2002-01-02T22:40:00",0.0],["2002-01-03T00:20:00",0.0],["2002-01-03T02:00:00",0.0],["2002-01-03T03:40:00",0.0],["2002-01-03T05:20:00",0.0],["2002-01-03T07:00:00",0.0],["2002-01-03T08:40:00",0.0],["2002-01-03T10:20:00",0.0],["2002-01-03T12:00:00",0.0],["2002-01-03T13:40:00",0.0],["2002-01-03T15:20:00",0.0],["2002-01-03T17:00:00",0.0],["2002-01-03T18:40:00",0.0],["2002-01-03T20:20:00",0.0],["2002-01-03T22:00:00",0.0],["2002-01-03T23:40:00",0.0],["2002-01-04T01:20:00",0.0],["2002-01-04T03:00:00",0.0],["2002-01-04T04:40:00",0.0],["2002-01-04T06:20:00",0.0],["2002-01-04T08:00:00",0.0],["2002-01-04T09:40:00",0.0],["2002-01-04T11:20:00",0.0]]}];*/
+                },
+
+                setChartConfig: function(){
+                    var config = {
+                        chart: {
+                            zoomType: 'x',
+                            events: {
+                                load: function(event) {
+                                    event.target.reflow();
+                                }
+                            },
+                            style: {
+                                fontFamily: "RobotoDraft, 'Helvetica Neue', Helvetica, Arial"
+                            }
+                        },
+                        title: {
+                            text: 'Rainfall time series'
+                        },
+                        rangeSelector : {
+                            buttons: [{
+                                type: 'hour',
+                                count: 1,
+                                text: '1h'
+                            }, {
+                                type: 'day',
+                                count: 1,
+                                text: '1d'
+                            }, {
+                                type: 'month',
+                                count: 1,
+                                text: '1m'
+                            }, {
+                                type: 'year',
+                                count: 1,
+                                text: '1y'
+                            }, {
+                                type: 'all',
+                                text: 'All'
+                            }],
+                            inputEnabled: false, // it supports only days
+                            selected : 4 // all
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%e. %B',
+                                week: '%e. %B',
+                                month: '%B \'%y',
+                                year: '%Y'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Rainfall [mm]'
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '16px',
+                                fontWeight: 'Regular'
+                            }
+                        },
+                        tooltip: {
+                            valueDecimals: 0
+                        },
+                        plotOptions: {
+                            series: {
+                                marker: {
+                                    enabled: false
+                                }
+                            }
+                        },
+                        loading: {
+                            hideDuration : 100,
+                            labelStyle : { "fontWeight": "bold", "position": "relative", "top": "45%" },
+                            showDuration : 100,
+                            style : {
+                                opacity:1
+                            }
+                        }
+                    };
+
+                    this.chartConfig = config;
+                },
+
+                stringify: function(data) {
+                    return JSON.stringify(data);
+                },
+
+                _fullDataChanged: function(d){
+                    //alert(data.length);
+                    this.fullTimeSeriesData = [{name: 'test', data: d}];
+                    console.log('_fullDataChanged: number of time steps: ' + String(d.length) + ' time elapsed: ' + ((new Date()) - this.fullStartTime) + ' milli second');
+                },
+
+                _dataChanged: function(d){
+                    this.timeSeriesData = [{name: 'test', data: d}];
+                    console.log('_dataChanged: number of time steps: ' + String(d.length) + ' time elapsed: ' + ((new Date()) - this.startTime) + ' milli second');
+                    //this.$.chart.chart.hideLoading();
+                }
+            });
+
+        </script>
+        <base-page></base-page>
+    </body>
+
+</html>

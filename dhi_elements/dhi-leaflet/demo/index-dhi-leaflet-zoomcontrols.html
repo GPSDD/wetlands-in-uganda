@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/leaflet-map/leaflet-map.html'>
+        <link rel='import' href='../dhi-leaflet-zoomcontrols.html'>
+    </head>
+    <body>
+        <dom-module id='dhi-leaflet-zoomcontrols-sample'>
+            <style>
+                leaflet-map {
+                    width: 400px;
+                    height: 400px;
+                }
+                [horizontal] {
+                    @apply(--layout-horizontal);
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='55.581240' no-zoom-control longitude='12.3' zoom='13' style='position:relative'>
+                                <dhi-leaflet-zoomcontrols></dhi-leaflet-zoomcontrols>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-zoomcontrols&gt;&lt;/dhi-leaflet-zoomcontrols&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='55.581240' no-zoom-control longitude='12.3' zoom='13' style='position:relative'>
+                                <dhi-leaflet-zoomcontrols
+                                    show-full-extent='fullExtent'
+                                    on-full-extent='fullExtent'>
+                                </dhi-leaflet-zoomcontrols>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-zoomcontrols
+                                show-full-extent='fullExtent'
+                                on-full-extent='fullExtent'&gt;
+                            &lt;/dhi-leaflet-zoomcontrols&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'dhi-leaflet-zoomcontrols-sample',
+
+                fullExtent: function() {
+                    alert('Full extent clicked');
+                }
+            });});
+        </script>
+        <dhi-leaflet-zoomcontrols-sample></dhi-leaflet-zoomcontrols-sample>
+    </body>
+</html>
+
+
+

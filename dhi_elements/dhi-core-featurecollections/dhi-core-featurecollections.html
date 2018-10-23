@@ -1,0 +1,175 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Core Feature collections
+
+`dhi-core-featurecollections` is a core feature collection component.
+
+Example:
+
+    <dhi-core-featurecollections
+        data-source='{"host": "http://hofor.dhigroup.com/api", "connection": "HOFOR-GIS", "id": "SkybrudsProjekter.shp", "filter": { "name": "Projekt_ID", "value": "KV1" }}'
+        data-source1='{"host": "http://greve.dhigroup.com", "connection": "mc-gis", "id": "ModelExtent"}'
+        data-source2='{"host": "http://localhost/webapi", "connection": "Kerian-gis", "ids": ["/KerianRiverUTM47N", "/BukitMerahReservoir_UTM47N"]}'
+        data-source3='{"host": "http://localhost/webapi", "connection": "test", "id": "/TestFC" }'
+        data='{{data}}'>
+    </dhi-core-featurecollections>
+
+@demo demo/index.html
+-->
+
+<dom-module id='dhi-core-featurecollections'>
+    <template>
+        <iron-ajax id='ajax' url='{{url}}' headers='{ "Content-Type": "application/json" }' method='{{method}}' body='{{body}}' handle-as='json' on-response='successHandler' on-error='errorHandler'></iron-ajax>
+    </template>
+</dom-module>
+<script>
+Polymer({
+    is: 'dhi-core-featurecollections',
+
+    properties: {
+        /**
+         * data as geojson object
+         */
+        data: {
+            type: Object,
+            value: function() { return []; },
+            notify: true
+        },
+
+        /**
+         * data source to get data from
+         */
+        dataSource: {
+            type: Object,
+            value: function() { return []; },
+            observer: '_dataSourceChanged'
+        },
+
+        /**
+         * indicate if associations should be included
+         */
+        includeAssociations: {
+            type: Boolean,
+            value: false
+        },
+
+        /**
+         * the id of the data source
+         */
+        id: {
+            type: String,
+            value: ''
+        },
+
+        body: {
+            type: String,
+            value: ''
+        },
+
+        cache: {
+            type: Object,
+            value: function() { return {}; }
+        },
+
+        useCache: {
+            type: Boolean,
+            value: false
+        }
+    },
+
+    successHandler: function(header, data) {
+        if (data.xhr.status === 200 ) {
+            this.processResponse(data.xhr.response);
+        } else {
+            alert('EXCEPTION: ' + data.xhr.responseText);
+        }
+    },
+
+    errorHandler: function (event) {
+        this.fire('error', { statusText: event.detail.request.xhr.statusText, response: event.detail.request.xhr.response });
+    },
+
+    processResponse: function(response) {
+        var data = toObject(response);
+
+        if (this.useCache) {
+            var dataSource = null;
+            if ((dataSource = toObject(this.dataSource)) !== null) {
+                if (dataSource.id) {
+                    if (!this.cache[dataSource.id]) {
+                        this.cache[dataSource.id] = data;
+                    }
+
+                    data = this.cache[dataSource.id];
+                } else {
+                    var mergedData = {};
+                    for (var i = 0; i < dataSource.ids.length; i++) {
+                        if (!this.cache[dataSource.ids[i]]) {
+                            this.cache[dataSource.ids[i]] = data[dataSource.ids[i]];
+                        }
+
+                        mergedData[dataSource.ids[i]] = this.cache[dataSource.ids[i]];
+                    }
+                    data = mergedData;
+                }
+            }
+        }
+
+        this.data = data;
+        this.fire('received', { id: this.id, data: this.data });
+    },
+
+    _dataSourceChanged: function() {
+        this.go();
+    },
+
+    go: function () {
+        try {
+            var dataSource = null;
+            if ((dataSource = toObject(this.dataSource)) !== null) {
+                this.id = dataSource.id;
+
+                if (dataSource.id) {
+                    this.method = 'GET';
+
+                    var filter = '';
+                    if (dataSource.filter) {
+                        filter = '?' + dataSource.filter.name + '=' + dataSource.filter.value;
+                    }
+
+                    dataSource.id = dataSource.id.replaceAll('\\', '|').replaceAll('/', '|');
+
+                    this.url = dataSource.host + '/api/featurecollection/' + dataSource.connection + '/' + dataSource.id + (this.includeAssociations ? '?associations=true' : '') + filter;
+                    this.$.ajax.generateRequest();
+                }
+                else {
+                    this.method = 'POST';
+
+                    var body = [];
+                    for (var i = 0; i < dataSource.ids.length; i++) {
+                        var id = dataSource.ids[i];
+                        if (!this.useCache || (this.useCache && !this.cache[id])) {
+                            body.push(id);
+                        }
+                    }
+
+                    // Because everything is cached already
+                    if (body.length == 0) {
+                        this.processResponse(null);
+                    } else {
+                        this.body = JSON.stringify(body);
+                        this.url = dataSource.host + '/api/featurecollection/' + dataSource.connection + '/list' + (this.includeAssociations ? '?associations=true' : '');
+                        this.$.ajax.generateRequest();
+                    }
+                }
+            }
+        }
+        catch(err) {
+            alert('Failed to parse data source ' + JSON.stringify(this.dataSource) + ' message ' + err + ' in dhi-core-featurecollections with error: ' + err);
+        }
+    }
+});
+</script>

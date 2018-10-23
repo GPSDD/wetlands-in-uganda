@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../dhi-core-timeseries-saver.html'>
+    </head>
+    <body>
+        <dom-module id='demo-element'>
+            <style>
+                .red {
+                    --dhi-animation-control-color: red;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                    height: 50px;
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer'>
+                            <input type='button' on-tap='tapped' value='Save'>
+                            <dhi-core-timeseries-saver
+                                id='supersaver'
+                                data-source='{"host": "http://localhost/webapi", "connection": "local-test"}'
+                                data='{{data}}'
+                                meta-data='{{metaData}}'
+                                user-name='admin'
+                                password='webapi'>
+                            </dhi-core-timeseries-saver>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-core-timeseries-saver
+                                id='supersaver'
+                                data-source='{"host": "http://localhost/webapi", "connection": "local-test"}'
+                                data='{{data}}'
+                                meta-data='{{metaData}}'
+                                user-name='admin'
+                                password='webapi'&gt;
+                            &lt;/dhi-core-timeseries-saver&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'demo-element',
+
+                properties: {
+                    data: {
+                        type: Array,
+                        value: function() {
+                            return [
+                                {
+                                   id: "/test1", 
+                                   data: [
+                                        ["2016-01-15T00:00:00", 3.2092],
+                                        ["2016-01-15T08:00:00",	0.7039667],
+                                        ["2016-01-15T14:00:00",	60.0],
+                                        ["2016-01-15T20:00:00",	28.0],
+                                        ["2016-01-16T00:00:00",	5.33333349],
+                                        ["2016-01-16T02:00:00",	2.66666675],
+                                        ["2016-01-16T08:00:00",	0.0],
+                                        ["2016-01-16T14:00:00",	0.0],
+                                        ["2016-01-16T20:00:00",	0.0],
+                                        ["2016-01-17T00:00:00",	0.0],
+                                        ["2016-01-17T02:00:00",	0.0],
+                                        ["2016-01-17T08:00:00",	0.0],
+                                        ["2016-01-17T14:00:00",	0.0]
+                                    ]
+                                }, {
+                                    id: "/test2", 
+                                    data: [
+                                        ["2016-01-15T00:00:00", 2.56751561],
+                                        ["2016-01-15T08:00:00",	0.617681444],
+                                        ["2016-01-15T14:00:00",	30.0],
+                                        ["2016-01-15T20:00:00",	14.0],
+                                        ["2016-01-16T00:00:00",	2.66666675],
+                                        ["2016-01-16T02:00:00",	1.33333337],
+                                        ["2016-01-16T08:00:00",	0.0],
+                                        ["2016-01-16T14:00:00",	0.0],
+                                        ["2016-01-16T20:00:00",	0.0],
+                                        ["2016-01-17T00:00:00",	0.0],
+                                        ["2016-01-17T02:00:00",	0.0],
+                                        ["2016-01-17T08:00:00",	0.0],
+                                        ["2016-01-17T14:00:00", 0.0]
+                                    ]
+                                }, {
+                                    id: "/test3Flags", 
+                                    data: [
+                                        ["2016-01-15T00:00:00", 2.56751561, 'someflag'],
+                                        ["2016-01-15T08:00:00",	0.617681444, null]
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+
+                    metaData: {
+                        type: Array,
+                        value: function() {
+                            return {
+                               '/test1': {
+                                  dataType: 'Step Accumulated',
+                                  unit: 'mm',
+                                  quantity: 'Rainfall'
+                               },
+                               '/test2': {
+                                  dataType: 'Step Accumulated',
+                                  unit: 'mm',
+                                  quantity: 'Rainfall'
+                               },
+                               '/test3Flags': {
+                                  dataType: 'Step Accumulated',
+                                  unit: 'mm',
+                                  quantity: 'Rainfall'
+                               }
+                            }
+                        }
+                    }
+                },
+
+                tapped: function() {
+                    this.$.supersaver.go();
+                }
+            });});
+        </script>
+        <demo-element></demo-element>
+    </body>
+</html>

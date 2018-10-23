@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+    <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+    <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+    <link rel='import' href='../dhi-core-table.html'>
+</head>
+
+<body>
+    <dom-module id='demo-element'>
+        <style>
+            .padded {
+                padding: 20px;
+                width: 1000px;
+            }
+            .elementContainer {
+                height: 210px;
+            }
+            .codeContainer {
+                padding: 20px;
+                background-color: #EEEEEE;
+            }
+            .flex-center-justified {
+                @apply(--layout-horizontal);
+                @apply(--layout-center-justified);
+            }
+        </style>
+        <template>
+            <dhi-core-table
+                data-source='{"host": "http://greve.dhigroup.com", "connection": "mc-spr", "type": "spreadsheet", "spreadsheet": "Scenarios%7CSystem%7CRealTime", "sheet": "Greve"}'
+                data='{{data}}'>
+            </dhi-core-table>
+            <dhi-core-table
+                return-raw-response
+                data-source='{"host": "http://greve.dhigroup.com", "connection": "mc-spr", "type": "spreadsheet", "spreadsheet": "Scenarios%7CSystem%7CRealTime", "sheet": "Greve"}'
+                data='{{rawData}}'>
+            </dhi-core-table>
+            <div class='flex-center-justified'>
+                <div class="vertical layout padded">
+                    <div class='elementContainer'>
+                        <textarea style='height:200px; width:200px' value='{{stringify(data)}}'></textarea>
+                    </div>
+                    <div class='codeContainer'>
+                        &lt;dhi-core-table
+                            data-source='{"host": "http://greve.dhigroup.com", "connection": "mc-spr", "type": "spreadsheet", "spreadsheet": "Scenarios%7CSystem%7CRealTime", "sheet": "Greve"}'
+                            data='{{data}}'&gt;
+                        &lt;/dhi-core-table&gt;
+                    </div>
+
+                    <br>
+                    <div class='elementContainer'>
+                        <textarea style='height:200px; width:200px' value='{{stringify(rawData)}}'></textarea>
+                    </div>
+                    <div class='codeContainer'>
+                        &lt;dhi-core-table
+                            return-raw-response
+                            data-source='{"host": "http://greve.dhigroup.com", "connection": "mc-spr", "type": "spreadsheet", "spreadsheet": "Scenarios%7CSystem%7CRealTime", "sheet": "Greve"}'
+                            data='{{rawData}}'&gt;
+                        &lt;/dhi-core-table&gt;
+                    </div>
+                </div>
+            </div>
+        </template>
+    </dom-module>
+    <script>
+        Polymer({
+            is: 'demo-element',
+
+            stringify: function(data) {
+                return JSON.stringify(data);
+            }
+        });
+
+    </script>
+    <demo-element></demo-element>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{
+    "Bathing Water": {
+        "en": "Bathing Water",
+        "dk": "Badevand"
+    },
+    "Save": {
+        "en": "Save",
+        "dk": "Gem"
+    },
+    "Disbanded": {
+        "en": "Disbanded:",
+        "dk": "Nedlagt:"
+    },
+    "RetrievingPULSDataWaitMessage": {
+        "en": "Retrieving PULS Data<br>This may take several minutes<br><br>",
+        "dk": "Henter PULS Data<br>Dette kan tage adskillige minutter<br><br>"
+    }
+}

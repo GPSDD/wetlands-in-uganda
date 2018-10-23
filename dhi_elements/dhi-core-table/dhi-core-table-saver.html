@@ -1,0 +1,155 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Core Table collections
+
+`dhi-core-table-saver` is a core table saver component.
+
+Example:
+
+    <dhi-core-table-saver
+        data-source=[[dataSource]]
+        data=[[saveData]]>
+    </dhi-core-table-saver>
+
+@demo demo/index-dhi-core-table-saver.html
+-->
+
+<dom-module id='dhi-core-table-saver'>
+    <template>
+        <iron-ajax id='ajax' url='{{url}}' method='{{method}}' body='{{body}}' handle-as='json' on-error='handler' on-response='handler'></iron-ajax>
+    </template>
+</dom-module>
+<script>
+Polymer({
+    is: 'dhi-core-table-saver',
+
+    properties: {
+        /**
+         * data as geojson object
+         *
+         * @property data
+         * @type Object
+         */
+        data: {
+            type: Object,
+            value: function() { return []; },
+            observer: '_dataChanged'
+        },
+
+        /**
+         * data source to write data to
+         *
+         * @property dataSource
+         * @type Object
+         */
+        dataSource: {
+            type: Object,
+            value: function() { return []; }
+        },
+
+        /**
+         * HTTP method being POST or PUT
+         *
+         * @property method
+         * @type String
+         */
+        method: {
+            type: String,
+            value: 'PUT'
+        },
+
+        /**
+         * url of webapi folder
+         *
+         * @property url
+         * @type String
+         */
+        url: {
+            type: String,
+            value: function() { return {}; }
+        },
+
+        /**
+         * user object to log in, if username and password strings not set
+         *
+         * @property eser
+         * @type Object
+         */
+        user: {
+            type: Object,
+            value: null
+        },
+
+        /**
+         * userName credential if user object not set
+         *
+         * @property userName
+         * @type String
+         */
+        userName: {
+            type: String,
+            value: null
+        },
+
+        /**
+         * password credential if user object not set
+         *
+         * @property password
+         * @type String
+         */
+        password: {
+            type: String,
+            value: null
+        },
+    },
+
+    update: function() {
+
+        if (this.data && this.dataSource && this.data.length>0){
+            var data = [];
+            if (this.data[0] instanceof Array){
+                data=this.data;
+            }
+            else{
+                var row=[];
+
+                for (i = 0; i < this.data.length; i++) {
+                    var row = [];
+                    var valueArray = this.data[i].data;
+                    for (j = 0; j < valueArray.length; j++) {
+                        row.push(valueArray[j].value);
+                    }
+                    data.push(row);
+                }
+            }
+
+            this.body = {
+                id : this.dataSource.spreadsheet,
+                fullname : this.dataSource.spreadsheet, // fullname : this.dataSource.spreadsheet.substr(this.dataSource.spreadsheet.lastIndexOf('/') + 1),
+                group : this.dataSource.spreadsheet.substr(0, this.dataSource.spreadsheet.lastIndexOf('/')),
+                data : [data]
+            };
+
+            this.url = this.dataSource.host + '/api/spreadsheet/' + this.dataSource.connection;
+
+            var userName = this.userName && this.userName !== '' ? this.userName : this.user.id;
+            var password = this.password && this.password !== '' ? this.password : this.user.password;
+            var user = {
+                id: userName,
+                password: password
+            }
+
+            this.$.ajax.headers = getRequestHeaders(user);
+
+            this.$.ajax.generateRequest();
+        }
+    },
+
+    _dataChanged: function() {
+        this.update();
+    },
+});
+</script>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <script src='../../../bower_components/webcomponentsjs/webcomponents.min.js'></script>
+    <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+    <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+
+    <link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+    <link rel="import" href="../dhi-search-bar.html">
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <dom-module id='demo-search-bar'>
+        <style>
+            [fit] {
+                @apply(--layout-fit);
+            }
+            dhi-search-bar,
+            paper-listbox {
+                border: 1px solid black;
+                margin-bottom: 10px;
+            }
+            paper-listbox {
+                padding: 10px 10px
+            }
+            .padded {
+                padding: 20px;
+                width: 1000px;
+            }
+            .elementContainer {
+            }
+            .codeContainer {
+                margin-top: 20px;
+                padding: 20px;
+                background-color: #EEEEEE;
+            }
+            .flex-center-justified {
+                @apply(--layout-horizontal);
+                @apply(--layout-center-justified);
+            }
+        </style>
+
+        <template>
+            <div class='flex-center-justified'>
+                <div class="vertical layout padded">
+                    <div class='elementContainer flex-center-justified'>
+                        <div class='vertical layout'>
+                            <dhi-search-bar class='no-padding'
+                                placeholder='Search / filter greater than entered number'
+                                hide-filter-button
+                                on-paper-search-search='onSearch'
+                                on-paper-search-clear='onSearchClear'>
+                            </dhi-search-bar>
+                            <paper-listbox class='dropdown-content'>
+                                <template is='dom-repeat' items='{{displayItems}}'>
+                                    <paper-item>[[item]]</paper-item>
+                                    <br>
+                                </template>
+                            </paper-listbox>
+                        </div>
+                    </div>
+                    <div class='codeContainer'>
+                        &lt;dhi-search-bar class='no-padding'
+                            placeholder='Search / filter greater than entered number'
+                            hide-filter-button
+                            on-paper-search-search='onSearch'
+                            on-paper-search-clear='onSearchClear'&gt;
+                        &lt;/dhi-search-bar&gt;
+                    </div>
+                </div>
+            </div>
+        </template>
+    </dom-module>
+    <script>
+        HTMLImports.whenReady(function() { Polymer({
+            is: 'demo-search-bar',
+
+            properties: {
+                listItems: {
+                    type: Array,
+                    value: function() { return [1,2,3,4,5,6,7,8,9]}
+                }
+            },
+
+            ready: function() {
+                this.displayItems = this.listItems;
+            },
+
+            onSearch: function(e, o) {
+                this.displayItems = this.listItems.filter(function(item) {
+                    return item > e.currentTarget.query;
+                }.bind(this));
+            },
+
+            onSearchClear: function(e, o) {
+                this.displayItems = this.listItems;
+            }
+        });});
+    </script>
+    <demo-search-bar></demo-search-bar>
+</body>
+</html>
+
+

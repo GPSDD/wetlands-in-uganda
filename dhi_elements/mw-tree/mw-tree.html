@@ -1,0 +1,309 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/editor-icons.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../dhi_elements/dhi-javascripts/dhi-javascripts.html">
+<link rel="import" href="../../style/shared-styles.html">
+
+<dom-module id="mw-tree">
+
+    <template>
+
+        <style include="shared-styles">
+            :host {
+                display: block;
+                padding: 10px;
+                font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+                font-size: var(--mw-tree-font-size, 1em);
+            }
+            /*[tree] {
+                min-width: 50vw;
+                min-height: 90vh;
+            }*/
+            div.hidden {
+                display: none !important;
+            }
+        </style>
+        <div id="treeContainer" vertical tree>
+        </div>
+    </template>
+
+    <script>
+
+        Polymer({
+            is: 'mw-tree',
+
+            ready: function(){
+            },
+
+            properties: {
+                treeObj:{
+                    type: Object,
+                    value: undefined,
+                    observer: "_treeObjChanged"
+                },
+
+                config: {
+                    type: Object,
+                    value: {
+                        classQueryPrefix: ".",
+                        idPrefix: "id",
+                        idQueryPrefix: "#",
+                        indentation: 10,
+                        spaceBetweenIconAndText: "5px",
+                        file: {
+                            icon: "editor:insert-drive-file",
+                            selectedBackgroundColor: "#ccffff",
+                            style: {
+                                borderColor: "blue",
+                                borderStyle: "solid",
+                                borderWidth: "1px",
+                                color: "blue",
+                                padding: "10px"
+                            }
+                        },
+                        folder: {
+                            collapseIcon: "icons:expand-less",
+                            expandIcon: "icons:expand-more",
+                            icon: "folder",
+                            selectedBackgroundColor: "#ccffff",
+                            style: {
+                                borderColor: "black",
+                                borderStyle: "solid",
+                                borderWidth: "1px",
+                                color: "black",
+                                padding: "10px"
+                            }
+                        }
+                    }
+                },
+
+                selectedNode: {
+                    type: Object,
+                    value: undefined,
+                    notify: true
+                },
+
+                selectedId: {
+                    type: String,
+                    value: undefined
+                },
+
+                selectStr: {
+                    type: String,
+                    value: undefined,
+                    observer: "_selectStrChanged"
+                }
+            },
+
+            _treeObjChanged: function(treeObj){
+                // add root node and populate the tree recursively.
+                this.addTreeNodesRecursive(treeObj, null, 0);
+                // collapse all
+                this.changeVisibility("id0",".rootid0", true, true);
+                // expand first level
+                this.changeVisibility("id0", ".rootid0", false, false);
+            },
+
+            addTreeNodesRecursive: function(node, parentNode, depth){
+                if(parentNode == null){
+                    // cleanup the tree view.
+                    while (this.$.treeContainer.firstChild) {
+                        this.$.treeContainer.removeChild(this.$.treeContainer.firstChild);
+                    }
+                }
+
+                parentNode = this.createElement(node, parentNode, depth);
+
+                for (var indexChildFile = 0; indexChildFile < node.files.length; indexChildFile++){
+                    var childFile = node.files[indexChildFile];
+                    this.createElement(childFile, parentNode, depth+1);
+                }
+                for (var indexChildFolder = 0; indexChildFolder < node.subFolders.length; indexChildFolder++){
+                    var childFolder = node.subFolders[indexChildFolder];
+                    var updatedDepth = depth+1;
+                    if(childFolder.subFolders){
+                        this.addTreeNodesRecursive(childFolder, parentNode, updatedDepth);
+                    } else {
+                        this.createElement(childFolder, parentNode, updatedDepth);
+                    }
+                }
+            },
+
+            createElement: function(node, parentNode, depth){
+                var dynamicNodeEl = document.createElement("div");
+                dynamicNodeEl.id = this.config.idPrefix + node.id;
+                //var parentHierarchyClass = "";
+                var parentPath = "";
+
+                if(node.parentId == null){
+                    node.parentId = 0;
+                }
+
+                if(node.id == 0 && parentNode === null){
+                    // its root
+                    parentPath = "root";
+                } else {
+                    if(parentNode.parentPath){
+                        parentPath = parentNode.parentPath + this.config.idPrefix + parentNode.id;
+                    } else {
+                        parentPath = this.config.idPrefix + parentNode.id;
+                    }
+                }
+
+                node.parentPath = parentPath;
+                dynamicNodeEl.classList.add(parentPath);
+                dynamicNodeEl.tag = node;
+                dynamicNodeEl.horizontal = true;
+                dynamicNodeEl.hidden = node.hidden;
+                var that = this;
+                dynamicNodeEl.onclick = function(e){
+                    // highlight element
+                    that.select(e.currentTarget, null);
+                }
+
+                var nodeIcon = document.createElement("iron-icon");
+
+                if(node.files){
+                    var expandCollapseIcon = document.createElement("iron-icon");
+                    expandCollapseIcon.icon = this.config.folder.expandIcon;
+                    dynamicNodeEl.appendChild(expandCollapseIcon);
+
+                    nodeIcon.icon= this.config.folder.icon;
+                    update(dynamicNodeEl.style, this.config.folder.style);
+                    if(depth){
+                        dynamicNodeEl.style.marginLeft = String(depth * this.config.indentation) + "px";
+                    }
+                } else {
+                    nodeIcon.icon= this.config.file.icon;
+                    update(dynamicNodeEl.style, this.config.file.style);
+                    if(depth){
+                        dynamicNodeEl.style.marginLeft = String(depth * this.config.indentation) + "px";
+                    }
+                }
+
+                dynamicNodeEl.appendChild(nodeIcon);
+
+                var spanText = document.createElement("span");
+                spanText.style.marginLeft = this.config.spaceBetweenIconAndText;
+                spanText.innerHTML = node.name;
+                dynamicNodeEl.appendChild(spanText);
+
+                this.$.treeContainer.appendChild(dynamicNodeEl);
+                return node;
+            },
+
+            changeVisibility: function(parentElementId, childClassStr, hide, recursive){
+                if(parentElementId){
+                    //hide = this.$.treeContainer.querySelector(this.config.idQueryPrefix + parentElementId + " iron-icon").icon === this.config.folder.expandIcon ? true : false;
+                    this.$.treeContainer.querySelector(this.config.idQueryPrefix + parentElementId + " iron-icon").icon = hide ? this.config.folder.expandIcon : this.config.folder.collapseIcon;
+                }
+
+                var selectedEls = this.$.treeContainer.querySelectorAll(childClassStr);
+                for(var indexEl = 0; indexEl < selectedEls.length; indexEl++){
+                    var el = selectedEls[indexEl];
+                    var node = el.tag;
+
+                    if(node.files){
+                        if((hide || (!hide && recursive))){
+                            this.changeVisibility(undefined, childClassStr + this.config.idPrefix + node.id, hide, recursive);
+                            el.querySelector("iron-icon").icon = hide ? this.config.folder.expandIcon : this.config.folder.collapseIcon;
+                        }else{
+                            el.querySelector("iron-icon").icon = this.config.folder.expandIcon;
+                        }
+                    }
+
+                    if(hide){
+                        el.hidden = true;
+                    } else {
+                        el.hidden = false;
+                    }
+                }
+            },
+
+            _selectStrChanged: function(e){
+                // iterate over the nodes and find the matching class id to select.
+                // assume the node should be one of the first level nodes
+                // sni: change this logic to support presense of matching node at any level in the tree
+                for (var indexChildFolder = 0; indexChildFolder < this.treeObj.subFolders.length; indexChildFolder++){
+                    var childFolder = this.treeObj.subFolders[indexChildFolder];
+                    if(childFolder.name === e){
+                        // highlight element
+                        this.select(this.querySelector(this.config.idQueryPrefix + this.config.idPrefix + childFolder.id), true);
+                        break;
+                    }
+                }
+            },
+
+            select: function(element, showChildren) {
+                if(this.selectedId){
+                    // clear last highlight if any
+                    this.$.treeContainer.querySelector(this.config.idQueryPrefix + this.selectedId).style.backgroundColor = "";
+                }
+
+                // if element is not visible then show it.
+                if(element.hidden){
+                    this.expandToRoot(element);
+                }
+
+                // check if the node is a folder node and it has files below then toggle display of subtree.
+                if(element.tag.files){
+                    var hide;
+                    if(showChildren){
+                        hide = false;
+                    } else {
+                        hide = this.$.treeContainer.querySelector(this.config.idQueryPrefix + element.id + " iron-icon").icon === this.config.folder.expandIcon ? false : true;
+                    }
+                    this.changeVisibility(element.id, this.config.classQueryPrefix + element.tag.parentPath + element.id, hide, false);
+                }
+
+                element.style.backgroundColor =  this.config.folder.selectedBackgroundColor;
+                this.selectedId = element.id;
+                this.selectedNode = element.tag;
+            },
+
+            expandToRoot: function(element){
+                // prepare array of all the node ids to be expanded / checked for expanded status.
+                var elementTreePathClassStr = element.classList[0];
+                var parentIds = elementTreePathClassStr.split("id");
+
+                for(var idIndex = 1; idIndex < parentIds.length; idIndex++){
+                    var parentElementId = "id0";
+                    if(idIndex > 1){
+                        parentElementId = this.config.idPrefix + parentIds[idIndex - 1];
+                    }
+
+                    var element = this.querySelector(this.config.idQueryPrefix + this.config.idPrefix + parentIds[idIndex]);
+                    this.changeVisibility(parentElementId, this.config.classQueryPrefix + element.tag.parentPath + element.id, false, false);
+                }
+            }
+
+            /*getNodeStyle: function(node, depth, style){
+                if(node && node.name){
+                    style.padding = "10px";
+
+                    if(node.files){
+                        style = this.config.folder.style;
+                        style.color = this.config.folderColor;
+                        style.borderStyle = "solid";
+                        style.borderColor = "black";
+                        style.borderWidth = "1px";
+                    }
+                    else{
+                        style.color = this.config.fileColor;
+                    }
+
+                    if(depth > 0){
+                        style.marginLeft = String(depth * this.config.indentation) + "px";
+
+                    }
+                }
+                else{
+                    console.log(JSON.stringify(node));
+                }
+            }*/
+        });
+
+    </script>
+
+</dom-module>

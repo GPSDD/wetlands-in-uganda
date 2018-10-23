@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../dhi-javascripts.html'>
+    </head>
+    <body>
+        <dom-module id='demo-element'>
+            <style include='iron-flex iron-flex-alignment iron-flex-factors'>
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    margin-top: 20px;
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <div class='vertical layout'>
+                                <template is='dom-repeat' items='{{intensities}}' as='intensityIndex'>
+                                    <div class='horizontal layout'>
+                                        <template is='dom-repeat' items='{{colors}}' as='colorIndex'>
+                                            <div style$='width:40px; height:40px; background-color:{{getColor(intensityIndex, colorIndex)}}'></div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;link rel='import' href='dhi-javascripts.html'&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'demo-element',
+
+                properties: {
+                    intensities: {
+                        type: Array,
+                        value: function() {
+                            var values = [];
+                            for (var i = 0; i < 10; i++) {
+                                values.push(i);
+                            }
+                            return values;
+                        }
+                    },
+
+                    colors: {
+                        type: Array,
+                        value: function() {
+                            var values = [];
+                            for (var i = 0; i < 18; i++) {
+                                values.push(i);
+                            }
+                            return values;
+                        }
+                    }
+                },
+
+                getColor: function(intensityIndex, colorIndex) {
+                    var materialDesignColors = new MaterialDesignColors();
+                    return materialDesignColors.getColorByIntensityIndexAndColorIndex(intensityIndex, colorIndex);
+                }
+            });});
+        </script>
+        <demo-element></demo-element>
+    </body>
+</html>

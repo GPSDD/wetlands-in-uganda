@@ -1,0 +1,2097 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-map.html'>
+<link rel='import' href='../../bower_components/iron-flex-layout/iron-flex-layout-classes.html'>
+<link rel='import' href='../../bower_components/iron-collapse/iron-collapse.html'>
+<link rel='import' href='../../bower_components/iron-icons/iron-icons.html'>
+<link rel='import' href='../../bower_components/iron-icon/iron-icon.html'>
+<link rel='import' href='../../bower_components/paper-toast/paper-toast.html'>
+<link rel='import' href='../../bower_components/paper-icon-button/paper-icon-button.html'>
+<link rel='import' href='../../bower_components/paper-checkbox/paper-checkbox.html'>
+<link rel='import' href='../../bower_components/paper-radio-group/paper-radio-group.html'>
+<link rel='import' href='../../bower_components/paper-radio-button/paper-radio-button.html'>
+<link rel='import' href='../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html'>
+<link rel='import' href='../../bower_components/paper-listbox/paper-listbox.html'>
+<link rel='import' href='../../bower_components/paper-slider/paper-slider.html'>
+<link rel='import' href='../../bower_components/paper-button/paper-button.html'>
+<link rel='import' href='../../bower_components/moment-element/moment-with-locales-import.html'>
+
+<link rel='import' href='../../dhi_elements/dhi-core-timeseries/dhi-core-timeseries.html'>
+<link rel='import' href='../../dhi_elements/dhi-core-table/dhi-core-table.html'>
+<link rel='import' href='../../dhi_elements/dhi-leaflet/dhi-leaflet-tilelayer-wms.html'>
+<link rel='import' href='../../dhi_elements/dhi-leaflet/dhi-leaflet-geojson.html'>
+<link rel='import' href='../../dhi_elements/dhi-leaflet/dhi-leaflet-tilelayer-google.html'>
+<link rel='import' href='../../dhi_elements/dhi-leaflet/dhi-leaflet-zoomcontrols.html'>
+<link rel='import' href='../../dhi_elements/dhi-data-table/dhi-data-table.html'>
+<link rel='import' href='../../dhi_elements/dhi-timeline/dhi-timeline.html'>
+<link rel='import' href='../../dhi_elements/dhi-layer-control/dhi-layer-control.html'>
+<link rel='import' href='../../dhi_elements/dhi-search-bar/dhi-search-bar.html'>
+<link rel='import' href='../../dhi_elements/dhi-chart/dhi-chart.html'>
+<link rel='stylesheet' type='text/css' href='../../bower_components/leaflet/dist/leaflet.css'>
+
+<style is='custom-style'>
+    .leaflet-pane {
+        z-index: 0;
+    }
+</style>
+
+<dom-module id='dhi-gpsdd-map'>
+    <style include='iron-flex iron-flex-alignment iron-flex-factors iron-flex-reverse'>
+        :host {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-touch-callout: none;
+            color: black;
+            margin: 0px;
+            font-size: 0.8em;
+            --controls-background-color: white;
+            --border-radius: 5px;
+            --lhs-controls-width: 215px;
+            --lhs-controls-top: 70px;
+            --lhs-controls-left: 10px;
+            --rhs-controls-top: 70px;
+            --rhs-controls-right: 10px;
+            --bottom-controls-bottom: 20px;
+            --page-text-color: #0b4566;
+            --paper-input-container-focus-color: var(--page-text-color);
+            --paper-input-container-color: var(--page-text-color);
+            --paper-input-container-input-color: var(--page-text-color);
+            --paper-slider-active-color: var(--page-text-color);
+            --paper-slider-knob-color: var(--page-text-color);
+            --disabled-text-color: var(--page-text-color);
+            /*--paper-toast-background-color: var(--page-text-color);*/
+            --primary-text-color: var(--page-text-color);
+            --secondary-color: var(--page-text-color);
+            --font-size: 1em;
+
+            --paper-font-common-base: {
+                font-weight: bold;
+            };
+
+            --paper-input-container-label: {
+              font-size: 1em;
+              font-weight: bold;
+            };
+
+            /*--paper-input-container-input: {
+                font-size: 1em !important;
+            };*/
+        }
+
+        .info {
+            background-color: blue;
+        }
+
+        .warning {
+            /*--paper-toast-background-color: yellow;*/
+            background-color: yellow;
+            color: var(--page-text-color);
+        }
+
+        .error {
+            background-color: red;
+        }
+
+        html,
+        body,
+        leaflet-map {
+            height: 100%;
+        }
+
+        dhi-leaflet-zoomcontrols,
+        dhi-lfst-listbox,
+        dhi-layer-control,
+        dhi-data-table {
+            --dhi-leaflet-zoomcontrols-color: var(--page-text-color);
+            --dhi-leaflet-zoomcontrols-icon-width: 24px;
+            --dhi-leaflet-zoomcontrols-icon-height: 24px;
+            --dhi-leaflet-zoomcontrols-border-radius: 5px;
+            --dhi-leaflet-zoomcontrols-right: 39px;
+            --dhi-leaflet-zoomcontrols-top: 70px;
+            --selected-item-image-border-color: #33645A;
+            --dhi-lftst-listbox-margin-left: 10px;
+            --dhi-layer-control-color: var(--page-text-color);
+            --dhi-layer-control-labelcolor: var(--page-text-color);
+            --dhi-lfst-listbox-pin-color: var(--page-text-color);
+            --dhi-data-table-font-size: 1em;
+        }
+
+        .highlight {
+            border-color: red;
+            border-style: solid;
+            border-width: 1px;
+        }
+
+        #lhsControlsContainer {
+            top: var(--lhs-controls-top);
+            left: var(--lhs-controls-left);
+            border: 1px solid lightgray;
+        }
+
+        .lhsControlsHeader {
+            width: var(--lhs-controls-width);
+            padding: 0px 2px 2px 2px;
+        }
+
+        #lhsControls {
+            font-size: var(--font-size);
+        }
+
+        dhi-search-bar {
+            border-bottom: 1px solid var(--page-text-color)
+            --dhi-search-bar-font-size: var(--font-size);
+        }
+
+        #rhsControlsContainer {
+            top: var(--rhs-controls-top);
+            right: var(--rhs-controls-right);
+            border: 1px solid lightgray;
+        }
+
+        .rhsControlsHeader {
+            /*padding: 2px;*/
+            font-size: var(--font-size);
+        }
+
+        #rhsControls {
+            padding: 0px 10px 0px 10px;
+            font-size: var(--font-size);
+        }
+
+        .no-padding {
+            padding: 0;
+        }
+
+        .hover {
+            position: absolute;
+            opacity: 1;
+            background-color: var(--controls-background-color);
+            border-radius: var(--border-radius);
+            color: var(--page-text-color);
+            overflow-y: auto
+        }
+
+        a:hover {
+            cursor: pointer;
+        }
+
+        .bottom {
+            width: 92%;
+            bottom: var(--bottom-controls-bottom);
+            background-color: transparent;
+            margin-right: 8%;
+        }
+
+        dhi-timeline {
+            padding: 5px 5px;
+            margin-left: 10px;
+            border: 1px solid lightgray;
+            border-radius: var(--border-radius);
+            background-color: var(--controls-background-color);
+        }
+
+        .selectedTimeLineDescription {
+            margin: 30px 0px 30px 10px;
+            padding: 5px 5px;
+            border-radius: var(--border-radius);
+            border: 1px solid lightgray;
+            background-color: var(--controls-background-color);
+        }
+
+        .square {
+            border: solid 1px #5a5a5a;
+            border-color: var(--page-text-color);
+            border-radius: 2px;
+            -webkit-transition: background-color 140ms, border-color 140ms;
+            transition: background-color 140ms, border-color 140ms;
+            width:30px;
+            height: 16px;
+            margin-left:30px;
+        }
+
+        .image {
+            margin-left:10px
+        }
+
+        .legendLabel {
+            margin-left: 5px;
+        }
+
+        .journalNrSearchLink {
+            color: blue;
+        }
+
+        .journalNrSearchLink:hover {
+            cursor: pointer;
+            color: blue;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        paper-button {
+            margin: 0px !important;
+        }
+
+        .areaScope{
+            width: 69px;
+            font-size: 11px;
+            cursor: pointer;
+            float: left;
+            color: white;
+            background-color: #0b4566;
+            border: 1px solid #0b4566;
+            margin: 5px 10px 5px 0px;
+            border-radius: 2px;
+            line-height: 0;
+            min-height: 34px;
+        }
+
+        .areaScope:nth-child(3n+3){
+            margin-right: 0px;
+        }
+
+        .areaScope p{
+            width: 100%;
+            text-align: center;
+        }
+
+        .areaScope:hover{
+            background-color: #008BEC;
+        }
+
+        .areaScope.iron-selected{
+            background-color: #00A4EC;
+        }
+        .areaScope.iron-selected p{
+            font-weight: normal;
+        }
+
+         #legendTable th {
+            padding-right: 4px;
+            width: 150px;
+            color: #707070;
+            font-size: 10px;
+            text-align: left;
+        }
+
+/*        #downloadData{
+            padding: 2px 20px;
+            background-color: #b7b7b7;
+            border: 1px solid #b7b7b7;
+            border-radius: 2px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            float: left;
+        }
+
+        #downloadData:hover{
+            background-color: #8c8c8c;
+        }*/
+
+        paper-checkbox{
+             font-weight: normal;
+         }
+
+    </style>
+    <template>
+        <iron-ajax auto url='{{tableDataUrl}}' handle-as='json' headers='tableDataAjaxHeader' on-response='_tableDataHandler' on-error='_tableDataHandler'></iron-ajax>
+        <!--<iron-ajax auto id='ajaxFieldsImageryJson' url='{{fieldsImageryJsonPath}}' headers='{ "Content-Type": "application/json" }' handle-as='json' on-response='onFieldsImageryJsonGet' on-error='onFieldsImageryJsonGet'></iron-ajax>-->
+        <!--<dhi-core-table return-raw-response
+            data-source="{{tableDataSource}}"
+            data="{{tableDataRaw}}">
+        </dhi-core-table>
+        <dhi-core-table return-raw-response
+            data-source="{{pieChartDataSource}}"
+            data="{{pieChartData}}">
+        </dhi-core-table>-->
+        <dhi-core-timeseries data-source="{{timeseriesDataSource}}" data="{{timeseriesData}}">
+        </dhi-core-timeseries>
+        <paper-toast id='toastMapView' class="fit-bottom" style='z-index:1000010; font-size:bold;' duration='5000'></paper-toast>
+        <leaflet-map id='mapClassification' longitude='{{long}}' latitude='{{lat}}' zoom='{{zoom}}' style='' no-zoom-control on-click='onMapClicked'>
+            <leaflet-scale-control metric position='bottomright'></leaflet-scale-control>
+            <dhi-leaflet-tilelayer-google id='googleTileLayer' map-type='roadmap' style='{{googleMapsStyle}}' google-map-api-key='AIzaSyDx2Vp2cJVuUHJg4hQYcODIO7UHasdMT3Y'></dhi-leaflet-tilelayer-google>
+            <dhi-leaflet-zoomcontrols id='mapZoomControl' rightTop
+                show-full-extent
+                on-full-extent='zoomToFullExtent'
+                zoom-in-tool-tip='{{getLocalized(language, "Zoom in")}}'
+                zoom-out-tool-tip='{{getLocalized(language, "Zoom out")}}'
+                full-extent-tool-tip='{{getLocalized(language, "Zoom to full extent")}}'>
+            </dhi-leaflet-zoomcontrols>
+            <dhi-leaflet-geojson id='selectionGeoJsonLayer'
+                data='{{selectedRegion}}'
+                enabled='{{regionLayer}}'
+                name-property='{{nameAttr}}'
+                label-property='{{nameAttr}}'
+                on-featureclick='onSelectedRegionClick'
+                json-style='{{config.geoJsonStyle}}'
+                layer-pane='selectionPane'
+                z-index=400
+                tooltip-zindex=401
+                tooltip-pane='tooltipPane'>
+            </dhi-leaflet-geojson>
+            <dhi-leaflet-tilelayer-wms
+                url='{{config.geoServerWmsUrl}}'
+                workspace='{{config.geoServerWorkspace}}'
+                layers='{{regionLayerId}}'
+                styles='{{regionLayerStyles}}'
+                format='image/png'
+                item='1'
+                enabled='{{regionLayerChecked}}'
+                opacity='{{regionLayerOpacity}}'
+                transparent
+                non-dhi>
+            </dhi-leaflet-tilelayer-wms>
+            <template is='dom-repeat' items='{{wetlandMappingLayers}}' as='wetlandMappingLayer'>
+                <dhi-leaflet-tilelayer-wms
+                url='{{config.geoServerWmsUrl}}'
+                workspace=[[getWorkspace(wetlandMappingLayer)]]
+                layers='{{wetlandMappingLayer.id}}'
+                styles='{{wetlandMappingLayer.style}}'
+                format='image/png'
+                item='1'
+                enabled='{{wetlandMappingLayer.show}}'
+                date-time='{{dateTime}}'
+                opacity='{{wetlandMappingLayer.opacity}}'
+                is-raster-layer
+                z-index='{{wetlandMappingLayer.zIndex}}'
+                layer-pane='{{wetlandMappingLayer.id}}'
+                on-load='onLeafletTileLayerLoad'
+                crs='{{wetlandMappingLayer.crs}}'
+                transparent
+                version='1.1.0'
+                non-dhi
+                isImageryLayer>
+                </dhi-leaflet-tilelayer-wms>
+            </template>
+            <template is='dom-repeat' items='{{supportingLayers}}' as='supportingLayer'>
+                <dhi-leaflet-tilelayer-wms
+                    url='{{supportingLayer.url}}'
+                    layers='{{supportingLayer.layers}}'
+                    format='image/png'
+                    item='1'
+                    enabled='{{supportingLayer.show}}'
+                    opacity='{{supportingLayer.opacity}}'
+                    transparent
+                    z-index='{{supportingLayer.zIndex}}'
+                    attribution='{{config.mapAnnotations}}'>
+                </dhi-leaflet-tilelayer-wms>
+            </template>
+        </leaflet-map>
+
+        <!--Left side controls-->
+        <div id='lhsControlsContainer' class='vertical layout hover' style='border-radius: 2px'>
+            <div class='lhsControlsHeader' style='width:41px; '></div>
+            <div id='lhsControls' style="padding: 40px 10px 0px 20px">
+                <div class='flex layout' style=' max-width: 330px;'>
+                    <h1 style="font-size: 32px; font-weight: 200; border-bottom: 1px solid #DBE4E9; ">Control Panel</h1>
+                    <h1 style="font-size: 18px; font-weight: 400; padding-top:20px">Explore data by:</h1>
+
+                        <paper-listbox selected='{{selectedRegionIndex}}'>
+                            <template is='dom-repeat' items='{{regionLayers}}' as='regionLayer'>
+                                <paper-item class="areaScope" style="" model='{{regionLayer}}'><p>{{regionLayer.displayName}}</p>
+                                                    <!-- <a href="{{getLinkAddress(regionLayer.id)}}" tabindex="-1" target="_blank" title="{{getLocalized(language, 'Download shapefile')}}"><iron-icon icon="icons:arrow-downward"> 
+                                </a> -->
+                            </paper-item>
+                            </template>
+                        </paper-listbox>
+                </div>
+                <div style="clear:both;"></div>
+                <template is='dom-if' if='{{!hide("fieldsLayerOpacitySlider", fieldsLayerId)}}'>
+                    <div class='horizontal layout' style='margin-left:10px;'>
+                        <div class='bold' style='padding:7px 0px;'>{{getLocalized(language, "Fields layer opacity:")}}</div>
+                        <div class='flex layout'></div>
+                        <paper-slider id='fieldsLayerOpacitySlider' value='{{fieldsLayerOpacity}}' min='0' max='100'></paper-slider>
+                    </div>
+                    <div class='bold' style='margin-left:10px;'>{{getLocalized(language, "Search for company (journal number):")}}</div>
+                    <dhi-search-bar class='no-padding'
+                        hidden$='{{!fieldsLayerId}}'
+                        style='margin:0px 10px'
+                        query='{{journalNumberForSearch}}'
+                        placeholder='{{getLocalized(language, "Search for company (journal number)")}}'
+                        hide-filter-button
+                        on-paper-search-search='onJournalNumberSearch'>
+                    </dhi-search-bar>
+                </template>
+                <!--legend-gradient='{{config.regionLayerLegend}}'-->
+<!--                 <div id='downloadWrapper' style="overflow: hidden; padding: 10px 0px; display:none">
+                    <a href="{{getLinkAddress(regionLayer.id)}}" id='downloadData' style='padding-top: 2px; float: left;'>Download</a>
+                    <p style="float: left; margin: 4px 0px 0px 14px; font-size: 12px">Download [selected.scope] data</p>
+                </div> -->
+                <dhi-layer-control  hidden$='{{hide("regionLayer", selectedRegionIndex)}}'
+                    name='{{getLocalized(language, "Area opacity")}}'
+                    checked='{{regionLayerChecked}}'
+                    opacity='{{regionLayerOpacity}}'>
+                </dhi-layer-control>
+
+                <div style="padding-top:10px; width: 50px; "></div>
+                <!-- <template is='dom-if' if='{{!hide("wetlandLayers", selectedRegionIndex)}}'> -->
+                <div id="wetlandWrapper" style="padding:0px 0px 20px 0px; border-bottom: 1px solid #DBE4E9; border-top: 1px solid #DBE4E9;">
+                <h1 style="font-size: 18px; font-weight: 400; margin-top: 30px;">Wetland mapping:</h1>
+                    <template is='dom-repeat' items='{{wetlandMappingLayers}}' as='wetlandMappingLayer'>
+                        <dhi-layer-control
+                            name='{{wetlandMappingLayer.displayName}}'
+                            checked='{{wetlandMappingLayer.show}}'
+                            opacity='{{wetlandMappingLayer.opacity}}'>
+                        </dhi-layer-control>
+                    </template>
+ 
+                       <div id=colorbarLegend style='display:block; padding-top: 01you
+                       px; max-width: 340px;'>
+                        <table id="legendTable">
+                            <tr>
+                                <th>Non-wetland</th>
+                                <th style="background:#ffffbe; border:6px solid white"></th>
+                            </tr>
+                            <tr>
+                                <th>Permanent water</th>
+                                <th style="background:#0000ff; border:6px solid white"></th>
+                            </tr>
+                            <tr>
+                                <th>Temporary water bodies</th>
+                                <th style="background:#34abff; border:6px solid white"></th>
+                            </tr>  
+                            <tr>
+                                <th>Permanent wetlands</th>
+                                <th style="background:#00b825; border:6px solid white"></th>
+                            </tr>                         
+                            <tr>
+                                <th>Seasonal wetlands </th>
+                                <th style="background:#afff3f; border:6px solid white"></th>
+                            </tr>                         
+                          
+
+                        </table>
+                    </div>
+                </div>
+                <!-- </template> -->
+                <!-- <template is='dom-' if='{{!hide("supportingLayers", selectedRegionIndex)}}'> -->
+                    <template is='dom-repeat' items='{{supportingLayers}}' as='supportingLayer'>
+                        <div class="wrapper" style="padding: 20px 0px">
+                        <dhi-layer-control
+                            name='{{supportingLayer.displayName}}'
+                            checked='{{supportingLayer.show}}'
+                            opacity='{{supportingLayer.opacity}}'>
+                        </dhi-layer-control>
+                    </div>
+                    </template>
+            </div>
+        </div>
+
+        <!--Right side controls-->
+        <div id='rhsControlsContainer' class='vertical layout hover' hidden$='{{hide("rhsControlsContainer", selectedRegion)}}' style=''>
+            <div class='rhsControlsHeader' style='height:28px'>
+                <div class='horizontal-reverse layout'>
+                    <paper-icon-button id='rhsControlsToggle' class='no-padding' style='width:28px; height:28px; padding: 2px' icon='icons:chevron-rigth' on-click='onRhsControlsToggleClick'></paper-icon-button>
+                    <div style='margin:8px 0px 0px 10px' class='flex' hidden$='{{hide("rhsControlsHeader", selectedRegion, showRhsControlsHeader)}}'><!-- <b>Information</b> --></div>
+                </div>
+            </div>
+            <iron-collapse id='rhsControls' opened='{{rhsControlsOpened}}' on-transitionend='onRhsCollapsibleTransitionEnd' on-iron-resize='onRhsCollapsibleResize'>
+                <div class='horizontal layout' style='margin-bottom:10px;'>
+                    <div class='vertical center layout'>
+                        <div class='flex layout'></div>
+                        <div style='text-decoration:underline;font-weight:bold;'>Data for your selected area: {{areaName}}</div>
+                        <div class='flex layout' ></div>
+                    </div>
+                    <div class='flex'></div>
+                    <div class='vertical layout'>
+                        <b>Export statistics as:</b>
+                        <div class='horizontal layout'>
+                            <paper-button class='pdf' on-tap='onDownloadButtonTap' raised>PDF</paper-button>
+                            <paper-button class='csv' on-tap='onDownloadButtonTap' raised>CSV</paper-button>
+                            <paper-button class='csv' on-tap='onDownloadButtonTap' raised>CSV-change</paper-button>
+                        </div>
+                    </div>
+                </div>
+                <dhi-data-table data='{{tableData}}'></dhi-data-table>
+                <div class='horizontal layout'>
+                    <div class='flex layout'></div>
+                    <div class='center-justified layout' style='padding: 0px 0px; width: 200px;'>
+                        <paper-dropdown-menu class='' label='{{getLocalized(language, "Select year for pie chart")}}' style='width:100%;'>
+                            <paper-listbox class='dropdown-content' selected='{{yearIndex}}'>
+                                <template is='dom-repeat' items='{{years}}' as='year'>
+                                    <paper-item model='{{year}}'>{{year.id}}</paper-item>
+                                </template>
+                            </paper-listbox>
+                        </paper-dropdown-menu>
+                    </div>
+                    <div class='flex layout'></div>
+                </div>
+                <!-- <div style='max-width:500px;overflow-x:hidden;'> -->
+                <!-- <dhi-chart id='pieChart' width='500px' height='300px' data-in-config config='{{pieChartConfig}}'></dhi-chart> -->
+                <!-- <dhi-chart id='regionChart' data='{{chartData}}' config='[[chartConfig]]'></dhi-chart> -->
+                <!-- </div> -->
+                <div style='overflow-x:hidden;'>
+                    <dhi-chart id='pieChart' height='300px' data-in-config config='{{pieChartConfig}}'></dhi-chart>
+                    <dhi-chart id='regionChart' data='{{chartData}}' config='[[chartConfig]]'></dhi-chart>
+                </div>
+            </iron-collapse>
+        </div>
+
+        <!--BottomControls-->
+        <!--<div class='horizontal layout hover bottom' hidden$='{{hide("bottomControls", timelineData)}}'>
+            <div id='timelineDescripton' hidden$='{{!imageryDisplayText}}'>
+                <div class='selectedTimeLineDescription'>{{imageryDisplayText}} <br> {{imageryDate}}</div>
+            </div>
+            <dhi-timeline class='flex layout' data='{{timelineData}}' options='{{timelineOptions}}' selected='{{selectedTimelineItems}}' selectable='{{timelineSelectable}}'></dhi-timeline>
+        </div>-->
+    </template>
+    <script>
+        HTMLImports.whenReady(function() { Polymer({
+            is: 'dhi-gpsdd-map',
+
+            properties: {
+                loggedInUser: {
+                    type: Object,
+                    value: undefined,
+                    observer: '_loggedInUserChanged'
+                },
+
+                loggedInUserAccessGroup: {
+                    type: Object,
+                    value: undefined
+                },
+
+                googleMapsStyle: {
+                    type: Array,
+                    value: function() {
+                        return [
+                            {
+                                "featureType": "water",
+                                "elementType": "geometry",
+                                "stylers": [
+                                    {
+                                        "color": "#e9e9e9"
+                                    },
+                                    {
+                                        "lightness": 17
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "landscape",
+                                "elementType": "geometry",
+                                "stylers": [
+                                    {
+                                        "color": "#f5f5f5"
+                                    },
+                                    {
+                                        "lightness": 20
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road.highway",
+                                "elementType": "geometry.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#ffffff"
+                                    },
+                                    {
+                                        "lightness": 17
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road.highway",
+                                "elementType": "geometry.stroke",
+                                "stylers": [
+                                    {
+                                        "color": "#ffffff"
+                                    },
+                                    {
+                                        "lightness": 29
+                                    },
+                                    {
+                                        "weight": 0.2
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road.arterial",
+                                "elementType": "geometry",
+                                "stylers": [
+                                    {
+                                        "color": "#ffffff"
+                                    },
+                                    {
+                                        "lightness": 18
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road.local",
+                                "elementType": "geometry",
+                                "stylers": [
+                                    {
+                                        "color": "#ffffff"
+                                    },
+                                    {
+                                        "lightness": 16
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "poi",
+                                "elementType": "geometry",
+                                "stylers": [
+                                    {
+                                        "color": "#f5f5f5"
+                                    },
+                                    {
+                                        "lightness": 21
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "poi.park",
+                                "elementType": "geometry",
+                                "stylers": [
+                                    {
+                                        "color": "#dedede"
+                                    },
+                                    {
+                                        "lightness": 21
+                                    }
+                                ]
+                            },
+                            {
+                                "elementType": "labels.text.stroke",
+                                "stylers": [
+                                    {
+                                        "visibility": "on"
+                                    },
+                                    {
+                                        "color": "#ffffff"
+                                    },
+                                    {
+                                        "lightness": 16
+                                    }
+                                ]
+                            },
+                            {
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                    {
+                                        "saturation": 36
+                                    },
+                                    {
+                                        "color": "#333333"
+                                    },
+                                    {
+                                        "lightness": 40
+                                    }
+                                ]
+                            },
+                            {
+                                "elementType": "labels.icon",
+                                "stylers": [
+                                    {
+                                        "visibility": "off"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "transit",
+                                "elementType": "geometry",
+                                "stylers": [
+                                    {
+                                        "color": "#f2f2f2"
+                                    },
+                                    {
+                                        "lightness": 19
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "administrative",
+                                "elementType": "geometry.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#fefefe"
+                                    },
+                                    {
+                                        "lightness": 20
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "administrative",
+                                "elementType": "geometry.stroke",
+                                "stylers": [
+                                    {
+                                        "color": "#fefefe"
+                                    },
+                                    {
+                                        "lightness": 17
+                                    },
+                                    {
+                                        "weight": 1.2
+                                    }
+                                ]
+                            }
+                        ];
+                    }
+                },
+
+                apiUrl:{
+                    type: String,
+                    value: ''
+                },
+
+                apiGisConnection:{
+                    type:String,
+                    value:'ref-gis'
+                },
+
+                selectedRegionIndex: {
+                    type: Number,
+                    value: -1,
+                    observer: '_selectedRegionIndexChanged'
+                },
+
+                selectedRegion: {
+                    type: Object,
+                    value: null,
+                    observer: 'getAreaName'
+                },
+
+                showRhsControlsHeader: {
+                    type: Boolean,
+                    value: false
+                },
+
+                rhsControlsOpened: {
+                    type: Boolean,
+                    observer: '_rhsControlsOpenedChanged'
+                },
+
+                wetlandOpacityChanged: {
+                    type: Object/*,
+                    observer:'_wetlandOpacityChanged'*/
+                },
+
+                selectedTimelineItems: {
+                    type: Object,
+                    observer:'_selectedTimelineItemsChanged'
+                },
+
+                timelineData: {
+                    type: Object,
+                    value: null
+                },
+
+                language: {
+                    type: Object,
+                    observer: '_languageChanged'
+                },
+
+                localization: {
+                    type: Element
+                },
+
+                regionLayerOpacity: {
+                    type: Number
+                },
+
+                chartConfig: {
+                    type: Object,
+                    value: function() {
+                        return {};
+                    }
+                },
+
+                timeseriesData: {
+                    type: Object,
+                    observer: '_timeseriesDataChanged'
+                },
+
+                showWaitSpinner: {
+                    type: Boolean,
+                    value: false,
+                    notify: true
+                },
+
+                regionLayerChecked: {
+                    type: Boolean,
+                    value: true
+                },
+
+                pieChartConfig: {
+                    type: Object
+                },
+
+                pieChartData: {
+                    type: Object,
+                    observer: '_pieChartDataChanged'
+                },
+
+                tableDataRaw: {
+                    type: Object,
+                    observer: '_tableDataRawChanged'
+                },
+
+                yearIndex: {
+                    type: Number,
+                    value: 0,
+                    observer: '_yearIndexChanged'
+                },
+
+                lastFeatureId: {
+                    type: Number
+                },
+
+                pieChartSeriesName: {
+                    type: String
+                },
+
+                field_only_in_table: {
+                    type: String
+                },
+
+                years: {
+                    type: Number,
+                    value: []
+                },
+
+                areaName: {
+                    type: String
+                }
+            },
+
+            //region localization
+            // First parameter should be language.
+            // Second parameter should the the key to be looked up in the localization info file for translation.
+            // Rest parameters can be dynamic in number.
+            getLocalized: function() {
+                var valuesArray = [];
+                if (arguments.length > 2) {
+                    if (arguments.length == 3 && arguments[2] && arguments[2].constructor === Array) {
+                        valuesArray = arguments[2];
+                    } else {
+                        for (var i = 2; i < arguments.length; i++) {
+                            valuesArray.push(arguments[i]);
+                        }
+                    }
+                }
+                return this.localization.getLocalized(arguments[0], arguments[1], valuesArray.length > 0 ? valuesArray : undefined);
+            },
+
+            getLocalizationLanguageObject: function(language) {
+                var languageObj = {};
+                for (prop in this.localization.localizationInfo) {
+                    if (this.localization.localizationInfo.hasOwnProperty(prop) && this.localization.localizationInfo[prop][language]) {
+                        languageObj[prop] = this.localization.localizationInfo[prop][language];
+                    }
+                }
+
+                return languageObj;
+            },
+
+            _languageChanged: function() {
+                // update the timeline.
+                this.onFieldsImageryJsonGet(null, { response: this.timelineData});
+                this.translateTimelineLegend(this);
+            },
+
+            translateTimelineLegend: function(that) {
+                if (this.config) {
+                    if (that.config.timelineLegend){
+                        that.timelineLegendGradientPoints = that.config.timelineLegend.map(function(item) {
+                            return { 'value': that.getLocalized(that.language, item.value), 'color': item.color}
+                        });
+                    }
+                }
+            },
+            //endregion
+
+            /*keep for debugging purpose*/
+            /*_wetlandOpacityChanged: function(){
+                console.log('imagery opacity changed');
+            },*/
+
+            ready: function() {
+                //this.apiUrl = window.location.href.indexOf('127.0.0.1') > 0 || window.location.href.indexOf('localhost') > 0 ? 'http://localhost/polymer' : '';
+                this.ready = true;
+
+                var that = this;
+                window.addEventListener('resize', function(e) {
+                    that.onResize(window.innerHeight);
+                });
+
+                this.onResize(window.innerHeight);
+                this.dateTime = (new Date()).toLocaleDateString();
+
+                //this.years = this.getViewModel().years;
+                this.regionLayers = this.getLayers('region');
+
+                if (!this.rhsControlsMutationObserver) {
+                    this.rhsControlsMutationObserverConnect();
+                }
+
+                this.supportingLayers = this.getLayers('supporting');
+
+                this.wetlandMappingLayers = this.getLayers('wetland').map(function (l) {
+                  if (l.displayName === 'Wetland extents 2017 (beta)') {
+                    l.show = true;
+                  }
+
+                  return l;
+                });
+            },
+
+            getViewModel: function() {
+                return this.config.tabs.filter(function(tab){
+                    return tab.id == this.id;
+                }.bind(this))[0];
+            },
+
+            getLayers: function(type) {
+                return this.getViewModel().layers.filter(function(layer){
+                    return layer.type == type;
+                }.bind(this));
+            },
+
+            _loggedInUserChanged: function(e) {
+                if (e && e.success) {
+                    var that = this;
+                    setTimeout(function(){
+                        that.$.googleTileLayer.setAnnotations(that.config.mapAnnotations);
+                    }, 1000);
+                } else {
+                    this.zoomToFullExtent();
+                }
+            },
+
+            onResize: function(height) {
+                var height = height - this.headerHeight;
+                var heightString = height + 'px';
+
+                if (this.$.mapClassification.style.height != heightString) {
+                    this.$.mapClassification.style.height = heightString;
+
+                    if (this.$.mapClassification.map) {
+                        this.$.mapClassification.map.invalidateSize();
+                    }
+                }
+
+                this.$.lhsControlsContainer.style.maxHeight = (height - 30) + 'px';
+                this.$.rhsControlsContainer.style.maxHeight = (height - 50) + 'px';
+            },
+
+            onRhsControlsToggleClick: function(e) {
+                this.$.rhsControls.toggle();
+
+                if (this.$.rhsControls.opened) {
+                    this.$.rhsControlsToggle.icon = 'icons:chevron-right';
+                    this.showRhsControlsHeader = true;
+                } else {
+                    this.$.rhsControlsToggle.icon = 'icons:chevron-left';
+                    this.showRhsControlsHeader = false;
+                }
+            },
+
+            onControlZoneClick: function(e, o) {
+                if (e != null) {
+                    this.skipSelectedRegionIndexChanged = true;
+                    this.selectedRegionIndex = this.controlZoneGeoJson.features.indexOf(this.controlZoneGeoJson.features.filter(function (item) { return item.properties.ZONE_NR == o.feature.properties.ZONE_NR; })[0]);
+                    this.skipRegionInfoFetch = true;
+                }
+
+                this.selectedControlZone = null;
+                this.selectedControlZone = o.feature;
+                if (!this.config.geoServerWorkspace) {
+                    console.warn('dhi-gpsdd-map: GeoServer workspace on set.');
+                    return;
+                }
+
+                // hide control zone geo json and show the fields wms layer.
+                this.controlZoneDisabled = true;
+                this.regionLayerName = 'Z' + (o.feature.properties.NR.toString().length == 1 ? '0' : '') + o.feature.properties.NR + this.config.fieldsLayerIdPostfix;
+                this.fieldsLayerId = this.config.geoServerWorkspace + ':' + this.regionLayerName;
+                this.getImageryJson();
+                this.debug && console.log(e);
+            },
+
+            hide: function(id, decidingFactor) {
+                var hide = true;
+
+                switch(id) {
+                    case 'regionLayer':
+                    case 'wetlandLayers':
+                    case 'supportingLayers':
+                        if (decidingFactor >= 0) {
+                            hide = false;
+                        }
+                        break;
+                    case 'rhsControlsContainer':
+                        if (decidingFactor && !this.searchingJournalNumber) {
+                            hide = false;
+                            this.showRhsControlsHeader = true;
+                            this.$.rhsControls.opened = true;
+                            this.$.rhsControlsToggle.icon = '';
+                            this.$.rhsControlsToggle.icon = 'icons:chevron-right';
+                            var that = this;
+                        } else {
+                            this.searchingJournalNumber = false;
+                            this.showRhsControlsHeader = false;
+                            this.$.rhsControls.opened = false;
+                        }
+
+                        this.async(function() {
+                            this.setZoomControlPosition();
+                        }.bind(this));
+                        break;
+                    case 'rhsControlsHeader':
+                        if (this.selectedRegion) {
+                            hide = !this.showRhsControlsHeader;
+                        }
+                        break;
+                    case 'bottomControls':
+                        if (decidingFactor) {
+                            hide = false;
+                        }
+                        break;
+                    default:
+                        if (!decidingFactor) {
+                            hide = false;
+                        }
+                        break;
+                }
+
+                return hide;
+            },
+
+            setZoomControlPosition: function() {
+                // shift zoom controls to left.
+                if (!this.initialRightMarginForZoomControls) {
+                    this.initialRightMarginForZoomControls = 39;
+                }
+
+                if ((this.$.rhsControls.opened && this.selectedRegion) || !this.$.rhsControlsContainer.hidden) {
+                    if (this.verticalScrollBarVisible) {
+                        this.$.mapZoomControl.style.right = ((this.$.rhsControlsContainer.clientWidth > 0 ? 8 : 0) + this.$.rhsControlsContainer.clientWidth + this.initialRightMarginForZoomControls + 17) + 'px';
+                    } else {
+                        this.verticalScrollBarVisible = false;
+                        this.$.mapZoomControl.style.right = ((this.$.rhsControlsContainer.clientWidth > 0 ? 8 : 0) + this.$.rhsControlsContainer.clientWidth + this.initialRightMarginForZoomControls) + 'px';
+                    }
+                } else {
+                    this.verticalScrollBarVisible = false;
+                    this.$.mapZoomControl.style.right = this.initialRightMarginForZoomControls + 'px';
+                }
+
+                this.updateStyles();
+            },
+
+            zoomToFullExtent: function(e) {
+                // clear zone selection and zoom to control zone geo json full extent.
+                this.clearFieldSelection();
+                this.selectedControlZone = null;
+                this.controlZoneDisabled = false;
+                if (e) {
+                    this.skipSelectedRegionIndexChanged = true;
+                    this.selectedRegionIndex = -1;
+                    if (this.$.controlZoneGeoJsonLayer) this.$.controlZoneGeoJsonLayer.fullExtent();
+                }
+
+                // clear region layer variables.
+                //this.removeRegionLayer();
+
+                // clear imagery variables.
+                this.zoneNr = null;
+                this.imageryDate = null;
+                this.imageryDisplayText = null;
+                this.imageryLayers = null;
+                this.selectedTimelineItem = null;
+                this.timelineData = null;
+            },
+
+            getOpacity: function(layerType, opacityOrObj, wetlandOpacityChanged) {
+                switch(layerType) {
+                    case 'wetlandLayer':
+                        if (!wetlandOpacityChanged) {
+                            if (this.wetlandOpacityChanged === false) {
+                                this.wetlandOpacityChanged = null;
+                            }
+
+                            return opacityOrObj.opacity;
+                        } else if (opacityOrObj.id == wetlandOpacityChanged.id) {
+                            if (wetlandOpacityChanged.selected) {
+                                var updatedOpacity = wetlandOpacityChanged.opacity / 100;
+                                var matchingImageryLayerObj = this.imageryLayers.filter(function(item) {
+                                    return item.id == wetlandOpacityChanged.id;
+                                })[0];
+
+                                if (matchingImageryLayerObj) {
+                                    matchingImageryLayerObj.opacity = updatedOpacity;
+                                }
+
+                                this.wetlandOpacityChanged = null;
+                                return updatedOpacity;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            },
+
+            onMapClicked: function(e) {
+                // fetch the gis data and add it to the map.
+                if (this.debug && e && e.detail && e.detail.latlng) {
+                    // console.log(JSON.stringify(e.detail.latlng));
+                }
+
+                // if fields visible then query field properties and show. Also show option to show imagery data for the field.
+                if (this.regionLayerId && e.detail && e.detail.latlng) {
+                    if (this.skipRegionInfoFetch) {
+                        this.skipRegionInfoFetch = false;
+                    } else {
+                        this.getFieldInfo(e.detail.latlng);
+                    }
+                }
+            },
+
+            getFieldInfo: function(latlng) {
+                //this.showWaitSpinner = true;
+                var point = this.$.mapClassification.map.latLngToContainerPoint(latlng, this.$.mapClassification.map.getZoom());
+                var size = this.$.mapClassification.map.getSize();
+                var request = document.createElement('iron-request');
+                var that = this;
+                var requestOptions = {
+                    url: this.config.geoServerWmsUrl + '?request=GetFeatureInfo&service=WMS&version=1.3.0&polygon&srs=EPSG%3A4326&format=image%2Fpng&info_format=application/json&feature_count=50&layers=' + this.regionLayer.id +'&styles=' + this.regionLayer.style + '&bbox=' + this.getBBox() + '&width=' + size.x + '&height=' + size.y + '&query_layers='+ this.regionLayer.id +'&x='+Math.round(point.x)+'&y='+Math.round(point.y),
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                         Accept: 'application/json',
+                    },
+                    async: true,
+                    handleAs: 'json',
+                    jsonPrefix: '',
+                    withCredentials: false,
+                    timeout: 0
+                };
+
+                request.completes.then(function() {
+                    try {
+                        var fields = request.response;
+                        if (fields.features.length == 1) {
+                            that.selectedRegion = fields;
+                            var featureId = that.selectedRegion.features[0].id.split('.')[1];
+                            if (this.lastFeatureId == featureId){
+                                this.lastFeatureId = -1;
+                                that.clearFieldSelection();
+                            }
+                            else {
+                                this.showWaitSpinner = true;
+
+    							console.log(featureId, that.selectedRegion);
+                                // Load uganda if only 1 feature ;)
+                                // if (featureId === '1' && that.selectedRegion.features && that.selectedRegion.features.length === 1) {
+                                //   featureId = 'UGANDA'
+                                // }
+                                this.lastFeatureId = featureId;
+                                that.tableDataUrl = null;
+                                that.tableDataUrl = 'data/GPSDD/' + that.getLayerName() + '.json';
+                            }
+                        } else if (fields.features.length > 1) {
+                            //this.showWaitSpinner = false;
+                            that.showToastMessage('warning', that.getLocalized(that.language, 'More than 1 region found. Only one region selection is supported.'));
+                            that.clearFieldSelection();
+                        } else {
+                            //this.showWaitSpinner = false;
+                            that.showToastMessage('warning', that.getLocalized(that.language, 'No region found.'));
+                            that.clearFieldSelection();
+                        }
+                    } catch (e) {
+						console.error(e);
+                        //this.showWaitSpinner = false;
+                        //console.error(request.response + '  ' + e.message);
+                        that.selectedRegion = null;
+                        that.showToastMessage('error', 'Error: ' + request.response);
+                    }
+                    //console.log(request.response.toString());
+                }).catch (
+                    // catch exception here.
+                ).then(
+                    // finalize here.
+                );
+
+                request.send(requestOptions);
+            },
+
+            _tableDataHandler: function(e) {
+                if (this.ready && e) {
+                    this.tableData = null;
+                    this.tableDataRaw = null;
+                    this.chartData = null;
+
+                    var totalWetlandArea = 0;
+                    var wetlandClassArea = [];
+                    var chartData = [];
+                    var chartSeriesArr = [];
+                    var _intermediateData = [];
+                    var intermediateData = [];
+                    var reference_year;
+                    var selectedYearIndex = 0;
+                    var _arr = [];
+                    var _arr_tbl = [];
+                    var _classes = [];
+                    var _years = [];
+                    var values = [];
+
+                    if (!e.detail.response) {
+                        this.$.rhsControlsContainer.hidden = true;
+                        this.showToastMessage('warning', this.getLocalized(this.language, 'No data found for the selected area: ' + this.getAreaName()));
+                        this.clearFieldSelection();
+                    }
+                    else {
+                        values = e.detail.response;
+                        this.areaName = this.getAreaName();
+                        reference_year = values.metadata[0].reference_year;
+                        this.pieChartSeriesName = this.areaName;
+                        this.field_only_in_table = values.metadata[0].field_only_in_table;
+                        _intermediateData = ['Class'];
+                        for (var i = 0; i < values.values_as_km2.length; i++){
+                            if (values.values_as_km2[i].regionId == this.getAreaId()){
+                                _arr.push(values.values_as_km2[i]);
+                                for (var key in values.values_as_km2[i]){
+                                    if (key != "regionId"){
+                                        if (key != "yyyy") {
+                                            if (_classes.indexOf(key) === -1) _classes.push(key);
+                                        }
+                                        else {
+                                            _years.push({id: values.values_as_km2[i][key]});
+                                            if (values.values_as_km2[i][key] == reference_year) {
+                                                selectedYearIndex = _years.length - 1;
+                                                _intermediateData.push('Size in square kilometers (' + values.values_as_km2[i][key] + ')');
+                                                _arr_tbl.push(values.values_as_km2[i]);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        for (var i = 0; i < values.values_as_percentchange.length; i++){
+                            if (values.values_as_percentchange[i].regionId == this.getAreaId()){
+                                for (var key in values.values_as_percentchange[i]){
+                                    if (key == "yyyy" && key != "regionId") {
+                                        if (values.values_as_percentchange[i][key] != reference_year) {
+                                            _intermediateData.push('Size in percent change (' + values.values_as_percentchange[i][key] + ')');
+                                               _arr_tbl.push(values.values_as_percentchange[i]);
+       
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (_arr_tbl.length == 0){
+                            this.$.rhsControlsContainer.hidden = true;
+                            this.showToastMessage('warning', this.getLocalized(this.language, 'No data found for the selected area: ' + this.getAreaName()));
+                            this.clearFieldSelection();
+                        }
+                        else {
+                            intermediateData.push(_intermediateData);
+                            this.selectedRegionData = _arr;
+                            this.years = _years;
+                            this.yearIndex = selectedYearIndex;
+
+                            var _data, _chartdata, chartSeries, currentYear, item;
+                            for (var j = 0; j < _classes.length; j++){
+                                _chartdata = [];
+                                _data = [];
+                                item = _classes[j];
+                                if (_data.length == 0 ) _data.push(item);
+                                for (var i = 0; i < _arr.length; i++) {
+                                    currentYear = _arr[i]["yyyy"];
+                                    if (currentYear == reference_year) {
+                                        _data.push(_arr_tbl[i][item]);
+                                    }
+                                    else {
+                                        _data.push(_arr_tbl[i][item]);
+                                    }
+                                    if (item != this.field_only_in_table) {
+
+                                        _chartdata.push([moment(currentYear, 'YYYY').format('YYYY-MM-DDTHH:mm:ss') + 'Z', parseFloat(_arr[i][item])]);
+                                        if (currentYear == reference_year) {
+                                            totalWetlandArea = totalWetlandArea + parseFloat(_arr[i][item]);
+                                            wetlandClassArea.push({"class": item, "value": _arr[i][item]});
+                                        }
+                                        if (i == _arr.length - 1) {
+                                            chartSeries = { name: item, data: _chartdata };
+                                            chartSeriesArr.push(chartSeries);
+                                        }
+                                    }
+                                    if (i == _arr.length - 1) {
+                                        intermediateData.push(_data);
+                                    }
+                                }
+                            }
+
+                            this._showTableData(intermediateData);
+
+                            this.pieChartConfig = null;
+                            var pieChartSeries = {
+                                'name': 'name',
+                                'colorByPoint': true,
+                                'data': []
+                            }
+                            for (var i = 0; i < wetlandClassArea.length; i++) {
+                                if (pieChartSeries.data.length == 0) {
+                                    pieChartSeries.data.push({
+                                        "name": wetlandClassArea[i].class,
+                                        "y": (wetlandClassArea[i].value / totalWetlandArea) * 100,
+                                        "sliced": true,
+                                        "selected": true
+                                    });
+                                }
+                                else {
+                                    pieChartSeries.data.push({
+                                        "name": wetlandClassArea[i].class,
+                                        "y": (wetlandClassArea[i].value / totalWetlandArea) * 100
+                                    });
+                                }
+                            }
+
+                            var pieChartConfigClone = clone(this.getViewModel().pieChartConfig);
+                            pieChartConfigClone.series = [pieChartSeries];
+                            this.pieChartConfig = pieChartConfigClone;
+                        }
+                    }
+
+                    this.setChartConfig();
+                    this.chartData = chartSeriesArr;
+                    this.showWaitSpinner = false;
+                }
+            },
+            _yearIndexChanged: function(newIndex, oldIndex) {
+                if (newIndex >= 0 && oldIndex >= 0 && this.selectedRegionData) {
+                    var totalWetlandArea = 0;
+                    var wetlandClassArea = [];
+
+                    for (var i = 0; i < this.selectedRegionData.length; i++) {
+                        if (this.selectedRegionData[i]["yyyy"] == this.years[this.yearIndex].id) {
+                            for (var key in this.selectedRegionData[i]) {
+                                if (key != this.field_only_in_table && key != "yyyy" && key != "regionId") {
+                                    totalWetlandArea = totalWetlandArea + parseFloat(this.selectedRegionData[i][key]);
+                                    wetlandClassArea.push({"class": key, "value": this.selectedRegionData[i][key]});
+                                }
+                            }
+
+                            break;
+                        }
+                    }
+
+                    this.pieChartConfig = null;
+                    var pieChartSeries = {
+                        'name': this.pieChartSeriesName,
+                        'colorByPoint': true,
+                        'data': []
+                    }
+                    for (var i = 0; i < wetlandClassArea.length; i++) {
+                        if (pieChartSeries.data.length == 0) {
+                            pieChartSeries.data.push({
+                                "name": wetlandClassArea[i].class,
+                                "y": (wetlandClassArea[i].value / totalWetlandArea) * 100,
+                                "sliced": true,
+                                "selected": true
+                            });
+                        } else {
+                            pieChartSeries.data.push({
+                                "name": wetlandClassArea[i].class,
+                                "y": (wetlandClassArea[i].value / totalWetlandArea) * 100
+                            });
+                        }
+                    }
+
+                    var pieChartConfigClone = clone(this.getViewModel().pieChartConfig);
+                    pieChartConfigClone.series = [pieChartSeries];
+                    this.pieChartConfig = pieChartConfigClone;
+                }
+            },
+
+            getTableDataRaw: function(featureId) {
+                this.tableDataSource = null;
+
+                if (this.config && this.apiUrl != this.config.apiUrl) {
+                    this.apiUrl = this.config.apiUrl;
+                }
+
+                this.tableDataSource = {
+                    host: this.apiUrl,
+                    connection: this.config.connections.spreadsheet,
+                    type: 'spreadsheet',
+                    spreadsheet: featureId + '.xlsx',
+                    sheet: this.years[this.yearIndex].id + ''
+                };
+            },
+
+            _tableDataRawChanged: function(e) {
+                if (!this.ready || !e || (Array.isArray(e) && e.length == 0)) {
+                    return;
+                }
+
+                this.tableData = null;
+                this.tableDataRaw = null;
+                var intermediateData = [['Class', 'Size', 'Region']];
+                var totalWetlandArea = 0;
+                var wetlandClassArea = [];
+
+                for (var i = 1; i < e.length; i++) {
+                    if (e[i][0] == this.getAreaId()) {
+                        for (var j = 2; j < e[i].length; j++) {
+                            if (j >= 3) {
+                                totalWetlandArea = totalWetlandArea + e[i][j];
+                                wetlandClassArea.push({"class":e[0][j], "value":e[i][j]});
+                            }
+                            intermediateData.push([e[0][j], e[i][j], e[i][1]]);
+                        }
+                    }
+                }
+                this._showTableData(intermediateData);
+
+                this.pieChartConfig = null;
+                var pieChartSeries = {
+                    'name': 'name',
+                    'colorByPoint': true,
+                    'data': []
+                }
+                for (var i = 0; i < wetlandClassArea.length; i++) {
+                    if (pieChartSeries.data.length == 0) {
+                        pieChartSeries.data.push({
+                            "name": wetlandClassArea[i].class,
+                            "y": wetlandClassArea[i].value,
+                            "sliced": true,
+                            "selected": true
+                        });
+                    } else {
+                        pieChartSeries.data.push({
+                            "name": wetlandClassArea[i].class,
+                            "y": wetlandClassArea[i].value
+                        });
+                    }
+                }
+
+                var pieChartConfigClone = clone(this.getViewModel().pieChartConfig);
+                pieChartConfigClone.series = [pieChartSeries];
+                this.pieChartConfig = pieChartConfigClone;
+
+                this.showWaitSpinner = false;
+            },
+
+            getPieChartData: function(featureId) {
+                this.pieChartDataSource = null;
+
+                if (this.config && this.apiUrl != this.config.apiUrl) {
+                    this.apiUrl = this.config.apiUrl;
+                }
+
+                this.pieChartDataSource = {
+                    host: this.apiUrl,
+                    connection: this.config.connections.spreadsheet,
+                    type: 'spreadsheet',
+                    spreadsheet: featureId + '.xlsx',
+                    sheet: this.years[this.yearIndex].id + '_percent_wetland'
+                };
+            },
+
+            _pieChartDataChanged: function(e) {
+                if (!this.ready || !e || (Array.isArray(e) && e.length == 0)) {
+                    return;
+                }
+
+                this.pieChartConfig = null;
+                var pieChartSeries = {
+                    'name': 'name',
+                    'colorByPoint': true,
+                    'data': []
+                }
+                for (var i = 1; i < e.length; i++) {
+                    if (e[i][0] == this.getAreaId()) {
+                        pieChartSeries.name = e[i][1];
+                        for (var j = 3; j < e[i].length; j++) {
+                            if (pieChartSeries.data.length == 0) {
+                                pieChartSeries.data.push({
+                                    "name": e[0][j],
+                                    "y": e[i][j],
+                                    "sliced": true,
+                                    "selected": true
+                                });
+                            } else {
+                                pieChartSeries.data.push({
+                                    "name": e[0][j],
+                                    "y": e[i][j]
+                                });
+                            }
+                        }
+                    }
+                }
+
+                var pieChartConfigClone = clone(this.getViewModel().pieChartConfig);
+                pieChartConfigClone.series = [pieChartSeries];
+                this.pieChartConfig = pieChartConfigClone;
+            },
+
+            // getTimeseriesData: function(featureId) {
+            //     this.setChartConfig();
+            //     this.timeseriesDataSource = null;
+            //
+            //     if (this.config && this.apiUrl != this.config.apiUrl) {
+            //         this.apiUrl = this.config.apiUrl;
+            //     }
+            //
+            //     var ids = [];
+            //     var regions = this.getLayers('region');
+            //     for (var i = 0; i < this.regionLayer.regions.length; i++) {
+            //         ids.push(featureId + '.csv;' + this.regionLayer.regions[i]);
+            //     }
+            //
+            //     this.timeseriesDataSource = { 'host': this.apiUrl,
+            //         'connection': this.config.connections.timeseries,
+            //         'ids': ids
+            //     };
+            // },
+
+            _timeseriesDataChanged: function(e) {
+                if (!this.ready || !e || (Array.isArray(e) && e.length == 0)) {
+                    return;
+                }
+
+                var data = [];
+
+                for (var seriesIndex = 0; seriesIndex < e.length; seriesIndex++) {
+                    var series = {  name: e[seriesIndex].id.split(';')[1],
+                        data: []
+                    }
+
+                    series.data = series.data.concat(e[seriesIndex].data);
+                    data.push(series);
+                }
+
+                this.async(function(){this.chartData = data;}.bind(this));
+            },
+
+            setChartConfig: function() {
+                var config = {
+                    chart: {
+                        zoomType: 'x',
+                        events: {
+                            load: function(event) {
+                                event.target.reflow();
+                            }
+                        },
+                        style: {
+                            fontFamily: "'Lato', sans-serif"
+                        }
+                    },
+                    title: {
+                        text: this.getLocalized(this.language, 'Wetland variation over time'),
+                        style: {
+                            color: '#005685',
+                            fontSize: '14px'
+                        }
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Years'
+                        },
+                        type: 'datetime',
+                        dateTimeLabelFormats: {
+                            millisecond: '%H:%M:%S.%L',
+                            second: '%H:%M:%S',
+                            minute: '%H:%M',
+                            hour: '%H:%M',
+                            day: '%e. %B',
+                            week: '%e. %B',
+                            month: '%B \'%y',
+                            year: '%Y'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Wetland area (km<sup>2<sup>)'
+                        }
+                    },
+                    legend: {
+                        enabled: false,
+                        borderColor: 'lightgrey',
+                        borderWidth: 1,
+                        borderRadius:3,
+                        title: {
+                            text: '<span style="color: #666; font-weight: normal">Click to hide / show chart line</span>',
+                            style: {
+                                fontStyle: 'italic'
+                            }
+                        },
+                        itemStyle: {
+                            fontSize: '0.8em',
+                            fontWeight: 'Regular'
+                        },
+                        itemHoverStyle:{
+                            color: 'blue'
+                        }
+                    },
+                    tooltip: {
+                        valueDecimals: 0,
+                        xDateFormat: 'Date:%Y'
+                    },
+                    plotOptions: {
+                        series: {
+                            marker: {
+                                enabled: false,
+                                color: 'blue'
+                            }
+                        }
+                    }
+                };
+
+                this.chartData = [];
+                this.chartConfig = config;
+            },
+
+            getBBox: function() {
+                var sw = this.$.mapClassification.map.getBounds().getSouthWest();
+                var ne = this.$.mapClassification.map.getBounds().getNorthEast();
+                var bbox = sw.lat + ',' + sw.lng + ',' + ne.lat + ',' + ne.lng;
+                return bbox;
+            },
+
+            onSelectedRegionClick: function(e) {
+                this.zoomToFullExtent();
+            },
+
+            clearFieldSelection: function() {
+                this.$.selectionGeoJsonLayer.remove();
+                this.selectedRegion = null;
+            },
+
+            _selectedRegionChanged: function(e) {
+                if (this.selectedRegion) {
+                    var intermediateData = [];
+                    for (var i = 0; i < this.selectedRegion.features.length; i++) {
+                        if (i > 0) {
+                            intermediateData.push(['', '']);
+                        }
+
+                        var feature = this.selectedRegion.features[i];
+                        //intermediateData.push([feature.id]);
+
+                        for (prop in feature.properties) {
+                            if (feature.properties.hasOwnProperty(prop)) {
+                                var propArray = [];
+                                propArray.push(prop, feature.properties[prop]);
+                                intermediateData.push(propArray);
+                            }
+                        }
+                    }
+                    this._showTableData(intermediateData);
+                } else {
+                    this.tableDataRaw = null;
+                    this.tableData = null;
+                }
+
+                this.showWaitSpinner = false;
+            },
+
+            _showTableData: function(intermediateData) {
+                var processedData = [];
+                var tableLineColor = '#005685';
+                var rightEdgeCellTemplate = {
+                    'style': 'border-bottom:1px solid ' + tableLineColor + '; width:200px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                };
+                var bottomLeftCornerCellTemplate = {
+                    'style': 'border-right:1px solid ' + tableLineColor + '; width:200px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                };
+                var bottomEdgeCellTemplate = {
+                    'style': 'border-right:1px solid ' + tableLineColor + '; width:200px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                };
+                var bottomRightCornerTemplate = {
+                    'style': 'width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                };
+                var cellTemplate = {
+                    'style': 'border-bottom:1px solid ' + tableLineColor + '; border-right:1px solid ' + tableLineColor + '; width:50px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;'
+                };
+
+                for (var i = 0; i < intermediateData.length; i++) {
+                    var row = intermediateData[i];
+                    if (i > 0 && this.config.fieldPropertiesVisible && this.config.fieldPropertiesVisible.indexOf(row[0]) < 0) {
+                        continue;
+                    }
+                    if (row.length > 0) {
+                        var rowToAdd = { data: [] };
+                        for (var j = 0; j < row.length; j++) {
+                            var cellToAdd;
+                            if (j == (row.length - 1) && i == (intermediateData.length - 1)) {
+                                cellToAdd = clone(bottomRightCornerTemplate);
+                            } else if (j == row.length - 1) {
+                                cellToAdd = clone(rightEdgeCellTemplate);
+                            } else if (j == 0 && i == (intermediateData.length - 1)) {
+                                cellToAdd = clone(bottomLeftCornerCellTemplate);
+                            } else if ( i == (intermediateData.length - 1)) {
+                                cellToAdd = clone(bottomEdgeCellTemplate);
+                            } else {
+                                cellToAdd = clone(cellTemplate);
+                            }
+
+                            /*if (i == 0 || j == 0) {
+                                cellToAdd.style += ' font-weight: bold;';
+                            }
+
+                            if (row.length == 1) {
+                                cellToAdd.style += 'background-color:#005685; color: white'
+                            }*/
+
+                            cellToAdd.value = (row[j] == undefined || row[j] == null) ? '' : row[j];
+                            if (cellToAdd.value !== '' && !isNaN(cellToAdd.value)) {
+                                cellToAdd.rightAlign = true;
+                            }
+                            rowToAdd.data.push(cellToAdd);
+                        }
+                        processedData.push(rowToAdd);
+                    }
+                }
+
+                this.tableData = processedData;
+            },
+
+            _selectedRegionIndexChanged: function() {
+                if (this.skipSelectedRegionIndexChanged) {
+                    this.skipSelectedRegionIndexChanged = false;
+                } else {
+                    if (this.selectedRegionIndex >= 0) {
+                        this.zoomToFullExtent(null);
+                        this.regionLayer = this.regionLayers[this.selectedRegionIndex];
+                        this.nameAttr = this.regionLayers[this.selectedRegionIndex].nameAttr;
+                        this.regionLayerId = this.regionLayers[this.selectedRegionIndex].id;
+                        this.regionLayerOpacity = this.regionLayers[this.selectedRegionIndex].opacity;
+                        this.regionLayerStyles = this.regionLayers[this.selectedRegionIndex].style;
+                        this.wetlandMappingLayers = this.getLayers('wetland');
+                        this.supportingLayers = this.getLayers('supporting');
+
+                        // var downloadDiv =  document.getElementById('downloadWrapper');
+                        // downloadDiv.style.display = 'block';
+                        // var downloadText = downloadDiv.getElementsByTagName("p");
+                        // downloadText[0].innerHTML  = "Download " + this.regionLayerId + " Data";
+                    }
+
+                }
+                
+            },
+
+            _rhsControlsOpenedChanged: function() {
+                this.showRhsControlsHeader = true;
+                this.async(function() { this.setZoomControlPosition(); }.bind(this), 50);
+            },
+
+            onRhsCollapsibleTransitionEnd: function() {
+                this.setZoomControlPosition();
+            },
+
+            onRhsCollapsibleResize: function() {
+                // keep this method to handle any rendering issues. Might be useful.
+            },
+
+            onJournalNumberSearch: function(e, o) {
+                if (e.srcElement && e.currentTarget.classList.contains('journalNrSearchLink') && this.selectedRegion) {
+                    this.journalNumberForSearch = this.selectedRegion.features[0].properties[this.config.journalNumberFieldName];
+                }
+                this.searchingJournalNumber = true;
+                this.getFeatures();
+            },
+
+            getFeatures: function() {
+                if (this.journalNumberForSearch) {
+                    this.showWaitSpinner = true;
+                    var request = document.createElement('iron-request');
+                    var requestOptions = {
+                        url: this.config.geoServerWmsUrl + '/Feature',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'Authorization': 'Basic ' + btoa(unescape(encodeURIComponent(this.loggedInUser.id + ':' + this.loggedInUser.password))),
+                        },
+                        body: {
+                            'layers': this.config.geoServerWorkspace + ':' + this.regionLayerName,
+                            'typename': this.config.geoServerWorkspace + ':' + this.regionLayerName,
+                            'cql_filter': 'Journalnr=' + "'" + this.journalNumberForSearch + "'"
+                        },
+                        async: true,
+                        handleAs: 'json',
+                        jsonPrefix: '',
+                        withCredentials: false,
+                        timeout: 0
+                    };
+
+                    request.completes.then( function() {
+                        try {
+                            this.selectedRegion = JSON.parse(request.response);
+                            if (this.selectedRegion.features.length == 0) {
+                                this.tableData = null;
+                                this.onRhsControlsToggleClick();
+                                this.showToastMessage('info', this.getLocalized(this.language, 'No fields found for Journalnr: ') + this.journalNumberForSearch);
+                            }
+                        } catch (e) {
+                            console.error(request.response + '  ' + e.message);
+                            this.tableData = null;
+                            this.onRhsControlsToggleClick();
+                            this.showToastMessage('error', this.getLocalized(this.language, 'No fields found / invalid response from server for Journalnr: ') + this.journalNumberForSearch);
+                        }
+                    }.bind(this)).catch(
+                        // catch exception here.
+                    ).then(function() {
+                        // finalize here.
+                        this.showWaitSpinner = false;
+                    }.bind(this));
+
+                    request.send(requestOptions);
+                }
+            },
+
+            onImagerySelectionChanged: function(o) {
+                this.getImageryJson();
+            },
+
+            getImageryOptions: function() {
+                if (this.config) {
+                    var that = this;
+                    return this.getViewModel().imageryOptions;
+                }
+            },
+
+            getWorkspace: function(wetlandMappingLayer) {
+                if (wetlandMappingLayer) {
+                    return wetlandMappingLayer.geoServerWorkspace ? wetlandMappingLayer.geoServerWorkspace : this.config.geoServerWorkspace;
+                } else {
+                    return this.config.geoServerWorkspace;
+                }
+            },
+
+            getImageryJson: function() {
+                this.zoneNr = this.controlZoneGeoJson.features[this.selectedRegionIndex].properties['ZONE_NR'].substring(1);
+                this.fieldsImageryJsonPath = '';
+                var imageryOptions = this.getImageryOptions();
+                var selectedImageryArr = imageryOptions.filter(function(item) {
+                    return item.selected;
+                });
+
+                if (selectedImageryArr && selectedImageryArr.length > 0 && selectedImageryArr[0].imageryJsonFilePathPostfix) {
+                    this.fieldsImageryJsonPath = selectedImageryArr[0].imageryJsonFilePathPrefix + this.zoneNr + selectedImageryArr[0].imageryJsonFilePathPostfix;
+                } else {
+                    for( var i = 0; i < imageryOptions.length; i++) {
+                        if (imageryOptions[i].selected) {
+                            this.fieldsImageryJsonPath = imageryOptions[i].imageryJsonFilePathPrefix + this.zoneNr + imageryOptions[i].imageryJsonFilePathPostfix;
+                            break;
+                        }
+                    }
+                }
+            },
+
+            onFieldsImageryJsonGet: function(e, o) {
+                if (o.response && this.zoneNr) {
+                    // add or update dictionary of imagery Json
+                    //this['timeSteps-' + this.zoneNr] = o.response;
+
+                    // set timeline options
+                    var locales = {};
+                    locales[this.language] = this.getLocalizationLanguageObject(this.language);
+                    this.timelineOptions = {
+                        stack:true,
+                        maxHeight: '200px',
+                        type: 'point',
+                        locale: this.language,
+                        locales: locales
+                    };
+
+                    // set timeline data
+                    this.timelineData = o.response.map(function(item){
+                        var dateTime = new moment(item.date, 'YYYYMMDD');
+                        item.id = item.date + '-' + item.layerName;
+                        item.title = item.displayText + '<br>' + dateTime.format('YYYY/MM/DD');
+                        item.tooltip = {
+                            overflow: 'flip'
+                        };
+                        item.start = dateTime.format('YYYY-MM-DD');
+                        item.style = 'background-color:' + item.layoutCode;
+                        return item;
+                    });
+                    this.selectedTimelineItems = [this.timelineData[this.timelineData.length - 1]];
+                }
+            },
+
+            _selectedTimelineItemsChanged: function(){
+                if (this.selectedTimelineItems && this.selectedTimelineItems.length > 0) {
+                    this.imageryDisplayText = this.selectedTimelineItems[0].displayText;
+                    this.imageryDate = (new moment(this.selectedTimelineItems[0].date, 'YYYYMMDD')).format('ll');
+                    this.showImagery();
+                    this.paintSquares();
+                }
+            },
+
+            showImagery: function() {
+                if (this.fieldsLayerId && this.selectedRegionIndex > -1 && this.timelineData && this.timelineData.length > 0 && this.selectedTimelineItems) {
+                    var imageryLayers = [];
+
+                    // sni: think about how to handle multi imagery options layer display.
+                    var imageryOptions = this.getImageryOptions();
+                    for (var i = 0; i < imageryOptions.length; i++) {
+                        if (imageryOptions[i].selected) {
+                            this.selectedTimelineItems[0].id = imageryOptions[i].id;
+                            this.selectedTimelineItems[0].layerId = this.selectedTimelineItems[0].geoServerId + ':' + this.selectedTimelineItems[0].layerName;
+                            this.selectedTimelineItems[0].zIndex = imageryOptions[i].zIndex;
+                            this.selectedTimelineItems[0].opacity = imageryOptions[i].opacity / 100;
+                            this.selectedTimelineItems[0].styles = imageryOptions[i].styles;
+                            this.selectedTimelineItems[0].geoServerWorkspace = imageryOptions[i].geoServerWorkspace;
+                            imageryLayers.push(this.selectedTimelineItems[0]);
+                        }
+                    }
+
+                    // show selected imagery on map
+                    this.wetlandOpacityChanged = false;
+                    this.imageryLayers = null;
+                    this.async(function() {
+                        this.showWaitSpinner = true;
+                        this.imageryLayers = imageryLayers;
+                        if (this.imageryLayers.length == 0) {
+                            this.imageryDate = null;
+                            this.imageryDisplayText = null;
+                            this.selectedTimelineItems = [];
+                            this.timelineSelectable = false;
+                        } else {
+                            this.timelineSelectable = true;
+                        }
+                    }.bind(this));
+                } else {
+                    this.imageryDate = null;
+                    this.imageryDisplayText = null;
+                    this.timelineData = null;
+                    this.selectedTimelineItems = null;
+                    this.imageryLayers = null;
+                }
+            },
+
+            removeRegionLayer: function() {
+                this.$.regionLayer.removeAll();
+                this.regionLayer = null;
+                this.regionLayerId = null;
+                this.regionLayerOpacity = null;
+                this.regionLayerStyles = null;
+                this.wetlandMappingLayers = null;
+            },
+
+            isIcon: function(item) {
+                return item.icon !== undefined && item.icon !== '';
+            },
+
+            paintSquares: function() {
+                var that = this;
+                setTimeout(function() {
+                    var divs = Polymer.dom(that.root).querySelectorAll('.square');
+                    for (var i = 0; i < divs.length; i++) {
+                        var c = colorToRGB(that.timelineLegendGradientPoints[i].color)
+                        divs[i].style.backgroundColor = 'rgba(' + c.R + ',' + c.G + ',' + c.B + ',' + 1 + ')';
+                    }
+                }, 0);
+            },
+
+            showToastMessage: function(className, message) {
+                var toastElement = document.querySelector('#toastMapView');
+                if (toastElement) {
+                    toastElement.text = message;
+                    toastElement.classList.remove('info');
+                    toastElement.classList.remove('warning');
+                    toastElement.classList.remove('error');
+                    toastElement.classList.toggle(className);
+                    toastElement.show();
+                }
+            },
+
+            onLeafletTileLayerLoad: function(e, o) {
+                this.showWaitSpinner = false;
+            },
+
+            rhsControlsMutationObserverConnect: function() {
+                if (this.$.rhsControlsContainer) {
+                    if (!this.rhsControlsMutationObserver) {
+                        this.rhsControlsMutationObserver = new MutationObserver(function(mutations) {
+                            if (this.$.rhsControlsContainer.scrollHeight > this.$.rhsControlsContainer.clientHeight) {
+                                if (!this.verticalScrollBarVisible) {
+                                    this.verticalScrollBarVisible = true;
+                                    this.setZoomControlPosition();
+                                }
+                            } else if (this.verticalScrollBarVisible) {
+                                this.verticalScrollBarVisible = false;
+                                this.setZoomControlPosition();
+                            }
+                        }.bind(this));
+                    }
+
+                    if (!this.rhsControlsMutationObserverConfig) {
+                        this.rhsControlsMutationObserverConfig = { attributes: true, childList: true, characterData: true, subtree: true };
+                    }
+
+                    this.rhsControlsMutationObserver.observe(this.$.rhsControlsContainer, this.rhsControlsMutationObserverConfig);
+                }
+            },
+
+            getLegendUrl: function(layer, selectedRegionIndex) {
+                if (layer && selectedRegionIndex >= 0) {
+                    return this.config.geoServerWmsUrl + '/GetLegendGraphic?workspace=' + this.getWorkspace(layer) + '&layer=' + layer.id + '&style=' + layer.style + '&sldBody=';
+                } else {
+                    return null;
+                }
+            },
+
+            onDownloadButtonTap: function(e, o) {
+                if (e && this.selectedRegion) {
+                    var typeFile = e.currentTarget.innerText;
+                    if (typeFile.indexOf("\n")>0){
+                        typeFile = typeFile.replace(new RegExp("\n", 'g'), "");
+                    }
+                    switch(typeFile) {
+                        case 'PDF':
+                            window.open('./data/gpsdd/' + this.getLayerName() + '_' + this.getAreaId() + '.pdf');
+                            break;
+                        case 'CSV':
+                            window.open('./data/gpsdd/' + this.getLayerName() + '_' + this.getAreaId() + '.csv');
+                            break;
+                        case 'CSV-CHANGE':
+                            window.open('./data/gpsdd/' + this.getLayerName() + '_change_' + this.getAreaId() + '.csv');
+                            break;
+                    }
+                }
+            },
+
+            getAreaName: function(){
+                var areaName = ""
+                if (this.selectedRegion) {
+                    areaName = this.selectedRegion.features[0].properties[this.nameAttr];
+                }
+                return areaName;
+            },
+
+            getLinkAddress: function(layerName){
+                return './data/gpsdd/' + layerName + '.zip';
+            },
+
+            getLayerName: function(){
+                var layerName = "";
+                if (this.selectedRegion) {
+                    layerName = this.selectedRegion.features[0].id.split('.')[0];
+                }
+                return layerName;
+            },
+
+            getAreaId: function(){
+                var areaId = 0;
+                if (this.selectedRegion) {
+                    areaId = this.selectedRegion.features[0].id.split('.')[1];
+                }
+                return areaId;
+            }
+
+        });});
+    </script>
+</dom-module>

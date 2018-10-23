@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/leaflet-map/leaflet-map.html'>
+        <link rel='import' href='../../../bower_components/iron-ajax/iron-ajax.html'>
+        <link rel='import' href='../dhi-leaflet-markers.html'>
+        <link rel='import' href='../../dhi-javascripts/dhi-javascripts.html'>
+    </head>
+    <body>
+        <dom-module id='dhi-leaflet-markers-sample'>
+            <style>
+                leaflet-map {
+                    width: 400px;
+                    height: 400px;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='55.581240' longitude='12.3' zoom='13'>
+                                <dhi-leaflet-markers
+                                    data='{{data}}'
+                                    latitude-property='Latitude'
+                                    longitude-property='Longitude'
+                                    icon-url-property='IconUrl'
+                                    title-property='Name'
+                                    marker-style='{ "iconAnchor": "[16, 16]" }'>
+                                </dhi-leaflet-markers>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-markers
+                                data='{{data}}'
+                                latitude-property='Latitude'
+                                longitude-property='Longitude'
+                                iconUrl-property='IconUrl'
+                                title-property='Name'
+                                marker-style='{ 'iconAnchor': '[16, 16]' }'&gt;
+                            &lt;/dhi-leaflet-markers&gt;
+                        </div>
+                    </div>
+                </div>
+                <iron-ajax url='data/demo-markers.json' last-response='{{data}}' auto></iron-ajax>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'dhi-leaflet-markers-sample',
+
+                properties: {
+                    data: {
+                        type: Object,
+                        value: function() { return []; }
+                    }
+                }
+            });});
+        </script>
+        <dhi-leaflet-markers-sample></dhi-leaflet-markers-sample>
+    </body>
+</html>
+
+
+

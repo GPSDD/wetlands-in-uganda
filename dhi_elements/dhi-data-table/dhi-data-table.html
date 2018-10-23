@@ -1,0 +1,417 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-flex-layout/iron-flex-layout-classes.html'>
+<link rel='import' href='../../bower_components/iron-icon/iron-icon.html'>
+<link rel='import' href='../../bower_components/iron-icons/iron-icons.html'>
+<link rel='import' href='../../bower_components/iron-icons/notification-icons.html'>
+
+<link rel='import' href='../../bower_components/paper-ripple/paper-ripple.html'>
+<link rel='import' href='../../bower_components/paper-item/paper-item.html'>
+<link rel='import' href='../../bower_components/paper-input/paper-input.html'>
+<link rel='import' href='../../bower_components/paper-tooltip/paper-tooltip.html'>
+<link rel='import' href='../../bower_components/paper-fab/paper-fab.html'>
+<link rel='import' href='../../bower_components/paper-checkbox/paper-checkbox.html'>
+<link rel='import' href='../../bower_components/paper-styles/typography.html'>
+<link rel='import' href='../../bower_components/paper-menu/paper-menu.html'>
+<link rel='import' href='../../bower_components/paper-listbox/paper-listbox.html'>
+<link rel='import' href='../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html'>
+<link rel='import' href='../../dhi_elements/dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Data Table
+
+`dhi-data-table` is a data table component.
+
+Example:
+
+    <dhi-data-table data='{{data0}}'></dhi-data-table>
+
+    <dhi-data-table
+        data='{{data1}}'
+        allow-clear>
+    </dhi-data-table>
+
+    <dhi-data-table
+        data='{{data2}}'
+        no-ink
+        on-iconclick='iconClick'>
+    </dhi-data-table>
+
+    <dhi-data-table
+        style=''
+        data='{{data3}}'
+        no-ink>
+    </dhi-data-table>
+
+    <dhi-data-table
+        data='{{data4}}'>
+    </dhi-data-table>
+
+The following custom properties and mixins are also available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--dhi-data-table-font-size` | Font size | `16px`
+`--dhi-data-table-color` | Color of various elements in data table. | `#1976D2`
+
+@demo demo/index.html
+-->
+
+<dom-module id='dhi-data-table'>
+    <style>
+        :host {
+            display: block;
+        }
+
+        .flex {
+            @apply(--layout-flex);
+        }
+
+        .vertical {
+            @apply(--layout-vertical);
+        }
+
+        .horizontal {
+            @apply(--layout-horizontal);
+        }
+
+        .center {
+            @apply(--layout-center);
+        }
+
+        .end {
+            @apply(--layout-end);
+        }
+
+        .fontbase {
+            @apply(--paper-font-common-base);
+            font-size: var(--dhi-data-table-font-size, 16px);
+        }
+
+        paper-fab {
+            background: var(--dhi-data-table-color, #1976D2);
+        }
+
+        paper-checkbox {
+            --paper-checkbox-checked-color: var(--dhi-data-table-color, #1976D2);
+            --paper-checkbox-checked-ink-color: var(--dhi-data-table-color, #1976D2);
+            --paper-checkbox-unchecked-color: var(--dhi-data-table-color, #1976D2);
+            --paper-checkbox-unchecked-ink-color: var(--dhi-data-table-color, #1976D2);
+        }
+
+        paper-input,
+        paper-textarea {
+            --paper-input-container-focus-color: var(--dhi-data-table-color, #1976D2);
+        }
+    </style>
+    <template>
+        <template is='dom-repeat' items='{{rows}}' as='row'>
+            <div class='layout horizontal' row$='{{row}}' on-tap='onRowClick' style='position:relative; {{row.style}}' >
+                <template is='dom-repeat' items='{{row.cells}}' as='cell'>
+                    <div class$='{{cell.class}}' title='{{cell.tooltip}}' style$='{{cell.style}}; display:flex; align-items:center;'>
+                        <div class$='{{cell.align}}'>
+                            <template is='dom-if' if='{{controlShown(cell, "div-html")}}'>
+                                <div class='fontbase' id='innerHtmlDiv' text='{{cell.value}}'></div>
+                            </template>
+                            <template is='dom-if' if='{{controlShown(cell, "div-nohtml")}}'>
+                                <div class='layout horizontal'>
+                                    <template is='dom-if' if='{{cell.showIcon}}'>
+                                        <template is='dom-if' if='{{cell.leftAlignIcon}}'>
+                                            <iron-icon tag$='{{cell.tag}}' on-tap='onIconTap' style='z-index:1000; width:16px; height:16px; padding-right:3px' icon='{{cell.icon}}'></iron-icon>
+                                            <div style$='{{cell.innerStyle}}; word-wrap:break-word; white-space:normal' class='fontbase'>{{cell.value}}</div>
+                                        </template>
+                                        <template is='dom-if' if='{{!cell.leftAlignIcon}}'>
+                                            <div style$='{{cell.innerStyle}}; word-wrap:break-word; white-space:normal' class='fontbase'>{{cell.value}}</div>
+                                            <iron-icon tag$='{{cell.tag}}' on-tap='onIconTap' style='z-index:1000; width:16px; height:16px; padding-right:3px' icon='{{cell.icon}}'></iron-icon>
+                                        </template>
+                                    </template>
+                                    <template is='dom-if' if='{{!cell.showIcon}}'>
+                                        <div style$='{{cell.innerStyle}}; word-wrap:break-word; white-space:normal' class='fontbase'>{{cell.value}}</div>
+                                    </template>
+                                </div>
+                            </template>
+                            <template is='dom-if' if='{{controlShown(cell, "paper-input")}}'>
+                                <div class='layout horizontal'>
+                                    <paper-input no-label-float style='margin-top:-20px; height:0px; width:100%' value='{{cell.value}}'><div suffix>[[cell.suffix]]</div></paper-input>
+                                </div>
+                            </template>
+                            <template is='dom-if' if='{{controlShown(cell, "paper-checkbox")}}'>
+                                <paper-checkbox tag$='{{cell.tag}}' on-tap='onCheckboxTap' checked='{{cell.value}}' disabled='{{!cell.editable}}'></paper-checkbox>
+                            </template>
+                            <template is='dom-if' if='{{controlShown(cell, "paper-dropdown-menu")}}'>
+                                <paper-dropdown-menu>
+                                    <paper-listbox class='dropdown-content' selected='{{cell.selected}}'>
+                                        <template is='dom-repeat' items='{{cell.menuValues}}'>
+                                            <paper-item>{{item}}</paper-item>
+                                        </template>
+                                    </paper-listbox>
+                                </paper-dropdown-menu>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+        <div class='vertical end' style='margin-top:5px'>
+            <div class='layout horizontal'>
+                <content></content>
+                <paper-fab style='margin-left:8px' hidden$='{{!allowClear}}' on-tap='onClear' mini icon='icons:clear'></paper-fab>
+                <paper-fab style='margin-left:8px' hidden$='{{!allowCsvDownload}}' on-tap='onCsvDownload' mini icon='icons:file-download'></paper-fab>
+            </div>
+        </div>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: 'dhi-data-table',
+
+        properties: {
+            /**
+             * Data to be displayed.
+             */
+            data: {
+                type: Array,
+                value: function() { return [] },
+                observer: '_changed'
+            },
+
+            /**
+             * Rows
+             */
+            rows: {
+                type: Array,
+                value: function() { return [] }
+            },
+
+            baseClass: {
+                type: String,
+                value: 'flex layout horizontal center'
+            },
+
+            baseStyle: {
+                type: String,
+                value: 'padding:3px;'
+            },
+
+            /**
+             * True: Element ready. False: Element not ready.
+             */
+            isReady: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * True: Allow to clear the table. False: Don't show allow clear option.
+             */
+            allowClear: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * Decimal delimiter to be used.
+             */
+            decimalDelimiter: {
+                type: String,
+                value: ','
+            },
+
+            /**
+             * True: Allow download. False: Don't allow download.
+             */
+            allowCsvDownload: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * Cell styles.
+             */
+            cellStyles: {
+                type: Object,
+                value: function() { return {}; }
+            },
+        },
+
+        ready: function() {
+            this.isReady = true;
+            this.go();
+        },
+
+        _changed: function() {
+            this.go();
+        },
+
+        onRowClick: function(e) {
+            if (e.model.row.interactive) {
+                this.fire('rowclick', e.model.row.tag);
+            }
+        },
+
+        onClear: function() {
+            for (var i = 0; i < this.rows.length; i++) {
+                for (var j = 0; j < this.rows[i].cells.length; j++) {
+                    if (this.rows[i].cells[j].editable) {
+                        this.set('rows.' + i + '.cells.' + j + '.value', '');
+                    }
+                }
+            }
+        },
+
+        go: function() {
+            if (!this.isReady) {
+                return;
+            }
+
+            if (!this.data || this.data.length === 0 || this.data[0].length === 0) {
+                this.rows = null;
+                return;
+            }
+
+            var rows = [];
+            for (var i = 0; i < this.data.length; i++) {
+                var cells = [];
+                var interactive = true;
+                for (var j = 0; j < this.data[i].data.length; j++) {
+                    var cell = this.data[i].data[j];
+
+                    cell.tag = this.data[i].data[j].tag ? this.data[i].data[j].tag : '';
+                    cell.class = this.data[i].data[j].class ? this.baseClass + ' ' + this.data[i].data[j].class : this.baseClass;
+
+                    var cellReference = this.toColumnName(j+1) + (i+1).toString();
+                    cell.style = (cellReference in this.cellStyles && this.cellStyles[cellReference].style != null) ? this.baseStyle + ' ' + this.cellStyles[cellReference].style : (this.data[i].data[j].style ? this.baseStyle + ' ' + this.data[i].data[j].style : this.baseStyle);
+
+                    cell.tooltip = this.data[i].data[j].tooltip != null ? this.data[i].data[j].tooltip : '';
+                    if (this.data[i].data[j].interactive != null && !this.data[i].data[j].interactive){
+                        interactive = false;
+                    }
+
+                    cell.editable = (cellReference in this.cellStyles && this.cellStyles[cellReference].editable != null) ? this.cellStyles[cellReference].editable : (this.data[i].data[j].editable != null ? this.data[i].data[j].editable : false);
+
+                    if (this.data[i].data[j].icon != null) {
+                        cell.showIcon = true;
+                        cell.icon = this.data[i].data[j].icon;
+                        cell.leftAlignIcon = this.data[i].data[j].leftAlignIcon != null && this.data[i].data[j].leftAlignIcon;
+                    } else {
+                        cell.showIcon = false;
+                    }
+                    cell.isHtml = this.data[i].data[j].isHtml != null ? this.data[i].data[j].isHtml : false;
+                    cell.boolean = typeof(cell.value) == 'boolean';
+                    cell.isMenu = this.data[i].data[j].isMenu != null ? this.data[i].data[j].isMenu : false;
+                    cell.selected = this.data[i].data[j].selected != null ? this.data[i].data[j].selected : false;
+
+                    if (cell.placesAfterDecimal && cell.value != '' && cell.value !== null && !isNaN(cell.value)) {
+                        var cellValue = parseFloat(cell.value);
+                        if (cellValue % 1 != 0) {
+                            cell.text = (cellValue.toFixed(cell.placesAfterDecimal));
+                        }
+                        cell.value = cellValue;
+                    }
+
+                    if (cell.align) {
+                        cell.class = 'flex layout';
+                        if (cell.align == 'right') {
+                            cell.align = 'vertical end layout';
+                        } else {
+                            cell.align = 'vertical center layout';
+                        }
+                    }
+
+                    cells.push(cell);
+                }
+
+                rows.push( {
+                    tag: this.data[i].tag,
+                    style: this.data[i].style,
+                    cells: cells,
+                    interactive: interactive
+                })
+            }
+
+            this.rows = rows;
+
+            var that = this;
+            setTimeout(function() {
+                var items = Polymer.dom(that.root).querySelectorAll('#innerHtmlDiv');
+                for (var i = 0; i < items.length; i++) {
+                    Polymer.dom(items[i]).node.innerHTML = items[i].text;
+                }
+            }, 0);
+        },
+
+        onCsvDownload: function() {
+            var link = document.createElement('a');
+            link.setAttribute('href', encodeURI('data:text/csv;charset=utf-8,' + this.getCsvData()));
+            link.setAttribute('download', 'data.csv');
+            document.body.appendChild(link);
+            link.click();
+        },
+
+        getCsvData: function() {
+            var rowArray = [];
+            var that = this;
+            this.rows.forEach(function(row, rowIndex) {
+                var cellArray = [];
+                row.cells.forEach(function(cell, cellIndex) {
+                    cellArray.push(cell.value);
+                });
+                rowArray.push(cellArray.join(that.decimalDelimiter));
+            });
+            return rowArray.join('\r\n');
+        },
+
+        controlShown: function(cell, control) {
+            switch (control)
+            {
+                case 'div-html':
+                    return !cell.editable && !cell.boolean && cell.isHtml;
+                case 'div-nohtml':
+                    return !cell.editable && !cell.boolean && !cell.isHtml && !cell.isMenu;
+                case 'paper-input':
+                    return cell.editable && !cell.boolean;
+                case 'paper-checkbox':
+                    return cell.boolean;
+                case 'paper-dropdown-menu':
+                    if (cell.isMenu) {
+                        this.checkSelected(cell);
+                        Object.defineProperties(cell, {
+                            'value': { get: function() { return this.value = this.menuKeys[this.selected]; } }
+                        });
+                    }
+                    return cell.isMenu;
+            }
+        },
+
+        isHtml: function(cell, bool) {
+            return cell.isHtml == (bool == 'true');
+        },
+
+        onCheckboxTap: function(e) {
+            this.fire('checkboxclick', {
+                checked: e.currentTarget.checked,
+                tag: e.currentTarget.getAttribute('tag')
+            });
+        },
+
+        onIconTap: function(e) {
+            this.fire('iconclick', {
+                tag: e.currentTarget.getAttribute('tag')
+            });
+        },
+
+        toColumnName: function(num) {
+          for (var ret = '', a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {
+            ret = String.fromCharCode(parseInt((num % b) / a) + 65) + ret;
+          }
+          return ret;
+        },
+
+        checkSelected: function(cell) {
+            if (!cell.selected) {
+                cell.selected = cell.menuKeys.findIndex(function(item){
+                    return item == cell.value;
+                });
+            }
+        }
+    });
+</script>

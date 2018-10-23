@@ -1,0 +1,110 @@
+<dom-module id='dhi-gpsdd-materials'>
+    <style include='iron-flex iron-flex-alignment'>
+        .container {
+            padding: 30px;
+        }
+        h1 {
+            margin-top: 0px;
+            color: #0B4566;
+        }
+
+        h3{
+            color: #0B4566;
+        }
+        ul{
+            
+             list-style: none;
+        }
+        li{
+            text-decoration: none;
+        }
+
+        img{
+            width: 100px;
+        }
+        .columnLeft {
+            display: table-cell !important;
+            float:left;
+            width:47%;
+            margin-right:50px;
+            vertical-align: top;
+        }
+        .columnRight{
+            display: table-cell !important;
+            float:left;
+            width:47%;
+            vertical-align: top;
+        }
+
+        #controls{
+            width: 100%;
+            margin-bottom: 100px;
+            padding: 0;
+        }
+
+        .linkWrapper{
+            width:25%;
+            background-color: #C1E2E5;
+            background-color: rgba(193,226,229,0.2);
+            margin: 10px;
+            padding:10px;
+            text-align: center;
+            border:1px solid white;
+            display: inline-block;
+        }
+
+        .linkWrapper:hover{
+            border: 1px solid #0b4566;
+        }
+
+        .linkWrapper a{
+            text-decoration: none;
+            color: #0b4566;
+        }
+
+        .linkWrapper a:hover{
+            color: #0098DB;
+        }
+    </style>
+        <template>
+        <div class="container">
+            <h1>Everything you need for this project</h1>
+            <div class="columnLeft">
+                <h3>Download Data layers</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                </p>
+                <ul id="controls">
+                    <li class="linkWrapper">
+                        <a href="http://40.115.104.169:8080/geoserver/gpsdd/wfs?service=wfs&version=1.1.0&request=GetFeature&typeNames=gpsdd:FullCountry&srsName=EPSG:4326&outputFormat=shape-zip">Download Full Country Data</a>
+                    </li>
+                    <li class="linkWrapper">
+                        <a href="http://40.115.104.169:8080/geoserver/gpsdd/wfs?service=wfs&version=1.1.0&request=GetFeature&typeNames=gpsdd:Districts&srsName=EPSG:4326&outputFormat=shape-zip">Download District Data</a>
+                    </li>
+                    <li class="linkWrapper">
+                        <a href="http://40.115.104.169:8080/geoserver/gpsdd/wfs?service=wfs&version=1.1.0&request=GetFeature&typeNames=gpsdd:Regions&srsName=EPSG:4326&outputFormat=shape-zip">Download Region Data</a>
+                    </li>
+                </ul>
+
+                <h3>Explore how its made</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+
+                <ul>
+                    <li><a href="http:/wwww.github.com"><img src="../../images/GithubLogo.png"/></a></li>
+                </ul>                 
+            </div>
+            <div class="columnRight">
+               
+            </div>
+            </div>
+        </div>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: 'dhi-gpsdd-materials',
+
+        properties: {
+        }
+    });
+</script>

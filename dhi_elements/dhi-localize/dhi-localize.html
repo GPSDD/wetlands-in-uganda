@@ -1,0 +1,136 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../../dhi_elements/dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Localize
+
+`dhi-localize` is a localization component.
+
+Example:
+
+    <dhi-localize id='localizationElement' url='{{localizeUrl}}' on-is-ready-changed='_localizationReady'></dhi-localize>
+
+@demo demo/index.html
+-->
+
+<dom-module id='dhi-localize'>
+    <template>
+        <style>
+        </style>
+        <iron-ajax auto id='ajaxLocalizationInfo' url='{{url}}' headers='{ "Content-Type": "application/json" }' method='GET' body='' handle-as='json' on-response='handler'></iron-ajax>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: 'dhi-localize',
+
+        properties: {
+            /**
+             * URL to get localization file from.
+             */
+            url: {
+                type: String,
+                value: undefined
+            },
+
+            /**
+             * True: Debuggin on. False: Debugging off.
+             */
+            debug: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * True: Element ready. False: Element not ready.
+             */
+            isReady: {
+                type: Boolean,
+                value: false,
+                notify: true
+            }
+        },
+
+        handler: function(header, data) {
+            if (data.xhr.status === 200) {
+                if (data.xhr.response) {
+                    this.localizationInfo = toObject(data.xhr.response);
+                } else {
+                    this.debug && console.log('dhi-localize.html: EXCEPTION: localization file: ' + data.xhr.responseURL + ' does not have well-formed json format.');
+                }
+            } else {
+                this.debug && console.log('dhi-localize.html: EXCEPTION: Failed to get localization data from URL: ' + url + ' ' + data.xhr.responseText);
+            }
+
+            this.isReady = true;
+        },
+
+        // First parameter should be language.
+        // Second parameter should the the key to be looked up in the localization info file for translation.
+        // Rest parameters can be dynamic in number.
+        getLocalized: function() {
+            if (this.localizationInfo) {
+                if (arguments.length < 2) {
+                    throw 'dhi-localize.html: EXCEPTION: insufficient parameters. Need at least 2 parameters. First - language, Second - Key of string to be tranlated.';
+                }
+
+                var language = arguments[0];
+                var key = arguments[1];
+
+                if (this.localizationInfo[key] && this.localizationInfo[key][language]) {
+                    var localizedString = this.localizationInfo[key][language];
+                    if (arguments.length > 2) {
+                        if (arguments.length == 3 && arguments[2] && arguments[2].constructor === Array) {
+                            for (var i = 0; i < arguments[2].length; i++) {
+                                localizedString = localizedString.replace('{' + i + '}', arguments[2][i]);
+                            }
+                        } else {
+                            for (var i = 2; i < arguments.length; i++) {
+                                if (arguments[i]) {
+                                    localizedString = localizedString.replace('{' + (i-2) + '}', arguments[i]);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    this.debug && console.log('dhi-localize.html: Warning: key: ' + key + ' and / or language: ' + language + ' is missing in localization info file.');
+                    return key;
+                }
+                return localizedString;
+            } else {
+                this.debug && console.log('dhi-localize.html: Warning: No localization info available.');
+                if (arguments.length >= 2) {
+                    return arguments[1];
+                } else {
+                    throw 'dhi-localize.html: EXCEPTION: insufficient parameters. Need at least 2 parameters. First - language, Second - Key of string to be tranlated.';
+                }
+            }
+        },
+
+        translateDirectionFromDanish: function(language, directionInDanish) {
+            if (language == 'dk') {
+                return directionInDanish;
+            }
+
+            if (directionInDanish == 'Stille') {
+                return this.localizationInfo[directionInDanish][language];
+            }
+
+            var translatedDirection = '';
+            for (var i = 0; i < directionInDanish.length; i++) {
+                translatedDirection += this.localizationInfo[directionInDanish[i]][language];
+            }
+            return translatedDirection;
+        },
+
+        translateNumberFromDanish: function(language, numberString) {
+            if (language == 'dk') {
+                return numberString;
+            }
+            //.split(',').join('.');
+            return numberString.toString().replace('/,/g', '.');
+        }
+    });
+
+</script>

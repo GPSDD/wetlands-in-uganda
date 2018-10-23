@@ -1,0 +1,248 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../../bower_components/moment-element/moment-import.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Core Timeseries
+
+`dhi-core-timeseries` is a core time series component.
+
+Example:
+
+    <dhi-core-timeseries
+        data-source='{"host": "http://greve.dhigroup.com", "connection": "mc-ts", "ids": ["/Scenarios/System/RealTime/InputModel/WaterLevelEast", "/Scenarios/System/RealTime/InputModel/Rainfall"] }'
+        data='{{data}}'>
+    </dhi-core-timeseries>
+
+@demo demo/index-dhi-core-timeseries.html
+-->
+
+<dom-module id='dhi-core-timeseries'>
+    <template>
+        <iron-ajax id='ajax' url='{{url}}' headers='{ "Content-Type": "application/json" }' method='{{method}}' body='{{body}}' handle-as='json' on-response='handler' on-error='handler'></iron-ajax>
+    </template>
+</dom-module>
+<script>
+Polymer({
+    is: 'dhi-core-timeseries',
+
+    properties: {
+        /**
+         * data as geojson object
+         */
+        data: {
+            type: Object,
+            value: function() { return []; },
+            notify: true
+        },
+
+        /**
+         * data source to get data from
+         * if data source has a property named "reduced" with value set to "true". Then reduced time series will be fetched from server.
+         */
+        dataSource: {
+            type: Object,
+            value: function() { return []; },
+            observer: '_dataSourceChanged'
+        },
+
+        /**
+         * the from time
+         */
+        from: {
+            type: String,
+            value: null
+        },
+
+        /**
+         * the to time
+         */
+        to: {
+            type: String,
+            value: null
+        },
+
+        /**
+         * the data to return, options are timeaxis, lastvalue and timeseries which is default
+         */
+        returnType: {
+            type: String,
+            value: 'timeseries'
+        },
+
+        /**
+         * indicate a time zone offset in hours added or subtracted to the data
+         */
+        timezoneOffset: {
+            type: Number,
+            value: null
+        },
+
+        body: {
+            type: String,
+            value: ''
+        },
+
+        method: {
+            type: String,
+            value: 'POST'
+        },
+
+        isReady: {
+            type: Boolean,
+            value: false
+        }
+    },
+
+    _dataSourceChanged: function() {
+        if (!this.isReady) {
+            return;
+        }
+
+        this.go();
+    },
+
+    handler: function (header, data) {
+        if (data.xhr && data.xhr.status === 200 ) {
+            if (this.returnType === 'timeaxis' || this.returnType === 'metadata') {
+                var response = toObject(data.xhr.response);
+
+                if (response) {
+                    for (var i = 0; i < response.length; i++) {
+                        if (response[i].Data) {
+                            response[i].data = response[i].Data;
+                            delete response[i].Data;
+                        } else {
+                            response[i].data = [];
+                        }
+                    }
+                }
+
+                this.data = response;
+            }
+            else {
+                var values = [];
+                var response = toObject(data.xhr.response);
+                for (var id in response) {
+                    var timeseries = {};
+                    timeseries.id = id;
+
+                    if (response[id].Count) {
+                        var data = [];
+                        for (var i = 0; i <= response[id].Count; i++) {
+                            var dateTime = this.timezoneOffset == null ? response[id].DateTimes[i] + 'Z' : new moment.utc(response[id].DateTimes[i]).add(this.timezoneOffset, 'hours').format(iso8601) + 'Z';
+                            var value = response[id].Values[i];
+                            var point = [dateTime, value == null ? null : value];
+                            if (response[id].Flags && response[id].Flags.length - 1 >= i) {
+                                point.push(response[id].Flags[i]);
+                            }
+                            data.push(point);
+                        }
+                        timeseries.data = data;
+                    } else {
+                        // Old before flags were introduced
+                        if (this.timezoneOffset == null) {
+                            for (var i = 0; i <= response[id].length; i++) {
+                                if (response[id][i]) {
+                                    response[id][i][0] += 'Z';
+                                }
+                            }
+                        } else {
+                            for (var i = 0; i <= response[id].length; i++) {
+                                if (response[id][i]) {
+                                    response[id][i][0] = new moment.utc(response[id][i][0]).add(this.timezoneOffset, 'hours').format(iso8601) + 'Z';
+                                }
+                            }
+                        }
+                        timeseries.data = response[id];
+                    }
+
+                    values.push(timeseries);
+                }
+
+                this.data = values;
+            }
+        } else if (data.error) {
+            this.fire('error', data);
+        }
+        else {
+            alert('EXCEPTION: ' + data.xhr.responseText);
+        }
+    },
+
+    ready: function() {
+        this.isReady = true;
+        this.go();
+    },
+
+    go: function () {
+        try {
+            var dataSource = null;
+            if ((dataSource = toObject(this.dataSource)) !== null) {
+                var ids = [];
+                if (dataSource.id) {
+                    ids = [dataSource.id];
+                } else {
+                    ids = dataSource.ids;
+                }
+
+                if (this.returnType === 'timeaxis') {
+                    this.method = 'GET';
+                    this.url = dataSource.host + '/api/timeseries/' + dataSource.connection + '/' + ids[0] + '/datetimes';
+                }
+                else if (this.returnType === 'metadata') {
+                    this.method = 'POST';
+                    this.body = JSON.stringify(ids);
+                    this.url = dataSource.host + '/api/timeseries/' + dataSource.connection + '/list';
+                }
+                else if (this.returnType === 'lastvalue') {
+                    this.method = 'POST';
+                    this.body = JSON.stringify(ids);
+                    this.url = dataSource.host + '/api/timeseries/' + dataSource.connection + '/list/value/last';
+                }
+                else {
+                    this.method = 'POST';
+                    this.body = JSON.stringify(ids);
+
+                    var url = '';
+                    if (dataSource.reduced) {
+                        url = dataSource.host + '/api/timeseries/' + dataSource.connection + '/list/reduced';
+                    } else {
+                        url = dataSource.host + '/api/timeseries/' + dataSource.connection + '/list/values';
+                    }
+
+                    if (dataSource.from && dataSource.to) {
+                        url += '/?from=' + this.toDateTimeString(dataSource.from) + '&to=' + this.toDateTimeString(dataSource.to);
+                    }
+                    else if (dataSource.from) {
+                        url += '/?from=' + this.toDateTimeString(dataSource.from);
+                    }
+                    else if (dataSource.to) {
+                        url += '/?to=' + this.toDateTimeString(dataSource.to);
+                    }
+
+                    if (dataSource.minimumCount) {
+                        if (url.indexOf('/?') >= 0) {
+                            url += '&minimumCount=' + dataSource.minimumCount;
+                        } else {
+                            url += '/?minimumCount=' + dataSource.minimumCount;
+                        }
+                    }
+
+                    this.url = url;
+                }
+
+                this.$.ajax.generateRequest();
+            }
+        }
+        catch(err) {
+            alert('Failed to parse data source ' + JSON.stringify(this.dataSource) + ' message ' + err + ' in dhi-core-timeseries with error: ' + err);
+        }
+    },
+
+    toDateTimeString: function(input) {
+        return input.replace(new RegExp(':', 'g'), '').split('.')[0];
+    }
+});
+</script>

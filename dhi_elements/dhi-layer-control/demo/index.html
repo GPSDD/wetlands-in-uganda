@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/iron-ajax/iron-ajax.html'>
+        <link rel='import' href='../dhi-layer-control.html'>
+        <style shim-shadowdom>
+            body {
+                font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+                margin: 0;
+                padding: 24px;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                -webkit-touch-callout: none;
+            }
+        </style>
+    </head>
+    <body>
+        <dom-module id='demo-element'>
+            <style>
+                .red {
+                    --dhi-layer-control-color: red;
+                }
+
+                .redCaption {
+                    --dhi-layer-control-labelcolor: red;
+                }
+
+                dhi-layer-control: {
+                    width: 200px;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                    width:500px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                    overflow-x: auto;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer'>
+                            <dhi-layer-control
+                                name='MyLayer'
+                                checked='{{checked1}}'
+                                opacity='{{opacity1}}'
+                                legend-gradient='[ {"value": "< 0,01", "color" : "#FFFFFF"},
+                                            {"value": "0,25", "color" : "#E3EEFA"},
+                                            {"value": "0,5", "color" : "#C6DDF4"},
+                                            {"value": "0,75", "color" : "#A9CCEF"},
+                                            {"value": "1", "color" : "#8CBBE9"},
+                                            {"value": "1,25", "color" : "#70AAE3"},
+                                            {"value": "1,5", "color" : "#5399DE"},
+                                            {"value": "1,75", "color" : "#3688D8"},
+                                            {"value": "> 2", "color" : "#1976D2"}
+                                           ]'
+                                legend-value-post-fix='m'>
+                            </dhi-layer-control>
+                            <div>Checked: <span>{{checked1}}</span></div>
+                            <div>Opacity: <span>{{opacity1}}</span></div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-layer-control
+                                name='MyLayer'
+                                checked='{{checked1}}'
+                                opacity='{{opacity1}}'
+                                legend-gradient='[ {"value": "< 0,01", "color" : "#FFFFFF"},
+                                            {"value": "0,25", "color" : "#E3EEFA"},
+                                            {"value": "0,5", "color" : "#C6DDF4"},
+                                            {"value": "0,75", "color" : "#A9CCEF"},
+                                            {"value": "1", "color" : "#8CBBE9"},
+                                            {"value": "1,25", "color" : "#70AAE3"},
+                                            {"value": "1,5", "color" : "#5399DE"},
+                                            {"value": "1,75", "color" : "#3688D8"},
+                                            {"value": "> 2", "color" : "#1976D2"}
+                                           ]'
+                                legend-value-post-fix='m'&gt;
+                            &lt;/dhi-layer-control&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <dhi-layer-control
+                                name='MyLayer'
+                                checked='{{checked2}}'
+                                opacity='{{opacity2}}'
+                                legend-url='http://www.dhigroup.com/-/media/shared%20content/global/global%20repository/logos/dhi/dhi_logo_pos_rgb_nomargin.png?h=61&la=en&w=94'>
+                            </dhi-layer-control>
+                            <div>Checked: <span>{{checked2}}</span></div>
+                            <div>Opacity: <span>{{opacity2}}</span></div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-layer-control
+                                name='MyLayer'
+                                checked='{{checked2}}'
+                                opacity='{{opacity2}}'
+                                legend-url='http://www.dhigroup.com/-/media/shared%20content/global/global%20repository/logos/dhi/dhi_logo_pos_rgb_nomargin.png?h=61&la=en&w=94'&gt;
+                            &lt;/dhi-layer-control&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <dhi-layer-control
+                                id='infoClick'
+                                name='MyLayer'
+                                checked='{{checked3}}'
+                                opacity='{{opacity3}}'
+                                info='The text set on the property'
+                                on-info-tap='infoClick'>
+                            </dhi-layer-control>
+                            <div>Checked: <span>{{checked3}}</span></div>
+                            <div>Opacity: <span>{{opacity3}}</span></div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-layer-control
+                                id='infoClick'
+                                name='MyLayer'
+                                checked='{{checked3}}'
+                                opacity='{{opacity3}}'
+                                info='The text set on the property'
+                                on-info-tap='infoClick'&gt;
+                            &lt;/dhi-layer-control&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <dhi-layer-control
+                                class='red redCaption'
+                                name='MyLayer'
+                                checked='{{checked4}}'
+                                opacity='{{opacity4}}'
+                                info='The text set on the property'
+                                on-info-tap='infoClick'>
+                            </dhi-layer-control>
+                            <div>Checked: <span>{{checked4}}</span></div>
+                            <div>Opacity: <span>{{opacity4}}</span></div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-layer-control
+                                class='red redCaption'
+                                name='MyLayer'
+                                checked='{{checked4}}'
+                                opacity='{{opacity4}}'
+                                info='The text set on the property'
+                                on-info-tap='infoClick'&gt;
+                            &lt;/dhi-layer-control&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <dhi-layer-control
+                                name='MyLayer'
+                                checked='{{checked5}}'
+                                opacity='{{opacity5}}'>
+                            </dhi-layer-control>
+                            <div>Checked: <span>{{checked5}}</span></div>
+                            <div>Opacity: <span>{{opacity5}}</span></div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-layer-control
+                                name='MyLayer'
+                                checked='{{checked5}}'
+                                opacity='{{opacity5}}'&gt;
+                            &lt;/dhi-layer-control&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <dhi-layer-control
+                                name='MyLayer'
+                                checked='{{checked6}}'
+                                opacity='{{opacity6}}'
+                                legend-gradient='[ {"value": "0", "icon" : "/dhi_elements/dhi-layer-control/demo/0.png"},
+                                            {"value": "1", "icon" : "/dhi_elements/dhi-layer-control/demo/1.png"},
+                                            {"value": "5", "icon" : "/dhi_elements/dhi-layer-control/demo/5.png"}
+                                           ]'
+                                legend-value-post-fix='m'>
+                            </dhi-layer-control>
+                            <div>Checked: <span>{{checked6}}</span></div>
+                            <div>Opacity: <span>{{opacity6}}</span></div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-layer-control
+                                name='MyLayer'
+                                checked='{{checked6}}'
+                                opacity='{{opacity6}}'
+                                legend-gradient='[ {"value": "0", "icon" : "/dhi_elements/dhi-layer-control/demo/0.png"},
+                                            {"value": "1", "icon" : "/dhi_elements/dhi-layer-control/demo/1.png"},
+                                            {"value": "5", "icon" : "/dhi_elements/dhi-layer-control/demo/5.png"}
+                                           ]'
+                                legend-value-post-fix='m'&gt;
+                            &lt;/dhi-layer-control&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <dhi-layer-control
+                                name='MyLayer7'
+                                checked='{{checked7}}'
+                                opacity='{{opacity7}}'
+                                legend-always-visible
+                                legend-gradient='[ {"value": "< 0,01", "color" : "#FFFFFF"},
+                                                {"value": "0,25", "color" : "#E3EEFA"},
+                                                {"value": "0,5", "color" : "#C6DDF4"},
+                                                {"value": "0,75", "color" : "#A9CCEF"},
+                                                {"value": "1", "color" : "#8CBBE9"},
+                                                {"value": "1,25", "color" : "#70AAE3"},
+                                                {"value": "1,5", "color" : "#5399DE"},
+                                                {"value": "1,75", "color" : "#3688D8"},
+                                                {"value": "> 2", "color" : "#1976D2"}
+                                                ]'
+                                legend-value-post-fix='m'
+                                legend-collapses='{{legendCollapses}}'>
+                            </dhi-layer-control>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-layer-control
+                                name='MyLayer7'
+                                checked='{{checked7}}'
+                                opacity='{{opacity7}}'
+                                legend-always-visible
+                                legend-gradient='[ {"value": "< 0,01", "color" : "#FFFFFF"},
+                                                {"value": "0,25", "color" : "#E3EEFA"},
+                                                {"value": "0,5", "color" : "#C6DDF4"},
+                                                {"value": "0,75", "color" : "#A9CCEF"},
+                                                {"value": "1", "color" : "#8CBBE9"},
+                                                {"value": "1,25", "color" : "#70AAE3"},
+                                                {"value": "1,5", "color" : "#5399DE"},
+                                                {"value": "1,75", "color" : "#3688D8"},
+                                                {"value": "> 2", "color" : "#1976D2"}
+                                                ]'
+                                legend-value-post-fix='m'
+                                legend-collapses='{{legendCollapses}}'&gt;
+                            &lt;/dhi-layer-control&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <dhi-layer-control
+                                name='MyLayer8'
+                                tooltip='sample tool tip'
+                                checked
+                                opacity='0.5'
+                                no-opacity-control='{{!opacitySlider8}}'
+                                legend-gradient='[ {"value": "< 0,01", "color" : "#FFFFFF"},
+                                                {"value": "0,25", "color" : "#E3EEFA"},
+                                                {"value": "0,5", "color" : "#C6DDF4"},
+                                                {"value": "0,75", "color" : "#A9CCEF"},
+                                                {"value": "1", "color" : "#8CBBE9"},
+                                                {"value": "1,25", "color" : "#70AAE3"},
+                                                {"value": "1,5", "color" : "#5399DE"},
+                                                {"value": "1,75", "color" : "#3688D8"},
+                                                {"value": "> 2", "color" : "#1976D2"}
+                                                ]'
+                                context-id='myUniqueLayerContextId'
+                                collapsible-legend>
+                            </dhi-layer-control>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-layer-control
+                                name='MyLayer8'
+                                tooltip='sample tool tip'
+                                checked
+                                opacity='0.5'
+                                no-opacity-control='{{!opacitySlider8}}'
+                                legend-gradient='[ {"value": "< 0,01", "color" : "#FFFFFF"},
+                                                {"value": "0,25", "color" : "#E3EEFA"},
+                                                {"value": "0,5", "color" : "#C6DDF4"},
+                                                {"value": "0,75", "color" : "#A9CCEF"},
+                                                {"value": "1", "color" : "#8CBBE9"},
+                                                {"value": "1,25", "color" : "#70AAE3"},
+                                                {"value": "1,5", "color" : "#5399DE"},
+                                                {"value": "1,75", "color" : "#3688D8"},
+                                                {"value": "> 2", "color" : "#1976D2"}
+                                                ]'
+                                context-id='myUniqueLayerContextId'
+                                collapsible-legend&gt;
+                            &lt;/dhi-layer-control&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'demo-element',
+
+                properties: {
+                    legendCollapses: {
+                        type: Boolean,
+                        value: false
+                    }
+                },
+
+                infoClick: function(e) {
+                    alert("Payload is '" + e.target.info + "'");
+                }
+            });});
+        </script>
+        <demo-element></demo-element>
+    </body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/leaflet-map/leaflet-map.html'>
+        <link rel='import' href='../../../bower_components/paper-button/paper-button.html'>
+        <link rel='import' href='../../../bower_components/paper-radio-group/paper-radio-group.html'>
+        <link rel='import' href='../../../bower_components/paper-radio-button/paper-radio-button.html'>
+        <link rel='import' href='../dhi-leaflet-tilelayer-google.html'>
+    </head>
+    <body>
+        <dom-module id='dhi-leaflet-tilelayer-google-sample'>
+            <style include='iron-flex iron-flex-alignment iron-flex-factors'>
+                leaflet-map {
+                    width: 400px;
+                    height: 400px;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='-36.848461' longitude='174.763336' zoom='13'>
+                                <dhi-leaflet-tilelayer-google id='switchLayers' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'>
+                                </dhi-leaflet-tilelayer-google>
+                            </leaflet-map>
+                            <paper-radio-group selected='small' on-change='tileLayerStyleOptionChanged'>
+                              <paper-radio-button name="style1">Style 1</paper-radio-button>
+                              <paper-radio-button name="style2">Style 2</paper-radio-button>
+                            </paper-radio-group>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-tilelayer-google id='switchLayers' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'&gt;
+                                &lt;/dhi-leaflet-tilelayer-google&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='-36.848461' longitude='174.763336' zoom='13'>
+                                <dhi-leaflet-tilelayer-google id='toggleTileLayer' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'>
+                                </dhi-leaflet-tilelayer-google>
+                            </leaflet-map>
+                            <paper-button on-tap='onToggleTileLayerTap' style='height:30px;'>Toggle tile layer</paper-button>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-tilelayer-google id='toggleTileLayer' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'&gt;&lt;/dhi-leaflet-tilelayer-google&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='-36.848461' longitude='174.763336' zoom='13'>
+                                <dhi-leaflet-tilelayer-google map-type='satellite' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'>
+                                </dhi-leaflet-tilelayer-google>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-tilelayer-google map-type='satellite' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'&gt;
+                                &lt;/dhi-leaflet-tilelayer-google&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='-36.848461' longitude='174.763336' zoom='13'>
+                                <dhi-leaflet-tilelayer-google map-type='terrain' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'>
+                                </dhi-leaflet-tilelayer-google>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-tilelayer-google map-type='terrain' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'&gt;
+                                &lt;/dhi-leaflet-tilelayer-google&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='-36.848461' longitude='174.763336' zoom='13'>
+                                <dhi-leaflet-tilelayer-google map-type='hybrid' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'>
+                                </dhi-leaflet-tilelayer-google>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-tilelayer-google map-type='hybrid' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'&gt;
+                                &lt;/dhi-leaflet-tilelayer-google&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='-36.848461' longitude='174.763336' zoom='13'>
+                                <dhi-leaflet-tilelayer-google google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'>
+                                </dhi-leaflet-tilelayer-google>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-tilelayer-google google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'&gt;
+                                &lt;/dhi-leaflet-tilelayer-google&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='-36.848461' longitude='174.763336' zoom='13'>
+                                <dhi-leaflet-tilelayer-google map-type='roadmap' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'>
+                                </dhi-leaflet-tilelayer-google>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-tilelayer-google map-type='roadmap' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'&gt;
+                                &lt;/dhi-leaflet-tilelayer-google&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'dhi-leaflet-tilelayer-google-sample',
+                properties: {
+                    customMapStyle: {
+                        type: Array,
+                        value: function() {
+                            return [
+                                {elementType: 'labels', stylers: [{visibility: 'off'}]},
+                                {featureType: 'water', stylers: [{color: '#FF0000'}]},
+                                {featureType: 'landscape', stylers: [{color: '#00FF00'}]},
+                                {featureType: 'road', stylers: [{color: '#0000FF'}]},
+                                {featureType: 'poi', stylers: [{visibility: 'off'}]},
+                                {featureType: 'transit', stylers: [{visibility: 'off'}]},
+                                {featureType: 'administrative', stylers: [{visibility: 'off'}]},
+                                {featureType: 'administrative.locality', stylers: [{visibility: 'off'}]}
+                            ];
+                        }
+                    },
+
+                    style1: {
+                        type: Array,
+                        value: function() {
+                            return [
+                                {elementType: 'labels', stylers: [{visibility: 'off'}]},
+                                {featureType: 'water', stylers: [{color: '#FF0000'}]},
+                                {featureType: 'landscape', stylers: [{color: '#00FF00'}]},
+                                {featureType: 'road', stylers: [{color: '#0000FF'}]},
+                                {featureType: 'poi', stylers: [{visibility: 'off'}]},
+                                {featureType: 'transit', stylers: [{visibility: 'off'}]},
+                                {featureType: 'administrative', stylers: [{visibility: 'off'}]},
+                                {featureType: 'administrative.locality', stylers: [{visibility: 'off'}]}
+                            ];
+                        }
+                    },
+
+                    style2: {
+                        type: Array,
+                        value: function() {
+                            return [
+                                {elementType: 'labels', stylers: [{visibility: 'off'}]},
+                                {featureType: 'water', stylers: [{color: '#0000FF'}]},
+                                {featureType: 'landscape', stylers: [{color: '#00FF00'}]},
+                                {featureType: 'road', stylers: [{color: '#0000FF'}]},
+                                {featureType: 'poi', stylers: [{visibility: 'off'}]},
+                                {featureType: 'transit', stylers: [{visibility: 'off'}]},
+                                {featureType: 'administrative', stylers: [{visibility: 'off'}]},
+                                {featureType: 'administrative.locality', stylers: [{visibility: 'off'}]}
+                            ];
+                        }
+                    }
+                },
+
+                onToggleTileLayerTap: function(e) {
+                    this.$.toggleTileLayer.disabled = !this.$.toggleTileLayer.disabled;
+                },
+
+                tileLayerStyleOptionChanged: function(e) {
+                    this.$.switchLayers.styles = this[e.target.name];
+                }
+            });});
+        </script>
+        <dhi-leaflet-tilelayer-google-sample></dhi-leaflet-tilelayer-google-sample>
+    </body>
+</html>
+
+
+

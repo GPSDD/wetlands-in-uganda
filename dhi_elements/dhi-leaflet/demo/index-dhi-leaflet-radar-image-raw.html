@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/leaflet-map/leaflet-map.html'>
+        <link rel='import' href='../dhi-leaflet-radar-image-raw.html'>
+    </head>
+    <body>
+        <dom-module id='dhi-leaflet-radarimage-sample-raw'>
+            <style>
+                leaflet-map {
+                    width: 400px;
+                    height: 400px;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map longitude='10.002216956827078' latitude='56.13736' zoom='8'>
+                                <dhi-leaflet-radar-image-raw
+                                    data-source='{ "host": "http://localhost/webapimo", "radar": "aarhus-radar" }'
+                                    lower-left='{ "latitude": 55.602311, "longitude": 9.036234225387541 }'
+                                    upper-right='{ "latitude": 56.664502, "longitude": 10.995200612874198 }'>
+                                </dhi-leaflet-radar-image-raw>
+                            </leaflet-map>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-radar-image-raw
+                                data-source='{ "host": "http://localhost/webapimo", "radar": "aarhus-radar" }'
+                                lower-left='{ "latitude": 55.602311, "longitude": 9.036234225387541 }'
+                                upper-right='{ "latitude": 56.664502, "longitude": 10.995200612874198 }'&gt;
+                            &lt;/dhi-leaflet-radar-image-raw&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'dhi-leaflet-radarimage-sample-raw',
+
+                properties: {
+                }
+            });});
+        </script>
+        <dhi-leaflet-radarimage-sample-raw></dhi-leaflet-radarimage-sample-raw>
+    </body>
+</html>
+
+
+

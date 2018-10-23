@@ -1,0 +1,1058 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-layer.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Leaflet Traces
+
+`dhi-leaflet-traces` is a leaflet traces component.
+
+Example:
+
+    <dhi-leaflet-traces
+        data='{{data}}'
+        color-gradient='[ {"value": 0, "color": "#00FF00"},
+                          {"value": 127, "color": "#FFFF00"},
+                          {"value": 255, "color": "#FF00FF"}]'
+        trace-width='2'
+        trace-speed='2'
+        particles='5000'
+        enabled='{{checked}}'
+        opacity='{{opacity}}'
+        legend-gradient='{{legendGradient}}'>
+    </dhi-leaflet-traces>
+
+@demo demo/index-dhi-leaflet-traces.html
+-->
+
+<dom-module name='dhi-leaflet-traces'>
+    <template>
+        <style>
+            :host { display: none; }
+        </style>
+        <iron-ajax
+            id='ajax'
+            method='POST'
+            handle-as='json'
+            on-response='successHandler'
+            on-error='errorHandler'>
+        </iron-ajax>
+    </template>
+</dom-module>
+<script>
+'use strict';
+
+var Vector = function (x, y) {
+    this.x = x;
+    this.y = y;
+}
+
+Vector.prototype.length = function () {
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+};
+
+var VectorField = function (fields, xOffset) {
+
+    var fieldElements = [];
+
+    for (var i = 0; i < fields.length; i++) {
+        var fieldElement = {};
+        var fieldValues = [];
+
+        var thisField = fields[i];
+        var xField = thisField[0];
+        var yField = thisField[1];
+
+        var w = Number(xField.Size.split(',')[0]);
+        var h = Number(xField.Size.split(',')[1]);
+
+        var counter = 0;
+        for (var y = 0; y < h; y++) {
+            for (var x = 0; x < w; x++) {
+                var vx = xField.Values[counter];
+                var vy = yField.Values[counter];
+                var v = new Vector(vx, vy);
+
+                var xTemp = x - xOffset / 360 * w;
+                if (xTemp >= w) {
+                    xTemp -= w;
+                }
+
+                if (fieldValues[xTemp] == undefined) {
+                    fieldValues[xTemp] = [];
+                }
+
+                fieldValues[xTemp][y] = v;
+                counter++;
+            }
+        }
+
+        fieldElement.x0 = xField.Metadata.x0;
+        fieldElement.x1 = xField.Metadata.x1;
+
+        if (xOffset != 0) {
+            fieldElement.x0 += xOffset;
+            fieldElement.x1 += xOffset;
+        }
+
+        fieldElement.y0 = xField.Metadata.y0;
+        fieldElement.y1 = xField.Metadata.y1;
+        fieldElement.fieldValues = fieldValues;
+        fieldElement.w = w;
+        fieldElement.h = h;
+        fieldElement.dx = (fieldElement.x1 - fieldElement.x0) / fieldElement.w;
+        fieldElement.dy = (fieldElement.y1 - fieldElement.y0) / fieldElement.h;
+
+        var myProp = 'Priority';
+        if(!xField.Metadata.hasOwnProperty(myProp)){
+            xField.Metadata.Priority = 10;
+        }
+
+        fieldElement.Priority = xField.Metadata.Priority;
+
+        fieldElements.push(fieldElement);
+    }
+
+    this.fields = fieldElements;
+};
+
+VectorField.prototype.getLengthRange = function (x0, x1, y0, y1, percentileIncluded) {
+
+    var globalMin = 10000000;
+    var globalMax = -10000000;
+
+    this.fields.map(function(field) {
+        var startXIndex = Math.floor((field.w - 1 - 1e-6) * (x0 - field.x0) / (field.x1 - field.x0));
+        if (startXIndex < 0) {
+            startXIndex = 0;
+        }
+        var endXIndex = Math.ceil((field.w - 1 - 1e-6) * (x1 - field.x0) / (field.x1 - field.x0));
+        if (endXIndex >= field.w) {
+            endXIndex = field.w -1;
+        }
+        var startYIndex = Math.floor((field.h - 1 - 1e-6) * (y0 - field.y0) / (field.y1 - field.y0));
+        if (startYIndex < 0) {
+            startYIndex = 0;
+        }
+        var endYIndex = Math.ceil((field.h - 1 - 1e-6) * (y1 - field.y0) / (field.y1 - field.y0));
+        if (endYIndex >= field.h) {
+            endYIndex = field.h -1;
+        }
+
+        var max = -1000000;
+        var min = 1000000;
+
+        var values = [];
+        for (var i = startXIndex; i <= endXIndex; i++) {
+            for (var j = startYIndex; j <= endYIndex; j++) {
+                var length = new Vector(this.bilinear(field.fieldValues, 'x', i, j), this.bilinear(field.fieldValues, 'y', i, j)).length();
+                max = Math.max(max, length);
+                min = Math.min(min, length);
+                values.push(length);
+            }
+        }
+
+        if (percentileIncluded != 1) {
+            values.sort();
+            if (values.length > 100) {
+                max = values[Math.ceil(values.length * 0.99)];
+            }
+        }
+
+        if (max == min) {
+            max = max + 0.00001;
+            min = max - 0.00001;
+        }
+
+        globalMin = Math.min(globalMin, min);
+        globalMax = Math.max(globalMax, max);
+    }, this);
+
+    return {
+        min: globalMin,
+        max: globalMax
+    }
+};
+
+VectorField.prototype.inBounds = function (x, y) {
+    for (var i = 0; i < this.fields.length; i++) {
+        if (x >= this.fields[i].x0
+            && x <= this.fields[i].x1
+            && y >= this.fields[i].y0
+            && y <= this.fields[i].y1) {
+                return true;
+        }
+    }
+    return false;
+};
+
+VectorField.prototype.bilinear = function (fieldValues, coord, a, b) {
+    var na = Math.floor(a);
+    var nb = Math.floor(b);
+    var ma = Math.ceil(a);
+    var mb = Math.ceil(b);
+    var fa = a - na;
+    var fb = b - nb;
+
+    return fieldValues[na][nb][coord] * (1 - fa) * (1 - fb) +
+        fieldValues[ma][nb][coord] * fa * (1 - fb) +
+        fieldValues[na][mb][coord] * (1 - fa) * fb +
+        fieldValues[ma][mb][coord] * fa * fb;
+};
+
+VectorField.prototype.getValue = function (x, y, opt_result) {
+
+    // filter out those fields that do not overlap with this x,y
+    var intersectingFields = [];
+    for (var i = 0; i < this.fields.length; i++) {
+        if (x >= this.fields[i].x0
+            && x <= this.fields[i].x1
+            && y >= this.fields[i].y0
+            && y <= this.fields[i].y1) {
+                intersectingFields.push(this.fields[i]);
+        }
+    }
+
+    if(intersectingFields.length == 0){
+        return null;
+    }
+
+    // and then take lowest priority value, priority value 1 is best priority
+    var chosenField = intersectingFields[0];
+    if (intersectingFields.length > 1) {
+        var priorityNumbers = [];
+        for (var i = 0; i < intersectingFields.length; i++) {
+            priorityNumbers.push(intersectingFields[i].Priority);
+        }
+
+        var topPriorityNumber = Math.min.apply(null, priorityNumbers);
+
+        for (var i = 0; i < intersectingFields.length; i++) {
+            if (intersectingFields[i].Priority == topPriorityNumber) {
+                chosenField = intersectingFields[i];
+            }
+        }
+    }
+
+    var a = (chosenField.w - 1 - 1e-6) * (x - chosenField.x0) / (chosenField.x1 - chosenField.x0);
+    var b = (chosenField.h - 1 - 1e-6) * (y - chosenField.y0) / (chosenField.y1 - chosenField.y0);
+
+    var vx = this.bilinear(chosenField.fieldValues, 'x', a, b);
+    var vy = this.bilinear(chosenField.fieldValues, 'y', a, b);
+
+    if (opt_result) {
+        opt_result.x = vx;
+        opt_result.y = vy;
+        return opt_result;
+    }
+    return new Vector(vx, vy);
+};
+
+VectorField.prototype.getBounds = function () {
+
+    var north = Math.max.apply(null, this.fields.map(function(field){ return field.y1; }));
+    var south = Math.min.apply(null, this.fields.map(function(field){ return field.y0; }));
+    var east = Math.max.apply(null, this.fields.map(function(field){ return field.x1; }));
+    var west = Math.min.apply(null, this.fields.map(function(field){ return field.x0; }));
+
+    return L.latLngBounds([south, west], [north, east]);
+}
+
+var Particle = function (x, y, age) {
+    this.x = x;
+    this.y = y;
+    this.oldX = -1;
+    this.oldY = -1;
+    this.age = age;
+    this.rnd = Math.random();
+}
+
+var MotionDisplay = function (map, canvas, topLeft, fields, numParticles, colorGradient, lineWidth, speedScale, polymerElement, percentileIncluded, stencilCanvas, x0, x1, y0, y1) {
+    this.map = map;
+    this.topLeft = topLeft;
+    this.canvas = canvas;
+    this.drawCanvas = document.createElement('canvas');
+    this.stencilCanvas = stencilCanvas;
+    this.fields = fields;
+    this.lineWidth = lineWidth;
+    this.numParticles = numParticles;
+    this.lengthRange = this.fields.getLengthRange(x0, x1, y0, y1, percentileIncluded);
+    this.running = true;
+
+    var a = 1.7;
+    var b = 4;
+    var c = 0.015;
+    var d = 0.0001;
+    this.speedScale = speedScale / Math.pow(a, map.getZoom() - b) * c + d;
+
+    this.x0 = x0;
+    this.x1 = x1;
+    this.y0 = y0;
+    this.y1 = y1;
+    this.makeNewParticles();
+    this.colors = [];
+
+    var legendGradient = [];
+    for (var i = 0; i < 256; i++) {
+        this.colors[i] = this.interpolateColor(i, colorGradient);
+
+        if (i % 32 == 0) {
+            var value = this.lengthRange.min + (i / 255) * (this.lengthRange.max - this.lengthRange.min);
+            legendGradient.push({ value: value.round(2), color: this.colors[i]});
+        }
+    }
+
+    polymerElement.legendGradient = legendGradient;
+};
+
+MotionDisplay.prototype.makeNewParticles = function() {
+    this.particles = [];
+    for (var i = 0; i < this.numParticles; i++) {
+        this.particles.push(this.makeParticle());
+    }
+};
+
+MotionDisplay.prototype.makeParticle = function() {
+    var safecount = 0;
+    for (;;) {
+        var a = Math.random();
+        var b = Math.random();
+        var x = a * this.x0 + (1 - a) * this.x1;
+        var y = b * this.y0 + (1 - b) * this.y1;
+        var v = this.fields.getValue(x, y);
+
+        if (v == null) {
+            continue;
+        }
+
+        if (this.lengthRange.max == 0) {
+            return new Particle(x, y, 1 + 40 * Math.random());
+        }
+
+        var length = v.length();
+        var m = length > this.lengthRange.max ? 1 : (length - this.lengthRange.min) / (this.lengthRange.max - this.lengthRange.min);
+
+        // The random factor here is designed to ensure that
+        // more particles are placed in slower areas; this makes the
+        // overall distribution appear more even.
+        if ((v.x || v.y) && (++safecount > 10 || Math.random() > m * .9)) {
+            var proj = this.project(x, y, this.canvas.width, this.canvas.height);
+            var sx = proj.x;
+            var sy = proj.y;
+            if (++safecount > 10 || !(sx < 0 || sy < 0 || sx > this.canvas.width || sy > this.canvas.height)) {
+                return new Particle(x, y, 1 + 40 * Math.random());
+            }
+        }
+    }
+};
+
+MotionDisplay.prototype.refreshParticle = function(partical) {
+    var safecount = 0;
+    for (;;) {
+        var a = Math.random();
+        var b = Math.random();
+        var x = a * this.x0 + (1 - a) * this.x1;
+        var y = b * this.y0 + (1 - b) * this.y1;
+
+        var v = this.fields.getValue(x, y);
+        if (v == null) {
+            continue;
+        }
+
+        if (this.lengthRange.max == 0) {
+            partical.x = x;
+            partical.y = y;
+            partical.oldX = -1;
+            partical.oldY = -1;
+            partical.age = 1 + 40 * Math.random()
+            return partical;
+        }
+
+        var length = v.length();
+        var m = length > this.lengthRange.max ? 1 : (length - this.lengthRange.min) / (this.lengthRange.max - this.lengthRange.min);
+
+        // The random factor here is designed to ensure that
+        // more particles are placed in slower areas; this makes the
+        // overall distribution appear more even.
+        if ((v.x || v.y) && (++safecount > 10 || Math.random() > m * .9)) {
+            var proj = this.project(x, y, this.canvas.width, this.canvas.height);
+            var sx = proj.x;
+            var sy = proj.y;
+            if (++safecount > 10 || !(sx < 0 || sy < 0 || sx > this.canvas.width || sy > this.canvas.height)) {
+                partical.x = x;
+                partical.y = y;
+                partical.oldX = -1;
+                partical.oldY = -1;
+                partical.age = 1 + 40 * Math.random()
+                return partical;
+            }
+        }
+    }
+};
+
+MotionDisplay.prototype.project = function(x, y, w, h) {
+    var point = this.map.latLngToLayerPoint([y, x]);
+    return {
+        x: point.x - this.topLeft.x,
+        y: point.y - this.topLeft.y
+    }
+}
+
+MotionDisplay.prototype.animate = function() {
+    if (this.running){
+        this.moveThings();
+        this.draw();
+    }
+}
+
+MotionDisplay.prototype.stop = function() {
+    this.running = false;
+}
+
+MotionDisplay.prototype.start = function (opt_millis) {
+    var millis = opt_millis || 20;
+    var self = this;
+    clearTimeout(this.timeout);
+
+    function go() {
+        var start = Date.now();
+        self.animate();
+        var time = Date.now() - start;
+        if (self.running){
+            self.timeout = setTimeout(go, Math.max(10, millis - time));
+        }
+    }
+
+    go();
+};
+
+MotionDisplay.prototype.moveThings = function () {
+    for (var i = 0; i < this.particles.length; i++) {
+        var p = this.particles[i];
+        if (p.age > 0 && this.fields.inBounds(p.x, p.y)) {
+            var a = this.fields.getValue(p.x, p.y);
+
+            var length = a.length();
+            var m = length > this.lengthRange.max ? this.speedScale : (length - this.lengthRange.min) / (this.lengthRange.max - this.lengthRange.min) * this.speedScale;
+            p.x += m * a.x;
+            p.y += m * a.y;
+            p.age--;
+        } else {
+            this.particles[i] = this.refreshParticle(this.particles[i]);
+        }
+    }
+};
+
+MotionDisplay.prototype.draw = function() {
+    var g = this.canvas.getContext('2d');
+    var w = this.canvas.width;
+    var h = this.canvas.height;
+
+    var newCanvas = this.drawCanvas;
+    newCanvas.height = h;
+    newCanvas.width = w;
+    var context = newCanvas.getContext('2d');
+    context.drawImage(this.canvas, 0, 0);
+    g.clearRect(0, 0, w, h);
+    g.globalAlpha = 0.98;
+    g.drawImage(newCanvas, 0, 0);
+
+    var proj = new Vector(0, 0);
+    var val = new Vector(0, 0);
+    g.lineWidth = this.lineWidth;
+    for (var i = 0; i < this.particles.length; i++) {
+        var p = this.particles[i];
+        if (!this.fields.inBounds(p.x, p.y)) {
+            p.age = -2;
+            continue;
+        }
+
+        var proj = this.project(p.x, p.y, w, h);
+        var x = proj.x;
+        var y = proj.y;
+
+        if (x < 0 || y < 0 || x > w || y > h) {
+            p.age = -2;
+        }
+
+        if (p.oldX != -1) {
+            var value = this.fields.getValue(p.x, p.y, val);
+            var length = value.length();
+            var fraction = length > this.lengthRange.max ? 1 : (length - this.lengthRange.min) / (this.lengthRange.max - this.lengthRange.min);
+            g.strokeStyle = this.colors[Math.round(fraction * 255)];
+            g.beginPath();
+            g.moveTo(x, y);
+            g.lineTo(p.oldX, p.oldY);
+            g.stroke();
+        }
+
+        p.oldX = x;
+        p.oldY = y;
+    }
+
+    if (this.stencilCanvas) {
+        g.globalCompositeOperation = 'destination-out';
+        g.drawImage(this.stencilCanvas, 0, 0);
+        g.globalCompositeOperation = 'source-over';
+    }
+};
+
+MotionDisplay.prototype.colorToRGB = function(color) {
+    return {
+        R: parseInt(color.substring(1, 3), 16),
+        G: parseInt(color.substring(3, 5), 16),
+        B: parseInt(color.substring(5, 7), 16)
+    };
+}
+
+MotionDisplay.prototype.interpolateColor = function(value, data) {
+    for (var i = 0; i < data.length; i++) {
+        if (typeof(data[i].value) !== 'number') {
+            if (data[i].value.indexOf('<') !== -1) {
+                data[i].value = Number(data[i].value.split('<')[1]) - 0.00001;
+            }
+            else if (data[i].value.indexOf('>') !== -1) {
+                data[i].value = Number(data[i].value.split('>')[1]) + 0.00001;
+            }
+            else {
+                data[i].value = Number(data[i].value);
+            }
+        }
+    }
+
+    if (data[0].value > value) {
+        return data[0].color;
+    }
+
+    if (value > data[data.length - 1].value) {
+        return data[data.length - 1].color;
+    }
+
+    var startValue;
+    var endValue;
+    var startColor;
+    var endColor;
+    var found = false;
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].value <= value && data[i + 1].value >= value)
+        {
+            startValue = data[i].value;
+            endValue = data[i + 1].value;
+            startColor = new this.colorToRGB(data[i].color);
+            endColor = new this.colorToRGB(data[i + 1].color);
+            found = true;
+            break;
+        }
+    }
+
+    if (found)
+    {
+        var percentage = (value - startValue) / (endValue - startValue);
+        var r = startColor.R * (1 - percentage) + endColor.R * percentage;
+        var g = startColor.G * (1 - percentage) + endColor.G * percentage;
+        var b = startColor.B * (1 - percentage) + endColor.B * percentage;
+        return 'rgb(' + Math.round(r) + ', ' + Math.round(g) + ', ' + Math.round(b) + ')';
+    }
+}
+
+var timeout;
+
+L.TracesOverlay = L.Layer.extend({
+    options: {
+        opacity: 1
+    },
+
+    initialize: function(colorGradient, fields, traceWidth, traceSpeed, particles, frameDelay, xOffset, percentileIncluded, debug, polymerElement) {
+
+        this._fields = new VectorField(fields, xOffset);
+
+        this._debug = debug;
+        if (this._debug && fields && fields.length > 0) {
+            console.log(fields.map(function(grid) { return grid[0].Metadata.GridName }))
+        }
+
+        this._percentileIncluded = percentileIncluded;
+        this._particles = particles;
+        this._frameDelay = frameDelay;
+        this._polymerElement = polymerElement;
+
+        this._traceWidth = traceWidth;
+        this._traceSpeed = traceSpeed;
+        this._colorGradient = colorGradient;
+    },
+
+    onAdd: function () {
+        if (!this._canvas) {
+            this._initCanvas();
+        }
+
+        this.getPane().appendChild(this._canvas)
+
+        this.on('viewreset', this.onViewReset, this);
+        this.on('moveend', this.onMoveEnd, this);
+
+        if (this.options.zoomAnimation && L.Browser.any3d) {
+            this.on('zoomanim', this._animateZoom, this);
+        }
+
+        // create a wms request for the stencil of land area
+        // https://ozsea.online/geoserver/ozsea/wms?service=WMS&request=GetMap&layers=ozsea%3Aaustralia&styles=&format=image%2Fpng&transparent=true&version=1.1.1
+        // &height=256&width=256&srs=EPSG%3A3857&bbox=12523442.714243276,-5009377.085697311,15028131.257091932,-2504688.542848655
+        if (this._polymerElement.wmsStencilUrl && typeof(this._polymerElement.wmsStencilUrl.length) != 'undefined') {
+
+            var northEast = L.Projection.SphericalMercator.project(this._map.getBounds()._northEast);
+            var southWest = L.Projection.SphericalMercator.project(this._map.getBounds()._southWest);
+
+            var topLeft = this._map.latLngToLayerPoint(this._map.getBounds().getNorthWest());
+            var size = this._map.latLngToLayerPoint(this._map.getBounds().getSouthEast())._subtract(topLeft);
+
+            var wmsSrc = this._polymerElement.wmsStencilUrl + "&bbox=" + southWest.x + "," + southWest.y + "," + northEast.x + "," + northEast.y;
+            wmsSrc = wmsSrc + "&height=" + size.y + "&width=" + size.x;
+
+            this._stencilCanvas.width = size.x;
+            this._stencilCanvas.height = size.y;
+            L.DomUtil.setPosition(this._stencilCanvas, topLeft);
+
+            var context = this._stencilCanvas.getContext("2d");
+            var img = new Image();
+
+            img.onload = function() {
+                context.drawImage(img, 0, 0);
+                this._reset();
+            }.bind(this);
+
+            img.src = wmsSrc;
+        } else {
+            this._reset();
+        }
+    },
+
+    onRemove: function (map) {
+        if (this.display && this.display.running) {
+            this.display.stop();
+        }
+
+        map.getPanes().overlayPane.removeChild(this._canvas);
+        map.off('viewreset', this._handleEvents, this);
+
+        if (map.options.zoomAnimation) {
+            map.off('zoomanim', this._animateZoom, this);
+        }
+    },
+
+    getEvents: function () {
+        var events = {
+            zoom: this._handleEvents,
+            viewreset: this._handleEvents,
+            dragend: this._handleEvents
+        };
+
+        if (this._zoomAnimated) {
+            events.zoomanim = this._animateZoom;
+        }
+
+        return events;
+    },
+
+    setOpacity: function (opacity) {
+        this.options.opacity = opacity;
+        this._updateOpacity();
+        return this;
+    },
+
+    bringToFront: function () {
+        if (this._canvas) {
+            this._map._panes.overlayPane.appendChild(this._canvas);
+        }
+        return this;
+    },
+
+    bringToBack: function () {
+        var pane = this._map._panes.overlayPane;
+        if (this._canvas) {
+            pane.insertBefore(this._canvas, pane.firstChild);
+        }
+        return this;
+    },
+
+    onViewReset: function() {
+        if (this.display && this.display.running) {
+            this.display.stop();
+        }
+        this.viewResetting = true;
+        this._reset();
+    },
+
+    _handleEvents: function() {
+        if (typeof(this.display) != 'undefined') {
+            this.display.stop();
+        }
+
+        this._polymerElement._go();
+    },
+
+    _reset: function () {
+
+        var dataBounds = this._fields.getBounds();
+        if (dataBounds.getNorth() == Infinity || this._map == null || !this._map.getBounds().intersects(dataBounds)) {
+            return
+        }
+
+        // this is to figure out where the canvas should be positioned
+        var y0 = (dataBounds.getSouth() + 1000) < (this._map.getBounds().getSouth() + 1000) ? this._map.getBounds().getSouth() : dataBounds.getSouth();
+        var y1 = (dataBounds.getNorth() + 1000) > (this._map.getBounds().getNorth() + 1000) ? this._map.getBounds().getNorth() : dataBounds.getNorth();
+        var x0 = (dataBounds.getWest() + 1000) < (this._map.getBounds().getWest() + 1000) ? this._map.getBounds().getWest() : dataBounds.getWest();
+        var x1 = (dataBounds.getEast() + 1000) > (this._map.getBounds().getEast() + 1000) ? this._map.getBounds().getEast() : dataBounds.getEast();
+
+        this._bounds = L.latLngBounds([y0, x0], [y1, x1]);
+
+        var topLeft = this._map.latLngToLayerPoint(this._bounds.getNorthWest());
+        var size = this._map.latLngToLayerPoint(this._bounds.getSouthEast())._subtract(topLeft);
+
+        L.DomUtil.setPosition(this._canvas, topLeft);
+
+        this._canvas.width  = size.x;
+        this._canvas.height = size.y;
+
+        this.display = new MotionDisplay(this._map,
+                                            this._canvas,
+                                            topLeft,
+                                            this._fields,
+                                            this._particles,
+                                            this._colorGradient,
+                                            this._traceWidth,
+                                            this._traceSpeed,
+                                            this._polymerElement,
+                                            this._percentileIncluded,
+                                            this._stencilCanvas,
+                                            x0, x1, y0, y1);
+
+        this.display.start(this._frameDelay);
+    },
+
+    _animateZoom: function (e) {
+        var scale = this._map.getZoomScale(e.zoom);
+
+        if (this._bounds) {
+            var offset = this._map._latLngToNewLayerPoint(this._bounds.getNorthWest(), e.zoom, e.center);
+            L.DomUtil.setTransform(this._stencilCanvas, offset, scale);
+            L.DomUtil.setTransform(this._canvas, offset, scale);
+        }
+    },
+
+    _initCanvas: function () {
+        this._stencilCanvas = L.DomUtil.create('canvas', '');
+        this._canvas = L.DomUtil.create('canvas', '');
+
+        if (this._zoomAnimated) {
+            L.DomUtil.addClass(this._canvas, 'leaflet-zoom-animated');
+        } else {
+            L.DomUtil.addClass(this._canvas, 'leaflet-zoom-hide');
+        }
+
+        this._updateOpacity();
+    },
+
+    _updateOpacity: function () {
+        L.DomUtil.setOpacity(this._canvas, this.options.opacity);
+    }
+});
+
+Polymer({
+    is: 'dhi-leaflet-traces',
+
+    properties: {
+        container: {
+            type: Object,
+            observer: '_go'
+        },
+
+        /**
+         * lowerLeft
+         */
+        lowerLeft: {
+            type: Object,
+            value: function() { return []; },
+            observer: '_go'
+        },
+
+        /**
+         * upperRight
+         */
+        upperRight: {
+            type: Object,
+            value: function() { return []; },
+            observer: '_go'
+        },
+
+        /**
+         * data as geojson object
+         */
+        data: {
+            type: Object,
+            value: null,
+            observer: '_go'
+        },
+
+        /**
+         * url as string
+         */
+         url: {
+            type: String,
+            value: '',
+            observer: '_go'
+        },
+
+        /**
+         * projectId as string - used when requesting data from url
+         */
+         projectId: {
+            type: String,
+            value: '',
+            observer: '_go'
+        },
+
+        /**
+         * dateTime as string - used when requesting data from url
+         */
+         dateTime: {
+            type: String,
+            value: '',
+            observer: '_go'
+        },
+
+        /**
+         * wmsStencilUrl as string - used to define land areas where traces should not render
+         */
+         wmsStencilUrl: {
+            type: String,
+            value: '',
+            observer: '_go'
+        },
+
+        /**
+         * color gradient
+         */
+        colorGradient: {
+            type: Object,
+            value: null,
+            observer: '_go'
+        },
+
+        /**
+         * decides if enabled
+         */
+        enabled: {
+            type: Boolean,
+            value: true,
+            observer: '_enabledChanged'
+        },
+
+        /**
+         * the number of particles used
+         */
+        particles: {
+            type: Number,
+            value: 5000
+        },
+
+        /**
+         * the delay between each frame
+         */
+        frameDelay: {
+            type: Number,
+            value: 40
+        },
+
+        /**
+         * the trace width
+         */
+        traceWidth: {
+            type: Number,
+            value: 1.5
+        },
+
+        /**
+         * the trace speed
+         */
+        traceSpeed: {
+            type: Number,
+            value: 3
+        },
+
+        /**
+         * the x offset. Usually used when global data originates in [0,-180] instead of [-180,180]. In this case -180 is used to move the data
+         */
+         xOffset: {
+            type: Number,
+            value: 0
+        },
+
+        /**
+         * if large values occur in the domain, this can be used to ignore then capping the gradient used at a certain percentile. By default all values are included, hence 1
+         */
+         percentileIncluded: {
+            type: Number,
+            value: 1
+        },
+
+        /**
+         * The legend gradient. This is scaled to account for minimum and maximum
+         */
+         legendGradient: {
+            type: Array,
+            value: function() { return [] },
+            notify: true
+        },
+
+        /**
+         * The opacity of the trace layer
+         */
+        opacity: {
+            type: Number,
+            value: 1,
+            observer: '_opacityChanged'
+        },
+
+        /**
+         * Debug boolean enables writing debug information into teh console as well as displaying the grids used
+         */
+        debug: {
+            type: Boolean,
+            value: false
+        }
+    },
+
+    _go: function() {
+        if (this.container) {
+            this.go();
+        }
+    },
+
+    _enabledChanged: function() {
+        if (this.enabled) {
+            this._go();
+        }
+        else {
+            this.detached();
+        }
+    },
+
+    _opacityChanged: function() {
+        if (this.layer) {
+            this.layer.setOpacity(this.opacity);
+        }
+    },
+
+    requestIndex: function() {
+        var bounds = this.container.getBounds();
+
+        this.$.ajax.url = this.url.replace('GetTraceData', 'GetTraceTimeAxis') +
+            "?projectId=" + this.projectId +
+            "&boundingBox=" + bounds.getWest() + "," + bounds.getSouth() + "," + bounds.getEast() + "," + bounds.getNorth() +
+            "&zoomLevel=" + this.container.getZoom();
+
+        this.$.ajax.generateRequest();
+    },
+
+    requestData: function() {
+        var bounds = this.container.getBounds();
+
+        this.$.ajax.url = this.url +
+            "?projectId=" + this.projectId +
+            "&boundingBox=" + bounds.getWest() + "," + bounds.getSouth() + "," + bounds.getEast() + "," + bounds.getNorth() +
+            "&zoomLevel=" + this.container.getZoom() +
+            "&requestedDateTime=" + this.dateTime;
+
+        this.$.ajax.generateRequest();
+    },
+
+    go: function() {
+        if (this.container && this.enabled && this.colorGradient && this.colorGradient.length > 0) {
+            // request the index on every map move
+            if (this.url && typeof(this.url.length) != 'undefined' && this.projectId && typeof(this.projectId.length) != 'undefined') {
+                this.requestIndex();
+            }
+
+            if (this.url && typeof(this.url.length) != 'undefined' && this.projectId && typeof(this.projectId.length) != 'undefined' && this.dateTime && typeof(this.dateTime.length) != 'undefined') {
+                this.requestData();
+                return;
+            }
+
+            if (this.data && Object.keys(this.data).length > 0) {
+                var xData = this.data[Object.keys(this.data)[0]];
+                var yData = this.data[Object.keys(this.data)[1]];
+
+                if (this.layer) {
+                    this.container.removeLayer(this.layer);
+                }
+
+                this.layer = new L.TracesOverlay(this.colorGradient, [[xData, yData]], this.traceWidth, this.traceSpeed, this.particles, this.frameDelay, this.xOffset, this.percentileIncluded, this.debug, this);
+                this.container.addLayer(this.layer);
+                return;
+            }
+
+            // section to add a blank layer to catch pan/zoom events
+            if (this.layer) {
+                this.container.removeLayer(this.layer);
+            }
+            this.layer = new L.TracesOverlay(this.colorGradient, {}, this.traceWidth, this.traceSpeed, this.particles, this.frameDelay, this.xOffset, this.percentileIncluded, this.debug, this);
+            this.container.addLayer(this.layer);
+        } else {
+            if (this.layer) {
+                this.container.removeLayer(this.layer);
+            }
+        }
+    },
+
+    detached: function() {
+        if (this.container && this.layer) {
+            this.container.removeLayer(this.layer);
+        }
+    },
+
+    successHandler: function(header, data) {
+        if (data.xhr.status === 200 ) {
+            if (data.xhr.responseURL.indexOf('GetTraceData') >= 0) {
+                this.processDataResponse(data.xhr.response);
+            } else {
+                this.processIndexResponse(data.xhr.response);
+            }
+        } else {
+            alert('EXCEPTION: ' + data.xhr.responseText);
+        }
+    },
+
+    errorHandler: function (event) {
+        this.fire('error', { statusText: event.detail.request.xhr.statusText, response: event.detail.request.xhr.response });
+    },
+
+    processDataResponse: function(response) {
+        this.fire('dataupdated', data);
+        var data = toObject(response);
+
+        if (this.layer) {
+            this.container.removeLayer(this.layer);
+        }
+
+        var fields = [];
+        if (data && data.length) {
+            for (var i = 0; i < data.length; i++) {
+                fields.push([data[i][0], data[i][1]]);
+            }
+        }
+
+        this.layer = new L.TracesOverlay(this.colorGradient, fields, this.traceWidth, this.traceSpeed, this.particles, this.frameDelay, 0, this.percentileIncluded, this.debug, this);
+        this.container.addLayer(this.layer);
+    },
+
+    processIndexResponse: function(response) {
+        var data = toObject(response);
+
+        if (data && data.length && data.length > 0) {
+            this.fire('indexupdated', data);
+        }
+    }
+});
+</script>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>dhi-chart demo</title>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-ajax/iron-ajax.html'>
+        <link rel='import' href='../dhi-chart.html'>
+        <style shim-shadowdom>
+            /*Fix to override leaflet default z-index*/
+            .leaflet-pane {
+                z-index: 0;
+            }
+
+            body {
+                font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                -webkit-touch-callout: none;
+                margin: 0px;
+            }
+
+            paper-button {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .padded {
+                padding: 20px;
+                width: 1000px;
+            }
+
+            .codeContainer {
+                padding: 20px;
+                background-color: #EEEEEE;
+            }
+
+            .elementContainer {
+                height: 500px;
+            }
+        </style>
+    </head>
+    <body>
+        <dom-module id='demo-element'>
+            <style>
+                [fit] {
+                    @apply(--layout-fit);
+                }
+
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <h3>DHI Chart control demo</h3>
+                        <div class='elementContainer'>
+                            <dhi-chart
+                                flex
+                                data='{{data}}'
+                                config='{ "xAxis": { "type": "datetime", "dateTimeLabelFormats": { "month": "%e. %b", "year": "%b" }}}'>
+                            </dhi-chart>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-chart
+                                flex
+                                data='{{data}}'
+                                config='{ "xAxis": { "type": "datetime", "dateTimeLabelFormats": { "month": "%e. %b", "year": "%b" }}}'&gt;
+                            &lt;/dhi-chart&gt;
+                        </div>
+
+                        <br>
+                        <div class='elementContainer'>
+                            <dhi-chart
+                                flex
+                                data='{{data}}'
+                                vertical-line
+                                vertical-line-color='#0000FF'
+                                vertical-line-date-time='{{dateTime}}'
+                                vertical-line-interactive
+                                config='{ "xAxis": { "type": "datetime", "dateTimeLabelFormats": { "month": "%e. %b", "year": "%b" }, "plotLines": [{ "value": 1357056000000, "color": "green", "width": 2 }]}}'>
+                            </dhi-chart>
+                        </div>
+                        <div>{{dateTime}}</div>
+                        <div class='codeContainer'>
+                            &lt;dhi-chart
+                                flex
+                                data='{{data}}'
+                                vertical-line
+                                vertical-line-color='#0000FF'
+                                vertical-line-date-time='{{dateTime}}'
+                                vertical-line-interactive
+                                config='{ "xAxis": { "type": "datetime", "dateTimeLabelFormats": { "month": "%e. %b", "year": "%b" }, "plotLines": [{ "value": 1357056000000, "color": "green", "width": 2 }]}}'&gt;
+                            &lt;/dhi-chart&gt;
+                        </div>
+                    </div>
+                </div>
+                <iron-ajax auto url='demo.json' last-response='{{data}}'></iron-ajax>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'demo-element',
+
+                properties: {
+                    dateTime: {
+                        type: String,
+                        value: '2013-01-01T11:00:00'
+                    }
+                }
+            });});
+        </script>
+        <demo-element></demo-element>
+    </body>
+</html>
+
+

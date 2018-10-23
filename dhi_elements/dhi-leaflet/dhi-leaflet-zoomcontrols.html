@@ -1,0 +1,226 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-layer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-import.html'>
+<link rel='import' href='../../bower_components/iron-icons/iron-icons.html'>
+<link rel='import' href='../../bower_components/iron-icons/image-icons.html'>
+<link rel='import' href='../../bower_components/paper-tooltip/paper-tooltip.html'>
+
+<!--
+DHI Leaflet Zoomcontrols
+
+`dhi-leaflet-zoomcontrols` is a leaflet zoom controls component.
+
+Example:
+
+    <dhi-leaflet-zoomcontrols
+        data='{{data}}'
+        color-gradient='[ {"value": 0, "color": "#00FF00"},
+                          {"value": 127, "color": "#FFFF00"},
+                          {"value": 255, "color": "#FF00FF"}]'
+        trace-width='2'
+        trace-speed='2'
+        particles='5000'
+        enabled='{{checked}}'
+        opacity='{{opacity}}'
+        legend-gradient='{{legendGradient}}'>
+    </dhi-leaflet-zoomcontrols>
+
+@demo demo/index-dhi-leaflet-zoomcontrols.html
+-->
+
+<dom-module id='dhi-leaflet-zoomcontrols'>
+    <style>
+        :host([leftTop]) {
+            position: absolute;
+            z-index: 1000;
+            left: var(--dhi-leaflet-zoomcontrols-left, 10px);
+            top: var(--dhi-leaflet-zoomcontrols-top, 10px);
+        }
+
+        :host([rightTop]) {
+            position: absolute;
+            z-index: 1000;
+            right: var(--dhi-leaflet-zoomcontrols-right, 10px);
+            top: var(--dhi-leaflet-zoomcontrols-top, 10px);
+        }
+
+        [vertical] {
+            @apply(--layout-vertical);
+        }
+
+        iron-icon {
+            color: var(--dhi-leaflet-zoomcontrols-color, #1976D2);
+            border-radius: var(--dhi-leaflet-zoomcontrols-border-radius, 3px);
+            background-color: white;
+            padding: 2px;
+            border: 1px solid lightgray;
+            --iron-icon-width: var(--dhi-leaflet-zoomcontrols-icon-width, 20px);
+            --iron-icon-height: var(--dhi-leaflet-zoomcontrols-icon-height, 20px);
+        }
+
+            iron-icon:hover {
+                color: var(--dhi-leaflet-zoomcontrols-color-hover, #1E92FF);
+            }
+
+        paper-input {
+            width: 180px;
+        }
+
+        iron-input {
+            background: rgba(255,255,255,.9);
+            border: 1px solid rgb(211,211,211);
+            padding: 0px 5px;
+        }
+
+        paper-button {
+            background-color: white;
+            float: right;
+        }
+    </style>
+    <template>
+        <div vertical layout style='position:absolute;'>
+            <iron-icon id='zoomIn' icon='icons:zoom-in' on-tap='zoomIn'></iron-icon>
+            <iron-icon id='zoomOut' icon='icons:zoom-out' on-tap='zoomOut'></iron-icon>
+            <template is='dom-if' if='{{showFullExtent}}'>
+                <iron-icon id='fullExtent' icon='icons:fullscreen' on-tap='fullExtent'></iron-icon>
+                <paper-tooltip for='fullExtent' offset='0' position$='{{toolTipPosition}}'>{{fullExtentToolTip}}</paper-tooltip>
+            </template>
+            <template is='dom-if' if='{{showCustomZoom}}'>
+                <iron-icon id="zoomCustom" icon="icons:aspect-ratio" on-tap="customZoom"></iron-icon>
+                <template is="dom-if" if="{{!hideZoomInputFields}}">
+                    <div style='position: absolute; margin-left: 28px; margin-top: 78px; padding: 15px; background: white; border: 1px solid lightgray; border-radius: 3px;'>
+                        <div style='column-count: 2;'>
+                            <paper-input id="neLat" label="NE latitude" value$="{{bounds._northEast.lat}}" type="number"></paper-input>
+                            <paper-input id="neLng" label="NE longitude" value$="{{bounds._northEast.lng}}" type="number"></paper-input>
+                            <paper-input id="swLat" label="SW latitude" value$="{{bounds._southWest.lat}}" type="number"></paper-input>
+                            <paper-input id="swLng" label="SW longitude" value$="{{bounds._southWest.lng}}" type="number"></paper-input>
+                        </div>
+                        <paper-button on-tap="zoomToBounds">OK</paper-button>
+                    </div>
+                </template>
+                <paper-tooltip for='zoomCustom' offset='0' position$='{{toolTipPosition}}'>{{zoomCoordinatesToolTip}}</paper-tooltip>
+            </template>
+            <content></content>
+        </div>
+
+        <paper-tooltip for='zoomIn' offset='0' position$='{{toolTipPosition}}'>{{zoomInToolTip}}</paper-tooltip>
+        <paper-tooltip for='zoomOut' offset='0' position$='{{toolTipPosition}}'>{{zoomOutToolTip}}</paper-tooltip>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: 'dhi-leaflet-zoomcontrols',
+
+        properties: {
+            container: {
+                type: Object,
+                observer: '_containerChanged'
+            },
+
+            /**
+             * True: Show geo grid button. False: Hide geo grid button.
+             */
+            showGeoGrid: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * True: Full extent button. False: Hide full extent button.
+             */
+            showFullExtent: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * True: Custon zoom button. False: Hide custom zoom button.
+             */
+            showCustomZoom: {
+                type: Boolean,
+                value: false
+            },
+
+            /**
+             * Zoom in tool tip.
+             */
+            zoomInToolTip: {
+                type: String,
+                value: 'Zoom in'
+            },
+
+            /**
+             * Zoom out tool tip.
+             */
+            zoomOutToolTip: {
+                type: String,
+                value: 'Zoom out'
+            },
+
+            /**
+             * Full extent tool tip.
+             */
+            fullExtentToolTip: {
+                type: String,
+                value: 'Zoom to full extent'
+            },
+
+            /**
+             * Zoom coordinates tool tip.
+             */
+            zoomCoordinatesToolTip: {
+                type: String,
+                value: 'Zoom to coordinates'
+            },
+
+            hideZoomInputFields: {
+                type: Boolean,
+                value: true
+            },
+
+            bounds: {
+                type: Object
+            }
+        },
+
+        zoomIn: function () {
+            this.container.zoomIn();
+        },
+
+        zoomOut: function () {
+            this.container.zoomOut();
+        },
+
+        fullExtent: function () {
+            this.fire('full-extent');
+        },
+
+        customZoom: function () {
+            this.hideZoomInputFields = !this.hideZoomInputFields;
+            this.bounds = this.container.getBounds();
+        },
+
+        zoomToBounds: function () {
+            this.hideZoomInputFields = true;
+            this.bounds._northEast.lat = this.$$("#neLat").value;
+            this.bounds._northEast.lng = this.$$("#neLng").value;
+            this.bounds._southWest.lat = this.$$("#swLat").value;
+            this.bounds._southWest.lng = this.$$("#swLng").value;
+            this.container.fitBounds(this.bounds);
+        },
+
+        _containerChanged: function () {
+            if (this.container.zoomControl) {
+                this.container.zoomControl.remove();
+            }
+        },
+
+        ready: function () {
+            if (this.hasAttribute('rightTop')) {
+                this.toolTipPosition = 'left';
+            } else {
+                this.toolTipPosition = 'right';
+            }
+        }
+    });
+</script>

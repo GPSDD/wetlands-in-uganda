@@ -1,0 +1,15 @@
+<script src='geojson-utils.js'></script>
+<script>
+    function intersectFeatures(layer, latLng) {
+        var intersects = [];
+        layer.eachLayer(function(l) {
+            if (gju.pointInPolygon({
+                type: 'Point',
+                coordinates: [latLng.lng, latLng.lat]
+            }, l.toGeoJSON().geometry)) {
+                intersects.push(l);
+            }
+        })
+        return intersects;
+    }
+</script>

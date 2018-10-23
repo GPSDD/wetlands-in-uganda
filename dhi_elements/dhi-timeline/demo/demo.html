@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Title</title>
+        <script src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../dhi_elements/dhi-timeline/dhi-timeline.html'>
+    </head>
+    <body>
+        <dom-module id='demo-page'>
+            <style>
+                .highlight {
+                    border-color: red;
+                    border-style: solid;
+                    border-width: 1px;
+                }
+
+                .vis-group: {
+                    opacity: 0;
+                }
+
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    margin-top: 20px;
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <div style='width:100%; padding:20px;background-color:green'>
+                                <dhi-timeline data={{data}} selected='{{selectedItem}}' required-property-name='id' id-property-name='id'></dhi-timeline>
+                                <div>hi test {{getValue(selectedItem)}}</div>
+                            </div>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-timeline data={{data}} selected='{{selectedItem}}'&gt;&lt;/dhi-timeline&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <script>
+                HTMLImports.whenReady(function() {
+                    Polymer({
+                        is: 'demo-page',
+
+                        properties: {
+                            data: {
+                                type: Array,
+                                value: function() {
+                                    return [{
+                                        'id': 1, 'content': 'item 1', 'start': '2013-04-20' }, {
+                                        'id': 2, 'content': 'item 2', 'start': '2013-04-20' }, {
+                                        'id': 3, 'content': 'item 3', 'start': '2013-04-25' }, {
+                                        'id': 4, 'content': 'item 4', 'start': '2013-04-28' }, {
+                                        'id': 5, 'content': 'item 5', 'start': '2013-04-29' }, {
+                                        'id': 6, 'content': 'item 6', 'start': '2013-05-05'
+                                    }]
+                                }
+                            },
+
+                            selectedItem: {
+                                type: Object,
+                                observer: 'selectedItemChanged'
+                            }
+                        },
+
+                        ready: function() {
+                            this.suppressSelectedItemChanged = true;
+                            this.selectedItem = this.data[0];
+                        },
+
+                        selectedItemChanged: function(e, o) {
+                            if (this.suppressSelectedItemChanged) {
+                                this.suppressSelectedItemChanged = false;
+                            } else {
+                                console.log('selected changed');
+                            }
+                        },
+
+                        getValue: function(valueObj) {
+                            return JSON.stringify(valueObj);
+                        }
+                    })
+                });
+            </script>
+        </dom-module>
+        <demo-page></demo-page>
+    </body>

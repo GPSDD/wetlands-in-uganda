@@ -1,0 +1,1093 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../../bower_components/iron-flex-layout/iron-flex-layout-classes.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-layer.html'>
+<link rel='import' href='../../bower_components/paper-button/paper-button.html'>
+<link rel='import' href='../../bower_components/paper-styles/typography.html'>
+<link rel='import' href='../../bower_components/moment-element/moment-import.html'>
+<link rel='import' href='../dhi-leaflet/dhi-leaflet-geojson.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Jobexecuter
+
+`dhi-leaflet-ais` is a leaflet ais component.
+
+Example:
+
+    <dhi-leaflet-ais
+        url='data/aisTestOne.json'
+        configuration='{{configuration1}}'
+        selected='{{selected1}}'>
+    </dhi-leaflet-ais>
+
+    <dhi-leaflet-ais
+        url='data/aisTestTwo.json'
+        configuration='{{configuration2}}'
+        selected='{{selected2}}'>
+    </dhi-leaflet-ais>
+
+@demo demo/index-dhi-leaflet-ais.html
+-->
+
+<dom-module id='dhi-leaflet-ais'>
+    <template>
+        <style include='iron-flex iron-flex-alignment iron-flex-factors'>
+            .hover {
+                @apply(--paper-font-common-base);
+                position: absolute;
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius: 4px;
+                z-index: 10000;
+                border: 1px solid #c9c9c9;
+                padding: 5px;
+                font-size: 13px;
+                color: gray;
+                white-space: nowrap;
+            }
+        </style>
+        <div id='hoverBox' class='horizontal layout hover' hidden$='{{!showHoverBox}}'>
+            <div class='vertical layout' style='padding-right:5px'>
+                <template is='dom-repeat' items='{{hoverData}}'>
+                    <div style='font-weight: bold;'>{{item.name}}</div>
+                </template>
+            </div>
+            <div class='vertical layout'>
+                <template is='dom-repeat' items='{{hoverData}}'>
+                    <div>{{item.value}}</div>
+                </template>
+            </div>
+        </div>
+        <dhi-leaflet-geojson
+            id='geoJsonLayer'
+            data='{{data}}'
+            on-mouseover='onVesselOver'
+            on-mousemove='onVesselOver'
+            on-mouseout='onVesselOut'
+            on-featureclick='onVesselSelect'>
+        </dhi-leaflet-geojson>
+        <iron-ajax id='ajax' url='{{url}}' headers='{ "Content-Type": "application/json" }' handle-as='json' on-response='handler'></iron-ajax>
+        <iron-ajax id='ajaxDrifting' url='{{driftingUrl}}' headers='{ "Content-Type": "application/json" }' handle-as='json' on-response='handlerDrifting'></iron-ajax>
+    </template>
+</dom-module>
+<script>
+Polymer({
+    is: 'dhi-leaflet-ais',
+
+    properties: {
+        /**
+         * the url with the geojson
+         */
+        url: {
+            type: String,
+            value: null,
+            observer: '_urlChanged'
+        },
+
+        /**
+         * the configuration mapping the properties
+         */
+        configuration: {
+            type: Object,
+            value: function() { return {}; }
+        },
+
+        /**
+         * the data for the selected vessel
+         */
+        selected: {
+            type: Object,
+            value: function() { return []; },
+            notify: true
+        },
+
+        /**
+         * the date time format displayed for the selected vessel
+         */
+        dateTimeFormat: {
+            value: 'DD/MM/YYYY HH:mm:ss'
+        },
+
+        /**
+         * the light color used for polygons
+         */
+        colorLight: {
+            value: '#42a5f5'
+        },
+
+        /**
+         * the middle color used for polygons
+         */
+        colorMiddle: {
+            value: '#1976D2'
+        },
+
+        /**
+         * the dark color used for polygons
+         */
+        colorDark: {
+            value: '#0D47A1'
+        },
+
+        /**
+         * the color used for antenna dot
+         */
+        colorDot: {
+            value: '#FF0000'
+        },
+
+        /**
+         * the filter that limits the display of vessels. The format is
+         * {
+         *      "draftMin":0,
+         *      "draftMax":15,
+         *      "lengthMin":0,
+         *      "lengthMax":400,
+         *      "shipType":["80","81","82","83","84","85","86","87","88","89"],
+         *      "navStatus":["0","1","5","2"]
+         * }
+         */
+        filter: {
+            type: Object,
+            value: null,
+            observer: 'draw'
+        },
+
+        /**
+         * Url to fetch data from a drifting geojson file
+         */
+        driftingUrl: {
+            type: String,
+            value: null
+        },
+
+        /**
+         * This is the Imo field in the drifting data that is cross checked with the same field in the AIS data
+         */
+        driftingImoField: {
+            type: String,
+            value: 'IMO'
+        },
+
+        previousResponse: {
+            type: Object,
+            value: function() { return {} }
+        },
+
+        container: {
+            type: Object,
+            observer: '_containerChanged'
+        }
+    },
+
+    _containerChanged: function() {
+        this.$.geoJsonLayer.container = this.container;
+
+        this.response = null;
+        this.$.ajax.generateRequest();
+        if (this.driftingUrl) {
+            this.$.ajaxDrifting.generateRequest();
+        }
+        this.$.geoJsonLayer.container.on('zoomend', function(e) {
+            this.newZoom = this.$.geoJsonLayer.container.getZoom();
+            this.draw();
+        }.bind(this));
+
+        this.$.geoJsonLayer.container.on('zoomstart', function(e) {
+            this.oldZoom = this.$.geoJsonLayer.container.getZoom();
+        }.bind(this));
+
+        this.$.geoJsonLayer.container.on('dragend', function(e) {
+            this.draw(true);
+        }.bind(this));
+    },
+
+    _urlChanged: function() {
+        if (this.url) {
+            this.$.ajax.generateRequest();
+            if (this.driftingUrl) {
+                this.$.ajaxDrifting.generateRequest();
+            }
+            var that = this;
+            this.timeout = setInterval(function() {
+                that.$.ajax.generateRequest();
+                if (that.driftingUrl) {
+                    that.$.ajaxDrifting.generateRequest();
+                }
+            }, 30000);
+        } else {
+            clearTimeout(this.timeout);
+        }
+    },
+
+    handler: function (header, data) {
+        if (data.xhr.status === 200 ) {
+            if (data.xhr.response && JSON.stringify(this.response) != JSON.stringify(data.xhr.response)) {
+                this.response = data.xhr.response;
+                this.draw();
+            }
+        }
+        else {
+            alert('EXCEPTION: ' + data.xhr.responseText);
+        }
+    },
+
+    handlerDrifting: function (header, data) {
+        if (data.xhr.status === 200 ) {
+            if (data.xhr.response && JSON.stringify(this.response) != JSON.stringify(data.xhr.response)) {
+                this.driftingData = data.xhr.response;
+            }
+        }
+        else {
+            alert('EXCEPTION: ' + data.xhr.responseText);
+        }
+    },
+
+    draw: function(pan) {
+        if (!this.response || !this.container || !this.configuration) {
+            return;
+        }
+
+        if (this.data) {
+            if ((this.oldZoom > this.newZoom) || 
+                (this.oldZoom <= 13 && this.newZoom >= 14) ||
+                (this.newZoom <= 13 && this.oldZoom >= 14) ||
+                (this.oldZoom <= 10 && this.newZoom >= 11) ||
+                (this.newZoom <= 10 && this.oldZoom >= 11) ||
+                (this.newZoom == this.oldZoom && this.newZoom > 14) ||
+                pan) {
+                // Do our stuff
+            } else {
+                return;
+            }
+        }
+
+        var driftingImos = [];
+        if (this.driftingUrl && this.driftingData) {
+            driftingImos = this.driftingData.features.map(function(vessel) {
+                return vessel.properties[this.driftingImoField]
+            }.bind(this));
+        }
+
+        var results = { features: [] };
+        for (var i = 0; i < this.response.features.length; i++) {
+            var feature = this.response.features[i];
+
+            if (!this.$.geoJsonLayer.container.getBounds().contains(L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0])) &&
+                this.$.geoJsonLayer.container.getBounds().getCenter().lat != 0 && this.$.geoJsonLayer.container.getBounds().getCenter().lng != 0) {
+                continue;
+            }
+
+            var hover = [];
+            var selected = [];
+            var heading = -1;
+            var navStatus = -1;
+            var width = -1;
+            var length = -1;
+            var draft = -1;
+            var toBow = -1;
+            var toStern = -1;
+            var toPort = -1;
+            var toStar = -1;
+            var shipType = -1;
+            var ignoreCount = 0;
+            for (var j = 0; j < Object.keys(this.configuration).length; j++) {
+                var key = Object.keys(this.configuration)[j];
+                var value = this.configuration[key];
+
+                if (value.inHover) {
+                    hover.push({
+                        name: value.name,
+                        value: this.getValue(value, feature.properties[key])
+                    });
+                }
+
+                if (value.inSelected) {
+                    selected.push({
+                        name: value.name,
+                        value: this.getValue(value, feature.properties[key])
+                    });
+                }
+
+                if (value.isShipType) {
+                    shipType = feature.properties[key];
+                }
+
+                if (value.isHeading) {
+                    heading = feature.properties[key];
+                }
+
+                if (value.isWidth && feature.properties[key] > 0) {
+                    width = feature.properties[key];
+                }
+
+                if (value.isDraft && feature.properties[key] > 0) {
+                    draft = feature.properties[key];
+                }
+
+                if (value.isLength && feature.properties[key] > 0) {
+                    length = feature.properties[key];
+                }
+
+                if (value.isBow && feature.properties[key] > 0) {
+                    toBow = feature.properties[key];
+                }
+
+                if  (value.isStern && feature.properties[key] > 0) {
+                    toStern = feature.properties[key];
+                }
+
+                if (value.isPort && feature.properties[key] > 0) {
+                    toPort = feature.properties[key];
+                }
+
+                if (value.isStar && feature.properties[key] > 0) {
+                    toStar = feature.properties[key];
+                }
+
+                if (value.isNavStatus && feature.properties[key] < 8) {
+                    navStatus = feature.properties[key];
+                }
+            }
+
+            if (this.filter) {
+                if (this.filter.draftMin && this.filter.draftMax) {
+                    if (draft == -1 || draft <= this.filter.draftMin || draft >= this.filter.draftMax) {
+                        continue;
+                    }
+                }
+
+                if (this.filter.lengthMin && this.filter.lengthMax) {
+                    if (length == -1 || length <= this.filter.lengthMin || length >= this.filter.lengthMax) {
+                        continue;
+                    }
+                }
+
+                if (shipType == -1 || !this.filter.shipType.includes(shipType)) {
+                    continue;
+                }
+
+                if (navStatus == -1 || !this.filter.navStatus.includes(navStatus)) {
+                    continue;
+                }
+            }
+
+            if (this.newZoom > 13 && heading != 511) {
+                this.getShipDetails(this.newZoom, feature, heading, width, length, toBow, toStern, toPort, toStar, shipType, hover, selected).map(function(detail) {
+                    results.features.push(detail);
+                });
+            }
+
+            if (length < 100 && this.newZoom < 11) {
+                // Too small
+                ignoreCount++;
+            } else {
+                var drifting = this.driftingImoField && driftingImos.includes(feature.properties[this.driftingImoField]);
+                results.features.push(this.getShipDot(feature, hover, selected, drifting));
+            }
+        }
+
+        this.data = results;
+    },
+
+    getShipDot: function(feature, hover, selected, drifting) {
+        return {
+            type : 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: feature.geometry.coordinates
+            },
+            properties: {
+                style: {
+                    radius: drifting ? 30 : 10,
+                    fillColor: this.colorDot,
+                    weight: 0,
+                    fillOpacity: 0.7
+                },
+                markerType: 'circle',
+                hoverData: hover,
+                selectedData: selected
+            }
+        };
+    },
+
+    getShipDetails: function(zoom, feature, heading, width, length, toBow, toStern, toPort, toStar, shipType, hover, selected) {
+        var result = [];
+
+        if (width != -1 && length != -1) {
+            if (toBow == -1) {
+                toBow = length / 2;
+            };
+            if (toStern == -1) {
+                toStern = length / 2;
+            };
+            if (toPort == -1) {
+                toPort = width / 2;
+            };
+            if (toStar == -1) {
+                toStar = width / 2;
+            }
+        };
+
+        var utm = latLngToUtm(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
+        var vessels = [{
+            // Passenger
+            pick: false,
+            from: 60,
+            to: 69,
+            polygons: [{
+                isHull: true,
+                color: this.colorLight,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.500, 1.000],[0.409, 0.994],[0.328, 0.977],[0.251, 0.960],[0.197, 0.943],[0.133, 0.921],[0.076, 0.895],[0.032, 0.869],[0.000, 0.843],[0.000, 0.812],[0.000, 0.135],[0.015, 0.097],[0.032, 0.071],[0.066, 0.049],[0.109, 0.035],[0.177, 0.019],[0.251, 0.011],[0.315, 0.005],[0.375, 0.001],[0.439, 0.000],[0.561, 0.000],[0.625, 0.001],[0.685, 0.005],[0.749, 0.011],[0.823, 0.019],[0.891, 0.035],[0.934, 0.049],[0.968, 0.071],[0.985, 0.097],[1.000, 0.135],[1.000, 0.812],[1.000, 0.843],[0.968, 0.869],[0.924, 0.895],[0.867, 0.921],[0.803, 0.943],[0.749, 0.960],[0.672, 0.977],[0.591, 0.994],[0.500, 1.000]]
+            }, {
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.500, 0.269],[0.564, 0.270],[0.668, 0.276],[0.753, 0.281],[0.820, 0.284],[0.860, 0.293],[0.860, 0.477],[0.813, 0.477],[0.753, 0.479],[0.702, 0.485],[0.652, 0.491],[0.591, 0.492],[0.409, 0.492],[0.348, 0.491],[0.298, 0.485],[0.247, 0.479],[0.187, 0.477],[0.140, 0.477],[0.140, 0.293],[0.180, 0.284],[0.247, 0.281],[0.332, 0.276],[0.436, 0.270],[0.500, 0.269]]
+            }, {
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.500, 0.793],[0.564, 0.793],[0.608, 0.788],[0.662, 0.785],[0.712, 0.781],[0.759, 0.776],[0.810, 0.771],[0.827, 0.752],[0.827, 0.738],[0.827, 0.716],[0.827, 0.659],[0.877, 0.642],[0.891, 0.626],[0.897, 0.606],[0.877, 0.582],[0.843, 0.573],[0.806, 0.564],[0.806, 0.547],[0.854, 0.534],[0.840, 0.521],[0.793, 0.516],[0.753, 0.508],[0.675, 0.515],[0.594, 0.508],[0.406, 0.508],[0.325, 0.515],[0.247, 0.508],[0.207, 0.516],[0.160, 0.521],[0.146, 0.534],[0.194, 0.547],[0.194, 0.564],[0.157, 0.573],[0.123, 0.582],[0.103, 0.606],[0.109, 0.626],[0.123, 0.642],[0.173, 0.659],[0.173, 0.716],[0.173, 0.738],[0.173, 0.752],[0.190, 0.771],[0.241, 0.776],[0.288, 0.781],[0.338, 0.785],[0.392, 0.788],[0.436, 0.793],[0.500, 0.793]]
+            },{
+                color: this.colorDark,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.500, 0.718],[0.567, 0.712],[0.604, 0.706],[0.577, 0.693],[0.591, 0.680],[0.614, 0.663],[0.662, 0.657],[0.692, 0.645],[0.736, 0.632],[0.739, 0.614],[0.739, 0.592],[0.705, 0.583],[0.665, 0.577],[0.625, 0.575],[0.577, 0.571],[0.540, 0.571],[0.460, 0.571],[0.423, 0.571],[0.375, 0.575],[0.335, 0.577],[0.295, 0.583],[0.261, 0.592],[0.261, 0.614],[0.264, 0.632],[0.308, 0.645],[0.338, 0.657],[0.386, 0.663],[0.409, 0.680],[0.423, 0.693],[0.396, 0.706],[0.433, 0.712],[0.500, 0.718]]
+            },{
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.500, 0.829],[0.591, 0.829],[0.695, 0.828],[0.759, 0.824],[0.823, 0.819],[0.894, 0.810],[0.944, 0.804],[0.978, 0.810],[0.985, 0.831],[0.961, 0.847],[0.921, 0.859],[0.880, 0.864],[0.830, 0.869],[0.773, 0.874],[0.712, 0.879],[0.652, 0.879],[0.594, 0.879],[0.544, 0.884],[0.456, 0.884],[0.406, 0.879],[0.348, 0.879],[0.288, 0.879],[0.227, 0.874],[0.170, 0.869],[0.120, 0.864],[0.079, 0.859],[0.039, 0.847],[0.015, 0.831],[0.022, 0.810],[0.056, 0.804],[0.106, 0.810],[0.177, 0.819],[0.241, 0.824],[0.305, 0.828],[0.409, 0.829],[0.500, 0.829]]
+            },{
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.500, 0.463],[0.564, 0.458],[0.608, 0.446],[0.618, 0.425],[0.618, 0.406],[0.618, 0.317],[0.604, 0.303],[0.581, 0.296],[0.547, 0.291],[0.453, 0.291],[0.419, 0.296],[0.396, 0.303],[0.382, 0.317],[0.382, 0.406],[0.382, 0.425],[0.392, 0.446],[0.436, 0.458],[0.500, 0.463]]
+            },{
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.500, 0.264],[0.601, 0.262],[0.699, 0.257],[0.783, 0.250],[0.860, 0.241],[0.924, 0.226],[0.955, 0.207],[0.924, 0.171],[0.870, 0.157],[0.783, 0.147],[0.699, 0.141],[0.604, 0.136],[0.540, 0.135],[0.460, 0.135],[0.396, 0.136],[0.301, 0.141],[0.217, 0.147],[0.130, 0.157],[0.076, 0.171],[0.045, 0.207],[0.076, 0.226],[0.140, 0.241],[0.217, 0.250],[0.301, 0.257],[0.399, 0.262],[0.500, 0.264]]
+            },{
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.500, 0.104],[0.554, 0.104],[0.645, 0.104],[0.712, 0.112],[0.776, 0.117],[0.820, 0.128],[0.840, 0.140],[0.901, 0.141],[0.904, 0.112],[0.894, 0.078],[0.837, 0.064],[0.776, 0.055],[0.715, 0.045],[0.648, 0.040],[0.594, 0.040],[0.540, 0.040],[0.460, 0.040],[0.406, 0.040],[0.352, 0.040],[0.285, 0.045],[0.224, 0.055],[0.163, 0.064],[0.106, 0.078],[0.096, 0.112],[0.099, 0.141],[0.160, 0.140],[0.180, 0.128],[0.224, 0.117],[0.288, 0.112],[0.355, 0.104],[0.446, 0.104],[0.500, 0.104]]
+            }]
+        }, {
+            // Cargo
+            pick: false,
+            from: 70,
+            to: 79,
+            polygons: [{
+                isHull: true,
+                color: this.colorLight,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.5, 0], [0.752, 0], [0.869, 0.06], [0.968, 0.131], [1, 0.182], [1, 0.806], [0.941, 0.861], [0.858, 0.909], [0.791, 0.945], [0.702, 0.976], [0.608, 0.995], [0.5, 1], [0.5, 1], [0.392, 0.995], [0.298, 0.976], [0.209, 0.945], [0.142, 0.909], [0.059, 0.861], [0, 0.806], [0, 0.182], [0.032, 0.131], [0.131, 0.06], [0.248, 0], [0.5, 0]]
+            }, {
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.5, 0.07], [0.797, 0.07], [0.797, 0.11], [0.5, 0.11], [0.5, 0.11], [0.203, 0.11], [0.203, 0.07]]
+            }, {
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.5, 0.07],[0.5, 0.11],[0.902, 0.11],[0.902, 0.22],[0.5, 0.22],[0.5, 0.22],[0.098, 0.22],[0.098, 0.11],[0.5, 0.11]]
+            }, {
+                color: this.colorDark,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.5, 0.159],[0.747, 0.159],[0.747, 0.228],[0.5, 0.228],[0.5, 0.228],[0.253, 0.228],[0.253, 0.159],[0.5, 0.159]]
+            }, {
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.5, 0.299],[0.902, 0.299],[0.902, 0.418],[0.5, 0.418],[0.5, 0.418],[0.098, 0.418],[0.098, 0.299],[0.5, 0.299]]
+            }, {
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.5, 0.458],[0.902, 0.458],[0.902, 0.576],[0.5, 0.576],[0.5, 0.576],[0.098, 0.576],[0.098, 0.458],[0.5, 0.458]]
+            },{
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.5, 0.62],[0.896, 0.62],[0.896, 0.738],[0.5, 0.738],[0.5, 0.738],[0.104, 0.738],[0.104, 0.62],[0.5, 0.62]]
+            },{
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.5, 0.909],[0.591, 0.909],[0.591, 0.944],[0.5, 0.945],[0.5, 0.945],[0.409, 0.944],[0.409, 0.909],[0.5, 0.909]]
+            }]
+        }, {
+            // Tanker
+            pick: false,
+            from: 80,
+            to: 89,
+            polygons: [{
+                isHull: true,
+                color: this.colorLight,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.500, 1.000],[0.350, 0.990],[0.210, 0.975],[0.130, 0.950],[0.060, 0.920],[0.020, 0.892],[0.000, 0.850],[0.000, 0.110],[0.045, 0.065],[0.110, 0.025],[0.180, 0.007],[0.260, 0.000],[0.740, 0.000],[0.820, 0.007],[0.890, 0.025],[0.955, 0.065],[1.000, 0.110],[1.000, 0.850],[0.980, 0.892],[0.940, 0.920],[0.870, 0.950],[0.790, 0.975],[0.650, 0.990],[0.500, 1.000]]
+            }, {
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.560, 0.260],[0.550, 0.280],[0.550, 0.950],[0.570, 0.950],[0.570, 0.990],[0.430, 0.990],[0.430, 0.950],[0.450, 0.950],[0.450, 0.280],[0.440, 0.260],[0.140, 0.260],[0.140, 0.280],[0.010, 0.280],[0.010, 0.220],[0.140, 0.220],[0.140, 0.240],[0.860, 0.240],[0.860, 0.220],[0.990, 0.220],[0.990, 0.280],[0.860, 0.280],[0.860, 0.260],[0.560, 0.260]]
+            }, {
+                color: this.colorDark,
+                outlineColor: this.colorDark,
+                coordinates: [[0.300, 0.160],[0.100, 0.160],[0.100, 0.090],[0.900, 0.090],[0.900, 0.160],[0.700, 0.160],[0.630, 0.180],[0.370, 0.180],[0.300, 0.160]]
+            }, {
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.180, 0.040],[0.820, 0.040],[0.820, 0.080],[0.180, 0.080],[0.180, 0.040]]
+            }]
+        }, {
+            // Yacht
+            pick: true,
+            from: 36,
+            to: 36,
+            polygons: [{
+                isHull: true,
+                color: this.colorLight,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.494, 1.000],[0.443, 0.984],[0.383, 0.960],[0.324, 0.933],[0.276, 0.908],[0.225, 0.872],[0.165, 0.828],[0.122, 0.783],[0.086, 0.738],[0.056, 0.693],[0.035, 0.649],[0.019, 0.592],[0.000, 0.523],[0.000, 0.475],[0.000, 0.422],[0.013, 0.368],[0.021, 0.308],[0.039, 0.238],[0.054, 0.165],[0.076, 0.107],[0.096, 0.050],[0.106, 0.019],[0.134, 0.000],[0.171, 0.000],[0.829, 0.000],[0.866, 0.000],[0.894, 0.019],[0.904, 0.050],[0.924, 0.107],[0.946, 0.165],[0.961, 0.238],[0.979, 0.308],[0.987, 0.368],[0.993, 0.422],[0.993, 0.475],[0.993, 0.523],[0.981, 0.592],[0.965, 0.649],[0.944, 0.693],[0.914, 0.738],[0.878, 0.783],[0.835, 0.828],[0.775, 0.872],[0.724, 0.908],[0.676, 0.933],[0.617, 0.960],[0.557, 0.984],[0.494, 1.000]]
+            }, {
+                color: this.colorMiddle,
+                outlineColor: this.colorMiddle,
+                coordinates: [[0.500, 0.568],[0.441, 0.566],[0.310, 0.534],[0.219, 0.411],[0.213, 0.179],[0.310, 0.150],[0.690, 0.150],[0.787, 0.179],[0.781, 0.411],[0.690, 0.534],[0.559, 0.566],[0.500, 0.568]]
+            },{
+                color: this.colorDark,
+                outlineColor: this.colorDark,
+                coordinates: [[0.405, 0.609],[0.276, 0.552],[0.219, 0.413],[0.308, 0.534],[0.435, 0.566],[0.565, 0.566],[0.692, 0.534],[0.781, 0.413],[0.724, 0.552],[0.595, 0.609],[0.405, 0.609]]
+            },{
+                color: this.colorDark,
+                outlineColor: this.colorDark,
+                coordinates: [[0.264, 0.024],[0.189, 0.023],[0.189, 0.049],[0.264, 0.049],[0.736, 0.049],[0.811, 0.049],[0.811, 0.023],[0.736, 0.024],[0.264, 0.024]]
+            }]
+        }];
+
+
+        var vessel = vessels.filter(function(item) { return shipType >= item.from && shipType <= item.to; });
+        //var vessel = vessels.filter(function(item) { return item.pick; });
+        if (vessel.length == 1) {
+            vessel = vessel[0];
+        } else {
+            vessel = {
+                polygons: [{
+                    isHull: true,
+                    color: this.colorLight,
+                    outlineColor: this.colorMiddle,
+                    coordinates: [[0.5, 0], [0.752, 0], [0.869, 0.06], [0.968, 0.131], [1, 0.182], [1, 0.806], [0.941, 0.861], [0.858, 0.909], [0.791, 0.945], [0.702, 0.976], [0.608, 0.995], [0.5, 1], [0.5, 1], [0.392, 0.995], [0.298, 0.976], [0.209, 0.945], [0.142, 0.909], [0.059, 0.861], [0, 0.806], [0, 0.182], [0.032, 0.131], [0.131, 0.06], [0.248, 0], [0.5, 0]]
+                }]
+            }
+        }
+
+        // Find max
+        var maxX = 0;
+        var maxY = 0;
+
+        var hullCoordinates = vessel.polygons.filter(function(item) { return item.isHull; })[0].coordinates;
+        for (var i = 0; i < hullCoordinates.length; i++) {
+            if (hullCoordinates[i][0] > maxX) {
+                maxX = hullCoordinates[i][0];
+            }
+
+            if (hullCoordinates[i][1] > maxY) {
+                maxY = hullCoordinates[i][1];
+            }
+        }
+
+        var radians = (Math.PI / 180) * -heading;
+        var cos = Math.cos(radians);
+        var sin = Math.sin(radians);
+
+        for (var i = 0; i < vessel.polygons.length; i++) {
+            for (var j = 0; j < vessel.polygons[i].coordinates.length; j++) {
+                vessel.polygons[i].coordinates[j][0] = width * vessel.polygons[i].coordinates[j][0] / maxX;
+                vessel.polygons[i].coordinates[j][0] -= toPort;
+
+                vessel.polygons[i].coordinates[j][1] = length * vessel.polygons[i].coordinates[j][1] / maxY;
+                vessel.polygons[i].coordinates[j][1] -= toStern;
+
+                var x = vessel.polygons[i].coordinates[j][0];
+                var y = vessel.polygons[i].coordinates[j][1];
+
+                // rotate
+                var newX = cos * x - sin * y;
+                var newY = cos * y + sin * x;
+
+                newX += utm.easting;
+                newY += utm.northing
+
+                var geo = utmToLatLng(utm.zone, newX, newY, utm.northernHemisphere);
+
+                vessel.polygons[i].coordinates[j][1] = geo.latitude;
+                vessel.polygons[i].coordinates[j][0] = geo.longitude;
+            }
+            result.push({
+                type : 'Feature',
+                geometry: {
+                    type: 'MultiPolygon',
+                    coordinates: [[vessel.polygons[i].coordinates]]
+                },
+                properties: {
+                    style: {
+                        fillColor: vessel.polygons[i].color,
+                        fillOpacity: 1,
+                        color: vessel.polygons[i].outlineColor,
+                        opacity: 1,
+                        weight: 1,
+                        width: 1
+                    },
+                    hoverData: hover,
+                    selectedData: selected
+                }
+            });
+        }
+
+        return result;
+    },
+
+    getValue: function(item, value) {
+        if (item.isCountry) {
+            var country = this.getCountry(value);
+            return country ? country.name : 'Unknown country for code ' + value;
+        }
+
+        if (item.isShipType) {
+            return this.getShipType(value);
+        }
+
+        if (item.isNavStatus) {
+            return this.getNavStatus(value);
+        }
+
+        if (item.isRateOfTurn) {
+            return ((value > 0 ? 1 : -1) * (value / 4.733) * (value / 4.733)).round(1);
+        }
+
+        if (item.isTime) {
+            return new moment(value).format(this.dateTimeFormat);
+        }
+
+        if (value == null || value == '') {
+            return '-';
+        }
+
+        return value + (item.postFix ? ' ' + item.postFix : '');
+    },
+
+    onVesselSelect: function(e) {
+        this.selected = e.detail.feature.properties.selectedData;
+    },
+
+    onVesselOver: function(e, f) {
+        this.showHoverBox = true;
+        this.hoverData = [];
+        this.hoverData = f.event.target.feature.properties.hoverData;
+        this.$.hoverBox.style.left = (e.detail.event.originalEvent.clientX + 10) + 'px';
+        this.$.hoverBox.style.top = (e.detail.event.originalEvent.clientY + 10 - 65) + 'px';
+    },
+
+    onVesselOut: function(e) {
+        this.showHoverBox = false;
+    },
+
+    getNavStatus: function(value) {
+        var list = {
+            0: 'Under way using engine',
+            1: 'At anchor',
+            2: 'Not under command',
+            3: 'Restricted manoeuverability',
+            4: 'Constrained by her draught',
+            5: 'Moored',
+            6: 'Aground',
+            7: 'Engaged in Fishing',
+            8: 'Under way sailing',
+            9: 'Reserved for future amendment of Navigational Status for HSC',
+            10: 'Reserved for future amendment of Navigational Status for WIG',
+            11: 'Reserved for future use',
+            12: 'Reserved for future use',
+            13: 'Reserved for future use',
+            14: 'AIS-SART is active',
+            15: 'Not defined (default)'
+        }
+
+        return list[value];
+    },
+
+    getShipType: function(value) {
+        var list = {
+            0: 'Not available (default)',
+            20: 'Wing in ground (WIG), all ships of this type',
+            21: 'Wing in ground (WIG), Hazardous category A',
+            22: 'Wing in ground (WIG), Hazardous category B',
+            23: 'Wing in ground (WIG), Hazardous category C',
+            24: 'Wing in ground (WIG), Hazardous category D',
+            25: 'Wing in ground (WIG), Reserved for future use',
+            26: 'Wing in ground (WIG), Reserved for future use',
+            27: 'Wing in ground (WIG), Reserved for future use',
+            28: 'Wing in ground (WIG), Reserved for future use',
+            29: 'Wing in ground (WIG), Reserved for future use',
+            30: 'Fishing',
+            31: 'Towing',
+            32: 'Towing: length exceeds 200m or breadth exceeds 25m',
+            33: 'Dredging or underwater ops',
+            34: 'Diving ops',
+            35: 'Military ops',
+            36: 'Sailing',
+            37: 'Pleasure Craft',
+            38: 'Reserved',
+            39: 'Reserved',
+            40: 'High speed craft (HSC), all ships of this type',
+            41: 'High speed craft (HSC), Hazardous category A',
+            42: 'High speed craft (HSC), Hazardous category B',
+            43: 'High speed craft (HSC), Hazardous category C',
+            44: 'High speed craft (HSC), Hazardous category D',
+            45: 'High speed craft (HSC), Reserved for future use',
+            46: 'High speed craft (HSC), Reserved for future use',
+            47: 'High speed craft (HSC), Reserved for future use',
+            48: 'High speed craft (HSC), Reserved for future use',
+            49: 'High speed craft (HSC), No additional information',
+            50: 'Pilot Vessel',
+            51: 'Search and Rescue vessel',
+            52: 'Tug',
+            53: 'Port Tender',
+            54: 'Anti-pollution equipment',
+            55: 'Law Enforcement',
+            56: 'Spare - Local Vessel',
+            57: 'Spare - Local Vessel',
+            58: 'Medical Transport',
+            59: 'Noncombatant ship according to RR Resolution No. 18',
+            60: 'Passenger, all ships of this type',
+            61: 'Passenger, Hazardous category A',
+            62: 'Passenger, Hazardous category B',
+            63: 'Passenger, Hazardous category C',
+            64: 'Passenger, Hazardous category D',
+            65: 'Passenger, Reserved for future use',
+            66: 'Passenger, Reserved for future use',
+            67: 'Passenger, Reserved for future use',
+            68: 'Passenger, Reserved for future use',
+            69: 'Passenger, No additional information',
+            70: 'Cargo, all ships of this type',
+            71: 'Cargo, Hazardous category A',
+            72: 'Cargo, Hazardous category B',
+            73: 'Cargo, Hazardous category C',
+            74: 'Cargo, Hazardous category D',
+            75: 'Cargo, Reserved for future use',
+            76: 'Cargo, Reserved for future use',
+            77: 'Cargo, Reserved for future use',
+            78: 'Cargo, Reserved for future use',
+            79: 'Cargo, No additional information',
+            80: 'Tanker, all ships of this type',
+            81: 'Tanker, Hazardous category A',
+            82: 'Tanker, Hazardous category B',
+            83: 'Tanker, Hazardous category C',
+            84: 'Tanker, Hazardous category D',
+            85: 'Tanker, Reserved for future use',
+            86: 'Tanker, Reserved for future use',
+            87: 'Tanker, Reserved for future use',
+            88: 'Tanker, Reserved for future use',
+            89: 'Tanker, No additional information',
+            90: 'Other Type, all ships of this type',
+            91: 'Other Type, Hazardous category A',
+            92: 'Other Type, Hazardous category B',
+            93: 'Other Type, Hazardous category C',
+            94: 'Other Type, Hazardous category D',
+            95: 'Other Type, Reserved for future use',
+            96: 'Other Type, Reserved for future use',
+            97: 'Other Type, Reserved for future use',
+            98: 'Other Type, Reserved for future use',
+            99: 'Other Type, no additional information'
+        }
+
+        return list[value];
+    },
+
+    getCountry: function(value) {
+        var list = {
+            201: { name: 'Albania', abbreviation: 'al' },
+            202: { name: 'Andorra', abbreviation: 'ad' },
+            203: { name: 'Austria', abbreviation: 'at' },
+            204: { name: 'Portugal', abbreviation: 'pt' },
+            205: { name: 'Belgium', abbreviation: 'be' },
+            206: { name: 'Belarus', abbreviation: 'by' },
+            207: { name: 'Bulgaria', abbreviation: 'bg' },
+            208: { name: 'Vatican', abbreviation: 'va' },
+            209: { name: 'Cyprus', abbreviation: 'cy' },
+            210: { name: 'Cyprus', abbreviation: 'cy' },
+            211: { name: 'Germany', abbreviation: 'de' },
+            212: { name: 'Cyprus', abbreviation: 'cy' },
+            213: { name: 'Georgia', abbreviation: 'ge' },
+            214: { name: 'Moldova', abbreviation: 'md' },
+            215: { name: 'Malta', abbreviation: 'mt' },
+            216: { name: 'Armenia', abbreviation: 'zz' },
+            218: { name: 'Germany', abbreviation: 'de' },
+            219: { name: 'Denmark', abbreviation: 'dk' },
+            220: { name: 'Denmark', abbreviation: 'dk' },
+            224: { name: 'Spain', abbreviation: 'es' },
+            225: { name: 'Spain', abbreviation: 'es' },
+            226: { name: 'France', abbreviation: 'fr' },
+            227: { name: 'France', abbreviation: 'fr' },
+            228: { name: 'France', abbreviation: 'fr' },
+            229: { name: 'Malta', abbreviation: 'mt' },
+            230: { name: 'Finland', abbreviation: 'fi' },
+            231: { name: 'Faroe Is', abbreviation: 'fo' },
+            232: { name: 'United Kingdom', abbreviation: 'gb' },
+            233: { name: 'United Kingdom', abbreviation: 'gb' },
+            234: { name: 'United Kingdom', abbreviation: 'gb' },
+            235: { name: 'United Kingdom', abbreviation: 'gb' },
+            236: { name: 'Gibraltar', abbreviation: 'gi' },
+            237: { name: 'Greece', abbreviation: 'gr' },
+            238: { name: 'Croatia', abbreviation: 'hr' },
+            239: { name: 'Greece', abbreviation: 'gr' },
+            240: { name: 'Greece', abbreviation: 'gr' },
+            241: { name: 'Greece', abbreviation: 'gr' },
+            242: { name: 'Morocco', abbreviation: 'ma' },
+            243: { name: 'Hungary', abbreviation: 'hu' },
+            244: { name: 'Netherlands', abbreviation: 'nl' },
+            245: { name: 'Netherlands', abbreviation: 'nl' },
+            246: { name: 'Netherlands', abbreviation: 'nl' },
+            247: { name: 'Italy', abbreviation: 'it' },
+            248: { name: 'Malta', abbreviation: 'mt' },
+            249: { name: 'Malta', abbreviation: 'mt' },
+            250: { name: 'Ireland', abbreviation: 'ie' },
+            251: { name: 'Iceland', abbreviation: 'is' },
+            252: { name: 'Liechtenstein', abbreviation: 'li' },
+            253: { name: 'Luxembourg', abbreviation: 'lu' },
+            254: { name: 'Monaco', abbreviation: 'mc' },
+            255: { name: 'Portugal', abbreviation: 'pt' },
+            256: { name: 'Malta', abbreviation: 'mt' },
+            257: { name: 'Norway', abbreviation: 'no' },
+            258: { name: 'Norway', abbreviation: 'no' },
+            259: { name: 'Norway', abbreviation: 'no' },
+            261: { name: 'Poland', abbreviation: 'pl' },
+            262: { name: 'Montenegro', abbreviation: 'me' },
+            263: { name: 'Portugal', abbreviation: 'pt' },
+            264: { name: 'Romania', abbreviation: 'ro' },
+            265: { name: 'Sweden', abbreviation: 'se' },
+            266: { name: 'Sweden', abbreviation: 'se' },
+            267: { name: 'Slovakia', abbreviation: 'sk' },
+            268: { name: 'San Marino', abbreviation: 'sm' },
+            269: { name: 'Switzerland', abbreviation: 'ch' },
+            270: { name: 'Czech Republic', abbreviation: 'cz' },
+            271: { name: 'Turkey', abbreviation: 'tr' },
+            272: { name: 'Ukraine', abbreviation: 'ua' },
+            273: { name: 'Russia', abbreviation: 'ru' },
+            274: { name: 'FYR Macedonia', abbreviation: 'mk' },
+            275: { name: 'Latvia', abbreviation: 'lv' },
+            276: { name: 'Estonia', abbreviation: 'ee' },
+            277: { name: 'Lithuania', abbreviation: 'lt' },
+            278: { name: 'Slovenia', abbreviation: 'si' },
+            279: { name: 'Serbia', abbreviation: 'rs' },
+            301: { name: 'Anguilla', abbreviation: 'ai' },
+            303: { name: 'USA', abbreviation: 'us' },
+            304: { name: 'Antigua Barbuda', abbreviation: 'ag' },
+            305: { name: 'Antigua Barbuda', abbreviation: 'ag' },
+            306: { name: 'Curacao', abbreviation: 'cw' },
+            307: { name: 'Aruba', abbreviation: 'aw' },
+            308: { name: 'Bahamas', abbreviation: 'bs' },
+            309: { name: 'Bahamas', abbreviation: 'bs' },
+            310: { name: 'Bermuda', abbreviation: 'bm' },
+            311: { name: 'Bahamas', abbreviation: 'bs' },
+            312: { name: 'Belize', abbreviation: 'bz' },
+            314: { name: 'Barbados', abbreviation: 'bb' },
+            316: { name: 'Canada', abbreviation: 'ca' },
+            319: { name: 'Cayman Is', abbreviation: 'ky' },
+            321: { name: 'Costa Rica', abbreviation: 'cr' },
+            323: { name: 'Cuba', abbreviation: 'cu' },
+            325: { name: 'Dominica', abbreviation: 'dm' },
+            327: { name: 'Dominican Rep', abbreviation: 'do' },
+            329: { name: 'Guadeloupe', abbreviation: 'gp' },
+            330: { name: 'Grenada', abbreviation: 'gd' },
+            331: { name: 'Greenland', abbreviation: 'gl' },
+            332: { name: 'Guatemala', abbreviation: 'gt' },
+            334: { name: 'Honduras', abbreviation: 'hn' },
+            336: { name: 'Haiti', abbreviation: 'ht' },
+            338: { name: 'USA', abbreviation: 'us' },
+            339: { name: 'Jamaica', abbreviation: 'jm' },
+            341: { name: 'St Kitts Nevis', abbreviation: 'kn' },
+            343: { name: 'St Lucia', abbreviation: 'lc' },
+            345: { name: 'Mexico', abbreviation: 'mx' },
+            347: { name: 'Martinique', abbreviation: 'mq' },
+            348: { name: 'Montserrat', abbreviation: 'ms' },
+            350: { name: 'Nicaragua', abbreviation: 'ni' },
+            351: { name: 'Panama', abbreviation: 'pa' },
+            352: { name: 'Panama', abbreviation: 'pa' },
+            353: { name: 'Panama', abbreviation: 'pa' },
+            354: { name: 'Panama', abbreviation: 'pa' },
+            355: { name: 'Panama', abbreviation: 'pa' },
+            356: { name: 'Panama', abbreviation: 'pa' },
+            357: { name: 'Panama', abbreviation: 'pa' },
+            358: { name: 'Puerto Rico', abbreviation: 'pr' },
+            359: { name: 'El Salvador', abbreviation: 'sv' },
+            361: { name: 'St Pierre Miquelon', abbreviation: 'pm' },
+            362: { name: 'Trinidad Tobago', abbreviation: 'tt' },
+            364: { name: 'Turks Caicos Is', abbreviation: 'tc' },
+            366: { name: 'USA', abbreviation: 'us' },
+            367: { name: 'USA', abbreviation: 'us' },
+            368: { name: 'USA', abbreviation: 'us' },
+            369: { name: 'USA', abbreviation: 'us' },
+            370: { name: 'Panama', abbreviation: 'pa' },
+            371: { name: 'Panama', abbreviation: 'pa' },
+            372: { name: 'Panama', abbreviation: 'pa' },
+            373: { name: 'Panama', abbreviation: 'pa' },
+            374: { name: 'Panama', abbreviation: 'pa' },
+            375: { name: 'St Vincent Grenadines', abbreviation: 'vc' },
+            376: { name: 'St Vincent Grenadines', abbreviation: 'vc' },
+            377: { name: 'St Vincent Grenadines', abbreviation: 'vc' },
+            378: { name: 'British Virgin Is', abbreviation: 'vg' },
+            379: { name: 'US Virgin Is', abbreviation: 'vi' },
+            401: { name: 'Afghanistan', abbreviation: 'af' },
+            403: { name: 'Saudi Arabia', abbreviation: 'sa' },
+            405: { name: 'Bangladesh', abbreviation: 'bd' },
+            408: { name: 'Bahrain', abbreviation: 'bh' },
+            410: { name: 'Bhutan', abbreviation: 'bt' },
+            412: { name: 'China', abbreviation: 'cn' },
+            413: { name: 'China', abbreviation: 'cn' },
+            414: { name: 'China', abbreviation: 'cn' },
+            416: { name: 'Taiwan', abbreviation: 'tw' },
+            417: { name: 'Sri Lanka', abbreviation: 'lk' },
+            419: { name: 'India', abbreviation: 'in' },
+            422: { name: 'Iran', abbreviation: 'ir' },
+            423: { name: 'Azerbaijan', abbreviation: 'az' },
+            425: { name: 'Iraq', abbreviation: 'iq' },
+            428: { name: 'Israel', abbreviation: 'il' },
+            431: { name: 'Japan', abbreviation: 'jp' },
+            432: { name: 'Japan', abbreviation: 'jp' },
+            434: { name: 'Turkmenistan', abbreviation: 'tm' },
+            436: { name: 'Kazakhstan', abbreviation: 'kz' },
+            437: { name: 'Uzbekistan', abbreviation: 'uz' },
+            438: { name: 'Jordan', abbreviation: 'jo' },
+            440: { name: 'Korea', abbreviation: 'kr' },
+            441: { name: 'Korea', abbreviation: 'kr' },
+            443: { name: 'Palestine', abbreviation: 'ps' },
+            445: { name: 'DPR Korea', abbreviation: 'kp' },
+            447: { name: 'Kuwait', abbreviation: 'kw' },
+            450: { name: 'Lebanon', abbreviation: 'lb' },
+            451: { name: 'Kyrgyz Republic', abbreviation: 'zz' },
+            453: { name: 'Macao', abbreviation: 'zz' },
+            455: { name: 'Maldives', abbreviation: 'mv' },
+            457: { name: 'Mongolia', abbreviation: 'mn' },
+            459: { name: 'Nepal', abbreviation: 'np' },
+            461: { name: 'Oman', abbreviation: 'om' },
+            463: { name: 'Pakistan', abbreviation: 'pk' },
+            466: { name: 'Qatar', abbreviation: 'qa' },
+            468: { name: 'Syria', abbreviation: 'sy' },
+            470: { name: 'UAE', abbreviation: 'ae' },
+            472: { name: 'Tajikistan', abbreviation: 'tj' },
+            473: { name: 'Yemen', abbreviation: 'ye' },
+            475: { name: 'Yemen', abbreviation: 'ye' },
+            477: { name: 'Hong Kong', abbreviation: 'hk' },
+            478: { name: 'Bosnia and Herzegovina', abbreviation: 'ba' },
+            501: { name: 'Antarctica', abbreviation: 'aq' },
+            503: { name: 'Australia', abbreviation: 'au' },
+            506: { name: 'Myanmar', abbreviation: 'mm' },
+            508: { name: 'Brunei', abbreviation: 'bn' },
+            510: { name: 'Micronesia', abbreviation: 'fm' },
+            511: { name: 'Palau', abbreviation: 'pw' },
+            512: { name: 'New Zealand', abbreviation: 'nz' },
+            514: { name: 'Cambodia', abbreviation: 'kh' },
+            515: { name: 'Cambodia', abbreviation: 'kh' },
+            516: { name: 'Christmas Is', abbreviation: 'cx' },
+            518: { name: 'Cook Is', abbreviation: 'ck' },
+            520: { name: 'Fiji', abbreviation: 'fj' },
+            523: { name: 'Cocos Is', abbreviation: 'cc' },
+            525: { name: 'Indonesia', abbreviation: 'id' },
+            529: { name: 'Kiribati', abbreviation: 'ki' },
+            531: { name: 'Laos', abbreviation: 'la' },
+            533: { name: 'Malaysia', abbreviation: 'my' },
+            536: { name: 'N Mariana Is', abbreviation: 'mp' },
+            538: { name: 'Marshall Is', abbreviation: 'mh' },
+            540: { name: 'New Caledonia', abbreviation: 'nc' },
+            542: { name: 'Niue', abbreviation: 'nu' },
+            544: { name: 'Nauru', abbreviation: 'nr' },
+            546: { name: 'French Polynesia', abbreviation: 'tf' },
+            548: { name: 'Philippines', abbreviation: 'ph' },
+            553: { name: 'Papua New Guinea', abbreviation: 'pg' },
+            555: { name: 'Pitcairn Is', abbreviation: 'pn' },
+            557: { name: 'Solomon Is', abbreviation: 'sb' },
+            559: { name: 'American Samoa', abbreviation: 'as' },
+            561: { name: 'Samoa', abbreviation: 'ws' },
+            563: { name: 'Singapore', abbreviation: 'sg' },
+            564: { name: 'Singapore', abbreviation: 'sg' },
+            565: { name: 'Singapore', abbreviation: 'sg' },
+            566: { name: 'Singapore', abbreviation: 'sg' },
+            567: { name: 'Thailand', abbreviation: 'th' },
+            570: { name: 'Tonga', abbreviation: 'to' },
+            572: { name: 'Tuvalu', abbreviation: 'tv' },
+            574: { name: 'Vietnam', abbreviation: 'vn' },
+            576: { name: 'Vanuatu', abbreviation: 'vu' },
+            577: { name: 'Vanuatu', abbreviation: 'vu' },
+            578: { name: 'Wallis Futuna Is', abbreviation: 'wf' },
+            601: { name: 'South Africa', abbreviation: 'za' },
+            603: { name: 'Angola', abbreviation: 'ao' },
+            605: { name: 'Algeria', abbreviation: 'dz' },
+            607: { name: 'St Paul Amsterdam Is', abbreviation: 'xx' },
+            608: { name: 'Ascension Is', abbreviation: 'io' },
+            609: { name: 'Burundi', abbreviation: 'bi' },
+            610: { name: 'Benin', abbreviation: 'bj' },
+            611: { name: 'Botswana', abbreviation: 'bw' },
+            612: { name: 'Cen Afr Rep', abbreviation: 'cf' },
+            613: { name: 'Cameroon', abbreviation: 'cm' },
+            615: { name: 'Congo', abbreviation: 'cg' },
+            616: { name: 'Comoros', abbreviation: 'km' },
+            617: { name: 'Cape Verde', abbreviation: 'cv' },
+            618: { name: 'Antarctica', abbreviation: 'aq' },
+            619: { name: 'Ivory Coast', abbreviation: 'ci' },
+            620: { name: 'Comoros', abbreviation: 'km' },
+            621: { name: 'Djibouti', abbreviation: 'dj' },
+            622: { name: 'Egypt', abbreviation: 'eg' },
+            624: { name: 'Ethiopia', abbreviation: 'et' },
+            625: { name: 'Eritrea', abbreviation: 'er' },
+            626: { name: 'Gabon', abbreviation: 'ga' },
+            627: { name: 'Ghana', abbreviation: 'gh' },
+            629: { name: 'Gambia', abbreviation: 'gm' },
+            630: { name: 'Guinea-Bissau', abbreviation: 'gw' },
+            631: { name: 'Equ. Guinea', abbreviation: 'gq' },
+            632: { name: 'Guinea', abbreviation: 'gn' },
+            633: { name: 'Burkina Faso', abbreviation: 'bf' },
+            634: { name: 'Kenya', abbreviation: 'ke' },
+            635: { name: 'Antarctica', abbreviation: 'aq' },
+            636: { name: 'Liberia', abbreviation: 'lr' },
+            637: { name: 'Liberia', abbreviation: 'lr' },
+            642: { name: 'Libya', abbreviation: 'ly' },
+            644: { name: 'Lesotho', abbreviation: 'ls' },
+            645: { name: 'Mauritius', abbreviation: 'mu' },
+            647: { name: 'Madagascar', abbreviation: 'mg' },
+            649: { name: 'Mali', abbreviation: 'ml' },
+            650: { name: 'Mozambique', abbreviation: 'mz' },
+            654: { name: 'Mauritania', abbreviation: 'mr' },
+            655: { name: 'Malawi', abbreviation: 'mw' },
+            656: { name: 'Niger', abbreviation: 'ne' },
+            657: { name: 'Nigeria', abbreviation: 'ng' },
+            659: { name: 'Namibia', abbreviation: 'na' },
+            660: { name: 'Reunion', abbreviation: 're' },
+            661: { name: 'Rwanda', abbreviation: 'rw' },
+            662: { name: 'Sudan', abbreviation: 'sd' },
+            663: { name: 'Senegal', abbreviation: 'sn' },
+            664: { name: 'Seychelles', abbreviation: 'sc' },
+            665: { name: 'St Helena', abbreviation: 'sh' },
+            666: { name: 'Somalia', abbreviation: 'so' },
+            667: { name: 'Sierra Leone', abbreviation: 'sl' },
+            668: { name: 'Sao Tome Principe', abbreviation: 'st' },
+            669: { name: 'Swaziland', abbreviation: 'sz' },
+            670: { name: 'Chad', abbreviation: 'td' },
+            671: { name: 'Togo', abbreviation: 'tg' },
+            672: { name: 'Tunisia', abbreviation: 'tn' },
+            674: { name: 'Tanzania', abbreviation: 'tz' },
+            675: { name: 'Uganda', abbreviation: 'ug' },
+            676: { name: 'DR Congo', abbreviation: 'cd' },
+            677: { name: 'Tanzania', abbreviation: 'tz' },
+            678: { name: 'Zambia', abbreviation: 'zm' },
+            679: { name: 'Zimbabwe', abbreviation: 'zw' },
+            701: { name: 'Argentina', abbreviation: 'ar' },
+            710: { name: 'Brazil', abbreviation: 'br' },
+            720: { name: 'Bolivia', abbreviation: 'bo' },
+            725: { name: 'Chile', abbreviation: 'cl' },
+            730: { name: 'Colombia', abbreviation: 'co' },
+            735: { name: 'Ecuador', abbreviation: 'ec' },
+            740: { name: 'UK', abbreviation: 'uk' },
+            745: { name: 'Guiana', abbreviation: 'gf' },
+            750: { name: 'Guyana', abbreviation: 'gy' },
+            755: { name: 'Paraguay', abbreviation: 'py' },
+            760: { name: 'Peru', abbreviation: 'pe' },
+            765: { name: 'Suriname', abbreviation: 'sr' },
+            770: { name: 'Uruguay', abbreviation: 'uy' },
+            775: { name: 'Venezuela', abbreviation: 've' }
+        }
+
+        return list[value];
+    }
+});
+</script>

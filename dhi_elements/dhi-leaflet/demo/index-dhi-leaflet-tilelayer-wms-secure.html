@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script type='text/javascript' src='../../../bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <link rel='import' href='../../../bower_components/polymer/polymer.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html'>
+        <link rel='import' href='../../../bower_components/iron-flex-layout/iron-flex-layout.html'>
+        <link rel='import' href='../../../bower_components/leaflet-map/leaflet-map.html'>
+        <link rel='import' href='../dhi-leaflet-tilelayer-wms-secure.html'>
+        <link rel='import' href='../../dhi-layer-control/dhi-layer-control.html'>
+    </head>
+    <body>
+        <dom-module id='dhi-leaflet-tilelayer-wms-sample'>
+            <style include='iron-flex iron-flex-alignment iron-flex-factors'>
+                leaflet-map {
+                    width: 400px;
+                    height: 400px;
+                }
+                .padded {
+                    padding: 20px;
+                    width: 1000px;
+                }
+                .elementContainer {
+                }
+                .codeContainer {
+                    padding: 20px;
+                    background-color: #EEEEEE;
+                }
+                .flex-center-justified {
+                    @apply(--layout-horizontal);
+                    @apply(--layout-center-justified);
+                }
+            </style>
+            <template>
+                <div class='flex-center-justified'>
+                    <div class="vertical layout padded">
+                        <div class='elementContainer flex-center-justified'>
+                            <leaflet-map latitude='55.72092280778698' longitude='10.854492187500002' zoom='10'>
+                                <leaflet-tilelayer></leaflet-tilelayer>
+                                <dhi-leaflet-tilelayer-wms-secure id='fieldsLayerScreening'
+                                    user-name='admin'
+                                    password='webapi'
+                                    url='https://lfst.dhigroup.com/api/geoserver'
+                                    workspace='LFST2017_SCREENING'
+                                    layers='LFST2017_SCREENING:S1_crop_harvest_del_2_1_4326'
+                                    format='image/png'
+                                    version='1.1.0'
+                                    non-dhi
+                                    transparent
+                                    enabled
+                                    layer-pane='fieldsPaneScreening'
+                                    z-index=298
+                                    styles='polygon_nofill'>
+                                </dhi-leaflet-tilelayer-wms-secure>
+                            </leaflet-map>
+                            <dhi-layer-control
+                                name='MyLayer'
+                                opacity='{{opacity}}'>
+                            </dhi-layer-control>
+                        </div>
+                        <div class='codeContainer'>
+                            &lt;dhi-leaflet-tilelayer-wms-secure id='fieldsLayerScreening'
+                                user-name='admin'
+                                password='webapi'
+                                url='https://lfst.dhigroup.com/api/geoserver'
+                                workspace='LFST2017_SCREENING'
+                                layers='LFST2017_SCREENING:S1_crop_harvest_del_2_1_4326'
+                                format='image/png'
+                                version='1.1.0'
+                                non-dhi
+                                transparent
+                                enabled
+                                layer-pane='fieldsPaneScreening'
+                                z-index=298
+                                styles='polygon_nofill'&gt;
+                            &lt;/dhi-leaflet-tilelayer-wms-secure&gt;
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {Polymer({
+                is: 'dhi-leaflet-tilelayer-wms-sample',
+
+                properties: {
+                    opacity: {
+                        type: Number,
+                        value: 1
+                    }
+                }
+            });});
+        </script>
+        <dhi-leaflet-tilelayer-wms-sample></dhi-leaflet-tilelayer-wms-sample>
+    </body>
+</html>
+
+
+

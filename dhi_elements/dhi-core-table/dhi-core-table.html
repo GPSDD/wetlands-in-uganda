@@ -1,0 +1,127 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Core Table collections
+
+`dhi-core-table` is a core table component.
+
+Example:
+
+    <dhi-core-table
+        data-source='{"host": "http://greve.dhigroup.com", "connection": "mc-spr", "type": "spreadsheet", "spreadsheet": "Scenarios%7CSystem%7CRealTime", "sheet": "Greve"}'
+        data='{{data}}'>
+    </dhi-core-table>
+
+    <dhi-core-table
+        return-raw-response
+        data-source='{"host": "http://greve.dhigroup.com", "connection": "mc-spr", "type": "spreadsheet", "spreadsheet": "Scenarios%7CSystem%7CRealTime", "sheet": "Greve"}'
+        data='{{rawData}}'>
+    </dhi-core-table>
+
+@demo demo/index-dhi-core-table.html
+-->
+
+<dom-module id='dhi-core-table'>
+    <template>
+        <iron-ajax id='ajax' url='{{url}}' handle-as='json' on-response='handler'></iron-ajax>
+    </template>
+</dom-module>
+<script>
+Polymer({
+    is: 'dhi-core-table',
+
+    properties: {
+        /**
+         * data as geojson object
+         */
+        data: {
+            type: Object,
+            value: function() { return []; },
+            notify: true
+        },
+
+        /**
+         * data source to get data from
+         */
+        dataSource: {
+            type: Object,
+            value: function() { return []; },
+            observer: '_dataSourceChanged'
+        },
+
+        /**
+         * Return raw response can be useful when you need to parse the data as per your own logic and want the full content available as is returned by the server.
+         */
+        returnRawResponse:{
+            type: Boolean,
+            value: false
+        }
+    },
+
+    handler: function (header, data) {
+        if (data.xhr.status === 200) {
+            if (data.xhr.response) {
+                var dataList = [];
+                var response = toObject(data.xhr.response);
+
+                var datasource = toObject(this.dataSource);
+                if (this.returnRawResponse || datasource.type === 'list'){
+                    this.data = response;
+                } else {
+                    for (i = 1; i < response.length; i++) {
+                        var data = {};
+                        var allNull = true;
+                        for (j = 0; j < response[i].length; j++) {
+                            data[response[0][j]] = response[i][j];
+                            if (response[i][j]) {
+                                allNull = false;
+                            }
+                        }
+
+                        if (!allNull) {
+                            dataList.push(data);
+                        }
+                    }
+                    this.data = dataList;
+                }
+
+                if (datasource.type !== 'list') {
+                    this.fire('received', { id: datasource.spreadsheet.replace(new RegExp('/', 'g'), '|') + '/' + datasource.sheet, data: this.data });
+                }
+            }
+        }
+        else {
+            this.data.length = 0;
+            alert('EXCEPTION: ' + data.xhr.responseText);
+        }
+    },
+
+    _dataSourceChanged: function() {
+        this.go();
+    },
+
+    go: function () {
+        try {
+            var datasource = null;
+            if ((datasource = toObject(this.dataSource)) !== null) {
+                if (datasource.type === 'spreadsheet') {
+                    this.url = datasource.host + '/api/spreadsheet/' + datasource.connection + '/' + datasource.spreadsheet.replace(new RegExp('/', 'g'), '|') + '/' + datasource.sheet + '/' + (datasource.range != null ? ('range;' + datasource.range) : 'usedrange');
+                    this.$.ajax.generateRequest();
+                }
+                else if (datasource.type === 'list') {
+                    this.url = datasource.host + '/api/spreadsheet/' + datasource.connection + '/list?group=' + datasource.group;
+                    this.$.ajax.generateRequest();
+                }
+                else {
+                    alert('Unknown type');
+                }
+            }
+        }
+        catch(err) {
+            alert('Failed to parse data source ' + JSON.stringify(this.dataSource) + ' message ' + err + ' in dhi-core-table with error: ' + err);
+        }
+    }
+});
+</script>

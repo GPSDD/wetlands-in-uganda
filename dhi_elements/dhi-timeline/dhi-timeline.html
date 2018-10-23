@@ -1,0 +1,168 @@
+<!--include moment-with-locales.min.js in parent of this element for localized timeline-->
+<script src="../dhi-timeline/dhi-vis.js"></script>
+<link rel='stylesheet' type='text/css' href='../dhi-timeline/dhi-vis.css'>
+<!--<script src="../../bower_components/vis/dist/vis.js"></script>
+<link rel='stylesheet' type='text/css' href='../../bower_components/vis/dist/vis.css'>-->
+
+<!--
+DHI Timeline
+
+`dhi-timeline` is a timeline component.
+
+Example:
+
+    <dhi-timeline data={{data}} selected='{{selectedItem}}'></dhi-timeline>
+
+@demo demo/demo.html
+-->
+
+<dom-module id='dhi-timeline'>
+    <style>
+        .highlight {
+            border-color: red;
+            border-style: solid;
+            border-width: 1px;
+        }
+
+        /*.vis-item:hover {
+            cursor: pointer;
+        }*/
+    </style>
+    <template>
+        <div id='timelineContainer'></div>
+    </template>
+    <script>
+        HTMLImports.whenReady(function() {
+            Polymer({
+                is: 'dhi-timeline',
+
+                properties: {
+                    /* sample data
+                    [{
+                        'id': 1, 'content': 'item 1', 'start': '2013-04-20' }, {
+                        'id': 2, 'content': 'item 2', 'start': '2013-04-20' }, {
+                        'id': 3, 'content': 'item 3', 'start': '2013-04-25' }, {
+                        'id': 4, 'content': 'item 4', 'start': '2013-04-28' }, {
+                        'id': 5, 'content': 'item 5', 'start': '2013-04-29' }, {
+                        'id': 6, 'content': 'item 6', 'start': '2013-05-05'
+                    }]*/
+                    data: {
+                        type: Array,
+                        observer: '_dataChange'
+                    },
+
+                    /**
+                     * Id property in the input data objects. This will be used to find the matching selection when clicked on the control.
+                     */
+                    idPropertyName: {
+                        type: String,
+                        value: 'layerName'
+                    },
+
+                    /**
+                     * Rrequired property name in the input data objects. This will be used for checking if a time line item can be selected or not.
+                     */
+                    requiredPropertyName: {
+                        type: String,
+                        value: 'date'
+                    },
+
+                    /**
+                     * Underlying timeline object.
+                     */
+                    timeLine: {
+                        type: Object
+                    },
+
+                    /**
+                     * Selected timeline entry.
+                     */
+                    selected: {
+                        type: Object,
+                        notify: true,
+                        observer: '_selectedChanged'
+                    },
+
+                    /**
+                     * True: Full extent button. False: Hide full extent button.
+                     */
+                    options: {
+                        type: Object,
+                        value: function() {
+                            return {
+                                stack: true,
+                                minHeight: '106px',
+                                type: 'point'
+                            }
+                        }
+                    },
+
+                    selectable: {
+                        type: Boolean,
+                        value: true,
+                        observer: '_selectableChanged'
+                    }
+                },
+
+                _dataChange: function() {
+                    this.go();
+                },
+
+                _selectedChanged: function() {
+                    if (this.supressSelectionChangedObserver) {
+                        this.supressSelectionChangedObserver = false;
+                    } else if (this.timeline && this.selected) {
+                        if (Array.isArray(this.selected)) {
+                            if (this.selected.length == 0) {
+                                this.timeline.setSelection(this.selected);
+                            } else {
+                                for(var i = 0; i < this.selected.length; i++) {
+                                    this.timeline.setSelection(this.selected[i].id);
+                                }
+                            }
+                        } else {
+                            this.timeline.setSelection(this.selected.id);
+                        }
+                    }
+                },
+
+                _selectableChanged: function() {
+                    if (this.timeline) {
+                        this.timeline.options.selectable = this.selectable;
+                    }
+                },
+
+                go: function() {
+                    /*if (this.timeline) {
+                        this.timeline.destroy();
+                    }*/
+                    this.$.timelineContainer.innerHTML = '';
+
+                    if (this.data) {
+                        var items = new vis.DataSet(this.data);
+                        //var options = {};
+                        this.timeline = new vis.Timeline(this.$.timelineContainer, items, this.options);
+                        var that = this;
+
+                        this.timeline.on('select', function (properties) {
+                            if (properties.event.type == "tap") {
+                                that.supressSelectionChangedObserver = true;
+                                that.selected = that.data.filter(function (item) {
+                                    return  item[that.requiredPropertyName] && item[that.idPropertyName] == properties.items[0];
+                                });
+                            }
+                        });
+
+                        this.timeline.on('itemover', function (item) {
+                            //that.cursor = pointer;
+                        });
+
+                        if (this.selected) {
+                            this.timeline.setSelection(this.selected.id);
+                        }
+                    }
+                }
+            })
+        });
+    </script>
+</dom-module>

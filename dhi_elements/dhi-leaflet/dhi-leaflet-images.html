@@ -1,0 +1,199 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-layer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-import.html'>
+<link rel='import' href='../../bower_components/moment-element/moment-import.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Leaflet Images
+
+`dhi-leaflet-images` is a leaflet images component.
+
+Example:
+
+    <dhi-leaflet-images
+        lower-left='{ "latitude": 29.46793190123628, "longitude": -90.45964519916656 }'
+        upper-right='{ "latitude": 29.499626359169206, "longitude": -90.42164382540214}'
+        data='{{data}}'
+        base-url='./data/'
+        date-time-current='{{currentDateTime}}'>
+    </dhi-leaflet-images>
+
+@demo demo/index-dhi-leaflet-images.html
+-->
+
+<dom-module id='dhi-leaflet-images'>
+    <style>
+        :host {display: none;}
+    </style>
+    <template>
+    </template>
+</dom-module>
+<script>
+'use strict';
+
+Polymer({
+    is: 'dhi-leaflet-images',
+
+    properties: {
+        container: {
+            type: Object,
+            observer: '_containerChanged'
+        },
+
+        baseUrl: {
+            type: String,
+            value: '',
+            observer: '_baseUrlChanged'
+        },
+
+        data: {
+            type: Object,
+            value: null,
+            observer: '_dataChanged'
+        },
+
+        /**
+         * current loaded layers
+         */
+        currentLayers: {
+            type: Object,
+            value: function() { return []; }
+        },
+
+        /**
+         * the opacity of the layer
+         */
+        opacity: {
+            type: Number,
+            value: 1,
+            observer: '_opacityChanged'
+        },
+
+        /**
+         * the datetime from the MIKE file to show
+         */
+        dateTimeCurrent: {
+            type: String,
+            value: '',
+            observer: '_dateTimeCurrentChanged'
+        },
+
+        /**
+         * decides if enabled
+         */
+        enabled: {
+            type: Boolean,
+            value: true,
+            observer: '_enabledChanged'
+        }
+    },
+
+    _dateTimeCurrentChanged: function() {
+        for (var dateTimeStamp in this.data){
+            if (this.data.hasOwnProperty(dateTimeStamp)) {
+                var currentLayer = this.findLayer(dateTimeStamp);
+                if (currentLayer) {
+                    if (currentLayer.dateTime === this.dateTimeCurrent) {
+                        currentLayer.layer.setOpacity(this.opacity);
+                    } else {
+                        currentLayer.layer.setOpacity(0);
+                    }
+                }
+            }
+        }
+    },
+
+    _baseUrlChanged: function(){
+        this.go();
+    },
+
+    _dataChanged: function() {
+        this.go();
+    },
+
+    _layersChanged: function() {
+        this.go();
+    },
+
+    _containerChanged: function() {
+        this.go();
+    },
+
+    _opacityChanged: function(oldValue, newValue) {
+        var currentLayer = this.findLayer(this.dateTimeCurrent);
+        if (currentLayer) {
+            currentLayer.layer.setOpacity(this.opacity);
+        }
+    },
+
+    _enabledChanged: function() {
+        if (this.enabled) {
+            this.go();
+        } else {
+            this.detached();
+        }
+    },
+
+    go: function() {
+        if (this.container && this.enabled && this.baseUrl && this.upperRight && this.lowerLeft) {
+            this.removeAll();
+            if(!this.data){
+                return;
+            }
+
+            var currentLayers = [];
+            var currentLayer;
+            var counter = 0;
+            for(var dateTimeStamp in this.data){
+                if(this.data.hasOwnProperty(dateTimeStamp)){
+                    var url = this.baseUrl + this.data[dateTimeStamp];
+
+                    var opacity = counter === 0 ? 1 : 0;
+                    var imagebounds = [[this.lowerLeft.latitude, this.lowerLeft.longitude], [this.upperRight.latitude, this.upperRight.longitude]];
+                    var layer = L.imageOverlay(url, imagebounds, { opacity: opacity })
+
+                    if (opacity === 1){
+                        currentLayer = layer;
+                    }
+
+                    currentLayers.push({
+                        dateTime: dateTimeStamp,
+                        layer: layer
+                    });
+
+                    layer.addTo(this.container);
+                    counter++;
+                }
+            }
+
+            this.currentLayers = currentLayers;
+            this.fire('layeradded', { 'bounds': currentLayer._bounds });
+        }
+    },
+
+    removeAll: function() {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            for (var i = 0; i < this.currentLayers.length; i++) {
+                this.container.removeLayer(this.currentLayers[i].layer);
+            }
+            this.currentLayers = [];
+        }
+    },
+
+    findLayer: function(dateTime) {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            for (var i = 0; i < this.currentLayers.length; i++) {
+                if (this.currentLayers[i].dateTime == dateTime) {
+                    return this.currentLayers[i];
+                }
+            }
+        }
+        return null;
+    },
+
+    detached: function() {
+        this.removeAll();
+    }
+});
+</script>

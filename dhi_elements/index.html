@@ -1,0 +1,444 @@
+<!doctype html>
+<html>
+    <head>
+        <script src='../bower_components/webcomponentsjs/webcomponents.min.js'></script>
+        <link rel='import' href='../bower_components/polymer/polymer.html'/>
+    </head>
+    <body style='margin:0px;'>
+        <dom-module id='dhi-polymer-doc'>
+            <style>
+                :root {
+                    font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+                    font-size: 14px;
+                    -webkit-tap-highlight-color: rgba(0,0,0,0);
+                    -webkit-touch-callout: none;
+                    color: black;
+                    margin: 0px;
+                    overflow: hidden;
+                    color: #005685;
+                }
+
+                h1 {
+                    margin: 0px 0px 0px 0px;
+                    padding: 10px;
+                    background: #005685;
+                    color: white;
+                }
+
+                p {
+                    padding: 0px 10px;
+                }
+
+                .tableContainer {
+                    margin: 10px;
+                }
+
+                .descriptionColumn {
+                    width: 300px;
+                }
+
+                th {
+                    text-align: left;
+                    padding: 5px;
+                    height: 30px;
+                }
+
+                table, th, td {
+                    border: 1px solid #F5F5F5;
+                    border-collapse: collapse;
+                }
+
+                td {
+                    padding: 5px;
+                }
+            </style>
+            <template>
+                <div class=''>
+                    <h1>DHI Polymer documentation</h1>
+                    <p>The DHI Polymer elements are elements based in Google Polymer which in turn is based on W3C Web Components. The DHI Polymer Elements offers functionality typically used in our products and services and strives to minimize the development time and cost needed by providing highly reusable, well tested and well documented elements. The DHI Polymer Elements resides in surround (<a href='sscm://solscm:4900//SOLSoftware//SOLSoftware/Polymer/'>Polymer in Surround SCM</a>) where Polymer and the standard Polymer Elements are also checked in. While expansion is open for anyone, please consult with <a href='mailto:frt@dhigroup.com'>frt@dhigroup.com</a> to ensure it is aligned with the existing functionality</p>
+                    <div class='tableContainer'>
+                        <table>
+                            <tr>
+                                <th>Element name</th>
+                                <th class='descriptionColumn'>Description</th>
+                                <th>Demo page</th>
+                                <th>Documentation page</th>
+                            </tr>
+                            <template is='dom-repeat' items='{{elements}}' as='element'>
+                                <tr>
+                                    <td>[[element.displayName]]</td>
+                                    <td class='descriptionColumn'>[[element.description]]</td>
+                                    <td><template is='dom-if' if='[[element.demoPage]]'><a href='[[element.demoPage]]'>Demo</a></template></td>
+                                    <td><a href='[[element.docPage]]'>Doc</a></td>
+                                </tr>
+                            </template>
+                        </table>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            Polymer({
+                is: 'dhi-polymer-doc',
+
+                properties: {
+                    elementInfoPath: {
+                        type: String,
+                        value: 'dhi-elements-info.json'
+                    },
+
+                    elements: {
+                        type: Array,
+                        value: function()
+                            { return [
+                                {
+                                    "displayName": "DHI Animation Control",
+                                    "demoPage": "dhi-animation-control/demo/index.html",
+                                    "docPage": "dhi-animation-control/index.html",
+                                    "description": "DHI animation control can be used to step over time steps to animate results on web."
+                                },
+                                {
+                                    "displayName": "DHI Chart Control",
+                                    "demoPage": "dhi-chart/demo/index.html",
+                                    "docPage": "dhi-chart/index.html",
+                                    "description": "DHI chart control can be used to show time series data on web."
+                                },
+                                {
+                                    "displayName": "DHI Chart Grid",
+                                    "demoPage": "dhi-chart-grid/demo/index-dhi-chart-grid.html",
+                                    "docPage": "dhi-chart-grid/index.html",
+                                    "description": "DHI chart grid control can be used to show multiple charts on web."
+                                },
+                                {
+                                    "displayName": "DHI Confirmation Dialog",
+                                    "demoPage": "dhi-confirmation-dialog/demo/index.html",
+                                    "docPage": "dhi-confirmation-dialog/index.html",
+                                    "description": "DHI confirmation dialog can be used to confirm (yes / no) or (ok / cancel) type question on web."
+                                },
+                                {
+                                    "displayName": "DHI Connection Management",
+                                    "demoPage": "dhi-connection-management/demo/index.html",
+                                    "docPage": "dhi-connection-management/index.html",
+                                    "description": "DHI connection management element for managing web api service connections."
+                                },
+                                {
+                                    "displayName": "DHI Core Featurecollections",
+                                    "demoPage": "dhi-core-featurecollections/demo/index.html",
+                                    "docPage": "dhi-core-featurecollections/index.html",
+                                    "description": "DHI core feature collection can be used to get features from DHI Web API."
+                                },
+                                {
+                                    "displayName": "DHI Core table",
+                                    "demoPage": "dhi-core-table/demo/index-dhi-core-table.html",
+                                    "docPage": "dhi-core-table/index.html",
+                                    "description": "DHI core table can be used to get tabular data from DHI Web API."
+                                },
+                                {
+                                    "displayName": "DHI Core Table Saver",
+                                    "demoPage": "dhi-core-table/demo/index-dhi-core-table-saver.html",
+                                    "docPage": "dhi-core-table/index-saver.html",
+                                    "description": "DHI core table saver can be used to save time series locally."
+                                },
+                                {
+                                    "displayName": "DHI Core Timeseries",
+                                    "demoPage": "dhi-core-timeseries/demo/index-dhi-core-timeseries.html",
+                                    "docPage": "dhi-core-timeseries/index.html",
+                                    "description": "DHI core timeseries can be used to get time series from DHI Web API."
+                                },
+                                {
+                                    "displayName": "DHI Core Timeseries Saver",
+                                    "demoPage": "dhi-core-timeseries/demo/index-dhi-core-timeseries-saver.html",
+                                    "docPage": "dhi-core-timeseries/index-saver.html",
+                                    "description": "DHI core time series saver can be used for downloading the time series from DHI Web API."
+                                },
+                                {
+                                    "displayName": "DHI Core Timestep",
+                                    "demoPage": "dhi-core-timestep/demo/index.html",
+                                    "docPage": "dhi-core-timestep/index.html",
+                                    "description": "DHI core timestep can be used to obtain timestep specific data from DHI Web API."
+                                },
+                                {
+                                    "displayName": "DHI Core Value Monitor",
+                                    "demoPage": "dhi-core-valuemonitor/demo/index.html",
+                                    "docPage": "dhi-core-valuemonitor/index.html",
+                                    "description": "DHI core value monitor."
+                                },
+                                {
+                                    "displayName": "DHI Data Table",
+                                    "demoPage": "dhi-data-table/demo/index.html",
+                                    "docPage": "dhi-data-table/index.html",
+                                    "description": "DHI data table can be used to visualize tabular data on web."
+                                },
+                                {
+                                    "displayName": "DHI Date Picker Input",
+                                    "demoPage": "dhi-date-picker-input/demo/index.html",
+                                    "docPage": "dhi-date-picker-input/index.html",
+                                    "description": "DHI date picker input allows for user to input date via text boxes or via date picker."
+                                },
+                                {
+                                    "displayName": "DHI Date Picker",
+                                    "demoPage": "dhi-date-picker/demo/index-dhi-date-picker.html",
+                                    "docPage": "dhi-date-picker/index.html",
+                                    "description": "DHI date picker control allows for picking date from date picker."
+                                },
+                                {
+                                    "displayName": "DHI FAQ",
+                                    "demoPage": "dhi-faq/demo/index.html",
+                                    "docPage": "dhi-faq/index.html",
+                                    "description": "DHI FAQ control can be used to show FAQs."
+                                },
+                                {
+                                    "displayName": "DHI Google Analytics",
+                                    "demoPage": "",
+                                    "docPage": "dhi-google-analytics/index.html",
+                                    "description": "DHI google analytics control can be used to link a website to google analytics account."
+                                },
+                                {
+                                    "displayName": "DHI Icon SVG",
+                                    "demoPage": "dhi-icons-svg/demo/index.html",
+                                    "docPage": "dhi-icons-svg/index.html",
+                                    "description": "DHI icons SVG is a set of custom svg images used in various dhi web projects."
+                                },
+                                {
+                                    "displayName": "DHI Interval Slider Circular",
+                                    "demoPage": "dhi-interval-slider-circular/demo/index.html",
+                                    "docPage": "dhi-interval-slider-circular/index.html",
+                                    "description": "DHI interval slider circular."
+                                },
+                                {
+                                    "displayName": "DHI Javascripts",
+                                    "demoPage": "dhi-javascripts/demo/index.html",
+                                    "docPage": "dhi-javascripts/index.html",
+                                    "description": "DHI javascripts."
+                                },
+                                {
+                                    "displayName": "DHI Job List",
+                                    "demoPage": "dhi-job-list/demo/index.html",
+                                    "docPage": "dhi-job-list/index.html",
+                                    "description": "DHI job list control."
+                                },
+                                {
+                                    "displayName": "DHI Job Executer",
+                                    "demoPage": "dhi-jobexecuter/demo/index.html",
+                                    "docPage": "dhi-jobexecuter/index.html",
+                                    "description": "DHI job executer."
+                                },
+                                {
+                                    "displayName": "DHI Layer Control",
+                                    "demoPage": "dhi-layer-control/demo/index.html",
+                                    "docPage": "dhi-layer-control/index.html",
+                                    "description": "DHI layer control allows for checkin on/off a layer and changing its opacity."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet AIS",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-ais.html",
+                                    "docPage": "dhi-leaflet/index.html",
+                                    "description": "DHI leaflet AIS."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet AIS Filter",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-ais-filter.html",
+                                    "docPage": "dhi-leaflet/index-ais-filter.html",
+                                    "description": "DHI leaflet AIS filter."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet Attribution",
+                                    "demoPage": "",
+                                    "docPage": "dhi-leaflet/index-attribution.html",
+                                    "description": "DHI leaflet attribution."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet Geojson",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-geojson.html",
+                                    "docPage": "dhi-leaflet/index-geojson.html",
+                                    "description": "DHI leaflet geojson."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet images WMS",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-images-wms.html",
+                                    "docPage": "dhi-leaflet/index-images-wms.html",
+                                    "description": "DHI leaflet images WMS."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet images",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-images.html",
+                                    "docPage": "dhi-leaflet/index-images.html",
+                                    "description": "DHI leaflet images."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet markers",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-markers.html",
+                                    "docPage": "dhi-leaflet/index-markers.html",
+                                    "description": "DHI leaflet markers."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet Radar Image Raw",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-radar-image-raw.html",
+                                    "docPage": "dhi-leaflet/index-radar-image-raw.html",
+                                    "description": "DHI leaflet radar image raw."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet Radar Image",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-radar-image.html",
+                                    "docPage": "dhi-leaflet/index-radar-image.html",
+                                    "description": "DHI leaflet radar image."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet Static Image",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-static-image.html",
+                                    "docPage": "dhi-leaflet/index-static-image.html",
+                                    "description": "DHI leaflet static image."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet Tilelayer Google",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-tilelayer-google.html",
+                                    "docPage": "dhi-leaflet/index-tilelayer-google.html",
+                                    "description": "DHI leaflet tilelayer google."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet Tilelayer WMS",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-tilelayer-wms.html",
+                                    "docPage": "dhi-leaflet/index-tilelayer-wms.html",
+                                    "description": "DHI leaflet tilelayer WMS."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet Tilelayer WMS Secure",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-tilelayer-wms-secure.html",
+                                    "docPage": "dhi-leaflet/index-tilelayer-wms-secure.html",
+                                    "description": "DHI leaflet tilelayer WMS secure."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet Traces",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-traces.html",
+                                    "docPage": "dhi-leaflet/index-traces.html",
+                                    "description": "DHI leaflet traces."
+                                },
+                                {
+                                    "displayName": "DHI Leaflet Zoomcontrols",
+                                    "demoPage": "dhi-leaflet/demo/index-dhi-leaflet-zoomcontrols.html",
+                                    "docPage": "dhi-leaflet/index-zoomcontrols.html",
+                                    "description": "DHI leaflet zoomcontrols."
+                                },
+                                {
+                                    "displayName": "DHI Localize",
+                                    "demoPage": "dhi-localize/demo/index.html",
+                                    "docPage": "dhi-localize/index.html",
+                                    "description": "DHI localize."
+                                },
+                                {
+                                    "displayName": "DHI Logging gauge",
+                                    "demoPage": "dhi-logging/demo/index-dhi-logging-gauge.html",
+                                    "docPage": "dhi-logging/index.html",
+                                    "description": "DHI logging gauge."
+                                },
+                                {
+                                    "displayName": "DHI Logging List",
+                                    "demoPage": "dhi-logging/demo/index-dhi-logging-list.html",
+                                    "docPage": "dhi-logging/index-list.html",
+                                    "description": "DHI logging list."
+                                },
+                                {
+                                    "displayName": "DHI Logging Status",
+                                    "demoPage": "dhi-logging/demo/index-dhi-logging-status.html",
+                                    "docPage": "dhi-logging/index-status.html",
+                                    "description": "DHI logging status."
+                                },
+                                {
+                                    "displayName": "DHI Search Bar",
+                                    "demoPage": "dhi-search-bar/demo/demo.html",
+                                    "docPage": "dhi-search-bar/index.html",
+                                    "description": "DHI search bar."
+                                },
+                                {
+                                    "displayName": "DHI Timeline",
+                                    "demoPage": "dhi-timeline/demo/demo.html",
+                                    "docPage": "dhi-timeline/index.html",
+                                    "description": "DHI timeline."
+                                },
+                                {
+                                    "displayName": "DHI Timeseries Editor",
+                                    "demoPage": "dhi-timeseries-editor/demo/index.html",
+                                    "docPage": "dhi-timeseries-editor/index.html",
+                                    "description": "DHI timeseries editor."
+                                },
+                                {
+                                    "displayName": "DHI Timeseries Exporter",
+                                    "demoPage": "dhi-timeseries-exporter/demo/index.html",
+                                    "docPage": "dhi-timeseries-exporter/index.html",
+                                    "description": "DHI timeseries exporter."
+                                },
+                                {
+                                    "displayName": "DHI Timeseries Info",
+                                    "demoPage": "dhi-timeseries-info/demo/index.html",
+                                    "docPage": "dhi-timeseries-info/index.html",
+                                    "description": "DHI timeseries info."
+                                },
+                                {
+                                    "displayName": "DHI Timestep List",
+                                    "demoPage": "dhi-timestep-list/demo/index.html",
+                                    "docPage": "dhi-timestep-list/index.html",
+                                    "description": "DHI timestep list."
+                                },
+                                {
+                                    "displayName": "DHI Uploader",
+                                    "demoPage": "dhi-uploader/demo/index.html",
+                                    "docPage": "dhi-uploader/index.html",
+                                    "description": "DHI uploader."
+                                },
+                                {
+                                    "displayName": "DHI Accounts",
+                                    "demoPage": "dhi-user-management/demo/index-dhi-accounts.html",
+                                    "docPage": "dhi-user-management/index.html",
+                                    "description": "DHI timeseries info."
+                                },
+                                {
+                                    "displayName": "DHI Login Dialog",
+                                    "demoPage": "dhi-user-management/demo/index-dhi-login-dialog.html",
+                                    "docPage": "dhi-user-management/index-login-dialog.html",
+                                    "description": "DHI login dialog."
+                                },
+                                {
+                                    "displayName": "DHI My Account",
+                                    "demoPage": "dhi-user-management/demo/index-dhi-my-account.html",
+                                    "docPage": "dhi-user-management/index-my-account.html",
+                                    "description": "DHI my account."
+                                },
+                                {
+                                    "displayName": "DHI Valuemonitor",
+                                    "demoPage": "dhi-valuemonitor/demo/index.html",
+                                    "docPage": "dhi-valuemonitor/index.html",
+                                    "description": "DHI valuemonitor."
+                                },
+                                {
+                                    "displayName": "DHI Warning Bar",
+                                    "demoPage": "dhi-warning-bar/demo/index.html",
+                                    "docPage": "dhi-warning-bar/index.html",
+                                    "description": "DHI warning bar."
+                                },
+                                {
+                                    "displayName": "DHI Warning List",
+                                    "demoPage": "dhi-warning-list/demo/index.html",
+                                    "docPage": "dhi-warning-list/index.html",
+                                    "description": "DHI warning list."
+                                },
+                                {
+                                    "displayName": "DHI Warning Toast",
+                                    "demoPage": "dhi-warning-toast/demo/index.html",
+                                    "docPage": "dhi-warning-toast/index.html",
+                                    "description": "DHI warning toast."
+                                },
+                                {
+                                    "displayName": "DHI Yearmonth Picker",
+                                    "demoPage": "dhi-yearmonth-picker/demo/index.html",
+                                    "docPage": "dhi-yearmonth-picker/index.html",
+                                    "description": "DHI yearmonth picker."
+                                }
+                            ];
+                        }
+                    }
+                }
+            });
+        </script>
+        <dhi-polymer-doc></dhi-polymer-doc>
+    </body>
+</html>

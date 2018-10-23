@@ -1,0 +1,242 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../../bower_components/paper-toast/paper-toast.html'>
+<link rel='import' href='../../bower_components/paper-spinner/paper-spinner.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Core Timeseries saver
+
+`dhi-core-timeseries-saver` is a core time series saver component.
+
+Example:
+
+    <dhi-core-timeseries-saver
+        id='supersaver'
+        data-source='{"host": "http://localhost/webapi", "connection": "local-test"}'
+        data='{{data}}'
+        meta-data='{{metaData}}'
+        user-name='admin'
+        password='webapi'>
+    </dhi-core-timeseries-saver>
+
+The following custom properties and mixins are also available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--dhi-core-timeseries-saver-1` | Color of waitCursor in first quadrant of rotation. | `#1976D2`
+`--dhi-core-timeseries-saver-2` | Color of waitCursor in second quadrant of rotation. | `#1976D2`
+`--dhi-core-timeseries-saver-3` | Color of waitCursor in third quadrant of rotation. | `#1976D2`
+`--dhi-core-timeseries-saver-4` | Color of waitCursor in fourth quadrant of rotation. | `#1976D2`
+`--dhi-core-timeseries-saver-color` | Color of waitCursor in all quadrants of rotation. This will apply only if above values are not set. | `#1976D2`
+
+@demo demo/index-dhi-core-timeseries-saver.html
+-->
+
+<dom-module id='dhi-core-timeseries-saver'>
+    <style>
+        paper-spinner {
+            --paper-spinner-layer-1-color: var(--dhi-core-timeseries-saver-1, var(--dhi-core-timeseries-saver-color, #1976D2));
+            --paper-spinner-layer-2-color: var(--dhi-core-timeseries-saver-2, var(--dhi-core-timeseries-saver-color, #1976D2));
+            --paper-spinner-layer-3-color: var(--dhi-core-timeseries-saver-3, var(--dhi-core-timeseries-saver-color, #1976D2));
+            --paper-spinner-layer-4-color: var(--dhi-core-timeseries-saver-4, var(--dhi-core-timeseries-saver-color, #1976D2));
+        }
+    </style>
+    <template>
+        <div style='text-align:center; position:absolute; top:50%; left:50%; margin-top:-16px; margin-left:-16px; background-color:rgba(255, 255, 255, 0.5);'>
+            <paper-spinner style='position:absolute' id='spinner'></paper-spinner>
+        </div>
+        <iron-ajax id='ajax' url='{{url}}' method='{{method}}' body='{{body}}' handle-as='json' on-error='handler' on-response='handler'></iron-ajax>
+        <paper-toast id='toast' style='left:20px; bottom:50; background:black; z-index:1000' duration='5000'></paper-toast>
+    </template>
+</dom-module>
+<script>
+Polymer({
+    is: 'dhi-core-timeseries-saver',
+
+    properties: {
+        /**
+         * User object.
+         */
+        user: {
+            type: Object,
+            value: function() { return {}; }
+        },
+
+        /**
+         * Downloaded raw data.
+         */
+        data: {
+            type: Array,
+            value: function() { return []; }
+        },
+
+        /**
+         * Metadata for the downloaded data.
+         */
+        metaData: {
+            type: Array,
+            value: function() { return []; }
+        },
+        /**
+         * Data source.
+         */
+        dataSource: {
+            type: Object,
+            value: function() { return []; }
+        },
+
+        /**
+         * Indicates if the times series should be deleted first
+         */
+        deleteFirst: {
+            type: Boolean,
+            value: false 
+        },
+
+        internalData: {
+            type: Array,
+            value: function() { return []; }
+        },
+       
+        method: {
+            type: String,
+            value: 'POST'
+        },
+
+        isDeleting: {
+            type: Boolean,
+            value: true
+        },
+
+        noMissing: {
+            type: Boolean,
+            value: false
+        }
+    },
+
+    handler: function (header, data) {
+        if (this.deleteFirst) {
+            if (this.isDeleting) {
+                this.persist();
+            }
+            else {
+                this.delete();
+            }
+        } else {
+            this.persist();
+        }
+    },
+
+    delete: function() {
+        var dataSource = toObject(this.dataSource);
+        if (dataSource === null) {
+            alert('Data source is empty');
+        }
+
+        if (this.internalData.length > 0 && this.user) {
+            this.isDeleting = true;
+            this.method = 'DELETE';
+            this.url = dataSource.host + '/api/timeseries/' + dataSource.connection + '/' + this.internalData[0].FullName.replaceAll('/', '|');
+            this.$.ajax.headers = {
+                'Authorization': 'Basic ' + window.btoa(this.user.id + ':' + this.user.password),
+                'Content-Type': 'application/json'
+            }
+            this.$.ajax.generateRequest();
+        }
+        else {
+            this.$.spinner.active = false;
+            this.$.toast.text = 'Timeseries saved';
+            this.$.toast.show();
+        }
+    },
+
+    persist: function() {
+        var dataSource = null;
+        if (this.internalData.length > 0 && (dataSource = toObject(this.dataSource)) !== null && this.user) {
+            this.isDeleting = false;
+            if (this.deleteFirst) {
+                this.method = 'POST';
+            } else {
+                this.method = 'PUT';
+            }
+            this.body = JSON.stringify(this.internalData[0]);
+            this.url = dataSource.host + '/api/timeseries/' + dataSource.connection;
+
+            this.$.ajax.headers = {
+                'Authorization': 'Basic ' + window.btoa(this.user.id + ':' + this.user.password),
+                'Content-Type': 'application/json'
+            }
+
+            this.$.ajax.generateRequest();
+            this.internalData.shift();
+        }
+        else {
+            this.$.spinner.active = false;
+            this.fire('saved');
+            this.$.toast.text = 'Timeseries saved';
+            this.$.toast.show();
+        }
+    },
+
+    go: function () {
+        var internalData = [];
+        for (var i = 0; i < this.data.length; i++) {
+            this.$.spinner.active = true;
+
+            var dateTimes = [];
+            var values = [];
+            var flags = [];
+            for (var j = 0; j < this.data[i].data.length; j++) {
+                if (this.noMissing && this.data[i].data[j][1] === null) {
+                    continue;
+                }
+
+                dateTimes.push(this.data[i].data[j][0]);
+                values.push(this.data[i].data[j][1]);
+
+                if (this.data[i].data[j][2]) {
+                    flags.push(this.data[i].data[j][2]);
+                }
+            }
+
+            var item = {
+                FullName: this.data[i].id,
+                Data: {
+                    DateTimes: dateTimes,
+                    Values: values
+                }
+            }
+
+            if (flags.length > 0) {
+                item.Data.Flags = flags;
+            }
+
+            if (this.deleteFirst) {
+                var metaData = this.metaData[this.data[i].id];
+                if (!metaData) {
+                    alert('Meta data not defined for ' + this.data[i].id);
+                    continue;
+                }
+
+                item.DataType = metaData.dataType;
+                item.Unit = metaData.unit;
+                item.Quantity = metaData.quantity;
+            }
+
+            internalData.push(item);
+        }
+        this.internalData = internalData;
+
+        if (this.deleteFirst) {
+            this.delete();
+        } else {
+            this.persist();
+        }
+    },
+
+    toDateTimeString: function(input) {
+        return input.replace(new RegExp(':', 'g'), '').split('.')[0];
+    }
+});
+</script>

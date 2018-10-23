@@ -1,0 +1,351 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../../bower_components/iron-flex-layout/iron-flex-layout-classes.html'>
+<link rel='import' href='../../bower_components/iron-icons/iron-icons.html'>
+<link rel='import' href='../../bower_components/paper-fab/paper-fab.html'>
+<link rel='import' href='../../bower_components/paper-icon-button/paper-icon-button.html'>
+<link rel='import' href='../../bower_components/paper-tooltip/paper-tooltip.html'>
+<link rel='import' href='../../bower_components/paper-checkbox/paper-checkbox.html'>
+<link rel='import' href='../../bower_components/paper-item/paper-item.html'>
+<link rel='import' href='../dhi-interval-slider/dhi-interval-slider.html'>
+<link rel='import' href='../dhi-icons-svg/dhi-icons-svg.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Leaflet AIS Filter
+
+`dhi-leaflet-ais-filter` is a leaflet ais filter component.
+
+Example:
+
+    <dhi-leaflet-ais-filter
+        style='width:300px'
+        filter='{{filter}}'
+        no-draft
+        no-length
+        ship-type='[0,2]'
+        nav-status='[0,1]'>
+    </dhi-leaflet-ais-filter>
+
+The following custom properties and mixins are also available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--dhi-leaflet-ais-filter-color` | Color of various element in leaflet ais filter element. | `#1E92FF`
+
+@demo demo/index-dhi-leaflet-ais-filter.html
+-->
+
+<dom-module id='dhi-leaflet-ais-filter'>
+    <template>
+        <style include='iron-flex iron-flex-alignment iron-flex-factors'>
+            :host {
+                @apply(--paper-font-common-base);
+                color: #0D3958;
+            }
+
+            paper-fab {
+                --paper-fab-background: var(--dhi-leaflet-ais-filter-color, #1E92FF);
+                --paper-fab-keyboard-focus-background: var(--dhi-leaflet-ais-filter-color, #1E92FF);
+            }
+
+            dhi-interval-slider {
+                --dhi-interval-slider-color: var(--dhi-leaflet-ais-filter-color, #1E92FF);
+            }
+
+            paper-fab[mini] {
+                width: 30px;
+                height: 30px;
+                padding-top: -3px;
+            }
+
+            paper-checkbox {
+                --paper-checkbox-unchecked-color: var(--dhi-leaflet-ais-filter-color, #1E92FF);
+                --paper-checkbox-unchecked-ink-color: var(--dhi-leaflet-ais-filter-color, #1E92FF);
+                --paper-checkbox-checked-color: var(--dhi-leaflet-ais-filter-color, #1E92FF);
+                --paper-checkbox-checked-ink-color: var(--dhi-leaflet-ais-filter-color, #1E92FF);
+                --paper-checkbox-label-color: var(--dhi-leaflet-ais-filter-color, #1E92FF);
+                padding: 5px;
+            }
+
+            .selector {
+                position: fixed;
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 4px;
+                z-index: 100;
+            }
+
+            .selected {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: calc(100% - 30px);
+            }
+        </style>
+        <div class='vertical layout'>
+            <div class='horizontal layout' style='align-items:center; padding-bottom:10px'>
+                <div class='flex'>Ship Types</div>
+                <div id='shipTypeSelectionNamesDiv' class='selected flex-2'>{{shipTypeSelectionNames}}</div>
+                <paper-tooltip for='shipTypeSelectionNamesDiv'>{{shipTypeSelectionNames}}</paper-tooltip>
+                <paper-fab mini icon='dhi-icons-svg:solid-arrow-down' on-tap='onShipTypeHide'>...</paper-fab>
+            </div>
+            <div class='horizontal layout' style='align-items:center; padding-bottom:10px'>
+                <div class='flex'>Nav Status</div>
+                <div id='navStatusSelectionNamesDiv' class='selected flex-2'>{{navStatusSelectionNames}}</div>
+                <paper-tooltip for='navStatusSelectionNamesDiv'>{{navStatusSelectionNames}}</paper-tooltip>
+                <paper-fab mini icon='dhi-icons-svg:solid-arrow-down' on-tap='onNavStatusHide'>...</paper-fab>
+            </div>
+            <div class='horizontal layout' hidden$='{{noDraft}}' style='align-items:center'>
+                <div class='flex'>Draft</div>
+                <dhi-interval-slider class='flex-2' style='padding:10px' from='{{draftMin}}' to='{{draftMax}}' config='{{config(draftMinMin, draftMaxMax)}}'></dhi-interval-slider>
+            </div>
+            <div class='horizontal layout' hidden$='{{noLength}}' style='align-items:center'>
+                <div class='flex'>Length</div>
+                <dhi-interval-slider class='flex-2' style='padding:10px' from='{{lengthMin}}' to='{{lengthMax}}' config='{{config(lengthMinMin, lengthMaxMax)}}'></dhi-interval-slider>
+            </div>
+        </div>
+        <div id='shipTypeSelector' class='vertical layout selector' style='width:120px; padding:10px' hidden$='{{shipTypeHidden}}'>
+            <div style='padding-bottom:10px'>
+                <paper-icon-button icon='icons:close' style='color:#005685; position:absolute; right:0px; top:0px; z-index:1000' on-tap='onShipTypeClose'></paper-icon-button>
+            </div>
+            <paper-checkbox type='shipType' value='80,81,82,83,84,85,86,87,88,89' on-tap='onShipTypeTap'>Tankers</paper-checkbox>
+            <paper-checkbox type='shipType' value='70,71,72,73,74,75,76,77,78,79' on-tap='onShipTypeTap'>Cargo</paper-checkbox>
+            <paper-checkbox type='shipType' value='60,61,62,63,64,65,66,67,68,69' on-tap='onShipTypeTap'>Passenger</paper-checkbox>
+            <paper-checkbox type='shipType' value='0,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,90,91,92,93,94,95,96,97,98,99' on-tap='onShipTypeTap'>Other</paper-checkbox>
+        </div>
+        <div id='navStatusSelector' class='vertical layout selector' style='width:200px; padding:10px' hidden$='{{navStatusHidden}}'>
+            <div style='padding-bottom:10px'>
+                <paper-icon-button icon='icons:close' style='color:#005685; position:absolute; right:0px; top:0px; z-index:1000' on-tap='onNavStatusClose'></paper-icon-button>
+            </div>
+            <paper-checkbox type='navStatus' value='0' on-tap='onNavStatusTap'>Underway</paper-checkbox>
+            <paper-checkbox type='navStatus' value='1,5' on-tap='onNavStatusTap'>Anchored</paper-checkbox>
+            <paper-checkbox type='navStatus' value='2' on-tap='onNavStatusTap'>Not under command</paper-checkbox>
+            <paper-checkbox type='navStatus' value='3,4,6,7,8,9,10,11,12,13,14,15' on-tap='onNavStatusTap'>Other</paper-checkbox>
+        </div>
+    </template>
+</dom-module>
+<script>
+Polymer({
+    is: 'dhi-leaflet-ais-filter',
+
+    properties: {
+        /**
+         * ship type default selection
+         */
+        shipType: {
+            type: Array,
+            value: function() { return []; }
+        },
+
+        /**
+         * nav status default selection
+         */
+        navStatus: {
+            type: Array,
+            value: function() { return []; }
+        },
+
+        /**
+         * the minimum draft
+         */
+        draftMin: {
+            type: Number,
+            value: 0,
+            observer: 'emitFilter'
+        },
+
+        /**
+         * the minimum minimum draft
+         */
+         draftMinMin: {
+            type: Number,
+            value: 0
+        },
+
+        /**
+         * the maximum draft
+         */
+         draftMax: {
+            type: Number,
+            value: 15,
+            observer: 'emitFilter'
+        },
+
+        /**
+         * the maximum maximum draft
+         */
+         draftMaxMax: {
+            type: Number,
+            value: 15
+        },
+
+        /**
+         * the minimum length
+         */
+         lengthMin: {
+            type: Number,
+            value: 0,
+            observer: 'emitFilter'
+        },
+
+        /**
+         * the minimum minimum length
+         */
+         lengthMinMin: {
+            type: Number,
+            value: 0
+        },
+
+        /**
+         * the maximum length
+         */
+         lengthMax: {
+            type: Number,
+            value: 400,
+            observer: 'emitFilter'
+        },
+
+        /**
+         * the maximum maximum length
+         */
+         lengthMaxMax: {
+            type: Number,
+            value: 400
+        },
+
+        /**
+         * the resulting filter
+         */
+        filter: {
+            type: Object,
+            value: null,
+            notify: true
+        },
+
+        shipTypeHidden: {
+            type: Boolean,
+            value: true
+        },
+
+        shipTypeSelectionNames: {
+            type: String,
+            value: 'Nothing Selected'
+        },
+
+        shipTypeSelectionCodes: {
+            type: Array,
+            value: function() { return [] }
+        },
+
+        navStatusHidden: {
+            type: Boolean,
+            value: true
+        },
+
+        navStatusSelectionNames: {
+            type: String,
+            value: 'Nothing Selected'
+        },
+
+        navStatusSelectionCodes: {
+            type: Array,
+            value: function() { return [] }
+        }
+    },
+
+    attached: function() {
+        this.isReady = true;
+        this.setInitialCheckBoxes('shipType');
+        this.setInitialCheckBoxes('navStatus');
+        this.extract('shipType');
+        this.extract('navStatus');
+        this.emitFilter();
+    },
+
+    setInitialCheckBoxes: function(type) {
+        var checkboxes = document.querySelectorAll('paper-checkbox[type][type="' + type + '"]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (this[type].includes(i)) {
+                checkboxes[i].checked = true;
+            }
+        }
+    },
+
+    config: function(min, max) {
+        return {
+            range: {
+                min: min,
+                max: max,
+            }
+        }
+    },
+
+    onShipTypeTap: function() {
+        this.extract('shipType');
+        this.emitFilter();
+    },
+
+    onShipTypeClose: function() {
+        this.shipTypeHidden = true;
+    },
+
+    onShipTypeHide: function(e) {
+        this.navStatusHidden = true;
+        this.shipTypeHidden = !this.shipTypeHidden;
+
+        if (!this.shipTypeHidden) {
+            this.$.shipTypeSelector.style.left = (e.detail.x - parseInt(this.$.shipTypeSelector.style.width)) + 'px';
+            this.$.shipTypeSelector.style.top = (e.detail.y + 10) + 'px';
+        }
+    },
+
+    extract: function(type) {
+        var checkboxes = document.querySelectorAll('paper-checkbox[type][type="' + type + '"][checked]');
+        var names = [];
+        var codes = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            names.push(checkboxes[i].innerText);
+            checkboxes[i].value.split(',').map(function(value) {
+                codes.push(Number(value));
+            })
+        }
+
+        this[type + 'SelectionCodes'] = codes;
+        this[type + 'SelectionNames'] = names.length > 0 ? names.join(', ') : 'Nothing Selected';
+    },
+
+    onNavStatusTap: function() {
+        this.extract('navStatus');
+        this.emitFilter();
+    },
+
+    onNavStatusClose: function() {
+        this.navStatusHidden = true;
+    },
+
+    onNavStatusHide: function(e) {
+        this.shipTypeHidden = true;
+        this.navStatusHidden = !this.navStatusHidden;
+
+        if (!this.navStatusHidden) {
+            this.$.navStatusSelector.style.left = (e.detail.x - parseInt(this.$.navStatusSelector.style.width)) + 'px';
+            this.$.navStatusSelector.style.top = (e.detail.y + 10) + 'px';
+        }
+    },
+
+    emitFilter: function() {
+        if (!this.isReady) {
+            return;
+        }
+
+        this.filter = {
+            draftMin: this.noDraft ? null : this.draftMin,
+            draftMax: this.noDraft ? null : this.draftMax,
+            lengthMin: this.noLength ? null : this.lengthMin,
+            lengthMax: this.noLength ? null : this.lengthMax,
+            shipType: this.shipTypeSelectionCodes,
+            navStatus: this.navStatusSelectionCodes
+        }
+    }
+});
+</script>

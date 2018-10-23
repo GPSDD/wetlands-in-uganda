@@ -1,0 +1,43 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/paper-styles/typography.html'>
+
+<!--
+DHI Leaflet Attribution
+
+`dhi-leaflet-attribution` is a leaflet attribution component.
+
+-->
+
+<dom-module id='dhi-leaflet-attribution'>
+    <style>
+        :host {
+            position: absolute;
+            z-index: 1000;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2px 2px;
+            @apply(--paper-font-common-base);
+            font-size: 10px;
+        }
+    </style>
+    <template>
+        © <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>
+    </template>
+</dom-module>
+<script>
+Polymer({
+    is: 'dhi-leaflet-attribution',
+
+    properties: {
+        container: {
+            type: Object,
+            observer: '_containerChanged'
+        }
+    },
+
+    _containerChanged: function() {
+        this.container.removeControl(this.container.attributionControl);
+    }
+});
+</script>

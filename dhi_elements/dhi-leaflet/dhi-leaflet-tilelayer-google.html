@@ -1,0 +1,308 @@
+<!--
+element which defines a tile layer (<a href="https://gitlab.com/IvanSanchez/Leaflet.GridLayer.GoogleMutant">Google tile layer Reference</a>).
+
+##### Example
+
+<dhi-leaflet-tilelayer-google
+</dhi-leaflet-tilelayer-google>
+
+@element dhi-leaflet-tilelayer-google
+@blurb element which defines a tile layer. The content of the dhi-leaflet-tilelayer-google is used as attribution.
+@demo https://leaflet-extras.github.io/leaflet-map/demo.html
+@homepage https://leaflet-extras.github.io/leaflet-map/
+-->
+<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+<script type="text/javascript" src="../../bower_components/Leaflet.GridLayer.GoogleMutant/Leaflet.GoogleMutant.js"></script>
+
+<!--
+DHI Leaflet Tilelayer Google
+
+`dhi-leaflet-tilelayer-google` is a leaflet tilelayer google component.
+
+Example:
+
+    <dhi-leaflet-tilelayer-google id='switchLayers' google-map-api-key='AIzaSyDpm2Zmy5E4d4Rga7jRfpUi1KBzzJ5nSxY'></dhi-leaflet-tilelayer-google>
+
+@demo demo/index-dhi-leaflet-tilelayer-google.html
+-->
+
+<dom-module id='dhi-leaflet-tilelayer-google'>
+    <style>
+        :host {display: none;}
+    </style>
+    <template>
+    </template>
+</dom-module>
+
+<script>
+    "use strict";
+
+    Polymer({
+        is: 'dhi-leaflet-tilelayer-google',
+
+        behaviors: [
+            Polymer.IronResizableBehavior,
+            leafletMap.LeafletILayer,
+            leafletMap.LeafletTileLayer
+        ],
+
+        listeners: {
+            'iron-resize': 'onResize'
+        },
+
+        properties: {
+            /**
+             * The `container` attribute sets the map container object for this layer.
+             */
+            container: {
+                type: Object,
+                observer: 'inputChanged'
+            },
+
+            /**
+             * The `googleMapApiUrl` attribute sets the google map API URL to be used for this layer.
+             */
+            googleMapApiUrl: {
+                type: String,
+                value: 'https://maps.googleapis.com/maps/api/js?key=',
+                observer: 'inputChanged'
+            },
+
+            /**
+             * The `googleMapApiKey` attribute sets the google map API parameters to be used for this layer.
+             */
+            googleMapApiKey: {
+                type: String,
+                value: undefined,
+                observer: 'inputChanged'
+            },
+
+            /**
+             * The `disabled` attribute specifies if google map layer is displayed or not.
+             */
+            disabled: {
+                type: Boolean,
+                value: false,
+                observer: 'inputChanged'
+            },
+
+            /**
+             * The `mapType` attribute specifies type of google map to be used for this layer. Possible options are roadmap, satellite, terrain, hybrid. Default is roadmap.
+             */
+            mapType: {
+                type: String,
+                value: 'roadmap',
+                observer: 'mapTypeChanged'
+            },
+
+            /**
+             * The `styles` attribute specifies styles of various element types on google map tile layer. Below is a sample array.
+             *
+             *      [
+             *           {elementType: 'labels', stylers: [{visibility: 'off'}]},
+             *           {featureType: 'water', stylers: [{color: '#444444'}]},
+             *           {featureType: 'landscape', stylers: [{color: '#eeeeee'}]},
+             *           {featureType: 'road', stylers: [{visibility: 'off'}]},
+             *           {featureType: 'poi', stylers: [{visibility: 'off'}]},
+             *           {featureType: 'transit', stylers: [{visibility: 'off'}]},
+             *           {featureType: 'administrative', stylers: [{visibility: 'off'}]},
+             *           {featureType: 'administrative.locality', stylers: [{visibility: 'off'}]}
+             *       ]
+             */
+            styles: {
+                type: Array,
+                value: undefined,
+                observer: 'stylesChanged'
+            },
+
+            /**
+             * The `responsiveWindowWidth` attribute specifies the width of the window below which, window will be considered narrow and the user interface of this element will change according * to narrow view.
+             */
+            responsiveWindowWidth: {
+                type: String,
+                value: '768px'
+            },
+
+            /**
+             * The `selectedDrawerPanel` attribute specifies which drawer panels is active. Possible options are main, drawer. These options are based on paper-drawer-panel element.
+             * This propery is used to hide / show the google attributions for narrow mode operation.
+             * It is of use when using leaflet-map in a paper-drawer-panel element main div container.
+             */
+            selectedDrawerPanel: {
+                type: String,
+                value: 'main',
+                observer: '_selectedDrawerPanelChanged'
+            },
+
+            /**
+             * Indicates if the world should not be repeated to the left and right
+             */
+            noContinousWorld: {
+                type: Boolean,
+                value: false
+            }
+        },
+
+        inputChanged: function(e) {
+            this.go();
+        },
+
+        mapTypeChanged: function() {
+            this.removeTileLayer();
+            this.go();
+        },
+
+        stylesChanged: function(e) {
+            if (this.container) {
+                this.removeTileLayer();
+                this.addTileLayer();
+            }
+        },
+
+        go: function() {
+            if (this.googleMapApiUrl && this.googleMapApiKey && !this.scriptLoaded) {
+                var scriptElement = document.getElementById('dhi-leaflet-tilelayer-google-script');
+                if (!scriptElement) {
+                    var script = document.createElement('script');
+                    script.setAttribute('id', 'dhi-leaflet-tilelayer-google-script');
+                    script.setAttribute('src', this.googleMapApiUrl + this.googleMapApiKey);
+                    document.getElementsByTagName('head')[0].appendChild(script);
+                }
+                this.scriptLoaded = true;
+            }
+
+            if (this.container && this.googleMapApiUrl && this.googleMapApiKey && this.mapType) {
+                if (!this.disabled) {
+                    this.addTileLayer();
+                } else if (this.grid) {
+                    this.removeTileLayer();
+                }
+            }
+        },
+
+        addTileLayer: function() {
+            if (!this.grid && !this.googleMapMutant) {
+                var options = {
+                    maxZoom: 24,
+                    type: this.mapType,
+                };
+
+                if (this.styles) {
+                    options.styles = this.styles;
+                }
+
+                if (this.noContinousWorld) {
+                    options.bounds = L.latLngBounds(L.latLng(-180, -180), L.latLng(180, 180));
+                    options.noWrap = true;
+                }
+
+                this.googleMapMutant = L.gridLayer.googleMutant(options).addTo(this.container);
+
+                this.grid = L.gridLayer({
+                    attribution: null //'Grid Layer'
+                });
+
+                this.grid.createTile = function (coords) {
+                    return L.DomUtil.create('div', 'tile-coords');
+                };
+
+                this.container.addLayer(this.grid);
+                //this.container.removeControl(this.container.attributionControl);
+                this.repaint();
+            }
+        },
+
+        repaint: function() {
+            this.async(function() {
+                this.container.invalidateSize();
+                this.googleMapMutant._resize();
+            });
+        },
+
+        removeTileLayer: function() {
+            if (this.grid) {
+                this.container.removeLayer(this.grid);
+                this.grid = null;
+            }
+
+            if (this.googleMapMutant) {
+                this.container.removeLayer(this.googleMapMutant);
+                this.googleMapMutant = null;
+            }
+        },
+
+        reload: function() {
+            if (this.container && this.googleMapApiUrl && this.googleMapApiKey && this.mapType) {
+                this.removeTileLayer();
+                this.addTileLayer();
+            }
+        },
+
+        onResize: function(e) {
+            var width = window.innerWidth;
+            if (width && width < parseFloat(this.responsiveWindowWidth, 10)) {
+                this.isNarrow = true;
+            } else {
+                this.isNarrow = false;
+            }
+        },
+
+        _selectedDrawerPanelChanged: function(e) {
+            if (this.isNarrow) {
+                if (e == 'drawer') {
+                    this.hideGoogleAnnotations();
+                } else {
+                    this.showGoogleAnnotations();
+                }
+            }
+        },
+
+        hideGoogleAnnotations: function() {
+            var divElements = this.parentElement.querySelectorAll('div');
+
+            for (var i = 0; i < divElements.length; i++) {
+                var elem = divElements[i];
+                if (elem.style && elem.style.zIndex && elem.style.zIndex == 1000000) {
+                    elem.style.display = 'none';
+                }
+
+                if (elem.classList.contains('gmnoprint') && elem.style && elem.style.zIndex && elem.style.zIndex == 1000001) {
+                    elem.style.display = 'none';
+                }
+            }
+        },
+
+        showGoogleAnnotations: function() {
+            var divElements = this.parentElement.querySelectorAll('div');
+
+            for (var i = 0; i < divElements.length; i++) {
+                var elem = divElements[i];
+                if (elem.style && elem.style.zIndex && elem.style.zIndex == 1000000) {
+                    elem.style.display = 'inline';
+                }
+
+                if (elem.classList.contains('gmnoprint') && elem.style && elem.style.zIndex && elem.style.zIndex == 1000001) {
+                    elem.style.display = 'inline';
+                }
+            }
+        },
+
+        setAnnotations: function(annotation) {
+            var divElements = this.parentElement.querySelectorAll('div');
+            var process = false;
+            for (var i = 0; i < divElements.length; i++) {
+                var elem = divElements[i];
+
+                if (elem.classList.contains('gmnoprint') && elem.style && elem.style.zIndex && elem.style.zIndex == 1000001) {
+                    if (process) {
+                        elem.innerHTML = '<div style="background-color:white; opacity:0.7; font-size:0.8em; font-weight:bold; padding: 0px 5px;">' + annotation + '</div>';
+                        break;
+                    }
+                    process = true;
+                    elem.innerHTML = '';
+                    continue;
+                }
+            }
+        }
+    });
+</script>

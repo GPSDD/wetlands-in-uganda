@@ -1,0 +1,253 @@
+<link rel='import' href='../../bower_components/polymer/polymer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-layer.html'>
+<link rel='import' href='../../bower_components/leaflet-map/leaflet-import.html'>
+<link rel='import' href='../../bower_components/iron-ajax/iron-ajax.html'>
+<link rel='import' href='../../bower_components/moment-element/moment-import.html'>
+<link rel='import' href='../dhi-javascripts/dhi-javascripts.html'>
+
+<!--
+DHI Leaflet Radar Image
+
+`dhi-leaflet-radar-image` is a leaflet radar image component.
+
+Example:
+
+    <dhi-leaflet-radar-image
+        data-source='{ "host": "http://localhost/webapimo", "radar": "aarhus-radar" }'
+        lower-left='{ "latitude": 55.602311, "longitude": 9.036234225387541 }'
+        upper-right='{ "latitude": 56.664502, "longitude": 10.995200612874198 }'
+        date-times='{{dateTimes}}'>
+    </dhi-leaflet-radar-image>
+
+@demo demo/index-dhi-leaflet-radar-image.html
+-->
+
+<dom-module id='dhi-leaflet-radar-image'>
+    <style>
+        :host {display: none;}
+    </style>
+    <template>
+        <iron-ajax id='ajax' url='{{url}}' headers='{ "Content-Type": "application/json" }' method='POST' body='{{body}}' handle-as='json' on-response='handlerDateTimes'></iron-ajax>
+    </template>
+</dom-module>
+<script>
+'use strict';
+
+Polymer({
+    is: 'dhi-leaflet-radar-image',
+
+    properties: {
+        container: {
+            type: Object,
+            observer: '_containerChanged'
+        },
+
+        /**
+         * data source to the web api
+         */
+        dataSource: {
+            type: Object,
+            value: null,
+            observer: '_dataSourceChanged'
+        },
+
+        /**
+         * dateTimes to display
+         */
+        dateTimes: {
+            type: Object,
+            value: null,
+            observer: '_dateTimesChanged'
+        },
+
+        /**
+         * current loaded layers
+         */
+        currentLayers: {
+            type: Object,
+            value: function() { return []; }
+        },
+
+        /**
+         * the opacity of the layer
+         */
+        opacity: {
+            type: Number,
+            value: 1,
+            observer: '_opacityChanged'
+        },
+
+        /**
+         * the datetime from the MIKE file to show
+         */
+        dateTimeCurrent: {
+            type: String,
+            value: '',
+            observer: '_dateTimeCurrentChanged'
+        },
+
+        /**
+         * decides if enabled
+         */
+        enabled: {
+            type: Boolean,
+            value: true,
+            observer: '_enabledChanged'
+        },
+
+        upperRight: {
+            type: Object,
+            value: null,
+            observer: '_boundsChanged'
+        },
+
+        lowerLeft: {
+            type: Object,
+            value: null,
+            observer: '_boundsChanged'
+        },
+
+        loadProgress: {
+            type: Number,
+            value: 0,
+            notify: true
+        },
+
+        loading: {
+            type: Boolean,
+            value: false,
+            notify: true
+        },
+
+        imageStyle: {
+            tyle: String,
+            value: ''
+        }
+    },
+
+    _dateTimeCurrentChanged: function() {
+        for (var i = 0; i < this.dateTimes.length; i++) {
+            var currentLayer = this.findLayer(this.dateTimes[i]);
+            if (currentLayer) {
+                if (currentLayer.dateTime === this.dateTimeCurrent) {
+                    currentLayer.layer.setOpacity(this.opacity);
+                }
+                else {
+                    currentLayer.layer.setOpacity(0);
+                }
+            }
+        }
+    },
+
+    _dateTimesChanged: function() {
+        this.go();
+    },
+
+    _layersChanged: function() {
+        this.go();
+    },
+
+    _containerChanged: function() {
+        this.go();
+    },
+
+    _boundsChanged: function() {
+        this.go();
+    },
+
+    _dataSourceChanged: function() {
+        this.go();
+    },
+
+    _opacityChanged: function(oldValue, newValue) {
+        var currentLayer = this.findLayer(this.dateTimeCurrent);
+        if (currentLayer) {
+            currentLayer.layer.setOpacity(this.opacity);
+        }
+    },
+
+    _enabledChanged: function() {
+        if (this.enabled) {
+            this.go();
+        }
+        else {
+            this.detached();
+        }
+    },
+
+    go: function() {
+        if (this.container && this.enabled && this.dataSource && this.dateTimes && this.upperRight && this.lowerLeft) {
+            this.loading = true;
+            this.url = this.dataSource.host + '/api/radarimage/' + this.dataSource.radar + '/datetimes/lastbefore/';
+            this.body = JSON.stringify(this.dateTimes);
+            this.$.ajax.generateRequest();
+        }
+    },
+
+    handlerDateTimes: function(header, data) {
+        var dateTimes = data.xhr.response;
+        var currentLayers = [];
+        this.removeAll();
+        for (var i = 0; i < this.dateTimes.length; i++) {
+            var style = this.imageStyle !== '' ? '?style=' + this.imageStyle : '';
+            var url = this.dataSource.host + '/api/radarimage/' + this.dataSource.radar + '/' + moment(dateTimes[i]).format('YYYY-MM-DDTHHmmss') + '/bitmap' + style;
+
+            var opacity = i === 0 ? 1 : 0;
+            var imagebounds = [[this.lowerLeft.latitude, this.lowerLeft.longitude], [this.upperRight.latitude, this.upperRight.longitude]];
+            var layer = L.imageOverlay(url, imagebounds, {
+                opacity: opacity,
+                timestamp: this.dateTimes[i]
+            })
+
+            var that = this;
+            layer.on('load', function(e) {
+                var loaded = 0;
+                for (var i = 0; i < that.currentLayers.length; i++) {
+                    if (that.currentLayers[i].dateTime === e.target.options.timestamp) {
+                        that.currentLayers[i].loaded = true;
+                    }
+
+                    if (that.currentLayers[i].loaded) {
+                        loaded++;
+                    }
+                }
+
+                that.loadProgress = 100 * loaded / that.currentLayers.length;
+                that.loading = that.loadProgress !== 100;
+            }, this);
+
+            layer.addTo(this.container);
+
+            currentLayers.push({
+                dateTime: this.dateTimes[i],
+                layer: layer
+            });
+        }
+        this.currentLayers = currentLayers;
+    },
+
+    removeAll: function() {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            for (var i = 0; i < this.currentLayers.length; i++) {
+                this.container.removeLayer(this.currentLayers[i].layer);
+            }
+            this.currentLayers = [];
+        }
+    },
+
+    findLayer: function(dateTime) {
+        if (this.container && this.currentLayers && this.currentLayers.length > 0) {
+            for (var i = 0; i < this.currentLayers.length; i++) {
+                if (this.currentLayers[i].dateTime == dateTime) {
+                    return this.currentLayers[i];
+                }
+            }
+        }
+        return null;
+    },
+
+    detached: function() {
+        this.removeAll();
+    }
+});
+</script>
