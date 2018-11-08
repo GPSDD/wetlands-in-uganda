@@ -1,0 +1,4044 @@
+{
+    "metadata": [
+        {
+            "field_only_in_table": "Non Wetland",
+            "reference_year": "2017"
+        }
+    ],
+    "values_as_km2": [
+        {
+            "Non Wetland": "2379.71",
+            "Permanent Water": "0.04",
+            "Wetland - High Probability": "0.56",
+            "Wetland - Low Probability": "270.70",
+            "Wetland - Medium Probability": "97.70",
+            "regionId": "1",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2709.12",
+            "Permanent Water": "27.59",
+            "Wetland - High Probability": "52.56",
+            "Wetland - Low Probability": "152.93",
+            "Wetland - Medium Probability": "148.05",
+            "regionId": "2",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3022.02",
+            "Permanent Water": "0.03",
+            "Wetland - High Probability": "1.20",
+            "Wetland - Low Probability": "329.11",
+            "Wetland - Medium Probability": "171.77",
+            "regionId": "3",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1404.52",
+            "Permanent Water": "0.12",
+            "Wetland - High Probability": "2.80",
+            "Wetland - Low Probability": "97.96",
+            "Wetland - Medium Probability": "45.50",
+            "regionId": "4",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "747.79",
+            "Permanent Water": "779.86",
+            "Wetland - High Probability": "36.26",
+            "Wetland - Low Probability": "128.76",
+            "Wetland - Medium Probability": "59.27",
+            "regionId": "5",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1510.72",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "4.18",
+            "Wetland - Low Probability": "64.49",
+            "Wetland - Medium Probability": "37.64",
+            "regionId": "6",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2330.59",
+            "Permanent Water": "2.05",
+            "Wetland - High Probability": "3.54",
+            "Wetland - Low Probability": "178.22",
+            "Wetland - Medium Probability": "72.26",
+            "regionId": "7",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3336.57",
+            "Permanent Water": "4.41",
+            "Wetland - High Probability": "11.55",
+            "Wetland - Low Probability": "144.92",
+            "Wetland - Medium Probability": "110.46",
+            "regionId": "8",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2396.75",
+            "Permanent Water": "286.18",
+            "Wetland - High Probability": "38.92",
+            "Wetland - Low Probability": "324.37",
+            "Wetland - Medium Probability": "179.88",
+            "regionId": "9",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3970.87",
+            "Permanent Water": "26.72",
+            "Wetland - High Probability": "45.98",
+            "Wetland - Low Probability": "175.43",
+            "Wetland - Medium Probability": "144.11",
+            "regionId": "10",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "365.46",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "6.98",
+            "Wetland - Low Probability": "12.16",
+            "Wetland - Medium Probability": "25.58",
+            "regionId": "11",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "283.33",
+            "Permanent Water": "3.19",
+            "Wetland - High Probability": "2.05",
+            "Wetland - Low Probability": "0.68",
+            "Wetland - Medium Probability": "25.96",
+            "regionId": "12",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "936.24",
+            "Permanent Water": "18.21",
+            "Wetland - High Probability": "20.35",
+            "Wetland - Low Probability": "35.87",
+            "Wetland - Medium Probability": "38.67",
+            "regionId": "13",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "747.98",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.01",
+            "Wetland - Low Probability": "1.67",
+            "Wetland - Medium Probability": "0.44",
+            "regionId": "14",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1194.42",
+            "Permanent Water": "216.20",
+            "Wetland - High Probability": "7.06",
+            "Wetland - Low Probability": "19.79",
+            "Wetland - Medium Probability": "14.56",
+            "regionId": "15",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "758.83",
+            "Permanent Water": "0.97",
+            "Wetland - High Probability": "81.23",
+            "Wetland - Low Probability": "89.41",
+            "Wetland - Medium Probability": "118.70",
+            "regionId": "16",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "558.47",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.44",
+            "Wetland - Low Probability": "25.39",
+            "Wetland - Medium Probability": "15.40",
+            "regionId": "17",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "513.97",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.09",
+            "Wetland - Medium Probability": "0.00",
+            "regionId": "18",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "399.68",
+            "Permanent Water": "0.16",
+            "Wetland - High Probability": "59.18",
+            "Wetland - Low Probability": "52.10",
+            "Wetland - Medium Probability": "183.06",
+            "regionId": "19",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1012.36",
+            "Permanent Water": "830.60",
+            "Wetland - High Probability": "29.94",
+            "Wetland - Low Probability": "55.95",
+            "Wetland - Medium Probability": "53.02",
+            "regionId": "20",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "783.40",
+            "Permanent Water": "0.94",
+            "Wetland - High Probability": "5.46",
+            "Wetland - Low Probability": "38.60",
+            "Wetland - Medium Probability": "21.75",
+            "regionId": "21",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "841.08",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.29",
+            "Wetland - Low Probability": "3.02",
+            "Wetland - Medium Probability": "0.98",
+            "regionId": "22",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "650.27",
+            "Permanent Water": "26.33",
+            "Wetland - High Probability": "9.17",
+            "Wetland - Low Probability": "39.45",
+            "Wetland - Medium Probability": "28.60",
+            "regionId": "23",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "463.09",
+            "Permanent Water": "0.12",
+            "Wetland - High Probability": "28.56",
+            "Wetland - Low Probability": "66.25",
+            "Wetland - Medium Probability": "97.11",
+            "regionId": "24",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "378.75",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.08",
+            "Wetland - Low Probability": "21.14",
+            "Wetland - Medium Probability": "5.41",
+            "regionId": "25",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "231.19",
+            "Permanent Water": "9268.68",
+            "Wetland - High Probability": "20.95",
+            "Wetland - Low Probability": "34.07",
+            "Wetland - Medium Probability": "35.29",
+            "regionId": "26",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "849.10",
+            "Permanent Water": "502.44",
+            "Wetland - High Probability": "74.93",
+            "Wetland - Low Probability": "291.96",
+            "Wetland - Medium Probability": "160.86",
+            "regionId": "27",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "824.10",
+            "Permanent Water": "72.50",
+            "Wetland - High Probability": "12.41",
+            "Wetland - Low Probability": "116.45",
+            "Wetland - Medium Probability": "68.46",
+            "regionId": "28",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1544.56",
+            "Permanent Water": "12.61",
+            "Wetland - High Probability": "2.24",
+            "Wetland - Low Probability": "80.46",
+            "Wetland - Medium Probability": "30.23",
+            "regionId": "29",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3262.65",
+            "Permanent Water": "0.10",
+            "Wetland - High Probability": "0.94",
+            "Wetland - Low Probability": "116.54",
+            "Wetland - Medium Probability": "55.29",
+            "regionId": "30",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3496.58",
+            "Permanent Water": "1877.01",
+            "Wetland - High Probability": "31.54",
+            "Wetland - Low Probability": "90.32",
+            "Wetland - Medium Probability": "66.09",
+            "regionId": "31",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "951.39",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "0.10",
+            "Wetland - Low Probability": "12.14",
+            "Wetland - Medium Probability": "2.84",
+            "regionId": "32",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "947.46",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "1.99",
+            "Wetland - Low Probability": "46.35",
+            "Wetland - Medium Probability": "22.13",
+            "regionId": "33",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2398.10",
+            "Permanent Water": "35.05",
+            "Wetland - High Probability": "6.67",
+            "Wetland - Low Probability": "132.87",
+            "Wetland - Medium Probability": "50.56",
+            "regionId": "34",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "644.81",
+            "Permanent Water": "36.71",
+            "Wetland - High Probability": "10.60",
+            "Wetland - Low Probability": "17.61",
+            "Wetland - Medium Probability": "12.69",
+            "regionId": "35",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "6916.79",
+            "Permanent Water": "0.22",
+            "Wetland - High Probability": "3.66",
+            "Wetland - Low Probability": "248.39",
+            "Wetland - Medium Probability": "121.98",
+            "regionId": "36",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1697.00",
+            "Permanent Water": "21.59",
+            "Wetland - High Probability": "0.44",
+            "Wetland - Low Probability": "7.15",
+            "Wetland - Medium Probability": "6.85",
+            "regionId": "37",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1791.88",
+            "Permanent Water": "2.22",
+            "Wetland - High Probability": "4.05",
+            "Wetland - Low Probability": "11.65",
+            "Wetland - Medium Probability": "5.90",
+            "regionId": "38",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1031.72",
+            "Permanent Water": "282.78",
+            "Wetland - High Probability": "20.66",
+            "Wetland - Low Probability": "198.56",
+            "Wetland - Medium Probability": "90.31",
+            "regionId": "39",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "317.61",
+            "Permanent Water": "7247.59",
+            "Wetland - High Probability": "25.94",
+            "Wetland - Low Probability": "45.16",
+            "Wetland - Medium Probability": "83.63",
+            "regionId": "40",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "502.24",
+            "Permanent Water": "72.27",
+            "Wetland - High Probability": "60.10",
+            "Wetland - Low Probability": "136.13",
+            "Wetland - Medium Probability": "98.40",
+            "regionId": "41",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "702.78",
+            "Permanent Water": "32.05",
+            "Wetland - High Probability": "4.53",
+            "Wetland - Low Probability": "69.76",
+            "Wetland - Medium Probability": "27.76",
+            "regionId": "42",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "169.53",
+            "Permanent Water": "15.71",
+            "Wetland - High Probability": "3.13",
+            "Wetland - Low Probability": "2.03",
+            "Wetland - Medium Probability": "4.74",
+            "regionId": "43",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1280.23",
+            "Permanent Water": "35.06",
+            "Wetland - High Probability": "15.35",
+            "Wetland - Low Probability": "162.78",
+            "Wetland - Medium Probability": "63.56",
+            "regionId": "44",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2233.84",
+            "Permanent Water": "60.69",
+            "Wetland - High Probability": "8.18",
+            "Wetland - Low Probability": "67.59",
+            "Wetland - Medium Probability": "40.33",
+            "regionId": "45",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1273.12",
+            "Permanent Water": "51.60",
+            "Wetland - High Probability": "0.00",
+            "Wetland - Low Probability": "0.08",
+            "Wetland - Medium Probability": "0.82",
+            "regionId": "46",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "357.05",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.01",
+            "Wetland - Low Probability": "0.17",
+            "Wetland - Medium Probability": "0.16",
+            "regionId": "47",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2726.83",
+            "Permanent Water": "383.77",
+            "Wetland - High Probability": "43.78",
+            "Wetland - Low Probability": "122.53",
+            "Wetland - Medium Probability": "107.03",
+            "regionId": "48",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1425.56",
+            "Permanent Water": "102.49",
+            "Wetland - High Probability": "84.80",
+            "Wetland - Low Probability": "468.86",
+            "Wetland - Medium Probability": "346.00",
+            "regionId": "49",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1246.36",
+            "Permanent Water": "105.85",
+            "Wetland - High Probability": "13.69",
+            "Wetland - Low Probability": "235.50",
+            "Wetland - Medium Probability": "101.31",
+            "regionId": "50",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "4085.04",
+            "Permanent Water": "140.20",
+            "Wetland - High Probability": "7.97",
+            "Wetland - Low Probability": "99.71",
+            "Wetland - Medium Probability": "52.37",
+            "regionId": "51",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1398.73",
+            "Permanent Water": "0.10",
+            "Wetland - High Probability": "1.47",
+            "Wetland - Low Probability": "121.36",
+            "Wetland - Medium Probability": "51.58",
+            "regionId": "52",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "371.87",
+            "Permanent Water": "5.04",
+            "Wetland - High Probability": "30.17",
+            "Wetland - Low Probability": "35.22",
+            "Wetland - Medium Probability": "47.61",
+            "regionId": "53",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "4356.46",
+            "Permanent Water": "42.70",
+            "Wetland - High Probability": "10.71",
+            "Wetland - Low Probability": "135.34",
+            "Wetland - Medium Probability": "57.60",
+            "regionId": "54",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3174.65",
+            "Permanent Water": "15.82",
+            "Wetland - High Probability": "21.08",
+            "Wetland - Low Probability": "263.23",
+            "Wetland - Medium Probability": "146.79",
+            "regionId": "55",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "690.36",
+            "Permanent Water": "18.95",
+            "Wetland - High Probability": "6.67",
+            "Wetland - Low Probability": "8.00",
+            "Wetland - Medium Probability": "2.87",
+            "regionId": "56",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3532.67",
+            "Permanent Water": "0.05",
+            "Wetland - High Probability": "0.63",
+            "Wetland - Low Probability": "380.00",
+            "Wetland - Medium Probability": "191.66",
+            "regionId": "57",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "746.52",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.00",
+            "Wetland - Low Probability": "6.26",
+            "Wetland - Medium Probability": "1.83",
+            "regionId": "58",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "996.26",
+            "Permanent Water": "0.01",
+            "Wetland - High Probability": "0.49",
+            "Wetland - Low Probability": "44.92",
+            "Wetland - Medium Probability": "19.09",
+            "regionId": "59",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2846.54",
+            "Permanent Water": "0.09",
+            "Wetland - High Probability": "12.89",
+            "Wetland - Low Probability": "477.02",
+            "Wetland - Medium Probability": "273.94",
+            "regionId": "60",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "811.40",
+            "Permanent Water": "57.12",
+            "Wetland - High Probability": "93.56",
+            "Wetland - Low Probability": "60.84",
+            "Wetland - Medium Probability": "51.15",
+            "regionId": "61",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "764.03",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "7.33",
+            "Wetland - Low Probability": "33.25",
+            "Wetland - Medium Probability": "42.59",
+            "regionId": "62",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2186.66",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "11.41",
+            "Wetland - Low Probability": "172.29",
+            "Wetland - Medium Probability": "92.57",
+            "regionId": "63",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1713.08",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "1.39",
+            "Wetland - Low Probability": "20.81",
+            "Wetland - Medium Probability": "12.44",
+            "regionId": "64",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2309.00",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "4.26",
+            "Wetland - Low Probability": "27.16",
+            "Wetland - Medium Probability": "12.28",
+            "regionId": "65",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "4993.92",
+            "Permanent Water": "0.30",
+            "Wetland - High Probability": "2.79",
+            "Wetland - Low Probability": "285.49",
+            "Wetland - Medium Probability": "159.58",
+            "regionId": "66",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1260.65",
+            "Permanent Water": "0.07",
+            "Wetland - High Probability": "1.29",
+            "Wetland - Low Probability": "50.86",
+            "Wetland - Medium Probability": "29.14",
+            "regionId": "67",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "542.78",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "2.84",
+            "Wetland - Low Probability": "70.57",
+            "Wetland - Medium Probability": "31.11",
+            "regionId": "68",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2019.24",
+            "Permanent Water": "0.05",
+            "Wetland - High Probability": "4.15",
+            "Wetland - Low Probability": "135.32",
+            "Wetland - Medium Probability": "57.22",
+            "regionId": "69",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1001.22",
+            "Permanent Water": "0.23",
+            "Wetland - High Probability": "0.62",
+            "Wetland - Low Probability": "15.15",
+            "Wetland - Medium Probability": "7.15",
+            "regionId": "70",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "816.63",
+            "Permanent Water": "0.09",
+            "Wetland - High Probability": "0.27",
+            "Wetland - Low Probability": "35.61",
+            "Wetland - Medium Probability": "13.55",
+            "regionId": "71",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "522.77",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "0.00",
+            "Wetland - Low Probability": "2.25",
+            "Wetland - Medium Probability": "0.83",
+            "regionId": "72",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "439.92",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.99",
+            "Wetland - Medium Probability": "0.12",
+            "regionId": "73",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "949.47",
+            "Permanent Water": "1038.36",
+            "Wetland - High Probability": "57.94",
+            "Wetland - Low Probability": "65.19",
+            "Wetland - Medium Probability": "85.72",
+            "regionId": "74",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3464.28",
+            "Permanent Water": "2.86",
+            "Wetland - High Probability": "11.29",
+            "Wetland - Low Probability": "282.51",
+            "Wetland - Medium Probability": "159.97",
+            "regionId": "75",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1000.93",
+            "Permanent Water": "2267.05",
+            "Wetland - High Probability": "25.63",
+            "Wetland - Low Probability": "44.56",
+            "Wetland - Medium Probability": "37.81",
+            "regionId": "76",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "493.03",
+            "Permanent Water": "0.03",
+            "Wetland - High Probability": "0.97",
+            "Wetland - Low Probability": "10.89",
+            "Wetland - Medium Probability": "13.55",
+            "regionId": "77",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1639.81",
+            "Permanent Water": "0.75",
+            "Wetland - High Probability": "0.04",
+            "Wetland - Low Probability": "147.34",
+            "Wetland - Medium Probability": "28.63",
+            "regionId": "78",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "541.15",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.04",
+            "Wetland - Low Probability": "2.12",
+            "Wetland - Medium Probability": "0.60",
+            "regionId": "79",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1409.49",
+            "Permanent Water": "91.26",
+            "Wetland - High Probability": "8.81",
+            "Wetland - Low Probability": "45.96",
+            "Wetland - Medium Probability": "27.04",
+            "regionId": "80",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3381.20",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "2.49",
+            "Wetland - Low Probability": "110.92",
+            "Wetland - Medium Probability": "43.43",
+            "regionId": "81",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1447.19",
+            "Permanent Water": "60.34",
+            "Wetland - High Probability": "61.99",
+            "Wetland - Low Probability": "166.48",
+            "Wetland - Medium Probability": "121.65",
+            "regionId": "82",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1047.32",
+            "Permanent Water": "319.08",
+            "Wetland - High Probability": "4.21",
+            "Wetland - Low Probability": "115.73",
+            "Wetland - Medium Probability": "37.96",
+            "regionId": "83",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "4454.55",
+            "Permanent Water": "59.56",
+            "Wetland - High Probability": "13.02",
+            "Wetland - Low Probability": "62.21",
+            "Wetland - Medium Probability": "40.25",
+            "regionId": "84",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1690.41",
+            "Permanent Water": "2223.72",
+            "Wetland - High Probability": "14.19",
+            "Wetland - Low Probability": "85.54",
+            "Wetland - Medium Probability": "64.21",
+            "regionId": "85",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2666.36",
+            "Permanent Water": "0.20",
+            "Wetland - High Probability": "81.30",
+            "Wetland - Low Probability": "666.98",
+            "Wetland - Medium Probability": "770.82",
+            "regionId": "86",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3047.71",
+            "Permanent Water": "1.07",
+            "Wetland - High Probability": "5.25",
+            "Wetland - Low Probability": "296.85",
+            "Wetland - Medium Probability": "124.56",
+            "regionId": "87",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2681.49",
+            "Permanent Water": "235.78",
+            "Wetland - High Probability": "26.50",
+            "Wetland - Low Probability": "397.74",
+            "Wetland - Medium Probability": "166.92",
+            "regionId": "88",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "474.03",
+            "Permanent Water": "4094.23",
+            "Wetland - High Probability": "29.85",
+            "Wetland - Low Probability": "26.01",
+            "Wetland - Medium Probability": "23.15",
+            "regionId": "89",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "678.94",
+            "Permanent Water": "1.70",
+            "Wetland - High Probability": "20.42",
+            "Wetland - Low Probability": "59.48",
+            "Wetland - Medium Probability": "53.22",
+            "regionId": "90",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2917.79",
+            "Permanent Water": "0.19",
+            "Wetland - High Probability": "18.00",
+            "Wetland - Low Probability": "920.40",
+            "Wetland - Medium Probability": "617.02",
+            "regionId": "91",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1805.24",
+            "Permanent Water": "77.73",
+            "Wetland - High Probability": "11.61",
+            "Wetland - Low Probability": "57.21",
+            "Wetland - Medium Probability": "38.18",
+            "regionId": "92",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "528.70",
+            "Permanent Water": "80.20",
+            "Wetland - High Probability": "5.46",
+            "Wetland - Low Probability": "64.29",
+            "Wetland - Medium Probability": "42.39",
+            "regionId": "93",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1068.52",
+            "Permanent Water": "148.70",
+            "Wetland - High Probability": "25.92",
+            "Wetland - Low Probability": "100.61",
+            "Wetland - Medium Probability": "54.71",
+            "regionId": "94",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1884.74",
+            "Permanent Water": "2.46",
+            "Wetland - High Probability": "1.43",
+            "Wetland - Low Probability": "104.43",
+            "Wetland - Medium Probability": "33.35",
+            "regionId": "95",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "4378.81",
+            "Permanent Water": "60.21",
+            "Wetland - High Probability": "24.86",
+            "Wetland - Low Probability": "157.52",
+            "Wetland - Medium Probability": "102.90",
+            "regionId": "96",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1401.50",
+            "Permanent Water": "0.10",
+            "Wetland - High Probability": "1.75",
+            "Wetland - Low Probability": "169.92",
+            "Wetland - Medium Probability": "77.15",
+            "regionId": "97",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1956.70",
+            "Permanent Water": "0.90",
+            "Wetland - High Probability": "7.94",
+            "Wetland - Low Probability": "182.48",
+            "Wetland - Medium Probability": "100.25",
+            "regionId": "98",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "3051.47",
+            "Permanent Water": "0.01",
+            "Wetland - High Probability": "1.27",
+            "Wetland - Low Probability": "177.41",
+            "Wetland - Medium Probability": "100.87",
+            "regionId": "99",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "800.94",
+            "Permanent Water": "74.35",
+            "Wetland - High Probability": "42.44",
+            "Wetland - Low Probability": "85.27",
+            "Wetland - Medium Probability": "92.09",
+            "regionId": "100",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2766.48",
+            "Permanent Water": "758.30",
+            "Wetland - High Probability": "25.23",
+            "Wetland - Low Probability": "274.17",
+            "Wetland - Medium Probability": "191.57",
+            "regionId": "101",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "996.83",
+            "Permanent Water": "360.50",
+            "Wetland - High Probability": "7.38",
+            "Wetland - Low Probability": "59.64",
+            "Wetland - Medium Probability": "41.58",
+            "regionId": "102",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1438.23",
+            "Permanent Water": "81.56",
+            "Wetland - High Probability": "0.00",
+            "Wetland - Low Probability": "2.90",
+            "Wetland - Medium Probability": "0.85",
+            "regionId": "103",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1097.56",
+            "Permanent Water": "478.91",
+            "Wetland - High Probability": "55.21",
+            "Wetland - Low Probability": "210.93",
+            "Wetland - Medium Probability": "121.31",
+            "regionId": "104",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "653.05",
+            "Permanent Water": "0.02",
+            "Wetland - High Probability": "0.08",
+            "Wetland - Low Probability": "38.72",
+            "Wetland - Medium Probability": "8.22",
+            "regionId": "105",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "389.25",
+            "Permanent Water": "0.29",
+            "Wetland - High Probability": "0.24",
+            "Wetland - Low Probability": "10.11",
+            "Wetland - Medium Probability": "5.69",
+            "regionId": "106",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1246.53",
+            "Permanent Water": "44.08",
+            "Wetland - High Probability": "3.82",
+            "Wetland - Low Probability": "83.65",
+            "Wetland - Medium Probability": "32.87",
+            "regionId": "107",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2234.84",
+            "Permanent Water": "0.19",
+            "Wetland - High Probability": "2.81",
+            "Wetland - Low Probability": "69.45",
+            "Wetland - Medium Probability": "33.22",
+            "regionId": "108",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1102.38",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "9.78",
+            "Wetland - Low Probability": "39.22",
+            "Wetland - Medium Probability": "34.50",
+            "regionId": "109",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "1776.69",
+            "Permanent Water": "888.01",
+            "Wetland - High Probability": "9.86",
+            "Wetland - Low Probability": "85.88",
+            "Wetland - Medium Probability": "46.42",
+            "regionId": "110",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2243.72",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "0.16",
+            "Wetland - Low Probability": "62.64",
+            "Wetland - Medium Probability": "18.61",
+            "regionId": "111",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "879.20",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "0.04",
+            "Wetland - Low Probability": "5.43",
+            "Wetland - Medium Probability": "2.52",
+            "regionId": "112",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "2379.75",
+            "Permanent Water": "0.04",
+            "Wetland - High Probability": "8.48",
+            "Wetland - Low Probability": "183.56",
+            "Wetland - Medium Probability": "176.89",
+            "regionId": "1",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2709.12",
+            "Permanent Water": "27.59",
+            "Wetland - High Probability": "91.41",
+            "Wetland - Low Probability": "75.08",
+            "Wetland - Medium Probability": "187.05",
+            "regionId": "2",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3022.07",
+            "Permanent Water": "0.03",
+            "Wetland - High Probability": "5.01",
+            "Wetland - Low Probability": "212.75",
+            "Wetland - Medium Probability": "284.28",
+            "regionId": "3",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1404.52",
+            "Permanent Water": "0.12",
+            "Wetland - High Probability": "5.87",
+            "Wetland - Low Probability": "81.50",
+            "Wetland - Medium Probability": "58.88",
+            "regionId": "4",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "747.79",
+            "Permanent Water": "779.91",
+            "Wetland - High Probability": "48.47",
+            "Wetland - Low Probability": "90.06",
+            "Wetland - Medium Probability": "85.71",
+            "regionId": "5",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1510.73",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "12.22",
+            "Wetland - Low Probability": "45.83",
+            "Wetland - Medium Probability": "48.25",
+            "regionId": "6",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2330.59",
+            "Permanent Water": "2.05",
+            "Wetland - High Probability": "9.74",
+            "Wetland - Low Probability": "108.66",
+            "Wetland - Medium Probability": "135.61",
+            "regionId": "7",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3336.57",
+            "Permanent Water": "4.41",
+            "Wetland - High Probability": "23.80",
+            "Wetland - Low Probability": "105.08",
+            "Wetland - Medium Probability": "138.04",
+            "regionId": "8",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2396.92",
+            "Permanent Water": "286.21",
+            "Wetland - High Probability": "108.84",
+            "Wetland - Low Probability": "204.36",
+            "Wetland - Medium Probability": "229.77",
+            "regionId": "9",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3970.87",
+            "Permanent Water": "26.72",
+            "Wetland - High Probability": "79.53",
+            "Wetland - Low Probability": "125.81",
+            "Wetland - Medium Probability": "160.18",
+            "regionId": "10",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "365.47",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "14.59",
+            "Wetland - Low Probability": "9.05",
+            "Wetland - Medium Probability": "21.09",
+            "regionId": "11",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "283.33",
+            "Permanent Water": "3.19",
+            "Wetland - High Probability": "5.95",
+            "Wetland - Low Probability": "0.52",
+            "Wetland - Medium Probability": "22.21",
+            "regionId": "12",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "936.24",
+            "Permanent Water": "18.21",
+            "Wetland - High Probability": "31.33",
+            "Wetland - Low Probability": "19.47",
+            "Wetland - Medium Probability": "44.08",
+            "regionId": "13",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "747.98",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.06",
+            "Wetland - Low Probability": "1.19",
+            "Wetland - Medium Probability": "0.87",
+            "regionId": "14",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1194.42",
+            "Permanent Water": "216.20",
+            "Wetland - High Probability": "8.57",
+            "Wetland - Low Probability": "17.83",
+            "Wetland - Medium Probability": "15.00",
+            "regionId": "15",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "758.84",
+            "Permanent Water": "0.97",
+            "Wetland - High Probability": "112.64",
+            "Wetland - Low Probability": "62.59",
+            "Wetland - Medium Probability": "114.11",
+            "regionId": "16",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "558.47",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "1.59",
+            "Wetland - Low Probability": "21.64",
+            "Wetland - Medium Probability": "18.00",
+            "regionId": "17",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "513.97",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.08",
+            "Wetland - Medium Probability": "0.00",
+            "regionId": "18",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "399.68",
+            "Permanent Water": "0.16",
+            "Wetland - High Probability": "115.17",
+            "Wetland - Low Probability": "33.16",
+            "Wetland - Medium Probability": "146.02",
+            "regionId": "19",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1012.36",
+            "Permanent Water": "830.60",
+            "Wetland - High Probability": "49.36",
+            "Wetland - Low Probability": "32.74",
+            "Wetland - Medium Probability": "56.81",
+            "regionId": "20",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "783.40",
+            "Permanent Water": "0.94",
+            "Wetland - High Probability": "10.70",
+            "Wetland - Low Probability": "27.16",
+            "Wetland - Medium Probability": "27.96",
+            "regionId": "21",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "841.08",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.46",
+            "Wetland - Low Probability": "2.20",
+            "Wetland - Medium Probability": "1.63",
+            "regionId": "22",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "650.27",
+            "Permanent Water": "26.33",
+            "Wetland - High Probability": "16.83",
+            "Wetland - Low Probability": "30.69",
+            "Wetland - Medium Probability": "29.70",
+            "regionId": "23",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "463.12",
+            "Permanent Water": "0.12",
+            "Wetland - High Probability": "54.06",
+            "Wetland - Low Probability": "58.15",
+            "Wetland - Medium Probability": "79.67",
+            "regionId": "24",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "378.75",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.38",
+            "Wetland - Low Probability": "15.64",
+            "Wetland - Medium Probability": "10.61",
+            "regionId": "25",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "231.19",
+            "Permanent Water": "9268.68",
+            "Wetland - High Probability": "31.69",
+            "Wetland - Low Probability": "17.76",
+            "Wetland - Medium Probability": "40.85",
+            "regionId": "26",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "850.14",
+            "Permanent Water": "502.49",
+            "Wetland - High Probability": "86.16",
+            "Wetland - Low Probability": "278.34",
+            "Wetland - Medium Probability": "162.16",
+            "regionId": "27",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "824.14",
+            "Permanent Water": "72.53",
+            "Wetland - High Probability": "23.98",
+            "Wetland - Low Probability": "98.86",
+            "Wetland - Medium Probability": "74.41",
+            "regionId": "28",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1544.56",
+            "Permanent Water": "12.61",
+            "Wetland - High Probability": "3.91",
+            "Wetland - Low Probability": "56.63",
+            "Wetland - Medium Probability": "52.39",
+            "regionId": "29",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3262.68",
+            "Permanent Water": "0.10",
+            "Wetland - High Probability": "5.18",
+            "Wetland - Low Probability": "75.65",
+            "Wetland - Medium Probability": "91.90",
+            "regionId": "30",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3496.58",
+            "Permanent Water": "1877.01",
+            "Wetland - High Probability": "46.33",
+            "Wetland - Low Probability": "49.56",
+            "Wetland - Medium Probability": "92.06",
+            "regionId": "31",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "951.39",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "0.56",
+            "Wetland - Low Probability": "9.58",
+            "Wetland - Medium Probability": "4.95",
+            "regionId": "32",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "947.49",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "6.77",
+            "Wetland - Low Probability": "36.31",
+            "Wetland - Medium Probability": "27.37",
+            "regionId": "33",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2398.10",
+            "Permanent Water": "35.05",
+            "Wetland - High Probability": "15.88",
+            "Wetland - Low Probability": "88.41",
+            "Wetland - Medium Probability": "85.80",
+            "regionId": "34",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "644.81",
+            "Permanent Water": "36.71",
+            "Wetland - High Probability": "13.46",
+            "Wetland - Low Probability": "11.63",
+            "Wetland - Medium Probability": "15.81",
+            "regionId": "35",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "6917.12",
+            "Permanent Water": "0.22",
+            "Wetland - High Probability": "11.02",
+            "Wetland - Low Probability": "227.18",
+            "Wetland - Medium Probability": "135.50",
+            "regionId": "36",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1697.00",
+            "Permanent Water": "21.59",
+            "Wetland - High Probability": "1.69",
+            "Wetland - Low Probability": "4.03",
+            "Wetland - Medium Probability": "8.72",
+            "regionId": "37",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1791.91",
+            "Permanent Water": "2.22",
+            "Wetland - High Probability": "5.24",
+            "Wetland - Low Probability": "9.99",
+            "Wetland - Medium Probability": "6.35",
+            "regionId": "38",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1032.01",
+            "Permanent Water": "282.79",
+            "Wetland - High Probability": "29.76",
+            "Wetland - Low Probability": "180.01",
+            "Wetland - Medium Probability": "99.45",
+            "regionId": "39",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "317.61",
+            "Permanent Water": "7247.59",
+            "Wetland - High Probability": "54.70",
+            "Wetland - Low Probability": "29.40",
+            "Wetland - Medium Probability": "70.63",
+            "regionId": "40",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "502.58",
+            "Permanent Water": "72.27",
+            "Wetland - High Probability": "67.98",
+            "Wetland - Low Probability": "133.15",
+            "Wetland - Medium Probability": "93.17",
+            "regionId": "41",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "702.78",
+            "Permanent Water": "32.05",
+            "Wetland - High Probability": "9.99",
+            "Wetland - Low Probability": "54.29",
+            "Wetland - Medium Probability": "37.78",
+            "regionId": "42",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "169.53",
+            "Permanent Water": "15.71",
+            "Wetland - High Probability": "4.89",
+            "Wetland - Low Probability": "0.92",
+            "Wetland - Medium Probability": "4.10",
+            "regionId": "43",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1280.79",
+            "Permanent Water": "35.06",
+            "Wetland - High Probability": "22.00",
+            "Wetland - Low Probability": "147.00",
+            "Wetland - Medium Probability": "72.13",
+            "regionId": "44",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2233.84",
+            "Permanent Water": "60.69",
+            "Wetland - High Probability": "19.99",
+            "Wetland - Low Probability": "44.82",
+            "Wetland - Medium Probability": "51.28",
+            "regionId": "45",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1273.12",
+            "Permanent Water": "51.60",
+            "Wetland - High Probability": "0.00",
+            "Wetland - Low Probability": "0.67",
+            "Wetland - Medium Probability": "0.23",
+            "regionId": "46",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "357.05",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.04",
+            "Wetland - Low Probability": "0.13",
+            "Wetland - Medium Probability": "0.17",
+            "regionId": "47",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2726.83",
+            "Permanent Water": "383.77",
+            "Wetland - High Probability": "72.59",
+            "Wetland - Low Probability": "69.85",
+            "Wetland - Medium Probability": "130.91",
+            "regionId": "48",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1425.62",
+            "Permanent Water": "102.54",
+            "Wetland - High Probability": "134.48",
+            "Wetland - Low Probability": "283.86",
+            "Wetland - Medium Probability": "481.21",
+            "regionId": "49",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1246.36",
+            "Permanent Water": "105.86",
+            "Wetland - High Probability": "27.45",
+            "Wetland - Low Probability": "177.41",
+            "Wetland - Medium Probability": "145.62",
+            "regionId": "50",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "4085.15",
+            "Permanent Water": "140.20",
+            "Wetland - High Probability": "18.73",
+            "Wetland - Low Probability": "60.91",
+            "Wetland - Medium Probability": "80.31",
+            "regionId": "51",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1398.73",
+            "Permanent Water": "0.10",
+            "Wetland - High Probability": "5.75",
+            "Wetland - Low Probability": "103.77",
+            "Wetland - Medium Probability": "64.88",
+            "regionId": "52",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "371.92",
+            "Permanent Water": "5.04",
+            "Wetland - High Probability": "36.31",
+            "Wetland - Low Probability": "34.01",
+            "Wetland - Medium Probability": "42.62",
+            "regionId": "53",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "4356.54",
+            "Permanent Water": "42.70",
+            "Wetland - High Probability": "21.28",
+            "Wetland - Low Probability": "92.06",
+            "Wetland - Medium Probability": "90.22",
+            "regionId": "54",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3174.67",
+            "Permanent Water": "15.83",
+            "Wetland - High Probability": "42.59",
+            "Wetland - Low Probability": "168.23",
+            "Wetland - Medium Probability": "220.26",
+            "regionId": "55",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "690.36",
+            "Permanent Water": "19.04",
+            "Wetland - High Probability": "6.68",
+            "Wetland - Low Probability": "6.57",
+            "Wetland - Medium Probability": "4.20",
+            "regionId": "56",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3532.78",
+            "Permanent Water": "0.05",
+            "Wetland - High Probability": "7.71",
+            "Wetland - Low Probability": "255.75",
+            "Wetland - Medium Probability": "308.70",
+            "regionId": "57",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "746.52",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.01",
+            "Wetland - Low Probability": "4.10",
+            "Wetland - Medium Probability": "3.98",
+            "regionId": "58",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "996.26",
+            "Permanent Water": "0.01",
+            "Wetland - High Probability": "5.50",
+            "Wetland - Low Probability": "20.88",
+            "Wetland - Medium Probability": "38.13",
+            "regionId": "59",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2846.74",
+            "Permanent Water": "0.09",
+            "Wetland - High Probability": "44.29",
+            "Wetland - Low Probability": "380.77",
+            "Wetland - Medium Probability": "338.60",
+            "regionId": "60",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "811.49",
+            "Permanent Water": "57.12",
+            "Wetland - High Probability": "103.87",
+            "Wetland - Low Probability": "53.28",
+            "Wetland - Medium Probability": "48.30",
+            "regionId": "61",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "764.03",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "17.61",
+            "Wetland - Low Probability": "23.07",
+            "Wetland - Medium Probability": "42.48",
+            "regionId": "62",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2186.66",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "26.56",
+            "Wetland - Low Probability": "93.80",
+            "Wetland - Medium Probability": "155.91",
+            "regionId": "63",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1713.08",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "3.59",
+            "Wetland - Low Probability": "10.54",
+            "Wetland - Medium Probability": "20.50",
+            "regionId": "64",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2309.00",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "7.89",
+            "Wetland - Low Probability": "20.12",
+            "Wetland - Medium Probability": "15.69",
+            "regionId": "65",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "4993.94",
+            "Permanent Water": "0.30",
+            "Wetland - High Probability": "15.95",
+            "Wetland - Low Probability": "219.59",
+            "Wetland - Medium Probability": "212.29",
+            "regionId": "66",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1260.85",
+            "Permanent Water": "0.07",
+            "Wetland - High Probability": "1.97",
+            "Wetland - Low Probability": "52.52",
+            "Wetland - Medium Probability": "26.59",
+            "regionId": "67",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "542.94",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "5.21",
+            "Wetland - Low Probability": "66.63",
+            "Wetland - Medium Probability": "32.51",
+            "regionId": "68",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2019.24",
+            "Permanent Water": "0.06",
+            "Wetland - High Probability": "11.32",
+            "Wetland - Low Probability": "97.31",
+            "Wetland - Medium Probability": "88.06",
+            "regionId": "69",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1001.22",
+            "Permanent Water": "0.23",
+            "Wetland - High Probability": "1.86",
+            "Wetland - Low Probability": "9.83",
+            "Wetland - Medium Probability": "11.24",
+            "regionId": "70",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "816.63",
+            "Permanent Water": "0.09",
+            "Wetland - High Probability": "0.92",
+            "Wetland - Low Probability": "24.94",
+            "Wetland - Medium Probability": "23.57",
+            "regionId": "71",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "522.77",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "0.08",
+            "Wetland - Low Probability": "1.74",
+            "Wetland - Medium Probability": "1.27",
+            "regionId": "72",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "439.92",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.01",
+            "Wetland - Low Probability": "0.76",
+            "Wetland - Medium Probability": "0.34",
+            "regionId": "73",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "949.47",
+            "Permanent Water": "1038.36",
+            "Wetland - High Probability": "92.48",
+            "Wetland - Low Probability": "36.86",
+            "Wetland - Medium Probability": "79.50",
+            "regionId": "74",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3464.31",
+            "Permanent Water": "2.86",
+            "Wetland - High Probability": "35.95",
+            "Wetland - Low Probability": "151.82",
+            "Wetland - Medium Probability": "265.97",
+            "regionId": "75",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1000.93",
+            "Permanent Water": "2267.05",
+            "Wetland - High Probability": "36.55",
+            "Wetland - Low Probability": "25.84",
+            "Wetland - Medium Probability": "45.61",
+            "regionId": "76",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "493.03",
+            "Permanent Water": "0.03",
+            "Wetland - High Probability": "3.83",
+            "Wetland - Low Probability": "7.81",
+            "Wetland - Medium Probability": "13.78",
+            "regionId": "77",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1639.81",
+            "Permanent Water": "0.75",
+            "Wetland - High Probability": "1.07",
+            "Wetland - Low Probability": "98.85",
+            "Wetland - Medium Probability": "76.10",
+            "regionId": "78",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "541.15",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.12",
+            "Wetland - Low Probability": "1.35",
+            "Wetland - Medium Probability": "1.29",
+            "regionId": "79",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1409.49",
+            "Permanent Water": "91.28",
+            "Wetland - High Probability": "12.73",
+            "Wetland - Low Probability": "31.87",
+            "Wetland - Medium Probability": "37.20",
+            "regionId": "80",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3381.20",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "7.50",
+            "Wetland - Low Probability": "78.69",
+            "Wetland - Medium Probability": "70.66",
+            "regionId": "81",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1447.19",
+            "Permanent Water": "60.34",
+            "Wetland - High Probability": "94.47",
+            "Wetland - Low Probability": "97.97",
+            "Wetland - Medium Probability": "157.68",
+            "regionId": "82",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1047.32",
+            "Permanent Water": "319.08",
+            "Wetland - High Probability": "11.96",
+            "Wetland - Low Probability": "96.62",
+            "Wetland - Medium Probability": "49.32",
+            "regionId": "83",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "4454.55",
+            "Permanent Water": "59.57",
+            "Wetland - High Probability": "20.89",
+            "Wetland - Low Probability": "41.41",
+            "Wetland - Medium Probability": "53.15",
+            "regionId": "84",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1690.41",
+            "Permanent Water": "2223.72",
+            "Wetland - High Probability": "30.67",
+            "Wetland - Low Probability": "50.12",
+            "Wetland - Medium Probability": "83.14",
+            "regionId": "85",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2666.36",
+            "Permanent Water": "0.20",
+            "Wetland - High Probability": "233.38",
+            "Wetland - Low Probability": "355.41",
+            "Wetland - Medium Probability": "930.31",
+            "regionId": "86",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3047.71",
+            "Permanent Water": "1.07",
+            "Wetland - High Probability": "19.79",
+            "Wetland - Low Probability": "196.94",
+            "Wetland - Medium Probability": "209.93",
+            "regionId": "87",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2681.50",
+            "Permanent Water": "235.80",
+            "Wetland - High Probability": "45.22",
+            "Wetland - Low Probability": "285.03",
+            "Wetland - Medium Probability": "260.89",
+            "regionId": "88",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "474.03",
+            "Permanent Water": "4094.23",
+            "Wetland - High Probability": "37.62",
+            "Wetland - Low Probability": "16.32",
+            "Wetland - Medium Probability": "25.07",
+            "regionId": "89",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "679.01",
+            "Permanent Water": "1.71",
+            "Wetland - High Probability": "28.60",
+            "Wetland - Low Probability": "54.38",
+            "Wetland - Medium Probability": "50.07",
+            "regionId": "90",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2917.88",
+            "Permanent Water": "0.19",
+            "Wetland - High Probability": "92.02",
+            "Wetland - Low Probability": "556.29",
+            "Wetland - Medium Probability": "907.02",
+            "regionId": "91",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1805.24",
+            "Permanent Water": "77.73",
+            "Wetland - High Probability": "24.88",
+            "Wetland - Low Probability": "35.93",
+            "Wetland - Medium Probability": "46.18",
+            "regionId": "92",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "528.94",
+            "Permanent Water": "80.20",
+            "Wetland - High Probability": "4.72",
+            "Wetland - Low Probability": "59.63",
+            "Wetland - Medium Probability": "47.55",
+            "regionId": "93",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1068.53",
+            "Permanent Water": "148.70",
+            "Wetland - High Probability": "43.31",
+            "Wetland - Low Probability": "64.72",
+            "Wetland - Medium Probability": "73.20",
+            "regionId": "94",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1884.74",
+            "Permanent Water": "2.46",
+            "Wetland - High Probability": "3.55",
+            "Wetland - Low Probability": "72.38",
+            "Wetland - Medium Probability": "63.29",
+            "regionId": "95",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "4378.81",
+            "Permanent Water": "60.22",
+            "Wetland - High Probability": "44.10",
+            "Wetland - Low Probability": "107.63",
+            "Wetland - Medium Probability": "133.54",
+            "regionId": "96",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1401.50",
+            "Permanent Water": "0.10",
+            "Wetland - High Probability": "5.92",
+            "Wetland - Low Probability": "115.17",
+            "Wetland - Medium Probability": "127.74",
+            "regionId": "97",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1956.70",
+            "Permanent Water": "0.91",
+            "Wetland - High Probability": "39.87",
+            "Wetland - Low Probability": "80.71",
+            "Wetland - Medium Probability": "170.08",
+            "regionId": "98",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "3051.68",
+            "Permanent Water": "0.01",
+            "Wetland - High Probability": "3.81",
+            "Wetland - Low Probability": "113.22",
+            "Wetland - Medium Probability": "162.31",
+            "regionId": "99",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "801.18",
+            "Permanent Water": "74.35",
+            "Wetland - High Probability": "48.74",
+            "Wetland - Low Probability": "84.27",
+            "Wetland - Medium Probability": "86.54",
+            "regionId": "100",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2766.48",
+            "Permanent Water": "758.30",
+            "Wetland - High Probability": "64.63",
+            "Wetland - Low Probability": "156.45",
+            "Wetland - Medium Probability": "269.90",
+            "regionId": "101",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "996.83",
+            "Permanent Water": "360.50",
+            "Wetland - High Probability": "12.73",
+            "Wetland - Low Probability": "31.24",
+            "Wetland - Medium Probability": "64.64",
+            "regionId": "102",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1438.23",
+            "Permanent Water": "81.56",
+            "Wetland - High Probability": "0.04",
+            "Wetland - Low Probability": "2.13",
+            "Wetland - Medium Probability": "1.59",
+            "regionId": "103",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1098.12",
+            "Permanent Water": "478.93",
+            "Wetland - High Probability": "57.64",
+            "Wetland - Low Probability": "200.23",
+            "Wetland - Medium Probability": "129.00",
+            "regionId": "104",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "653.05",
+            "Permanent Water": "0.02",
+            "Wetland - High Probability": "0.74",
+            "Wetland - Low Probability": "27.83",
+            "Wetland - Medium Probability": "18.45",
+            "regionId": "105",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "389.25",
+            "Permanent Water": "0.29",
+            "Wetland - High Probability": "0.90",
+            "Wetland - Low Probability": "7.84",
+            "Wetland - Medium Probability": "7.30",
+            "regionId": "106",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1246.63",
+            "Permanent Water": "44.08",
+            "Wetland - High Probability": "4.58",
+            "Wetland - Low Probability": "72.13",
+            "Wetland - Medium Probability": "43.52",
+            "regionId": "107",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2234.86",
+            "Permanent Water": "0.19",
+            "Wetland - High Probability": "5.73",
+            "Wetland - Low Probability": "62.45",
+            "Wetland - Medium Probability": "37.28",
+            "regionId": "108",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1102.38",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "21.20",
+            "Wetland - Low Probability": "26.70",
+            "Wetland - Medium Probability": "35.61",
+            "regionId": "109",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "1776.69",
+            "Permanent Water": "888.01",
+            "Wetland - High Probability": "20.33",
+            "Wetland - Low Probability": "52.57",
+            "Wetland - Medium Probability": "69.27",
+            "regionId": "110",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "2243.72",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "1.48",
+            "Wetland - Low Probability": "46.93",
+            "Wetland - Medium Probability": "32.99",
+            "regionId": "111",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "879.20",
+            "Permanent Water": "0.00",
+            "Wetland - High Probability": "0.13",
+            "Wetland - Low Probability": "4.40",
+            "Wetland - Medium Probability": "3.46",
+            "regionId": "112",
+            "yyyy": "2018"
+        }
+    ],
+    "values_as_percentchange": [
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "1",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "2",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "3",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "4",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "5",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "6",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "7",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "8",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "9",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "10",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "11",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "12",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "13",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "14",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "15",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "16",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "17",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "18",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "19",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "20",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "21",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "22",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "23",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "24",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "25",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "26",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "27",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "28",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "29",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "30",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "31",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "32",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "33",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "34",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "35",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "36",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "37",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "38",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "39",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "40",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "41",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "42",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "43",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "44",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "45",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "46",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "47",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "48",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "49",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "50",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "51",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "52",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "53",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "54",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "55",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "56",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "57",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "58",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "59",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "60",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "61",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "62",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "63",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "64",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "65",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "66",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "67",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "68",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "69",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "70",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "71",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "72",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "73",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "74",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "75",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "76",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "77",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "78",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "79",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "80",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "81",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "82",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "83",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "84",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "85",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "86",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "87",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "88",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "89",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "90",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "91",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "92",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "93",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "94",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "95",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "96",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "97",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "98",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "99",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "100",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "101",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "102",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "103",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "104",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "105",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "106",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "107",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "108",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "109",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "110",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "111",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "112",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "-0.00168087708166",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-1414.28571429",
+            "Wetland - Low Probability": "32.1906169191",
+            "Wetland - Medium Probability": "-81.054247697",
+            "regionId": "1",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-73.9155251142",
+            "Wetland - Low Probability": "50.9056431047",
+            "Wetland - Medium Probability": "-26.3424518744",
+            "regionId": "2",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00165452247173",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-317.5",
+            "Wetland - Low Probability": "35.3559600134",
+            "Wetland - Medium Probability": "-65.500378413",
+            "regionId": "3",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-109.642857143",
+            "Wetland - Low Probability": "16.8027766435",
+            "Wetland - Medium Probability": "-29.4065934066",
+            "regionId": "4",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "-0.00641140717564",
+            "Wetland - High Probability": "-33.6734693878",
+            "Wetland - Low Probability": "30.055917987",
+            "Wetland - Medium Probability": "-44.6094145436",
+            "regionId": "5",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.000661936030501",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-192.344497608",
+            "Wetland - Low Probability": "28.934718561",
+            "Wetland - Medium Probability": "-28.1880977683",
+            "regionId": "6",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-175.141242938",
+            "Wetland - Low Probability": "39.0304118505",
+            "Wetland - Medium Probability": "-87.6695267091",
+            "regionId": "7",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-106.060606061",
+            "Wetland - Low Probability": "27.4910295335",
+            "Wetland - Medium Probability": "-24.9683143219",
+            "regionId": "8",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00709293835402",
+            "Permanent Water": "-0.010482912852",
+            "Wetland - High Probability": "-179.650565262",
+            "Wetland - Low Probability": "36.9978727996",
+            "Wetland - Medium Probability": "-27.7351567712",
+            "regionId": "9",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-72.966507177",
+            "Wetland - Low Probability": "28.2847859545",
+            "Wetland - Medium Probability": "-11.1512039414",
+            "regionId": "10",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00273627756801",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-109.025787966",
+            "Wetland - Low Probability": "25.5756578947",
+            "Wetland - Medium Probability": "17.5527756059",
+            "regionId": "11",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-190.243902439",
+            "Wetland - Low Probability": "23.5294117647",
+            "Wetland - Medium Probability": "14.4453004622",
+            "regionId": "12",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-53.9557739558",
+            "Wetland - Low Probability": "45.7206579314",
+            "Wetland - Medium Probability": "-13.9901732609",
+            "regionId": "13",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-500.0",
+            "Wetland - Low Probability": "28.7425149701",
+            "Wetland - Medium Probability": "-97.7272727273",
+            "regionId": "14",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-21.388101983",
+            "Wetland - Low Probability": "9.90399191511",
+            "Wetland - Medium Probability": "-3.02197802198",
+            "regionId": "15",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00131781822015",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-38.6679798104",
+            "Wetland - Low Probability": "29.9966446706",
+            "Wetland - Medium Probability": "3.86689132266",
+            "regionId": "16",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-261.363636364",
+            "Wetland - Low Probability": "14.7695943285",
+            "Wetland - Medium Probability": "-16.8831168831",
+            "regionId": "17",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "11.1111111111",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "18",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-94.6096654275",
+            "Wetland - Low Probability": "36.3531669866",
+            "Wetland - Medium Probability": "20.2338031247",
+            "regionId": "19",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-64.8630594522",
+            "Wetland - Low Probability": "41.4834673816",
+            "Wetland - Medium Probability": "-7.14824594493",
+            "regionId": "20",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-95.9706959707",
+            "Wetland - Low Probability": "29.6373056995",
+            "Wetland - Medium Probability": "-28.5517241379",
+            "regionId": "21",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-58.6206896552",
+            "Wetland - Low Probability": "27.1523178808",
+            "Wetland - Medium Probability": "-66.3265306122",
+            "regionId": "22",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-83.5332606325",
+            "Wetland - Low Probability": "22.2053231939",
+            "Wetland - Medium Probability": "-3.84615384615",
+            "regionId": "23",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00647822237579",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-89.2857142857",
+            "Wetland - Low Probability": "12.2264150943",
+            "Wetland - Medium Probability": "17.9590155494",
+            "regionId": "24",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-375.0",
+            "Wetland - Low Probability": "26.0170293283",
+            "Wetland - Medium Probability": "-96.1182994455",
+            "regionId": "25",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-51.2649164678",
+            "Wetland - Low Probability": "47.8720281773",
+            "Wetland - Medium Probability": "-15.7551714367",
+            "regionId": "26",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.122482628666",
+            "Permanent Water": "-0.0099514369875",
+            "Wetland - High Probability": "-14.9873215001",
+            "Wetland - Low Probability": "4.66502260584",
+            "Wetland - Medium Probability": "-0.808156160637",
+            "regionId": "27",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00485377988108",
+            "Permanent Water": "-0.0413793103448",
+            "Wetland - High Probability": "-93.2312651088",
+            "Wetland - Low Probability": "15.1051953628",
+            "Wetland - Medium Probability": "-8.69120654397",
+            "regionId": "28",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-74.5535714286",
+            "Wetland - Low Probability": "29.6172010937",
+            "Wetland - Medium Probability": "-73.3046642408",
+            "regionId": "29",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.000919497954109",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-451.063829787",
+            "Wetland - Low Probability": "35.0866655226",
+            "Wetland - Medium Probability": "-66.2145053355",
+            "regionId": "30",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-46.8928344959",
+            "Wetland - Low Probability": "45.1284322409",
+            "Wetland - Medium Probability": "-39.2949008927",
+            "regionId": "31",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-460.0",
+            "Wetland - Low Probability": "21.0873146623",
+            "Wetland - Medium Probability": "-74.2957746479",
+            "regionId": "32",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00316636058514",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-240.201005025",
+            "Wetland - Low Probability": "21.6612729234",
+            "Wetland - Medium Probability": "-23.6782647989",
+            "regionId": "33",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-138.08095952",
+            "Wetland - Low Probability": "33.4612779408",
+            "Wetland - Medium Probability": "-69.6993670886",
+            "regionId": "34",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-26.9811320755",
+            "Wetland - Low Probability": "33.9579784214",
+            "Wetland - Medium Probability": "-24.5862884161",
+            "regionId": "35",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00477099926411",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-201.092896175",
+            "Wetland - Low Probability": "8.5389911027",
+            "Wetland - Medium Probability": "-11.0837842269",
+            "regionId": "36",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-284.090909091",
+            "Wetland - Low Probability": "43.6363636364",
+            "Wetland - Medium Probability": "-27.299270073",
+            "regionId": "37",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00167421925575",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-29.3827160494",
+            "Wetland - Low Probability": "14.2489270386",
+            "Wetland - Medium Probability": "-7.62711864407",
+            "regionId": "38",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.0281084015043",
+            "Permanent Water": "-0.00353631798573",
+            "Wetland - High Probability": "-44.0464666021",
+            "Wetland - Low Probability": "9.34226430298",
+            "Wetland - Medium Probability": "-10.1206953826",
+            "regionId": "39",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-110.871241326",
+            "Wetland - Low Probability": "34.8981399469",
+            "Wetland - Medium Probability": "15.5446610068",
+            "regionId": "40",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.0676967187002",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-13.1114808652",
+            "Wetland - Low Probability": "2.18908396386",
+            "Wetland - Medium Probability": "5.31504065041",
+            "regionId": "41",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-120.529801325",
+            "Wetland - Low Probability": "22.1760321101",
+            "Wetland - Medium Probability": "-36.0951008646",
+            "regionId": "42",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-56.2300319489",
+            "Wetland - Low Probability": "54.6798029557",
+            "Wetland - Medium Probability": "13.5021097046",
+            "regionId": "43",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.0437421400842",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-43.32247557",
+            "Wetland - Low Probability": "9.69406561003",
+            "Wetland - Medium Probability": "-13.4833228446",
+            "regionId": "44",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-144.376528117",
+            "Wetland - Low Probability": "33.6884154461",
+            "Wetland - Medium Probability": "-27.1510042152",
+            "regionId": "45",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "-737.5",
+            "Wetland - Medium Probability": "71.9512195122",
+            "regionId": "46",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-300.0",
+            "Wetland - Low Probability": "23.5294117647",
+            "Wetland - Medium Probability": "-6.25",
+            "regionId": "47",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-65.8063042485",
+            "Wetland - Low Probability": "42.9935525994",
+            "Wetland - Medium Probability": "-22.3115014482",
+            "regionId": "48",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00420887230281",
+            "Permanent Water": "-0.0487852473412",
+            "Wetland - High Probability": "-58.5849056604",
+            "Wetland - Low Probability": "39.4574073284",
+            "Wetland - Medium Probability": "-39.0780346821",
+            "regionId": "49",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "-0.00944733112896",
+            "Wetland - High Probability": "-100.511322133",
+            "Wetland - Low Probability": "24.6666666667",
+            "Wetland - Medium Probability": "-43.7370447142",
+            "regionId": "50",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00269275209056",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-135.006273526",
+            "Wetland - Low Probability": "38.912847257",
+            "Wetland - Medium Probability": "-53.3511552416",
+            "regionId": "51",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-291.156462585",
+            "Wetland - Low Probability": "14.494067238",
+            "Wetland - Medium Probability": "-25.7851880574",
+            "regionId": "52",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.0134455589319",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-20.3513423931",
+            "Wetland - Low Probability": "3.4355479841",
+            "Wetland - Medium Probability": "10.4809913884",
+            "regionId": "53",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00183635336948",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-98.6928104575",
+            "Wetland - Low Probability": "31.9787202601",
+            "Wetland - Medium Probability": "-56.6319444444",
+            "regionId": "54",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.000629990707636",
+            "Permanent Water": "-0.063211125158",
+            "Wetland - High Probability": "-102.039848197",
+            "Wetland - Low Probability": "36.0901113095",
+            "Wetland - Medium Probability": "-50.0510933987",
+            "regionId": "55",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "-0.474934036939",
+            "Wetland - High Probability": "-0.149925037481",
+            "Wetland - Low Probability": "17.875",
+            "Wetland - Medium Probability": "-46.3414634146",
+            "regionId": "56",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00311379211758",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-1123.80952381",
+            "Wetland - Low Probability": "32.6973684211",
+            "Wetland - Medium Probability": "-61.0664718773",
+            "regionId": "57",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-100.0",
+            "Wetland - Low Probability": "34.5047923323",
+            "Wetland - Medium Probability": "-117.486338798",
+            "regionId": "58",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-1022.44897959",
+            "Wetland - Low Probability": "53.517364203",
+            "Wetland - Medium Probability": "-99.7380827658",
+            "regionId": "59",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00702607375972",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-243.599689682",
+            "Wetland - Low Probability": "20.1773510545",
+            "Wetland - Medium Probability": "-23.6037088414",
+            "regionId": "60",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.011091939857",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-11.0196665242",
+            "Wetland - Low Probability": "12.426035503",
+            "Wetland - Medium Probability": "5.57184750733",
+            "regionId": "61",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-140.245566166",
+            "Wetland - Low Probability": "30.6165413534",
+            "Wetland - Medium Probability": "0.258276590749",
+            "regionId": "62",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-132.77826468",
+            "Wetland - Low Probability": "45.5569098613",
+            "Wetland - Medium Probability": "-68.4238954305",
+            "regionId": "63",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-158.273381295",
+            "Wetland - Low Probability": "49.3512734262",
+            "Wetland - Medium Probability": "-64.7909967846",
+            "regionId": "64",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-85.2112676056",
+            "Wetland - Low Probability": "25.9204712813",
+            "Wetland - Medium Probability": "-27.7687296417",
+            "regionId": "65",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.000400486992173",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-471.684587814",
+            "Wetland - Low Probability": "23.0831202494",
+            "Wetland - Medium Probability": "-33.0304549442",
+            "regionId": "66",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.0158648316345",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-52.7131782946",
+            "Wetland - Low Probability": "-3.26386158081",
+            "Wetland - Medium Probability": "8.75085792725",
+            "regionId": "67",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.0294778731715",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-83.4507042254",
+            "Wetland - Low Probability": "5.58310896982",
+            "Wetland - Medium Probability": "-4.50016072003",
+            "regionId": "68",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "-20.0",
+            "Wetland - High Probability": "-172.771084337",
+            "Wetland - Low Probability": "28.0889742832",
+            "Wetland - Medium Probability": "-53.8972387277",
+            "regionId": "69",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-200.0",
+            "Wetland - Low Probability": "35.1155115512",
+            "Wetland - Medium Probability": "-57.2027972028",
+            "regionId": "70",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-240.740740741",
+            "Wetland - Low Probability": "29.9634934007",
+            "Wetland - Medium Probability": "-73.9483394834",
+            "regionId": "71",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-100.0",
+            "Wetland - Low Probability": "22.6666666667",
+            "Wetland - Medium Probability": "-53.0120481928",
+            "regionId": "72",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-100.0",
+            "Wetland - Low Probability": "23.2323232323",
+            "Wetland - Medium Probability": "-183.333333333",
+            "regionId": "73",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-59.6133931653",
+            "Wetland - Low Probability": "43.4575855193",
+            "Wetland - Medium Probability": "7.25618292114",
+            "regionId": "74",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.000865980809858",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-218.423383525",
+            "Wetland - Low Probability": "46.2603093696",
+            "Wetland - Medium Probability": "-66.2624242045",
+            "regionId": "75",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-42.6063207179",
+            "Wetland - Low Probability": "42.0107719928",
+            "Wetland - Medium Probability": "-20.629463105",
+            "regionId": "76",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-294.845360825",
+            "Wetland - Low Probability": "28.2828282828",
+            "Wetland - Medium Probability": "-1.69741697417",
+            "regionId": "77",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-2575.0",
+            "Wetland - Low Probability": "32.9102755531",
+            "Wetland - Medium Probability": "-165.805099546",
+            "regionId": "78",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-200.0",
+            "Wetland - Low Probability": "36.320754717",
+            "Wetland - Medium Probability": "-115.0",
+            "regionId": "79",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "-0.0219154065308",
+            "Wetland - High Probability": "-44.494892168",
+            "Wetland - Low Probability": "30.6570931245",
+            "Wetland - Medium Probability": "-37.573964497",
+            "regionId": "80",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-201.204819277",
+            "Wetland - Low Probability": "29.0569780022",
+            "Wetland - Medium Probability": "-62.6985954409",
+            "regionId": "81",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-52.395547669",
+            "Wetland - Low Probability": "41.1520903412",
+            "Wetland - Medium Probability": "-29.617755857",
+            "regionId": "82",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-184.085510689",
+            "Wetland - Low Probability": "16.5125723667",
+            "Wetland - Medium Probability": "-29.9262381454",
+            "regionId": "83",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "-0.0167897918066",
+            "Wetland - High Probability": "-60.44546851",
+            "Wetland - Low Probability": "33.4351390452",
+            "Wetland - Medium Probability": "-32.049689441",
+            "regionId": "84",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-116.13812544",
+            "Wetland - Low Probability": "41.4075286416",
+            "Wetland - Medium Probability": "-29.4813891917",
+            "regionId": "85",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-187.060270603",
+            "Wetland - Low Probability": "46.713544634",
+            "Wetland - Medium Probability": "-20.6909524922",
+            "regionId": "86",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-276.952380952",
+            "Wetland - Low Probability": "33.6567289877",
+            "Wetland - Medium Probability": "-68.537251124",
+            "regionId": "87",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.000372926992091",
+            "Permanent Water": "-0.00848248367122",
+            "Wetland - High Probability": "-70.641509434",
+            "Wetland - Low Probability": "28.3376074823",
+            "Wetland - Medium Probability": "-56.2964294273",
+            "regionId": "88",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-26.0301507538",
+            "Wetland - Low Probability": "37.2549019608",
+            "Wetland - Medium Probability": "-8.29373650108",
+            "regionId": "89",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.0103101894129",
+            "Permanent Water": "-0.588235294118",
+            "Wetland - High Probability": "-40.0587659158",
+            "Wetland - Low Probability": "8.57431069267",
+            "Wetland - Medium Probability": "5.91882750846",
+            "regionId": "90",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00308452630245",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-411.222222222",
+            "Wetland - Low Probability": "39.5599739244",
+            "Wetland - Medium Probability": "-47.0000972416",
+            "regionId": "91",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-114.298018949",
+            "Wetland - Low Probability": "37.1962943541",
+            "Wetland - Medium Probability": "-20.9533787323",
+            "regionId": "92",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.0453943635332",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "13.5531135531",
+            "Wetland - Low Probability": "7.24840566184",
+            "Wetland - Medium Probability": "-12.1726822364",
+            "regionId": "93",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.000935873919065",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-67.0910493827",
+            "Wetland - Low Probability": "35.6723983699",
+            "Wetland - Medium Probability": "-33.7963809176",
+            "regionId": "94",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-148.251748252",
+            "Wetland - Low Probability": "30.6904146318",
+            "Wetland - Medium Probability": "-89.7751124438",
+            "regionId": "95",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "-0.0166085367879",
+            "Wetland - High Probability": "-77.3934030571",
+            "Wetland - Low Probability": "31.6721686135",
+            "Wetland - Medium Probability": "-29.7764820214",
+            "regionId": "96",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-238.285714286",
+            "Wetland - Low Probability": "32.2210451977",
+            "Wetland - Medium Probability": "-65.5735580039",
+            "regionId": "97",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "-1.11111111111",
+            "Wetland - High Probability": "-402.141057935",
+            "Wetland - Low Probability": "55.7704953968",
+            "Wetland - Medium Probability": "-69.6558603491",
+            "regionId": "98",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00688192903748",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-200.0",
+            "Wetland - Low Probability": "36.1817259455",
+            "Wetland - Medium Probability": "-60.9100822841",
+            "regionId": "99",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.0299647913701",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-14.8444863336",
+            "Wetland - Low Probability": "1.17274539697",
+            "Wetland - Medium Probability": "6.02671299815",
+            "regionId": "100",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-156.163297662",
+            "Wetland - Low Probability": "42.9368639895",
+            "Wetland - Medium Probability": "-40.8884480869",
+            "regionId": "101",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-72.4932249322",
+            "Wetland - Low Probability": "47.619047619",
+            "Wetland - Medium Probability": "-55.4593554594",
+            "regionId": "102",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-100.0",
+            "Wetland - Low Probability": "26.5517241379",
+            "Wetland - Medium Probability": "-87.0588235294",
+            "regionId": "103",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.0510222675753",
+            "Permanent Water": "-0.0041761500073",
+            "Wetland - High Probability": "-4.40137656222",
+            "Wetland - Low Probability": "5.07277295785",
+            "Wetland - Medium Probability": "-6.3391311516",
+            "regionId": "104",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-825.0",
+            "Wetland - Low Probability": "28.125",
+            "Wetland - Medium Probability": "-124.452554745",
+            "regionId": "105",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-275.0",
+            "Wetland - Low Probability": "22.453016815",
+            "Wetland - Medium Probability": "-28.295254833",
+            "regionId": "106",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.00802226982103",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-19.8952879581",
+            "Wetland - Low Probability": "13.7716676629",
+            "Wetland - Medium Probability": "-32.4003650745",
+            "regionId": "107",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "-0.000894918651894",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-103.914590747",
+            "Wetland - Low Probability": "10.0791936645",
+            "Wetland - Medium Probability": "-12.2215532812",
+            "regionId": "108",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-116.768916155",
+            "Wetland - Low Probability": "31.9224885263",
+            "Wetland - Medium Probability": "-3.21739130435",
+            "regionId": "109",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-106.186612576",
+            "Wetland - Low Probability": "38.7866790871",
+            "Wetland - Medium Probability": "-49.2244722103",
+            "regionId": "110",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-825.0",
+            "Wetland - Low Probability": "25.0798212005",
+            "Wetland - Medium Probability": "-77.2702847931",
+            "regionId": "111",
+            "yyyy": "2018"
+        },
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "-225.0",
+            "Wetland - Low Probability": "18.9686924494",
+            "Wetland - Medium Probability": "-37.3015873016",
+            "regionId": "112",
+            "yyyy": "2018"
+        }
+    ]
+}

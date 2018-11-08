@@ -1,0 +1,604 @@
+<!doctype html>
+<html>
+    <head>
+        <title>GPSDD</title>
+
+        <!--<meta charset='utf-8'>-->
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <meta name='viewport' content='width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes'>
+        <meta name='mobile-web-app-capable' content='yes'>
+        <meta name='apple-mobile-web-app-capable' content='yes'>
+        <!--<meta http-equiv='X-UA-Compatible' content='IE=Edge,chrome=1">-->
+
+        <script src='bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+        <script>L_PREFER_CANVAS = true;</script>
+        <link rel='import' href='bower_components/polymer/polymer.html'>
+
+        <link rel='import' href='bower_components/iron-ajax/iron-ajax.html'>
+        <link rel='import' href='bower_components/iron-flex-layout/iron-flex-layout-classes.html'>
+        <link rel='import' href='bower_components/iron-icon/iron-icon.html'>
+        <link rel='import' href='bower_components/iron-icons/iron-icons.html'>
+        <link rel='import' href='bower_components/iron-icons/social-icons.html'>
+        <link rel='import' href='bower_components/paper-icon-button/paper-icon-button.html'>
+        <link rel='import' href='bower_components/paper-dialog/paper-dialog.html'>
+        <link rel='import' href='bower_components/neon-animation/animations/scale-up-animation.html'>
+        <link rel='import' href='bower_components/neon-animation/animations/fade-out-animation.html'>
+        <link rel='import' href='bower_components/paper-fab/paper-fab.html'>
+        <link rel='import' href='bower_components/paper-menu/paper-menu.html'>
+        <link rel='import' href='bower_components/paper-item/paper-item.html'>
+        <link rel='import' href='bower_components/paper-menu-button/paper-menu-button.html'>
+        <link rel='import' href='bower_components/paper-toast/paper-toast.html'>
+        <link rel='import' href='bower_components/paper-spinner/paper-spinner-lite.html'>
+        <link rel='import' href='bower_components/moment-element/moment-with-locales-import.html'>
+
+        <link rel='import' href='dhi_elements/dhi-javascripts/dhi-javascripts.html'>
+        <link rel='import' href='dhi_elements/dhi-localize/dhi-localize.html'>
+        <link rel='import' href='dhi_elements_projects/dhi-gpsdd-landing/dhi-gpsdd-landing.html'>
+        <link rel='import' href='dhi_elements_projects/dhi-gpsdd-map/dhi-gpsdd-map.html'>
+        <link rel='import' href='dhi_elements_projects/dhi-gpsdd-materials/dhi-gpsdd-materials.html'>
+        <link rel='import' href='dhi_elements_projects/dhi-gpsdd-map/dhi-gpsdd-global-style.html'>
+    </head>
+
+    <body unresolved style='margin:0px;'>
+        <dom-module id='GPSDD-Online'>
+            <template>
+                <style include="iron-flex iron-flex-alignment iron-flex-factors iron-flex-reverse">
+                    :host {
+                        --tooltip-style: {
+                            width: 60px;
+                        };
+
+                        --page-text-color: #005685;
+                        --page-highlight-color: #176590;
+                        --border-radius: 5px;
+                    }
+
+                    * {
+                        font-family: 'Roboto', sans-serif;
+                        font-weight: normal;
+                    }
+
+                    .title {
+                        margin: 12px;
+                        margin-top: 20px;
+                        font-size: 20px;
+                    }
+
+                    #tooltip {
+                        font-size: 16px !important;
+                    }
+
+                    [flex] {
+                        @apply(--layout-flex);
+                    }
+
+                    [flex2] {
+                        @apply(--layout-flex-2);
+                    }
+
+                    [flex3] {
+                        @apply(--layout-flex-3);
+                    }
+
+                    [fit] {
+                        @apply(--layout-fit);
+                    }
+
+                    [horizontal] {
+                        @apply(--layout-horizontal);
+                    }
+
+                    [vertical] {
+                        @apply(--layout-vertical);
+                    }
+
+                    [center] {
+                        @apply(--layout-center);
+                    }
+
+                    .highlight {
+                        border-color: red;
+                        border-style: solid;
+                        border-width: 1px;
+                    }
+
+
+                    iron-icon.fullExtent {
+                        color: currentColor;
+                        border-radius: 3px;
+                        background-color: white;
+                        padding: 2px;
+                        height: 20px;
+                        width: 20px;
+                    }
+
+                    html,
+                    body,
+                    leaflet-map {
+                        height: 90vh;
+                        margin:0px;
+                        padding: 0px;
+                    }
+
+                    html{
+                        height: :100%;
+                    }
+
+                    body{ min-height:100%;
+                    }
+
+                    .centered {
+                        max-width: 400px;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+
+                    .divider {
+                        width: 1px;
+                        margin-top: 5px;
+                        margin-bottom: 5px;
+                        background-color: white;
+                    }
+
+                    paper-button {
+                        text-transform: none;
+                        margin: 4px 2px 0px 2px;
+                        font-size: 14px;
+                    }
+
+                    paper-button.selected {
+                        border-color: white;
+                        border-style: solid;
+                        border-width: 2px;
+                        border-radius: 0px;
+                        background-color: white;
+                        color:#0B4566;
+                    }
+
+                    paper-item.selected{
+                        background-color: #00a4ec !important;
+                    }
+                    dhi-login,
+                    dhi-accounts,
+                    dhi-my-account,
+                    paper-toast {
+                        --dhi-login-color: var(--page-text-color);
+                        --dhi-accounts-color: var(--page-text-color);
+                        --dhi-my-account-color: var(--page-text-color);
+                        --dhi-login-forgot-password-color: var(--page-text-color);
+                        --paper-toast-background-color: var(--dhi-accounts-color, var(--page-text-color));
+                    }
+
+                    paper-spinner-lite {
+                        position: absolute;
+                        top:50%;
+                        left:50%;
+                        width: 50px;
+                        height: 50px;
+                        --paper-spinner-stroke-width: 5px;
+                        --paper-spinner-color: var(--page-highlight-color);
+                    }
+
+                    p{
+                        line-height: 1.4;
+                    }
+                </style>
+                <dhi-localize id='localizationElement' url='{{localizeUrl}}' on-is-ready-changed='_localizationReady'></dhi-localize>
+                <paper-spinner-lite id='waitSpinner' class='' style='z-index:10000000;' hidden$='{{!showWaitSpinner}}' active></paper-spinner-lite>
+                <paper-toast id='toast' class="fit-bottom" style='z-index:1000000' duration='5000' with-backdrop></paper-toast>
+                <iron-ajax auto
+                    id='getConfig'
+                    url="{{configUrl}}"
+                    headers='{ "Content-Type": "application/json" }'
+                    handle-as='json'
+                    last-response='{{config}}'>
+                </iron-ajax>
+                <div vertical class='container' style='overflow:auto;'>
+                    <div style='color:white;background-color:#0B4566;display:flex;padding-left:20px;z-index=:100 !important'>
+<!--                         <img class='' src='./images/GPSDD/logo-gpsdd.png' style='padding: 12px 30px 8px 20px;background-color: #fff;border-left: 12px solid #0b4566;height: 42px;' alt='GPSDD'> -->
+                        <template id="tabsTemplate" is='dom-repeat' items='{{tabs}}' as='tab'>
+                            <paper-menu-button dynamic-align allow-outside-scroll>
+                                <paper-button id$="{{tab.id}}" class$="{{tab.id}} dropdown-trigger" model='{{tab}}' on-tap='onTabTap'>
+                                    <span>{{getLocalized(language, tab.displayName)}}</span>
+                                </paper-button>
+                                <template is='dom-if' if='{{tab.menuOptions}}'>
+                                    <paper-menu id$="menu-{{tab.id}}" class="dropdown-content" style=''>
+                                        <template is="dom-repeat" items="[[tab.menuOptions]]" as="menuOption">
+                                            <template is='dom-if' if='{{menuOption.disabled}}'>
+                                                <paper-item id$='{{tab.id}}-{{menuOption.id}}'
+                                                    class$="{{tab.id}}"
+                                                    on-tap='onMenuOptionTap'
+                                                    disabled>
+                                                    {{getLocalized(language, menuOption.displayName)}}
+                                                </paper-item>
+                                            </template>
+                                            <template is='dom-if' if='{{!menuOption.disabled}}'>
+                                                <paper-item id$='{{tab.id}}-{{menuOption.id}}'
+                                                    class$="{{tab.id}}"
+                                                    on-tap='onMenuOptionTap'>
+                                                    {{getLocalized(language, menuOption.displayName)}}
+                                                </paper-item>
+                                            </template>
+                                        </template>
+                                    </paper-menu>
+                                </template>
+                            </paper-menu-button>
+                            <div class='divider'></div>
+                        </template>
+                        <div flex horizontal>
+                            <!-- Commented because not required for GPSDD in beginning.
+                            <paper-icon-button src='{{languageIconUrl}}' on-tap='onToggleLanguage' style='margin-top:7px;margin-right:7px;'></paper-icon-button>-->
+                            <div class='title'>{{title}}</div>
+                            <div flex></div>
+                        </div>
+                    </div>
+                    <div id='pageContainer' class='' style='height: 99%'>
+                        <template id='landingViewTemplate' is='dom-if' if='{{landingView}}'>
+                            <dhi-gpsdd-landing id='landingView'
+                                logged-in-user='{{loggedInUser}}'
+                                header-height='{{headerHeight}}'
+                                debug='{{debug}}'
+                                lat='{{latLandingView}}'
+                                long='{{longLandingView}}'
+                                zoom='{{zoomLandingView}}'
+                                fields-layer-opacity='{{defaultFieldsLayerOpacity}}'
+                                config='{{config}}'
+                                language='{{language}}'
+                                localization='{{localization}}'
+                                show-wait-spinner='{{showWaitSpinner}}'>
+                            </dhi-gpsdd-landing>
+                        </template>
+                        <template id='mapViewTemplate' is='dom-if' if='{{mapView}}'>
+                            <dhi-gpsdd-map id='mapView'
+                                logged-in-user='{{loggedInUser}}'
+                                header-height='{{headerHeight}}'
+                                debug='{{debug}}'
+                                lat='{{latMapView}}'
+                                long='{{longMapView}}'
+                                zoom='{{zoomMapView}}'
+                                fields-layer-opacity='{{defaultFieldsLayerOpacity}}'
+                                config='{{config}}'
+                                language='{{language}}'
+                                localization='{{localization}}'
+                                show-wait-spinner='{{showWaitSpinner}}'>
+                            </dhi-gpsdd-map>
+                        </template>
+                        <template id='materialsViewTemplate' is='dom-if' if='{{materialsView}}'>
+                            <dhi-gpsdd-materials id='materialsView'
+                                logged-in-user='{{loggedInUser}}'
+                                header-height='{{headerHeight}}'
+                                debug='{{debug}}'
+                                fields-layer-opacity='{{defaultFieldsLayerOpacity}}'
+                                config='{{config}}'
+                                language='{{language}}'
+                                localization='{{localization}}'
+                                show-wait-spinner='{{showWaitSpinner}}'>
+                            </dhi-gpsdd-materials>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </dom-module>
+        <script>
+            HTMLImports.whenReady(function() {
+                Polymer({
+                    is: 'GPSDD-Online',
+
+                    properties: {
+                        config: {
+                            type: Object,
+                            observer: '_configChanged'
+                        },
+                        isReady: {
+                            type: Boolean
+                        },
+                        apiUrl: {
+                            type: String,
+                            notify: true
+                        },
+                        loggedInUser: {
+                            type: Object,
+                            value: null
+                        },
+                        headerHeight: {
+                            type: Number,
+                            value: 62
+                        },
+                        windowWasResized: {
+                            type: Boolean,
+                            value: false
+                        },
+                        language: {
+                            type: String,
+                            value: 'en-US',
+                            observer: '_languageChanged'
+                        },
+                        localizeUrl: {
+                            type: String,
+                            value: 'data/LocalizationInfo.json'
+                        },
+                        showWaitSpinner: {
+                            type: Boolean,
+                            value: false
+                        }
+                    },
+
+                    // region localization
+                    _localizationReady: function(e) {
+                        if (e.detail.value) {
+                            var localizableElements = document.querySelectorAll('.localizable');
+                            for (var i = 0; i < localizableElements.length; i++) {
+                                localizableElements[i].innerHTML = this.$.localizationElement.getLocalized(this.language, localizableElements[i].getAttribute('localizeInput'));
+                            }
+
+                            this.localization = this.$.localizationElement;
+                        }
+                    },
+
+                    onToggleLanguage: function(e) {
+                        if (this.language) {
+                            if (this.language == 'en-US') {
+                                this.language = 'da-DK';
+                                this.languageIconUrl = './images/english.png';
+                            } else {
+                                this.language = 'en-US';
+                                this.languageIconUrl = './images/danish.png';
+                            }
+                        }
+                    },
+
+                    _languageChanged: function() {
+                        /*this._thresholdsSelectedChanged();
+                        if (this.selectedProperties) {
+                            this.renderTimeseriesTable();
+                        }
+
+                        var localizableElements = document.querySelectorAll('.localizable');
+                        for (var i = 0; i < localizableElements.length; i++) {
+                            localizableElements[i].innerHTML = this.$.localizationElement.getLocalized(this.language, localizableElements[i].getAttribute('localizeInput'));
+                        }*/
+                    },
+
+                    // First parameter should be language.
+                    // Second parameter should the the key to be looked up in the localization info file for translation.
+                    // Rest parameters can be dynamic in number.
+                    getLocalized: function() {
+                        var valuesArray = [];
+                        if (arguments.length > 2) {
+                            if (arguments.length == 3 && arguments[2] && arguments[2].constructor === Array) {
+                                valuesArray = arguments[2];
+                            } else {
+                                for (var i = 2; i < arguments.length; i++) {
+                                    valuesArray.push(arguments[i]);
+                                }
+                            }
+                        }
+                        return this.$.localizationElement.getLocalized(arguments[0], arguments[1], valuesArray.length > 0 ? valuesArray : undefined);
+                    },
+                    // endregion
+
+                    ready: function() {
+                        this.debug = window.location.href.indexOf('127.0.0.1') > 0 || window.location.href.indexOf('localhost') > 0;
+                        this.headerHeightInitial = this.headerHeight;
+                        window.addEventListener('resize', function(e) {
+                            this.onResize(window.innerHeight, window.innerWidth);
+                        }.bind(this));
+
+                        this.onResize(window.innerHeight, window.innerWidth);
+                        this.isReady = true;
+                        this.configUrl = './data/config.json';
+
+                        this.$.landingViewTemplate.addEventListener('dom-change', function(event) {
+                            var landingView = this.$$('#landingView');
+                            var mapView = this.$$('#mapView');
+                            var materialsView = this.$$('#materialsView');
+                            if (landingView) {
+                                landingView.active = true;
+                            }
+                            if (mapView) {
+                                mapView.active = false;
+                            }
+                            if(materialsView){
+                                materialsView.active = false;
+                            }
+                        }.bind(this));
+
+                        this.$.mapViewTemplate.addEventListener('dom-change', function(event) {
+                            var landingView = this.$$('#landingView');
+                            var mapView = this.$$('#mapView');
+                            var materialsView = this.$$('#materialsView');
+                            if (landingView) {
+                                landingView.active = false;
+                            }
+                            if (mapView) {
+                                mapView.active = true;
+                            }
+                            if(materialsView){
+                                materialsView.active = false;
+                            }
+                        }.bind(this));
+
+                        this.$.materialsViewTemplate.addEventListener('dom-change', function(event) {
+                            var landingView = this.$$('#landingView');
+                            var mapView = this.$$('#mapView');
+                            var materialsView = this.$$('#materialsView');
+                            if (landingView) {
+                                landingView.active = false;
+                            }
+                            if (mapView) {
+                                mapView.active = false;
+                            }
+                            if(materialsView){
+                                materialsView.active = true;
+                            }
+                        }.bind(this));
+
+                        this.languageIconUrl = './images/english.png';
+                    },
+
+                    _configChanged: function(e, o) {
+                        this.debug && console.log(this.config);
+                        if (this.isReady && this.config) {
+                            this.debug = this.config.debug;
+                            this.apiUrl = this.config.apiUrl;
+                            this.defaultFieldsLayerOpacity = this.config.defaultFieldsLayerOpacity;
+                            this.title = this.config.title;
+
+                            // create tabs and corresponding menu items
+                            this.tabs = this.config.tabs;
+
+                            //this.debug = false;
+                            this.debug ? this.continueToTab = { tabId: this.tabs.filter(function(item) { return item.default == true })[0].id } : '';
+                            this.debug ? this.loggedInUser =  {"activated":true,"roles":"Guest,User,Editor,Administrator","name":"Admin","password":"webapi","id":"admin","email":null,"company":null,"phoneNumber":null,"success":true,"loggedInDateTime":"2017-05-16T00:12:30.800Z"} : '';
+
+                            for (index in this.config.tabs) {
+                                if (this.config.tabs.hasOwnProperty(index)) {
+                                    if (this.config.tabs[index].id == 'dashboard'){
+                                        this.markers = this.config.tabs[index].markers;
+                                    }
+                                }
+                            }
+
+                            var that = this;
+                            window.addEventListener('resize', function(e) {
+                                that.onResize(window.innerHeight);
+                            });
+                            this.onResize(window.innerHeight);
+                            this.$.tabsTemplate.addEventListener('dom-change', function(event) {
+                                // enable disable options based on default user
+                                that.onTabsTemplateDomChange(event);
+                            });
+
+                            if (this.language == 'en-US') {
+                                this.languageIconUrl = './images/danish.png';
+                            } else {
+                                this.languageIconUrl = './images/english.png';
+                            }
+                        }
+                    },
+
+                    onResize: function(height, width) {
+                        /*if (width < 900 && this.headerHeight === this.headerHeightInitial) {
+                            this.headerHeight = this.headerHeightInitial + 20;
+                        } else if (width > 900 && this.headerHeight > this.headerHeightInitial) {
+                            this.headerHeight = this.headerHeightInitial;
+                        }*/
+
+                        var height = height - this.headerHeight;
+                        this.$$('#pageContainer').style.height = height + 'px';
+                    },
+
+                    onTabsTemplateDomChange: function(e) {
+                        for (var tabIndex in this.tabs) {
+                            if (this.tabs.hasOwnProperty(tabIndex) && this.tabs[tabIndex].default) {
+                                var selectedTabId = this.tabs[tabIndex].id
+                                this.showSelectedTab(selectedTabId);
+                            }
+                        }
+                    },
+
+                    showSelectedTab: function(tabId, menuOptionId) {
+                        var selectedPaperButton = this.$$('.' + tabId);
+                        var menuOptionModel;
+                        if (menuOptionId) {
+                            for (var i = 0; i < selectedPaperButton.model.menuOptions.length; i++) {
+                                if (menuOptionId == selectedPaperButton.model.menuOptions[i].id) {
+                                    menuOptionModel = selectedPaperButton.model.menuOptions[i];
+                                    break;
+                                }
+                            }
+                        }
+
+                        // && !this.loggedInUser && !this.continueToTab
+                        if (selectedPaperButton.model.authenticationRequired || (menuOptionModel && menuOptionModel.authenticationRequired)) {
+                            if (!this.allowUserAccess(tabId, menuOptionId)) {
+                                this.continueToTab = {
+                                    'tabId': tabId,
+                                    'menuOptionId': menuOptionId
+                                };
+                                return;
+                            }
+                        }
+
+                        if (selectedPaperButton) {
+                            // unselect last selected tab if any.
+                            var lastSelectedPaperButton = this.$$('paper-button.selected');
+                            if (lastSelectedPaperButton) {
+                                lastSelectedPaperButton.classList.remove('selected');
+                                if (lastSelectedPaperButton.style) {
+                                    lastSelectedPaperButton.style.fontWeight = 'normal';
+                                    /*lastSelectedPaperButton.style += lastSelectedPaperButton.style + 'font-weight:normal !important;';*/
+                                } else {
+                                    lastSelectedPaperButton.style = {'fontWeight':'normal'};
+                                }
+                            }
+
+                            // select current tab
+                            selectedPaperButton.classList.add('selected');
+                        }
+
+                        switch(tabId) {
+                            case 'landingView':
+                                this.landingView = true;
+                                this.mapView = false;
+                                this.materialsView = false;
+                                this.latLandingView = selectedPaperButton.model.lat;
+                                this.longLandingView = selectedPaperButton.model.long;
+                                this.zoomLandingView = selectedPaperButton.model.zoom;
+                                break;
+                            case 'mapView':
+                                this.landingView = false;
+                                this.mapView = true;
+                                this.materialsView = false;
+                                this.latMapView = selectedPaperButton.model.lat;
+                                this.longMapView = selectedPaperButton.model.long;
+                                this.zoomMapView = selectedPaperButton.model.zoom;
+                                break;
+                            case 'materialsView':
+                                this.landingView = false;
+                                this.mapView = false;
+                                this.materialsView = true;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        //this.continueToTab = null;
+                    },
+
+                    onTabTap: function(e) {
+                        // if there is no menu option available then show corresponding page.
+                        for (tab in this.tabs) {
+                            if (this.tabs.hasOwnProperty(tab) &&
+                                this.tabs[tab].id === e.currentTarget.classList[0] &&
+                                !this.tabs[tab].menuOptions) {
+                                this.showSelectedTab(e.currentTarget.classList[0]);
+                            }
+                        }
+                    },
+
+                    onMenuOptionTap: function(e) {
+                        // find corresponding paper-item id and show related page.
+                        var arr = e.currentTarget.id.split('-');
+                        this.showSelectedTab(arr[0], arr[1]);
+                    },
+
+                    allowUserAccess: function(tabId, menuOptionId) {
+                        var allowAccess = false;
+
+                        if (this.loggedInUser) {
+                            allowAccess = true;
+                        }
+
+                        return allowAccess;
+                    },
+
+                    plotClick: function(e, o) {
+                        this.selectedFeature = o.feature;
+                    }
+                });
+            });
+        </script>
+        <GPSDD-Online></GPSDD-Online>
+    </body>
+</html>

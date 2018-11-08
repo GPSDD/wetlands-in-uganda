@@ -1,0 +1,48 @@
+{
+    "metadata": [
+        {
+            "field_only_in_table": "Non Wetland",
+            "reference_year": "2017"
+        }
+    ],
+    "values_as_km2": [
+        {
+            "Non Wetland": "181766.41",
+            "Permanent Water": "36098.50",
+            "Wetland - High Probability": "1733.48",
+            "Wetland - Low Probability": "13074.08",
+            "Wetland - Medium Probability": "8247.99",
+            "regionId": "1",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "181772.10",
+            "Permanent Water": "36098.94",
+            "Wetland - High Probability": "3101.88",
+            "Wetland - Low Probability": "9060.50",
+            "Wetland - Medium Probability": "10887.03",
+            "regionId": "1",
+            "yyyy": "2018"
+        }
+    ],
+    "values_as_percentchange": [
+        {
+            "Non Wetland": "0.0",
+            "Permanent Water": "0.0",
+            "Wetland - High Probability": "0.0",
+            "Wetland - Low Probability": "0.0",
+            "Wetland - Medium Probability": "0.0",
+            "regionId": "1",
+            "yyyy": "2017"
+        },
+        {
+            "Non Wetland": "-0.00313039136329",
+            "Permanent Water": "-0.00121888721139",
+            "Wetland - High Probability": "-78.9394743522",
+            "Wetland - Low Probability": "30.6987566238",
+            "Wetland - Medium Probability": "-31.9961590642",
+            "regionId": "1",
+            "yyyy": "2018"
+        }
+    ]
+}

@@ -1,0 +1,265 @@
+{
+    "title": "Wetlands Monitoring with Earth Observation for SDG 6.6.1 in Uganda",
+    "debug": true,
+    "hideUsers": ["user", "admin"],
+    "language": "en-US",
+    "mapAnnotations": "Sentinel-2 cloudless - https://s2maps.eu by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2016 & 2017)",
+    "geoServerWmsUrl": "http://40.115.104.169:8080/geoserver/wms",
+    "geoServerWorkspace": "gpsdd",
+    "opacity": 1,
+    "geoJsonStyle": {
+        "weight": 3,
+        "color": "red",
+        "opacity": 1,
+        "fillColor": "red",
+        "fillOpacity": 0.0
+    },
+    "connections": {
+        "spreadsheet": "gpsdd-spr",
+        "timeseries": "gpsdd-timeseries"
+    },
+    "tabs": [
+        {
+            "authenticationRequired": false,
+            "default": false,
+            "displayName": "About",
+            "id": "landingView",
+            "lat": 0.347596,
+            "long": 32.582520,
+            "zoom": 10
+        },
+        {
+            "authenticationRequired": false,
+            "default": true,
+            "displayName": "Map",
+            "id": "mapView",
+            "lat": 1.7,
+            "long": 32.47558593750001,
+            "zoom": 7,
+            "layers": [
+                {
+                    "id": "FullCountry",
+                    "displayName": "Full country",
+                    "geoServerWorkspace": "gpsdd",
+                    "disabled": false,
+                    "show": true,
+                    "allowFeatureSelection": true,
+                    "defaultStyle": "polygon",
+                    "opacity": 0.4,
+                    "zIndex": 202,
+                    "style": "polygon",
+                    "type": "region",
+                    "crs": "EPSG4326",
+                    "nameAttr": "aoi_name"
+                },
+                {
+                    "id": "Regions",
+                    "displayName": "Regions",
+                    "geoServerWorkspace": "gpsdd",
+                    "disabled": false,
+                    "show": true,
+                    "allowFeatureSelection": true,
+                    "defaultStyle": "polygon",
+                    "opacity": 0.4,
+                    "zIndex": 203,
+                    "style": "polygon",
+                    "type": "region",
+                    "crs": "EPSG4326",
+                    "nameAttr": "aoi_name"
+                },
+                {
+                    "id": "Districts",
+                    "displayName": "Districts",
+                    "geoServerWorkspace": "gpsdd",
+                    "disabled": false,
+                    "show": true,
+                    "allowFeatureSelection": true,
+                    "defaultStyle": "polygon",
+                    "opacity": 0.4,
+                    "zIndex": 203,
+                    "style": "polygon",
+                    "type": "region",
+                    "crs": "EPSG4326",
+                    "nameAttr": "aoi_name"
+                },
+                {
+                    "id": "wetland_probability_4326",
+                    "displayName": "Wetland extents 2017 (v20180910)",
+                    "geoServerWorkspace": "gpsdd",
+                    "disabled": false,
+                    "show": false,
+                    "allowFeatureSelection": true,
+                    "defaultStyle": "gpsdd:class_wetlands",
+                    "opacity": 1,
+                    "zIndex": 202,
+                    "style": "gpsdd:class_wetlands",
+                    "type": "wetland",
+                    "crs": "EPSG4326",
+                    "legend": [
+                        {
+                            "value": "Permanent water (1)",
+                            "color": "#0083f6"
+                        },
+                        {
+                            "value": "Wetlands (2)",
+                            "color": "#004a02"
+                        },
+                        {
+                            "value": "Seasonal wetlands (3)",
+                            "color": "#00c503"
+                        },
+                        {
+                            "value": "Occasional wetlands (4)",
+                            "color": "#cbc503"
+                        }
+                    ]
+                },
+                {
+                    "id": "wetland_probability_Reclass_test2_4326",
+                    "displayName": "Wetland extents 2018 (data for demonstration only)",
+                    "geoServerWorkspace": "gpsdd",
+                    "disabled": false,
+                    "show": false,
+                    "allowFeatureSelection": true,
+                    "defaultStyle": "gpsdd:class_wetlands",
+                    "opacity": 1,
+                    "zIndex": 202,
+                    "style": "gpsdd:class_wetlands",
+                    "type": "wetland",
+                    "crs": "EPSG4326",
+                    "legend": [
+                        {
+                            "value": "Permanent water (1)",
+                            "color": "#0083f6"
+                        },
+                        {
+                            "value": "Wetlands (2)",
+                            "color": "#004a02"
+                        },
+                        {
+                            "value": "Seasonal wetlands (3)",
+                            "color": "#00c503"
+                        },
+                        {
+                            "value": "Occasional wetlands (4)",
+                            "color": "#cbc503"
+                        }
+                    ]
+                },
+                {
+                    "geoServerWorkspace": "gpsdd",
+                    "id": "S2_Land_Cover",
+                    "displayName": "S2 Cloudfree mosaic",
+                    "disabled": false,
+                    "show": false,
+                    "allowFeatureSelection": false,
+                    "defaultStyle": "SupportingLayer",
+                    "opacity": 1,
+                    "zIndex": 201,
+                    "style": "SupportingLayer",
+                    "type": "supporting",
+                    "crs": "EPSG4326",
+                    "url": "https://tiles.maps.eox.at/wms",
+                    "layers": "s2cloudless_3857"
+                },
+                {
+                    "geoServerWorkspace": "gpsdd",
+                    "id": "S2_Land_Cover",
+                    "displayName": "test",
+                    "disabled": false,
+                    "show": false,
+                    "allowFeatureSelection": false,
+                    "defaultStyle": "SupportingLayer",
+                    "opacity": 1,
+                    "zIndex": 201,
+                    "style": "SupportingLayer",
+                    "type": "supporting1",
+                    "crs": "EPSG4326"
+                }
+            ],
+            "fieldsVisible": [
+                {
+                    "id": "STATUS",
+                    "displayName": "Status"
+                },
+                {
+                    "id": "REGION",
+                    "displayName": "Region"
+                },
+                {
+                    "id": "SUBREGION",
+                    "displayName": "Subregion"
+                },
+                {
+                    "id": "POP_URBAN",
+                    "displayName": "Urban polulation"
+                },
+                {
+                    "id": "POP_RURAL",
+                    "displayName": "Rural population"
+                }
+            ],
+            "pieChartConfig": {
+                "chart": {
+                    "plotBackgroundColor": null,
+                    "plotBorderWidth": null,
+                    "plotShadow": false,
+                    "type": "pie"
+                },
+                "title": {
+                    "text": "Wetland cover of various classes."
+                },
+                "tooltip": {
+                    "pointFormat": "{name}: <b>{point.percentage:.1f}%</b>"
+                },
+                "plotOptions": {
+                    "pie": {
+                        "allowPointSelect": true,
+                        "cursor": "pointer",
+                        "dataLabels": {
+                            "enabled": true,
+                            "format": "<b>{point.name}</b>: {point.percentage:.1f} %",
+                            "style": {
+                                "color": "black"
+                            }
+                        }
+                    }
+                },
+                "series": [{
+                    "name": "Brands",
+                    "colorByPoint": true,
+                    "data": [{
+                        "name": "Chrome",
+                        "y": 61.41,
+                        "sliced": true,
+                        "selected": true
+                    }, {
+                        "name": "Internet Explorer",
+                        "y": 11.84
+                    }, {
+                        "name": "Firefox",
+                        "y": 10.85
+                    }, {
+                        "name": "Edge",
+                        "y": 4.67
+                    }, {
+                        "name": "Safari",
+                        "y": 4.18
+                    }, {
+                        "name": "Sogou Explorer",
+                        "y": 1.64
+                    }, {
+                        "name": "Opera",
+                        "y": 1.6
+                    }, {
+                        "name": "QQ",
+                        "y": 1.2
+                    }, {
+                        "name": "Other",
+                        "y": 2.61
+                    }]
+                }]
+            }
+        }
+    ]
+}
