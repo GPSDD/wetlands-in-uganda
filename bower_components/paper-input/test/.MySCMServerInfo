@@ -1,0 +1,11 @@
+SCMBranch=SOLSoftware
+SCMRepository=SOLSoftware/Polymer/bower_components/paper-input/test
+SCMMainlineUUID={7f12f277-f704-4336-93b8-a0f811a10172}
+SCMBranchRepositoryID=870017
+index.html;2470643557;1;1501798652;|282818|674233
+letters-only.html;1324126294;1;1501798652;|282819|674234
+paper-input-char-counter.html;1314780344;1;1501798652;|282820|674235
+paper-input-error.html;1770853122;1;1501798652;|282822|674237
+paper-input.html;2479030821;1;1501798652;|282823|674238
+paper-textarea.html;1921784773;1;1501798652;|282824|674239
+paper-input-container.html;2224711772;1;1516067635;|282821|674236

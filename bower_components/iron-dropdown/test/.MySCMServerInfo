@@ -1,0 +1,8 @@
+SCMBranch=SOLSoftware
+SCMRepository=SOLSoftware/Polymer/bower_components/iron-dropdown/test
+SCMMainlineUUID={7f12f277-f704-4336-93b8-a0f811a10172}
+SCMBranchRepositoryID=869797
+index.html;3520798100;1;1501798652;|282059|672917
+iron-dropdown-scroll-manager.html;1943526771;1;1501798652;|282060|672918
+x-scrollable-element.html;1727578726;1;1501798652;|282062|672920
+iron-dropdown.html;2886234277;1;1516065817;|282061|672919

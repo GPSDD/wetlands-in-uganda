@@ -1,0 +1,10 @@
+SCMBranch=SOLSoftware
+SCMRepository=SOLSoftware/Polymer/bower_components/iron-menu-behavior/test
+SCMMainlineUUID={7f12f277-f704-4336-93b8-a0f811a10172}
+SCMBranchRepositoryID=869865
+index.html;3728352485;1;1501798652;|282294|673208
+iron-menubar-behavior.html;1261284204;1;1501798652;|282296|673210
+test-menu.html;2362856446;1;1501798652;|282297|673211
+test-menubar.html;426183342;1;1501798652;|282298|673212
+test-nested-menu.html;232885315;1;1501798652;|302321|673213
+iron-menu-behavior.html;4208983350;1;1516065828;|282295|673209

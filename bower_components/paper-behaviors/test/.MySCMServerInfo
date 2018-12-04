@@ -1,0 +1,12 @@
+SCMBranch=SOLSoftware
+SCMRepository=SOLSoftware/Polymer/bower_components/paper-behaviors/test
+SCMMainlineUUID={7f12f277-f704-4336-93b8-a0f811a10172}
+SCMBranchRepositoryID=869968
+index.html;2432264174;1;1501798652;|282646|674040
+paper-button-behavior.html;1458739690;1;1501798652;|282647|674041
+paper-checked-element-behavior.html;652454919;1;1501798652;|282648|674042
+paper-radio-button-behavior.html;1060471263;1;1501798652;|282649|674043
+shadowed-ripple.html;711392156;1;1501798652;|282651|674045
+test-button.html;3657305981;1;1501798652;|282652|674046
+test-radio-button.html;976443432;1;1501798652;|282653|674047
+paper-ripple-behavior.html;2265327929;1;1516065895;|282650|674044

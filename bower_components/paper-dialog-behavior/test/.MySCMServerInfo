@@ -1,0 +1,8 @@
+SCMBranch=SOLSoftware
+SCMRepository=SOLSoftware/Polymer/bower_components/paper-dialog-behavior/test
+SCMMainlineUUID={7f12f277-f704-4336-93b8-a0f811a10172}
+SCMBranchRepositoryID=869988
+index.html;3849859516;1;1501798652;|282718|674119
+paper-dialog-behavior.html;3187377586;1;1501798652;|282719|674120
+test-buttons.html;3027138391;1;1501798652;|282720|674121
+test-dialog.html;2185534873;1;1501798652;|282721|674122

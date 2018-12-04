@@ -1,0 +1,9 @@
+SCMBranch=SOLSoftware
+SCMRepository=SOLSoftware/Polymer/bower_components/neon-animation/test
+SCMMainlineUUID={7f12f277-f704-4336-93b8-a0f811a10172}
+SCMBranchRepositoryID=869960
+index.html;1361517078;1;1501798652;|282616|674006
+neon-animated-pages-descendant-selection.html;2632988925;1;1501798652;|302353|674007
+neon-animated-pages-lazy.html;191435937;1;1501798652;|302354|674008
+neon-animated-pages.html;2626330483;1;1501798652;|282617|674009
+test-resizable-pages.html;2715237596;1;1501798652;|282618|674010
