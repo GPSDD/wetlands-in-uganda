@@ -1,11 +1,12 @@
 # wetlands-in-uganda
 A webviewer to monitor wetlands in Uganda :earth_africa:
 
-The work on this web viewer is supported by the United Nations Foundation (UNF), in the implementation of the World Bank Group vendor contract #8005739. 
-The UNF project reference is PR-17-41162 
+The work on this web viewer is supported by the Global Partnership for Sustainable Development (GPSDD) in partnership with the World Bank through the Trust Fund for Statistical Capacity Building (TFSCB)
 
 The code provided here has been developed by DHI GRAS A/S, using free and open tools from a number of sources. This includes the Google Polymer Project and Leaflet for producing web-maps, as well as code by DHI GROUP (www.dhigroup.com). 
 The website also relies on other external services, e.g. for serving out the wetland raster map as well as the region polygons. In the current implementation, this is done using GeoServer, but this can be replaced by any software serving out raster data according to the WMS-protocol. 
+
+An live version of the platform can be found at http://uganda-wetlands.dhigroup.com/
 
 # How to use the code from this repository
 
